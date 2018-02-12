@@ -74,6 +74,10 @@ function eventSelectionChange(selected){
 }
 
 function eventStartLevel(){
+    chat(
+      ALL_PLAYERS,
+      "glhf"
+    );
 }
 
 function eventStructureBuilt(structure, droid){

@@ -1,4 +1,7 @@
 function eventAttacked(victim, attacker){
+    if(me !== victim.player){
+        return;
+    }
 }
 
 function eventChat(sender, to, message){
@@ -26,6 +29,10 @@ function eventResearched(research, structure){
 }
 
 function eventStartLevel(){
+    chat(
+      ALL_PLAYERS,
+      "glhf"
+    );
 }
 
 function eventStructureBuilt(structure, droid){

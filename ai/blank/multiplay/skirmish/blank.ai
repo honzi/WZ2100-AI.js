@@ -1,3 +1,4 @@
 [AI]
-name = "iterami-blank"
 js = blank.js
+name = "iterami-blank"
+tip = "skeleton AI that does nothing."

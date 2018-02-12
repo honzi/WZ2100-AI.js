@@ -4,19 +4,22 @@ function eventAttacked(victim, attacker){
 function eventAttackedUnthrottled(victim, attacker){
 }
 
-function eventBeacon(x, y, from, to){
+function eventBeacon(x, y, sender, to, message){
 }
 
-function eventBeaconRemoved(from, to){
+function eventBeaconRemoved(sender, to){
 }
 
-function eventChat(from, to, message){
+function eventChat(sender, to, message){
 }
 
-function eventCheatMode(cheat){
+function eventCheatMode(entered){
 }
 
-function eventDestroyed(object){
+function eventDesignCreated(template){
+}
+
+function eventDestroyed(gameObject){
 }
 
 function eventDroidBuilt(droid, structure){
@@ -37,7 +40,7 @@ function eventGameSaved(){
 function eventGameSaving(){
 }
 
-function eventGroupLoss(object, group, size){
+function eventGroupLoss(gameObject, groupID, groupSize){
 }
 
 function eventLaunchTransporter(){
@@ -46,13 +49,19 @@ function eventLaunchTransporter(){
 function eventMissionTimeout(){
 }
 
-function eventObjectSeen(sensor, object){
+function eventObjectRecycled(gameObject){
 }
 
-function eventObjectTransfer(object, from){
+function eventObjectSeen(sensor, gameObject){
 }
 
-function eventPickup(){
+function eventObjectTransfer(gameObject, from){
+}
+
+function eventPickup(item, droid){
+}
+
+function eventPlayerLeft(player){
 }
 
 function eventReinforcementsArrived(){
@@ -67,10 +76,25 @@ function eventSelectionChange(selected){
 function eventStartLevel(){
 }
 
-function eventStructureBuilt(structure){
+function eventStructureBuilt(structure, droid){
 }
 
 function eventStructureReady(structure){
+}
+
+function eventTransporterArrived(transport){
+}
+
+function eventTransporterDone(transport){
+}
+
+function eventTransporterExit(transport){
+}
+
+function eventTransporterLanded(transport){
+}
+
+function eventTransporterLaunch(transport){
 }
 
 function eventVideoDone(){

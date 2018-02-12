@@ -1,22 +1,13 @@
 function eventAttacked(victim, attacker){
 }
 
-function eventAttackedUnthrottled(victim, attacker){
+function eventChat(sender, to, message){
 }
 
-function eventBeacon(x, y, from, to){
+function eventDesignCreated(template){
 }
 
-function eventBeaconRemoved(from, to){
-}
-
-function eventChat(from, to, message){
-}
-
-function eventCheatMode(cheat){
-}
-
-function eventDestroyed(object){
+function eventDestroyed(gameObject){
 }
 
 function eventDroidBuilt(droid, structure){
@@ -25,53 +16,20 @@ function eventDroidBuilt(droid, structure){
 function eventDroidIdle(droid){
 }
 
-function eventGameInit(){
+function eventObjectSeen(sensor, gameObject){
 }
 
-function eventGameLoaded(){
-}
-
-function eventGameSaved(){
-}
-
-function eventGameSaving(){
-}
-
-function eventGroupLoss(object, group, size){
-}
-
-function eventLaunchTransporter(){
-}
-
-function eventMissionTimeout(){
-}
-
-function eventObjectSeen(sensor, object){
-}
-
-function eventObjectTransfer(object, from){
-}
-
-function eventPickup(){
-}
-
-function eventReinforcementsArrived(){
+function eventPickup(item, droid){
 }
 
 function eventResearched(research, structure){
 }
 
-function eventSelectionChange(selected){
-}
-
 function eventStartLevel(){
 }
 
-function eventStructureBuilt(structure){
+function eventStructureBuilt(structure, droid){
 }
 
 function eventStructureReady(structure){
-}
-
-function eventVideoDone(){
 }

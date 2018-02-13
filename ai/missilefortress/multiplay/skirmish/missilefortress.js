@@ -287,19 +287,20 @@ const researchOrder = [
   "R-Defense-WallUpgrade04",     // Supercrete
   "R-Struc-Power-Upgrade01c",    // Gas Turbine Generator Mk3
   "R-Struc-Research-Upgrade07",  // Neural Synapse Research Brain
-  "R-Wpn-Rocket-Accuracy02",     // Improved Rocket Wire Guidance
   "R-Struc-Power-Upgrade02",     // Vapor Turbine Generator
+  "R-Wpn-Rocket-Accuracy02",     // Improved Rocket Wire Guidance
   "R-Struc-Research-Upgrade08",  // Neural Synapse Research Brain Mk2
   "R-Defense-WallUpgrade05",     // Supercrete Mk2
   "R-Struc-Power-Upgrade03",     // Vapor Turbine Generator Mk2
   "R-Struc-Research-Upgrade09",  // Neural Synapse Research Brain Mk3
   "R-Struc-Power-Upgrade03a",    // Vapor Turbine Generator Mk3
-  "R-Defense-WallUpgrade06",     // Supercrete Mk3
   "R-Wpn-RocketSlow-Accuracy01", // Rocket Laser Designator
   "R-Wpn-Rocket-Damage06",       // HEAT Rocket Warhead Mk3
   "R-Wpn-RocketSlow-Accuracy02", // Thermal Imaging Rockets
+  "R-Defense-WallUpgrade06",     // Supercrete Mk3
+  "R-Wpn-Rocket07-Tank-Killer",  // Tank Killer Rocket
   "R-Sys-Engineering03",         // Advanced Engineering
-  "Wpn-Missile2A-T",             // Scourge Missile
+  "R-Wpn-Missile2A-T",           // Scourge Missile
   "R-Defense-WallUpgrade07",     // Plascrete
   "R-Wpn-Missile-ROF01",         // Advanced Missile Allocation System
   "R-Defense-WallUpgrade08",     // Plascrete Mk2

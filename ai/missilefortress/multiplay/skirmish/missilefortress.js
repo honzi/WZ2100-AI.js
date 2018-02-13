@@ -1,112 +1,133 @@
 function buildOrder(){
-    // Find an idle construction droid.
+    // Give orders to idle construction droids.
     var droids = enumDroid(
       me,
       DROID_CONSTRUCT,
       me
     );
-    var idle_droid = false;
+    // Check module need.
+    var powerModuleNeeded = checkNeedPowerModule();
+    var researchModuleNeeded = checkNeedResearchModule();
+
     droids.some(function check_droid_idle(checked_droid){
-        if(isDroidIdle(checked_droid)){
-            idle_droid = checked_droid;
-            return true;
+        if(checked_droid.order !== DORDER_BUILD){
+
+            // Build one Resource Extractors.
+            if(checkStructure(
+              "A0ResourceExtractor",
+              1
+            )){
+                buildStructure(
+                  checked_droid,
+                  "A0ResourceExtractor"
+                );
+
+            // Build one Power Generator.
+            }else if(checkStructure(
+              "A0PowerGenerator",
+              1
+            )){
+                buildStructure(
+                  checked_droid,
+                  "A0PowerGenerator"
+                );
+
+            // Build four Resource Extractors.
+            }else if(checkStructure(
+              "A0ResourceExtractor",
+              4
+            )){
+                buildStructure(
+                  checked_droid,
+                  "A0ResourceExtractor"
+                );
+
+            // Build five Research Facilities.
+            }else if(checkStructure(
+              "A0ResearchFacility",
+              5
+            )){
+                buildStructure(
+                  checked_droid,
+                  "A0ResearchFacility"
+                );
+
+            // Build one Command Center.
+            }else if(checkStructure(
+              "A0CommandCentre",
+              1
+            )){
+                buildStructure(
+                  checked_droid,
+                  "A0CommandCentre"
+                );
+
+            // Build one Repair Facility.
+            }else if(checkStructure(
+              "A0RepairCentre3",
+              1
+            )){
+                buildStructure(
+                  checked_droid,
+                  "A0RepairCentre3"
+                );
+
+            // Build Power Modules.
+            }else if(powerModuleNeeded !== false){
+                buildStructure(
+                  checked_droid,
+                  "A0PowMod1",
+                  powerModuleNeeded.x,
+                  powerModuleNeeded.y
+                );
+
+            // Build Research Modules.
+            }else if(researchModuleNeeded !== false){
+                buildStructure(
+                  checked_droid,
+                  "A0ResearchModule1",
+                  researchModuleNeeded.x,
+                  researchModuleNeeded.y
+                );
+
+            // Build many Missile Fortresses.
+            }else if(isStructureAvailable(
+              "X-Super-Missile",
+              me
+            )){
+                buildStructure(
+                  checked_droid,
+                  "X-Super-Missile"
+                );
+            }
         }
     });
 
-    if(idle_droid !== false){
-        // Build one Resource Extractor.
-        if(checkStructureCount(
-          "A0ResourceExtractor",
-          1
-        )){
-            buildStructure(
-              idle_droid,
-              "A0ResourceExtractor"
-            );
-
-        // Build one Power Generator.
-        }else if(checkStructureCount(
-          "A0PowerGenerator",
-          1
-        )){
-            buildStructure(
-              idle_droid,
-              "A0PowerGenerator"
-            );
-
-        // Build four Resource Extractors.
-        }else if(checkStructureCount(
-          "A0ResourceExtractor",
-          4
-        )){
-            buildStructure(
-              idle_droid,
-              "A0ResourceExtractor"
-            );
-
-        // Build five Research Facilities.
-        }else if(checkStructureCount(
-          "A0ResearchFacility",
-          5
-        )){
-            buildStructure(
-              idle_droid,
-              "A0ResearchFacility"
-            );
-
-        // Build one HQ.
-        }else if(checkStructureCount(
-          "A0CommandCentre",
-          1
-        )){
-            buildStructure(
-              idle_droid,
-              "A0CommandCentre"
-            );
-
-        // Build one Factory.
-        }else if(checkStructureCount(
-          "A0LightFactory",
-          1
-        )){
-            buildStructure(
-              idle_droid,
-              "A0LightFactory"
-            );
-
-        // Build many Missile Fortresses.
-        }else if(isStructureAvailable(
-          "X-Super-Missile",
-          me
-        )){
-            buildStructure(
-              idle_droid,
-              "X-Super-Missile"
-            );
-        }
-    }
-
-    // Find an idle Research Facility.
+    // Give orders to idle Research Facilities.
     var researchFacilities = enumStruct(
       me,
       "A0ResearchFacility",
       me
     );
-    var idle_researchFacility = false;
     researchFacilities.some(function check_researchFacility_idle(checked_researchFacility){
-        if(isStructureIdle(checked_researchFacility)){
-            idle_researchFacility = checked_researchFacility;
-            return true;
+        if(checked_researchFacility.status == BUILT && structureIdle(checked_researchFacility)){
+            // Pursue research.
+            pursueResearch(
+              checked_researchFacility,
+              [
+                "R-Struc-Power-Upgrade03a", // Vapor Turbine Generator Mk3
+                "R-Defense-Super-Missile", // Missile Fortress
+                "R-Struc-Research-Upgrade09", // Neural Synapse Research Brain Mk3
+                "R-Wpn-Missile-Damage03", // Advanced Missile Warhead Mk3
+                "R-Sys-Autorepair-General", // Auto-Repair
+                "R-Struc-Materials09", // Advanced Base Structure Materials Mk3
+                "R-Struc-RprFac-Upgrade06", // Advanced Repair Facility
+                "R-Vehicle-Metals09", // Superdense Composite Alloys Mk3
+                "R-Vehicle-Armor-Heat09", // Vehicle Superdense Thermal Armor Mk3
+              ]
+            );
         }
     });
-
-    // Pursue Missle Fortress research.
-    if(idle_researchFacility !== false){
-        pursueResearch(
-          idle_researchFacility,
-          "R-Defense-Super-Missile"
-        );
-    }
 
     queue(
       "buildOrder",
@@ -114,12 +135,15 @@ function buildOrder(){
     );
 }
 
-function buildStructure(droid, structure){
+function buildStructure(droid, structure, x, y){
+    x = x || droid.x;
+    y = y || droid.y;
+
     var location = pickStructLocation(
       droid,
       structure,
-      droid.x,
-      droid.y
+      x,
+      y
     );
 
     if(location){
@@ -133,8 +157,53 @@ function buildStructure(droid, structure){
     }
 }
 
-function checkStructureCount(structure, count){
-    return countStruct(structure) < count;
+function checkNeedPowerModule(){
+    var powerGenerators = enumStruct(
+      me,
+      "A0PowerGenerator",
+      me
+    );
+    var generator = false;
+    powerGenerators.some(function check_powerGenerator_needmodule(checked_powerGenerator){
+        if(checked_powerGenerator.modules == 0){
+            generator = checked_powerGenerator;
+            return true;
+        }
+    });
+
+    if(generator !== false){
+        return generator;
+    }
+
+    return false;
+}
+
+function checkNeedResearchModule(){
+    var researchFacilities = enumStruct(
+      me,
+      "A0ResearchFacility",
+      me
+    );
+    var facility = false;
+    researchFacilities.some(function check_researchFacility_needmodule(checked_researchFacility){
+        if(checked_researchFacility.modules == 0){
+            facility = checked_researchFacility;
+            return true;
+        }
+    });
+
+    if(facility !== false){
+        return facility;
+    }
+
+    return false;
+}
+
+function checkStructure(structure, count){
+    return isStructureAvailable(
+      structure,
+      me
+    ) && countStruct(structure) < count;
 }
 
 function eventAttacked(victim, attacker){
@@ -178,12 +247,4 @@ function eventStructureBuilt(structure, droid){
 }
 
 function eventStructureReady(structure){
-}
-
-function isDroidIdle(droid){
-    return droid.order !== DORDER_BUILD;
-}
-
-function isStructureIdle(structure){
-    return structure.status == BUILT && structureIdle(structure);
 }

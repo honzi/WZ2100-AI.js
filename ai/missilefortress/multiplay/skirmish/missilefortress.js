@@ -115,6 +115,11 @@ function buildOrder(){
             pursueResearch(
               checked_researchFacility,
               [
+                "R-Sys-Engineering01", // Engineering
+                "R-Sys-Sensor-Turret01", // Sensor Turret
+                "R-Sys-Sensor-Tower01", // Sensor Tower
+                "R-Defense-HardcreteWall", // Hardcrete Wall
+                "R-Vehicle-Engine01", // Fuel Injection Engine
                 "R-Struc-Power-Upgrade03a", // Vapor Turbine Generator Mk3
                 "R-Defense-Super-Missile", // Missile Fortress
                 "R-Struc-Research-Upgrade09", // Neural Synapse Research Brain Mk3
@@ -158,42 +163,53 @@ function buildStructure(droid, structure, x, y){
 }
 
 function checkNeedPowerModule(){
-    var powerGenerators = enumStruct(
-      me,
-      "A0PowerGenerator",
+    if(isStructureAvailable(
+      "A0PowMod1",
       me
-    );
-    var generator = false;
-    powerGenerators.some(function check_powerGenerator_needmodule(checked_powerGenerator){
-        if(checked_powerGenerator.modules == 0){
-            generator = checked_powerGenerator;
-            return true;
-        }
-    });
+    )){
+        var powerGenerators = enumStruct(
+          me,
+          "A0PowerGenerator",
+          me
+        );
+        var generator = false;
+        powerGenerators.some(function check_powerGenerator_needmodule(checked_powerGenerator){
+            if(checked_powerGenerator.modules == 0){
+                generator = checked_powerGenerator;
+                return true;
+            }
+        });
 
-    if(generator !== false){
-        return generator;
+        if(generator !== false){
+            return generator;
+        }
     }
 
     return false;
 }
 
 function checkNeedResearchModule(){
-    var researchFacilities = enumStruct(
-      me,
-      "A0ResearchFacility",
+    if(isStructureAvailable(
+      "A0ResearchModule1",
       me
-    );
-    var facility = false;
-    researchFacilities.some(function check_researchFacility_needmodule(checked_researchFacility){
-        if(checked_researchFacility.modules == 0){
-            facility = checked_researchFacility;
-            return true;
-        }
-    });
+    )){
+        var researchFacilities = enumStruct(
+          me,
+          "A0ResearchFacility",
+          me
+        );
+        var facility = false;
+        researchFacilities.some(function check_researchFacility_needmodule(checked_researchFacility){
+            if(structureIdle(checked_researchFacility)
+              && checked_researchFacility.modules == 0){
+                facility = checked_researchFacility;
+                return true;
+            }
+        });
 
-    if(facility !== false){
-        return facility;
+        if(facility !== false){
+            return facility;
+        }
     }
 
     return false;

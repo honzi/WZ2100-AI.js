@@ -1,36 +1,36 @@
 function buildOrder(){
-    // Find an available construction droid.
+    // Find an idle construction droid.
     var droids = enumDroid(
       me,
-      DROID_CONSTRUCT
+      DROID_CONSTRUCT,
+      me
     );
-
-    var idledroid = false;
+    var idle_droid = false;
     droids.some(function check_droid_idle(checked_droid){
-        if(isIdle(checked_droid)){
-            idledroid = checked_droid;
+        if(isDroidIdle(checked_droid)){
+            idle_droid = checked_droid;
             return true;
         }
     });
 
-    if(idledroid !== false){
+    if(idle_droid !== false){
         // Build one Resource Extractor.
         if(checkStructureCount(
           "A0ResourceExtractor",
           1
         )){
             buildStructure(
-              idledroid,
+              idle_droid,
               "A0ResourceExtractor"
             );
 
-        // Build two Power Generators.
+        // Build one Power Generator.
         }else if(checkStructureCount(
           "A0PowerGenerator",
-          2
+          1
         )){
             buildStructure(
-              idledroid,
+              idle_droid,
               "A0PowerGenerator"
             );
 
@@ -40,7 +40,7 @@ function buildOrder(){
           4
         )){
             buildStructure(
-              idledroid,
+              idle_droid,
               "A0ResourceExtractor"
             );
 
@@ -50,7 +50,7 @@ function buildOrder(){
           5
         )){
             buildStructure(
-              idledroid,
+              idle_droid,
               "A0ResearchFacility"
             );
 
@@ -60,7 +60,7 @@ function buildOrder(){
           1
         )){
             buildStructure(
-              idledroid,
+              idle_droid,
               "A0CommandCentre"
             );
 
@@ -70,10 +70,42 @@ function buildOrder(){
           1
         )){
             buildStructure(
-              idledroid,
+              idle_droid,
               "A0LightFactory"
             );
+
+        // Build many Missile Fortresses.
+        }else if(isStructureAvailable(
+          "R-Defense-Super-Missile",
+          me
+        )){
+            buildStructure(
+              idle_droid,
+              "R-Defense-Super-Missile"
+            );
         }
+    }
+
+    // Find an idle Research Facility.
+    var researchFacilities = enumStruct(
+      me,
+      "A0ResearchFacility",
+      me
+    );
+    var idle_researchFacility = false;
+    researchFacilities.some(function check_researchFacility_idle(checked_researchFacility){
+        if(isStructureIdle(checked_researchFacility)){
+            idle_researchFacility = checked_researchFacility;
+            return true;
+        }
+    });
+
+    // Pursue Missle Fortress research.
+    if(idle_researchFacility !== false){
+        pursueResearch(
+          idle_researchFacility,
+          "R-Defense-Super-Missile"
+        );
     }
 
     queue(
@@ -148,6 +180,10 @@ function eventStructureBuilt(structure, droid){
 function eventStructureReady(structure){
 }
 
-function isIdle(droid){
+function isDroidIdle(droid){
     return droid.order !== DORDER_BUILD;
+}
+
+function isStructureIdle(structure){
+    return structure.status == BUILT && structureIdle(structure);
 }

@@ -227,6 +227,10 @@ function eventDroidBuilt(droid, structure){
 function eventDroidIdle(droid){
 }
 
+function eventGameLoaded(){
+    init();
+}
+
 function eventObjectSeen(sensor, gameObject){
 }
 
@@ -237,21 +241,25 @@ function eventResearched(research, structure){
 }
 
 function eventStartLevel(){
-    queue(
-      "buildOrder",
-      0
-    );
-
-    limitResearchFacilities = getStructureLimit(
-      "A0ResearchFacility",
-      me
-    );
+    init();
 }
 
 function eventStructureBuilt(structure, droid){
 }
 
 function eventStructureReady(structure){
+}
+
+function init(){
+    limitResearchFacilities = getStructureLimit(
+      "A0ResearchFacility",
+      me
+    );
+
+    queue(
+      "buildOrder",
+      0
+    );
 }
 
 var limitResearchFacilities = 5;
@@ -290,15 +298,15 @@ const researchOrder = [
   "R-Struc-Power-Upgrade02",     // Vapor Turbine Generator
   "R-Wpn-Rocket-Accuracy02",     // Improved Rocket Wire Guidance
   "R-Struc-Research-Upgrade08",  // Neural Synapse Research Brain Mk2
-  "R-Defense-WallUpgrade05",     // Supercrete Mk2
   "R-Struc-Power-Upgrade03",     // Vapor Turbine Generator Mk2
-  "R-Struc-Research-Upgrade09",  // Neural Synapse Research Brain Mk3
+  "R-Defense-WallUpgrade05",     // Supercrete Mk2
   "R-Struc-Power-Upgrade03a",    // Vapor Turbine Generator Mk3
+  "R-Struc-Research-Upgrade09",  // Neural Synapse Research Brain Mk3
   "R-Wpn-RocketSlow-Accuracy01", // Rocket Laser Designator
   "R-Wpn-Rocket-Damage06",       // HEAT Rocket Warhead Mk3
   "R-Wpn-RocketSlow-Accuracy02", // Thermal Imaging Rockets
-  "R-Defense-WallUpgrade06",     // Supercrete Mk3
   "R-Wpn-Rocket07-Tank-Killer",  // Tank Killer Rocket
+  "R-Defense-WallUpgrade06",     // Supercrete Mk3
   "R-Sys-Engineering03",         // Advanced Engineering
   "R-Wpn-Missile2A-T",           // Scourge Missile
   "R-Defense-WallUpgrade07",     // Plascrete
@@ -310,21 +318,36 @@ const researchOrder = [
   "R-Defense-WallUpgrade10",     // Plasteel
   "R-Defense-Super-Missile",     // Missile Fortress
   "R-Sys-Autorepair-General",    // Auto-Repair
+  "R-Sys-Sensor-Upgrade01",      // Sensor Upgrade
   "R-Struc-Materials01",         // Reinforced Base Structure Materials
   "R-Wpn-Missile-Damage01",      // Advanced Missile Warhead
-  "R-Wpn-Missile-Accuracy01",    // Target Prediction Missiles
+  "R-Struc-Factory-Cyborg",      // Cyborg Factory
+  "R-Sys-MobileRepairTurret01",  // Mobile Repair Turret
+  "R-Sys-Sensor-Upgrade02",      // Sensor Upgrade Mk2
   "R-Struc-Materials02",         // Reinforced Base Structure Materials Mk2
-  "R-Wpn-Missile-Damage01",      // Advanced Missile Warhead Mk2
+  "R-Struc-Factory-Module",      // Factory Module
+  "R-Vehicle-Metals01",          // Composite Alloys Mk1
   "R-Struc-Materials03",         // Reinforced Base Structure Materials Mk3
-  "R-Wpn-Missile-Accuracy02",    // Search & Destroy Missiles
+  "R-Struc-RepairFacility",      // Repair Facility
+  "R-Sys-Sensor-Upgrade03",      // Sensor Upgrade Mk3
+  "R-Wpn-Missile-Accuracy01",    // Target Prediction Missiles
+  "R-Struc-Factory-Upgrade01",   // Automated Manufacturing
+  "R-Vehicle-Metals01",          // Composite Alloys
+  "R-Defense-WallUpgrade11",     // Plasteel Mk2
+  "R-Wpn-Missile-Damage01",      // Advanced Missile Warhead Mk2
+  "R-Vehicle-Metals02",          // Composite Alloys Mk2
   "R-Struc-Materials04",         // Hardened Base Structure Materials
-  "R-Wpn-Missile-Damage03",      // Advanced Missile Warhead Mk3
   "R-Struc-Materials05",         // Hardened Base Structure Materials Mk2
+  "R-Vehicle-Metals03",          // Composite Alloys Mk3
   "R-Struc-Materials06",         // Hardened Base Structure Materials Mk3
+  "R-Wpn-Missile-Accuracy02",    // Search & Destroy Missiles
+  "R-Defense-WallUpgrade12",     // Plasteel Mk3
   "R-Struc-Materials07",         // Advanced Base Structure Materials
+  "R-Wpn-Missile-Damage03",      // Advanced Missile Warhead Mk3
   "R-Struc-Materials08",         // Advanced Base Structure Materials Mk2
   "R-Struc-Materials09",         // Advanced Base Structure Materials Mk3
   "R-Struc-RprFac-Upgrade06",    // Advanced Repair Facility
+  "R-Vehicle-Armor-Heat01",      // Thermal Armor
   "R-Vehicle-Metals09",          // Superdense Composite Alloys Mk3
   "R-Vehicle-Armor-Heat09",      // Vehicle Superdense Thermal Armor Mk3
 ];

@@ -282,10 +282,10 @@ const researchOrder = [
   "R-Struc-Power-Upgrade01c",    // Gas Turbine Generator Mk3
   "R-Struc-Research-Upgrade07",  // Neural Synapse Research Brain
   "R-Defense-WallUpgrade04",     // Supercrete
-  "R-Struc-Power-Upgrade01a",    // Vapor Turbine Generator
+  "R-Struc-Power-Upgrade02",     // Vapor Turbine Generator
   "R-Struc-Research-Upgrade08",  // Neural Synapse Research Brain Mk2
   "R-Wpn-RocketSlow-Accuracy01", // Rocket Laser Designator
-  "R-Struc-Power-Upgrade02a",    // Vapor Turbine Generator Mk2
+  "R-Struc-Power-Upgrade03",     // Vapor Turbine Generator Mk2
   "R-Struc-Research-Upgrade09",  // Neural Synapse Research Brain Mk3
   "R-Struc-Power-Upgrade03a",    // Vapor Turbine Generator Mk3
   "R-Sys-Engineering03",         // Advanced Engineering

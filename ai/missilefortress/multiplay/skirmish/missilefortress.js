@@ -76,12 +76,12 @@ function buildOrder(){
 
         // Build many Missile Fortresses.
         }else if(isStructureAvailable(
-          "R-Defense-Super-Missile",
+          "X-Super-Missile",
           me
         )){
             buildStructure(
               idle_droid,
-              "R-Defense-Super-Missile"
+              "X-Super-Missile"
             );
         }
     }

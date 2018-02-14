@@ -61,6 +61,16 @@ function buildOrder(){
                   "A0CommandCentre"
                 );
 
+            // Build one Factory.
+            }else if(checkStructure(
+              "A0LightFactory",
+              1
+            )){
+                buildStructure(
+                  checked_droid,
+                  "A0LightFactory"
+                );
+
             // Build one Repair Facility.
             }else if(checkStructure(
               "A0RepairCentre3",
@@ -288,10 +298,10 @@ const researchOrder = [
   "R-Wpn-Missile-ROF03",         // Advanced Missile Allocation System Mk3
   "R-Defense-WallUpgrade10",     // Plasteel
   "R-Defense-Super-Missile",     // Missile Fortress
+  "R-Wpn-Missile-Damage01",      // Advanced Missile Warhead
   "R-Sys-Autorepair-General",    // Auto-Repair
   "R-Sys-Sensor-Upgrade01",      // Sensor Upgrade
   "R-Struc-Materials01",         // Reinforced Base Structure Materials
-  "R-Wpn-Missile-Damage01",      // Advanced Missile Warhead
   "R-Struc-Factory-Cyborg",      // Cyborg Factory
   "R-Sys-MobileRepairTurret01",  // Mobile Repair Turret
   "R-Sys-Sensor-Upgrade02",      // Sensor Upgrade Mk2
@@ -314,8 +324,8 @@ const researchOrder = [
   "R-Wpn-Missile-Accuracy02",    // Search & Destroy Missiles
   "R-Defense-WallUpgrade12",     // Plasteel Mk3
   "R-Struc-Materials07",         // Advanced Base Structure Materials
-  "R-Wpn-Missile-Damage03",      // Advanced Missile Warhead Mk3
   "R-Struc-Materials08",         // Advanced Base Structure Materials Mk2
+  "R-Wpn-Missile-Damage03",      // Advanced Missile Warhead Mk3
   "R-Struc-Materials09",         // Advanced Base Structure Materials Mk3
   "R-Struc-RprFac-Upgrade06",    // Advanced Repair Facility
   "R-Vehicle-Armor-Heat01",      // Thermal Armor

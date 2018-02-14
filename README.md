@@ -2,6 +2,7 @@ iterami/WZ2100-AI.js
 --------------------
 
 * `blank`: AI that does nothing.
+* `cyborg-machinegun`: AI that attempts to spam Cyborgs carrying Machine Guns.
 * `missilefortress`: AI that attempts to spam Missile Fortresses without cheating.
 
 ---

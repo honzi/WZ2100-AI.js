@@ -71,16 +71,6 @@ function buildOrder(){
                   "A0LightFactory"
                 );
 
-            // Build one Repair Facility.
-            }else if(checkStructure(
-              "A0RepairCentre3",
-              1
-            )){
-                buildStructure(
-                  checked_droid,
-                  "A0RepairCentre3"
-                );
-
             // Build Power Modules.
             }else if(powerModuleNeeded !== false){
                 buildStructure(
@@ -303,13 +293,11 @@ const researchOrder = [
   "R-Sys-Sensor-Upgrade01",      // Sensor Upgrade
   "R-Struc-Materials01",         // Reinforced Base Structure Materials
   "R-Struc-Factory-Cyborg",      // Cyborg Factory
-  "R-Sys-MobileRepairTurret01",  // Mobile Repair Turret
   "R-Sys-Sensor-Upgrade02",      // Sensor Upgrade Mk2
   "R-Struc-Materials02",         // Reinforced Base Structure Materials Mk2
   "R-Struc-Factory-Module",      // Factory Module
   "R-Vehicle-Metals01",          // Composite Alloys Mk1
   "R-Struc-Materials03",         // Reinforced Base Structure Materials Mk3
-  "R-Struc-RepairFacility",      // Repair Facility
   "R-Sys-Sensor-Upgrade03",      // Sensor Upgrade Mk3
   "R-Wpn-Missile-Accuracy01",    // Target Prediction Missiles
   "R-Struc-Factory-Upgrade01",   // Automated Manufacturing
@@ -327,7 +315,6 @@ const researchOrder = [
   "R-Struc-Materials08",         // Advanced Base Structure Materials Mk2
   "R-Wpn-Missile-Damage03",      // Advanced Missile Warhead Mk3
   "R-Struc-Materials09",         // Advanced Base Structure Materials Mk3
-  "R-Struc-RprFac-Upgrade06",    // Advanced Repair Facility
   "R-Vehicle-Armor-Heat01",      // Thermal Armor
   "R-Vehicle-Metals09",          // Superdense Composite Alloys Mk3
   "R-Vehicle-Armor-Heat09",      // Vehicle Superdense Thermal Armor Mk3

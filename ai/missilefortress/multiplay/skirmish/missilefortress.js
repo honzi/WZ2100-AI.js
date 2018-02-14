@@ -1,25 +1,24 @@
 function buildOrder(){
+    // Check module need.
+    var powerModuleNeeded = checkNeedPowerModule();
+    var researchModuleNeeded = checkNeedResearchModule();
+
     // Give orders to idle construction droids.
     var droids = enumDroid(
       me,
       DROID_CONSTRUCT,
       me
     );
-    // Check module need.
-    var powerModuleNeeded = checkNeedPowerModule();
-    var researchModuleNeeded = checkNeedResearchModule();
-
     droids.some(function check_droid_idle(checked_droid){
         if(checked_droid.order !== DORDER_BUILD){
-
-            // Build one Resource Extractors.
+            // Build one Research Facility.
             if(checkStructure(
-              "A0ResourceExtractor",
+              "A0ResearchFacility",
               1
             )){
                 buildStructure(
                   checked_droid,
-                  "A0ResourceExtractor"
+                  "A0ResearchFacility"
                 );
 
             // Build one Power Generator.
@@ -212,50 +211,22 @@ function eventAttacked(victim, attacker){
     }
 }
 
-function eventChat(sender, to, message){
-}
-
-function eventDesignCreated(template){
-}
-
-function eventDestroyed(gameObject){
-}
-
-function eventDroidBuilt(droid, structure){
-}
-
-function eventDroidIdle(droid){
-}
-
 function eventGameLoaded(){
     init();
-}
-
-function eventObjectSeen(sensor, gameObject){
-}
-
-function eventPickup(item, droid){
-}
-
-function eventResearched(research, structure){
 }
 
 function eventStartLevel(){
     init();
 }
 
-function eventStructureBuilt(structure, droid){
-}
-
-function eventStructureReady(structure){
-}
-
 function init(){
+    // Get limitations.
     limitResearchFacilities = getStructureLimit(
       "A0ResearchFacility",
       me
     );
 
+    // Start build order loop.
     queue(
       "buildOrder",
       0

@@ -275,6 +275,7 @@ const researchOrder = [
   "R-Struc-Power-Upgrade03a",    // Vapor Turbine Generator Mk3
   "R-Wpn-RocketSlow-Accuracy01", // Rocket Laser Designator
   "R-Wpn-Rocket-Damage06",       // HEAT Rocket Warhead Mk3
+  "R-Sys-Autorepair-General",    // Auto-Repair
   "R-Wpn-RocketSlow-Accuracy02", // Thermal Imaging Rockets
   "R-Wpn-Rocket07-Tank-Killer",  // Tank Killer Rocket
   "R-Defense-WallUpgrade06",     // Supercrete Mk3
@@ -289,7 +290,6 @@ const researchOrder = [
   "R-Defense-WallUpgrade10",     // Plasteel
   "R-Defense-Super-Missile",     // Missile Fortress
   "R-Wpn-Missile-Damage01",      // Advanced Missile Warhead
-  "R-Sys-Autorepair-General",    // Auto-Repair
   "R-Sys-Sensor-Upgrade01",      // Sensor Upgrade
   "R-Struc-Materials01",         // Reinforced Base Structure Materials
   "R-Struc-Factory-Cyborg",      // Cyborg Factory

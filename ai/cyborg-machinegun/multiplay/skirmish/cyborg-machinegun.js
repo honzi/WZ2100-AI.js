@@ -50,9 +50,9 @@ function buildOrder(){
         if(checked_droid.order !== DORDER_BUILD){
             // Build one Research Facility.
             if(checkStructure(
-              "A0ResearchFacility",
-              1
-            )){
+                "A0ResearchFacility",
+                1
+              )){
                 buildStructure(
                   checked_droid,
                   "A0ResearchFacility"
@@ -60,9 +60,9 @@ function buildOrder(){
 
             // Build one Power Generator.
             }else if(checkStructure(
-              "A0PowerGenerator",
-              1
-            )){
+                "A0PowerGenerator",
+                1
+              )){
                 buildStructure(
                   checked_droid,
                   "A0PowerGenerator"
@@ -70,9 +70,9 @@ function buildOrder(){
 
             // Build four Resource Extractors.
             }else if(checkStructure(
-              "A0ResourceExtractor",
-              4
-            )){
+                "A0ResourceExtractor",
+                4
+              )){
                 buildStructure(
                   checked_droid,
                   "A0ResourceExtractor"
@@ -80,9 +80,9 @@ function buildOrder(){
 
             // Build as many Research Facilities as possible.
             }else if(checkStructure(
-              "A0ResearchFacility",
-              limitResearchFacilities
-            )){
+                "A0ResearchFacility",
+                limitResearchFacilities
+              )){
                 buildStructure(
                   checked_droid,
                   "A0ResearchFacility"
@@ -90,9 +90,9 @@ function buildOrder(){
 
             // Build one Command Center.
             }else if(checkStructure(
-              "A0CommandCentre",
-              1
-            )){
+                "A0CommandCentre",
+                1
+              )){
                 buildStructure(
                   checked_droid,
                   "A0CommandCentre"
@@ -100,9 +100,9 @@ function buildOrder(){
 
             // Build as many Cyborg Factories as possible.
             }else if(checkStructure(
-              "A0CyborgFactory",
-              limitCyborgFactories
-            )){
+                "A0CyborgFactory",
+                limitCyborgFactories
+              )){
                 buildStructure(
                   checked_droid,
                   "A0CyborgFactory"
@@ -175,9 +175,9 @@ function buildStructure(droid, structure, x, y){
 
 function checkNeedPowerModule(){
     if(isStructureAvailable(
-      "A0PowMod1",
-      me
-    )){
+        "A0PowMod1",
+        me
+      )){
         var powerGenerators = enumStruct(
           me,
           "A0PowerGenerator",
@@ -201,9 +201,9 @@ function checkNeedPowerModule(){
 
 function checkNeedResearchModule(){
     if(isStructureAvailable(
-      "A0ResearchModule1",
-      me
-    )){
+        "A0ResearchModule1",
+        me
+      )){
         var researchFacilities = enumStruct(
           me,
           "A0ResearchFacility",

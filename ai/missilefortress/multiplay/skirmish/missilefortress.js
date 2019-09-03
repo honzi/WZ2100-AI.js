@@ -118,6 +118,27 @@ function buildOrder(){
         }
     });
 
+    // Make sure we have at least 2 construction droids.
+    if(droids.length < 2){
+        var factories = enumStruct(
+          me,
+          "A0LightFactory",
+          me
+        );
+
+        if(factories.length > 0){
+            buildDroid(
+              factories[0],
+              "Drone",
+              "Body1REC",
+              "wheeled01",
+              "",
+              DROID_CONSTRUCT,
+              "Spade1Mk1"
+            );
+        }
+    }
+
     queue(
       "buildOrder",
       0

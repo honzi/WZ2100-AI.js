@@ -126,7 +126,8 @@ function buildOrder(){
           me
         );
 
-        if(factories.length > 0){
+        if(factories.length > 0
+          && structureIdle(factories[0])){
             buildDroid(
               factories[0],
               "Drone",

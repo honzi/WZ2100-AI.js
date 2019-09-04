@@ -10,7 +10,29 @@ function buildOrder(){
       me
     );
     droids.some(function check_droid_idle(checked_droid){
-        if(checked_droid.order !== DORDER_BUILD){
+        if(checked_droid.order !== DORDER_BUILD
+          && checked_droid.order !== DORDER_HELPBUILD){
+            var structures = enumStruct(me);
+            var unfinished = false;
+
+            for(var structure in structures){
+                if(structures[structure].status !== BUILT){
+                    unfinished = true;
+
+                    orderDroidObj(
+                      checked_droid,
+                      DORDER_HELPBUILD,
+                      structures[structure]
+                    );
+
+                    break;
+                }
+            }
+
+            if(unfinished){
+                return;
+            }
+
             // Build one Research Facility.
             if(checkStructure(
                 "A0ResearchFacility",

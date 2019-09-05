@@ -10,7 +10,8 @@ function buildOrder(){
       me
     );
     cyborgFactories.some(function check_cyborgFactory(checked_cyborgFactory){
-        if(checked_cyborgFactory.status == BUILT && structureIdle(checked_cyborgFactory)){
+        if(checked_cyborgFactory.status == BUILT
+          && structureIdle(checked_cyborgFactory)){
             buildDroid(
               checked_cyborgFactory,
               "cyborg",
@@ -47,8 +48,29 @@ function buildOrder(){
       me
     );
     droids.some(function check_droid_idle(checked_droid){
-        if(checked_droid.order !== DORDER_BUILD){
-            // Build one Research Facility.
+        if(checkDroidIdle(checked_droid)){
+            var structures = enumStruct(me);
+            var unfinished = false;
+
+            for(var structure in structures){
+                if(structures[structure].status !== BUILT){
+                    unfinished = true;
+
+                    orderDroidObj(
+                      checked_droid,
+                      DORDER_HELPBUILD,
+                      structures[structure]
+                    );
+
+                    break;
+                }
+            }
+
+            if(unfinished){
+                return;
+            }
+
+            // Build 1 Research Facility.
             if(checkStructure(
                 "A0ResearchFacility",
                 1
@@ -58,7 +80,7 @@ function buildOrder(){
                   "A0ResearchFacility"
                 );
 
-            // Build one Power Generator.
+            // Build 1 Power Generator.
             }else if(checkStructure(
                 "A0PowerGenerator",
                 1
@@ -68,7 +90,7 @@ function buildOrder(){
                   "A0PowerGenerator"
                 );
 
-            // Build four Resource Extractors.
+            // Build 4 Resource Extractors.
             }else if(checkStructure(
                 "A0ResourceExtractor",
                 4
@@ -88,7 +110,7 @@ function buildOrder(){
                   "A0ResearchFacility"
                 );
 
-            // Build one Command Center.
+            // Build 1 Command Center.
             }else if(checkStructure(
                 "A0CommandCentre",
                 1
@@ -136,7 +158,8 @@ function buildOrder(){
       me
     );
     researchFacilities.some(function check_researchFacility_idle(checked_researchFacility){
-        if(checked_researchFacility.status == BUILT && structureIdle(checked_researchFacility)){
+        if(checked_researchFacility.status == BUILT
+          && structureIdle(checked_researchFacility)){
             // Pursue research.
             pursueResearch(
               checked_researchFacility,
@@ -144,6 +167,28 @@ function buildOrder(){
             );
         }
     });
+
+    // Make sure we have at least 2 construction droids.
+    if(droids.length < 2){
+        var factories = enumStruct(
+          me,
+          "A0LightFactory",
+          me
+        );
+
+        if(factories.length > 0
+          && structureIdle(factories[0])){
+            buildDroid(
+              factories[0],
+              "Drone",
+              "Body1REC",
+              "wheeled01",
+              "",
+              DROID_CONSTRUCT,
+              "Spade1Mk1"
+            );
+        }
+    }
 
     queue(
       "buildOrder",
@@ -171,6 +216,11 @@ function buildStructure(droid, structure, x, y){
           location.y
         );
     }
+}
+
+function checkDroidIdle(droid){
+    return !(droid.order === DORDER_BUILD
+      || droid.order === DORDER_HELPBUILD);
 }
 
 function checkNeedPowerModule(){

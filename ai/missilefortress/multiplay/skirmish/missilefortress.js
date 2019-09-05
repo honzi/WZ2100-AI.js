@@ -10,8 +10,7 @@ function buildOrder(){
       me
     );
     droids.some(function check_droid_idle(checked_droid){
-        if(checked_droid.order !== DORDER_BUILD
-          && checked_droid.order !== DORDER_HELPBUILD){
+        if(checkDroidIdle(checked_droid)){
             var structures = enumStruct(me);
             var unfinished = false;
 
@@ -33,7 +32,7 @@ function buildOrder(){
                 return;
             }
 
-            // Build one Research Facility.
+            // Build 1 Research Facility.
             if(checkStructure(
                 "A0ResearchFacility",
                 1
@@ -43,7 +42,7 @@ function buildOrder(){
                   "A0ResearchFacility"
                 );
 
-            // Build one Power Generator.
+            // Build 1 Power Generator.
             }else if(checkStructure(
                 "A0PowerGenerator",
                 1
@@ -53,7 +52,7 @@ function buildOrder(){
                   "A0PowerGenerator"
                 );
 
-            // Build four Resource Extractors.
+            // Build 4 Resource Extractors.
             }else if(checkStructure(
                 "A0ResourceExtractor",
                 4
@@ -73,7 +72,7 @@ function buildOrder(){
                   "A0ResearchFacility"
                 );
 
-            // Build one Command Center.
+            // Build 1 Command Center.
             }else if(checkStructure(
                 "A0CommandCentre",
                 1
@@ -83,7 +82,7 @@ function buildOrder(){
                   "A0CommandCentre"
                 );
 
-            // Build one Factory.
+            // Build 1 Factory.
             }else if(checkStructure(
                 "A0LightFactory",
                 1
@@ -131,7 +130,8 @@ function buildOrder(){
       me
     );
     researchFacilities.some(function check_researchFacility_idle(checked_researchFacility){
-        if(checked_researchFacility.status == BUILT && structureIdle(checked_researchFacility)){
+        if(checked_researchFacility.status == BUILT
+          && structureIdle(checked_researchFacility)){
             // Pursue research.
             pursueResearch(
               checked_researchFacility,
@@ -188,6 +188,11 @@ function buildStructure(droid, structure, x, y){
           location.y
         );
     }
+}
+
+function checkDroidIdle(droid){
+    return !(droid.order === DORDER_BUILD
+      || droid.order === DORDER_HELPBUILD);
 }
 
 function checkNeedPowerModule(){

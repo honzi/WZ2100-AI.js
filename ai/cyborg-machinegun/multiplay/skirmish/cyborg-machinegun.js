@@ -15,7 +15,7 @@ function buildOrder(){
             buildDroid(
               checked_cyborgFactory,
               "cyborg",
-              "Cyb-Chain-GROUND",
+              "CyborgLightBody",
               "CyborgLegs",
               "",
               DROID_CYBORG,
@@ -31,14 +31,6 @@ function buildOrder(){
       me
     );
     cyborgs.some(function check_cyborg_idle(checked_cyborg){
-        if(checked_droid.order !== DORDER_ATTACK){
-            orderDroidLoc(
-              checked_cyborg,
-              DORDER_ATTACK,
-              checked_cyborg.x,
-              checked_cyborg.y
-            );
-        }
     });
 
     // Give orders to idle construction droids.
@@ -326,9 +318,13 @@ const researchOrder = [
   "R-Struc-PowerModuleMk1",     // Power Module
   "R-Struc-CommandRelay",       // Command Relay Post
   "R-Struc-Research-Module",    // Research Module
+  "R-Wpn-MG-Damage01",          // Hardened MG Bullets
   "R-Struc-Research-Upgrade01", // Synaptic Link Data Analysis
+  "R-Wpn-MG-Damage02",          // APDSB MG Bullets
   "R-Struc-Research-Upgrade02", // Synaptic Link Data Analysis Mk2
+  "R-Wpn-MG-Damage03",          // APDSB MG Bullets Mk2
   "R-Struc-Research-Upgrade03", // Synaptic Link Data Analysis Mk3
+  "R-Wpn-MG-Damage04",          // APDSB MG Bullets Mk4
   "R-Struc-Research-Upgrade04", // Dedicated Synaptic Link Data Analysis
   "R-Struc-Power-Upgrade01",    // Gas Turbine Generator
   "R-Struc-Research-Upgrade05", // Dedicated Synaptic Link Data Analysis Mk2
@@ -338,8 +334,8 @@ const researchOrder = [
   "R-Struc-Research-Upgrade07", // Neural Synapse Research Brain
   "R-Struc-Power-Upgrade02",    // Vapor Turbine Generator
   "R-Struc-Research-Upgrade08", // Neural Synapse Research Brain Mk2
+  "R-Sys-Autorepair-General",   // Auto-Repair
   "R-Struc-Power-Upgrade03",    // Vapor Turbine Generator Mk2
   "R-Struc-Research-Upgrade09", // Neural Synapse Research Brain Mk3
   "R-Struc-Power-Upgrade03a",   // Vapor Turbine Generator Mk3
-  "R-Sys-Autorepair-General",   // Auto-Repair
 ];

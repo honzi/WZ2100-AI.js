@@ -7,7 +7,7 @@ function buildOrder(){
     if(beginProduction){
         var cyborgFactories = enumStruct(
           me,
-          "A0CyborgFactory",
+          'A0CyborgFactory',
           me
         );
         cyborgFactories.some(function check_cyborgFactory(checked_cyborgFactory){
@@ -15,12 +15,12 @@ function buildOrder(){
               && structureIdle(checked_cyborgFactory)){
                 buildDroid(
                   checked_cyborgFactory,
-                  "cyborg",
-                  "CyborgLightBody",
-                  "CyborgLegs",
-                  "",
+                  'cyborg',
+                  'CyborgLightBody',
+                  'CyborgLegs',
+                  '',
                   DROID_CYBORG,
-                  "CyborgChaingun"
+                  'CyborgChaingun'
                 );
             }
         });
@@ -57,79 +57,79 @@ function buildOrder(){
 
             // Build 1 Research Facility.
             if(checkStructure(
-                "A0ResearchFacility",
+                'A0ResearchFacility',
                 1
               )){
                 buildStructure(
                   checked_droid,
-                  "A0ResearchFacility"
+                  'A0ResearchFacility'
                 );
 
             // Build 1 Power Generator.
             }else if(checkStructure(
-                "A0PowerGenerator",
+                'A0PowerGenerator',
                 1
               )){
                 buildStructure(
                   checked_droid,
-                  "A0PowerGenerator"
+                  'A0PowerGenerator'
                 );
 
             // Build 4 Resource Extractors.
             }else if(checkStructure(
-                "A0ResourceExtractor",
+                'A0ResourceExtractor',
                 4
               )){
                 buildStructure(
                   checked_droid,
-                  "A0ResourceExtractor"
+                  'A0ResourceExtractor'
                 );
 
             // Build as many Research Facilities as possible.
             }else if(checkStructure(
-                "A0ResearchFacility",
+                'A0ResearchFacility',
                 limitResearchFacilities
               )){
                 buildStructure(
                   checked_droid,
-                  "A0ResearchFacility"
+                  'A0ResearchFacility'
                 );
 
             // Build 1 Command Center.
             }else if(checkStructure(
-                "A0CommandCentre",
+                'A0CommandCentre',
                 1
               )){
                 buildStructure(
                   checked_droid,
-                  "A0CommandCentre"
+                  'A0CommandCentre'
                 );
 
             // Build 1 Factory.
             }else if(checkStructure(
-                "A0LightFactory",
+                'A0LightFactory',
                 1
               )){
                 buildStructure(
                   checked_droid,
-                  "A0LightFactory"
+                  'A0LightFactory'
                 );
 
             // Build as many Cyborg Factories as possible.
             }else if(checkStructure(
-                "A0CyborgFactory",
+                'A0CyborgFactory',
                 limitCyborgFactories
               )){
                 buildStructure(
                   checked_droid,
-                  "A0CyborgFactory"
+                  'A0CyborgFactory'
                 );
 
             // Build Power Modules.
             }else if(powerModuleNeeded !== false){
                 buildStructure(
                   checked_droid,
-                  "A0PowMod1",
+                  'A0PowMod1',
                   powerModuleNeeded.x,
                   powerModuleNeeded.y
                 );
@@ -138,7 +138,7 @@ function buildOrder(){
             }else if(researchModuleNeeded !== false){
                 buildStructure(
                   checked_droid,
-                  "A0ResearchModule1",
+                  'A0ResearchModule1',
                   researchModuleNeeded.x,
                   researchModuleNeeded.y
                 );
@@ -149,7 +149,7 @@ function buildOrder(){
     // Give orders to idle Research Facilities.
     var researchFacilities = enumStruct(
       me,
-      "A0ResearchFacility",
+      'A0ResearchFacility',
       me
     );
     researchFacilities.some(function check_researchFacility_idle(checked_researchFacility){
@@ -167,7 +167,7 @@ function buildOrder(){
     if(droids.length < 2){
         var factories = enumStruct(
           me,
-          "A0LightFactory",
+          'A0LightFactory',
           me
         );
 
@@ -175,18 +175,18 @@ function buildOrder(){
           && structureIdle(factories[0])){
             buildDroid(
               factories[0],
-              "Drone",
-              "Body1REC",
-              "wheeled01",
-              "",
+              'Drone',
+              'Body1REC',
+              'wheeled01',
+              '',
               DROID_CONSTRUCT,
-              "Spade1Mk1"
+              'Spade1Mk1'
             );
         }
     }
 
     queue(
-      "buildOrder",
+      'buildOrder',
       0
     );
 }
@@ -220,12 +220,12 @@ function checkDroidIdle(droid){
 
 function checkNeedPowerModule(){
     if(isStructureAvailable(
-        "A0PowMod1",
+        'A0PowMod1',
         me
       )){
         var powerGenerators = enumStruct(
           me,
-          "A0PowerGenerator",
+          'A0PowerGenerator',
           me
         ).reverse();
         var generator = false;
@@ -246,12 +246,12 @@ function checkNeedPowerModule(){
 
 function checkNeedResearchModule(){
     if(isStructureAvailable(
-        "A0ResearchModule1",
+        'A0ResearchModule1',
         me
       )){
         var researchFacilities = enumStruct(
           me,
-          "A0ResearchFacility",
+          'A0ResearchFacility',
           me
         ).reverse();
         var facility = false;
@@ -319,17 +319,17 @@ function eventStartLevel(){
 function init(){
     // Get limitations.
     limitCyborgFactories = getStructureLimit(
-      "A0CyborgFactory",
+      'A0CyborgFactory',
       me
     );
     limitResearchFacilities = getStructureLimit(
-      "A0ResearchFacility",
+      'A0ResearchFacility',
       me
     );
 
     // Start build order loop.
     queue(
-      "buildOrder",
+      'buildOrder',
       0
     );
 }
@@ -338,36 +338,36 @@ var beginProduction = false;
 var limitCyborgFactories = 5;
 var limitResearchFacilities = 5;
 const researchOrder = [
-  "R-Sys-Engineering01",        // Engineering
-  "R-Vehicle-Engine01",         // Fuel Injection Engine
-  "R-Struc-Factory-Cyborg",     // Cyborg Factory
-  "R-Sys-Sensor-Turret01",      // Sensor Turret
-  "R-Wpn-MG1Mk1",               // Machinegun
-  "R-Sys-Sensor-Tower01",       // Sensor Tower
-  "R-Struc-PowerModuleMk1",     // Power Module
-  "R-Struc-CommandRelay",       // Command Relay Post
-  "R-Struc-Research-Module",    // Research Module
-  "R-Wpn-MG-Damage01",          // Hardened MG Bullets
-  "R-Struc-Research-Upgrade01", // Synaptic Link Data Analysis
-  "R-Wpn-MG-Damage02",          // APDSB MG Bullets
-  "R-Struc-Research-Upgrade02", // Synaptic Link Data Analysis Mk2
-  "R-Wpn-MG-Damage03",          // APDSB MG Bullets Mk2
-  "R-Struc-Research-Upgrade03", // Synaptic Link Data Analysis Mk3
-  "R-Wpn-MG-Damage04",          // APDSB MG Bullets Mk4
-  "R-Struc-Research-Upgrade04", // Dedicated Synaptic Link Data Analysis
-  "R-Struc-Power-Upgrade01",    // Gas Turbine Generator
-  "R-Struc-Research-Upgrade05", // Dedicated Synaptic Link Data Analysis Mk2
-  "R-Struc-Power-Upgrade01b",   // Gas Turbine Generator Mk2
-  "R-Struc-Research-Upgrade06", // Dedicated Synaptic Link Data Analysis Mk3
-  "R-Struc-Power-Upgrade01c",   // Gas Turbine Generator Mk3
-  "R-Struc-Research-Upgrade07", // Neural Synapse Research Brain
-  "R-Struc-Power-Upgrade02",    // Vapor Turbine Generator
-  "R-Struc-Research-Upgrade08", // Neural Synapse Research Brain Mk2
-  "R-Sys-Autorepair-General",   // Auto-Repair
-  "R-Struc-Power-Upgrade03",    // Vapor Turbine Generator Mk2
-  "R-Struc-Research-Upgrade09", // Neural Synapse Research Brain Mk3
-  "R-Struc-Power-Upgrade03a",   // Vapor Turbine Generator Mk3
-  "R-Wpn-MG-Damage08",          // Depleted Uranium MG Bullets
-  "R-Cyborg-Metals09",          // Cyborg Superdense Composite Alloys Mk3
-  "R-Cyborg-Armor-Heat09",      // Cyborg Superdense Thermal Armor Mk3
+  'R-Sys-Engineering01',        // Engineering
+  'R-Vehicle-Engine01',         // Fuel Injection Engine
+  'R-Struc-Factory-Cyborg',     // Cyborg Factory
+  'R-Sys-Sensor-Turret01',      // Sensor Turret
+  'R-Wpn-MG1Mk1',               // Machinegun
+  'R-Sys-Sensor-Tower01',       // Sensor Tower
+  'R-Struc-PowerModuleMk1',     // Power Module
+  'R-Struc-CommandRelay',       // Command Relay Post
+  'R-Struc-Research-Module',    // Research Module
+  'R-Wpn-MG-Damage01',          // Hardened MG Bullets
+  'R-Struc-Research-Upgrade01', // Synaptic Link Data Analysis
+  'R-Wpn-MG-Damage02',          // APDSB MG Bullets
+  'R-Struc-Research-Upgrade02', // Synaptic Link Data Analysis Mk2
+  'R-Wpn-MG-Damage03',          // APDSB MG Bullets Mk2
+  'R-Struc-Research-Upgrade03', // Synaptic Link Data Analysis Mk3
+  'R-Wpn-MG-Damage04',          // APDSB MG Bullets Mk4
+  'R-Struc-Research-Upgrade04', // Dedicated Synaptic Link Data Analysis
+  'R-Struc-Power-Upgrade01',    // Gas Turbine Generator
+  'R-Struc-Research-Upgrade05', // Dedicated Synaptic Link Data Analysis Mk2
+  'R-Struc-Power-Upgrade01b',   // Gas Turbine Generator Mk2
+  'R-Struc-Research-Upgrade06', // Dedicated Synaptic Link Data Analysis Mk3
+  'R-Struc-Power-Upgrade01c',   // Gas Turbine Generator Mk3
+  'R-Struc-Research-Upgrade07', // Neural Synapse Research Brain
+  'R-Struc-Power-Upgrade02',    // Vapor Turbine Generator
+  'R-Struc-Research-Upgrade08', // Neural Synapse Research Brain Mk2
+  'R-Sys-Autorepair-General',   // Auto-Repair
+  'R-Struc-Power-Upgrade03',    // Vapor Turbine Generator Mk2
+  'R-Struc-Research-Upgrade09', // Neural Synapse Research Brain Mk3
+  'R-Struc-Power-Upgrade03a',   // Vapor Turbine Generator Mk3
+  'R-Wpn-MG-Damage08',          // Depleted Uranium MG Bullets
+  'R-Cyborg-Metals09',          // Cyborg Superdense Composite Alloys Mk3
+  'R-Cyborg-Armor-Heat09',      // Cyborg Superdense Thermal Armor Mk3
 ];

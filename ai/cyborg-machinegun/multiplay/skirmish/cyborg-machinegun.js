@@ -3,35 +3,28 @@ function buildOrder(){
     var powerModuleNeeded = checkNeedPowerModule();
     var researchModuleNeeded = checkNeedResearchModule();
 
-    // Give orders to idle Cyborg Factories.
-    var cyborgFactories = enumStruct(
-      me,
-      "A0CyborgFactory",
-      me
-    );
-    cyborgFactories.some(function check_cyborgFactory(checked_cyborgFactory){
-        if(checked_cyborgFactory.status == BUILT
-          && structureIdle(checked_cyborgFactory)){
-            buildDroid(
-              checked_cyborgFactory,
-              "cyborg",
-              "CyborgLightBody",
-              "CyborgLegs",
-              "",
-              DROID_CYBORG,
-              "CyborgChaingun"
-            );
-        }
-    });
-
-    // Give orders to idle Cyborgs.
-    var cyborgs = enumDroid(
-      me,
-      DROID_CYBORG,
-      me
-    );
-    cyborgs.some(function check_cyborg_idle(checked_cyborg){
-    });
+    // If prodcution has begun, give orders to idle Cyborg Factories.
+    if(beginProduction){
+        var cyborgFactories = enumStruct(
+          me,
+          "A0CyborgFactory",
+          me
+        );
+        cyborgFactories.some(function check_cyborgFactory(checked_cyborgFactory){
+            if(checked_cyborgFactory.status == BUILT
+              && structureIdle(checked_cyborgFactory)){
+                buildDroid(
+                  checked_cyborgFactory,
+                  "cyborg",
+                  "CyborgLightBody",
+                  "CyborgLegs",
+                  "",
+                  DROID_CYBORG,
+                  "CyborgChaingun"
+                );
+            }
+        });
+    }
 
     // Give orders to idle construction droids.
     var droids = enumDroid(
@@ -110,6 +103,16 @@ function buildOrder(){
                 buildStructure(
                   checked_droid,
                   "A0CommandCentre"
+                );
+
+            // Build 1 Factory.
+            }else if(checkStructure(
+                "A0LightFactory",
+                1
+              )){
+                buildStructure(
+                  checked_droid,
+                  "A0LightFactory"
                 );
 
             // Build as many Cyborg Factories as possible.
@@ -278,10 +281,35 @@ function eventAttacked(victim, attacker){
     if(me !== victim.player){
         return;
     }
+
+    var cyborgs = enumDroid(me);
+
+    for(var cyborg in cyborgs){
+        if(cyborgs[cyborg].droidType !== DROID_CONSTRUCT){
+            orderDroidLoc(
+              cyborgs[cyborg],
+              DORDER_MOVE,
+              attacker.x,
+              attacker.y
+            );
+        }
+    }
+
+    beginProduction = true;
 }
 
 function eventGameLoaded(){
     init();
+}
+
+function eventResearched(research, player){
+    if(me !== player){
+        return;
+    }
+
+    if(research.name === 'R-Sys-Autorepair-General'){
+        beginProduction = true;
+    }
 }
 
 function eventStartLevel(){
@@ -306,6 +334,7 @@ function init(){
     );
 }
 
+var beginProduction = false;
 var limitCyborgFactories = 5;
 var limitResearchFacilities = 5;
 const researchOrder = [
@@ -338,4 +367,7 @@ const researchOrder = [
   "R-Struc-Power-Upgrade03",    // Vapor Turbine Generator Mk2
   "R-Struc-Research-Upgrade09", // Neural Synapse Research Brain Mk3
   "R-Struc-Power-Upgrade03a",   // Vapor Turbine Generator Mk3
+  "R-Wpn-MG-Damage08",          // Depleted Uranium MG Bullets
+  "R-Cyborg-Metals09",          // Cyborg Superdense Composite Alloys Mk3
+  "R-Cyborg-Armor-Heat09",      // Cyborg Superdense Thermal Armor Mk3
 ];

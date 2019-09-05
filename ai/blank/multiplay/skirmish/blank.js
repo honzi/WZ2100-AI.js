@@ -67,7 +67,7 @@ function eventPlayerLeft(player){
 function eventReinforcementsArrived(){
 }
 
-function eventResearched(research, structure){
+function eventResearched(research, structure, player){
 }
 
 function eventSelectionChange(selected){

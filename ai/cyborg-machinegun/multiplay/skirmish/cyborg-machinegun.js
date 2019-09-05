@@ -302,7 +302,7 @@ function eventGameLoaded(){
     init();
 }
 
-function eventResearched(research, player){
+function eventResearched(research, structure, player){
     if(me !== player){
         return;
     }

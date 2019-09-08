@@ -14,8 +14,8 @@ function buildOrder(){
             return;
         }
 
+        // Finish incomplete buildings first.
         var structures = enumStruct(me);
-
         for(var structure in structures){
             if(structures[structure].status !== BUILT){
                 orderDroidObj(
@@ -248,12 +248,6 @@ function checkStructure(structure, count){
       structure,
       me
     ) && countStruct(structure) < count;
-}
-
-function eventAttacked(victim, attacker){
-    if(me !== victim.player){
-        return;
-    }
 }
 
 function eventGameLoaded(){

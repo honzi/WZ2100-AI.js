@@ -40,8 +40,8 @@ function buildOrder(){
             return;
         }
 
+        // Finish incomplete buildings first.
         var structures = enumStruct(me);
-
         for(var structure in structures){
             if(structures[structure].status !== BUILT){
                 orderDroidObj(

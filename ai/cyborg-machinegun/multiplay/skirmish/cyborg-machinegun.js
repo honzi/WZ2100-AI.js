@@ -368,6 +368,24 @@ const researchOrder = [
   'R-Struc-Research-Upgrade09', // Neural Synapse Research Brain Mk3
   'R-Struc-Power-Upgrade03a',   // Vapor Turbine Generator Mk3
   'R-Wpn-MG-Damage08',          // Depleted Uranium MG Bullets
+  'R-Struc-Factory-Upgrade01',  // Automated Manufacturing
+  'R-Cyborg-Metals01',          // Cyborg Composite Alloys
+  'R-Struc-Factory-Upgrade04',  // Robotic Manufacturing
+  'R-Cyborg-Metals02',          // Cyborg Composite Alloys Mk2
+  'R-Struc-Factory-Upgrade07',  // Advanced Manufacturing
+  'R-Cyborg-Metals03',          // Cyborg Composite Alloys Mk3
+  'R-Struc-Factory-Upgrade09',  // Self-Replicating Manufacturing
+  'R-Cyborg-Metals04',          // Cyborg Dense Composite Alloys
+  'R-Cyborg-Armor-Heat01',      // Cyborg Thermal Armor
+  'R-Cyborg-Armor-Heat02',      // Cyborg Thermal Armor Mk2
+  'R-Cyborg-Metals05',          // Cyborg Dense Composite Alloys Mk2
+  'R-Cyborg-Armor-Heat03',      // Cyborg Thermal Armor Mk3
+  'R-Cyborg-Metals06',          // Cyborg Dense Composite Alloys Mk3
+  'R-Cyborg-Armor-Heat04',      // Cyborg High Intensity Thermal Armor
+  'R-Cyborg-Metals07',          // Cyborg Superdense Composite Alloys
+  'R-Cyborg-Armor-Heat05',      // Cyborg High Intensity Thermal Armor Mk2
+  'R-Cyborg-Metals08',          // Cyborg Superdense Composite Alloys Mk2
+  'R-Cyborg-Armor-Heat05',      // Cyborg High Intensity Thermal Armor Mk3
   'R-Cyborg-Metals09',          // Cyborg Superdense Composite Alloys Mk3
   'R-Cyborg-Armor-Heat09',      // Cyborg Superdense Thermal Armor Mk3
 ];

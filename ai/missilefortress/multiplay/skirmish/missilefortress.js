@@ -365,6 +365,13 @@ const researchOrder = [
   'R-Wpn-Missile-Damage03',      // Advanced Missile Warhead Mk3
   'R-Struc-Materials09',         // Advanced Base Structure Materials Mk3
   'R-Vehicle-Armor-Heat01',      // Thermal Armor
+  'R-Struc-Factory-Upgrade04',   // Robotic Manufacturing
+  'R-Vehicle-Metals04',          // Dense Composite Alloys
+  'R-Vehicle-Armor-Heat02',      // Thermal Armor Mk2
+  'R-Struc-Factory-Upgrade07',   // Advanced Manufacturing
+  'R-Vehicle-Metals05',          // Dense Composite Alloys Mk2
+  'R-Vehicle-Armor-Heat03',      // Thermal Armor Mk3
+  'R-Struc-Factory-Upgrade09',   // Self-Replicating Manufacturing
   'R-Vehicle-Metals09',          // Superdense Composite Alloys Mk3
   'R-Vehicle-Armor-Heat09',      // Vehicle Superdense Thermal Armor Mk3
 ];

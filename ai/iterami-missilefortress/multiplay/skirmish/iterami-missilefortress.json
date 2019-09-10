@@ -1,6 +1,6 @@
 {
   "AI": {
-    "js": "missilefortress.js",
+    "js": "iterami-missilefortress.js",
     "name": "iterami-missilefortress",
     "tip": "AI that attempts to spam Missile Fortresses."
   }

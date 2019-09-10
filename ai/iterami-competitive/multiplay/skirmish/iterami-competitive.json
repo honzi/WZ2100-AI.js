@@ -1,0 +1,7 @@
+{
+  "AI": {
+    "js": "iterami-competitive.js",
+    "name": "iterami-competitive",
+    "tip": "AI that attempts to be competitive in traditional combat."
+  }
+}

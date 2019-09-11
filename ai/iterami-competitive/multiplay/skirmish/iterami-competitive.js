@@ -264,4 +264,70 @@ function init(){
 
 var limitResearchFacilities = 5;
 const researchOrder = [
+  'R-Sys-Engineering01',         // Engineering
+  'R-Vehicle-Engine01',          // Fuel Injection Engine
+  'R-Sys-Sensor-Turret01',       // Sensor Turret
+  'R-Defense-HardcreteWall',     // Hardcrete Wall
+  'R-Defense-WallUpgrade01',     // Improved Hardcrete
+  'R-Sys-Sensor-Tower01',        // Sensor Tower
+  'R-Struc-PowerModuleMk1',      // Power Module
+  'R-Struc-CommandRelay',        // Command Relay Post
+  'R-Defense-WallUpgrade02',     // Improved Hardcrete Mk2
+  'R-Struc-Research-Module',     // Research Module
+  'R-Struc-Research-Upgrade01',  // Synaptic Link Data Analysis
+  'R-Defense-WallUpgrade03',     // Improved Hardcrete Mk3
+  'R-Struc-Research-Upgrade02',  // Synaptic Link Data Analysis Mk2
+  'R-Struc-Research-Upgrade03',  // Synaptic Link Data Analysis Mk3
+  'R-Struc-Research-Upgrade04',  // Dedicated Synaptic Link Data Analysis
+  'R-Struc-Power-Upgrade01',     // Gas Turbine Generator
+  'R-Struc-Research-Upgrade05',  // Dedicated Synaptic Link Data Analysis Mk2
+  'R-Sys-Engineering02',         // Improved Engineering
+  'R-Struc-Power-Upgrade01b',    // Gas Turbine Generator Mk2
+  'R-Struc-Research-Upgrade06',  // Dedicated Synaptic Link Data Analysis Mk3
+  'R-Defense-WallUpgrade04',     // Supercrete
+  'R-Struc-Power-Upgrade01c',    // Gas Turbine Generator Mk3
+  'R-Struc-Research-Upgrade07',  // Neural Synapse Research Brain
+  'R-Struc-Power-Upgrade02',     // Vapor Turbine Generator
+  'R-Struc-Research-Upgrade08',  // Neural Synapse Research Brain Mk2
+  'R-Struc-Power-Upgrade03',     // Vapor Turbine Generator Mk2
+  'R-Defense-WallUpgrade05',     // Supercrete Mk2
+  'R-Struc-Research-Upgrade09',  // Neural Synapse Research Brain Mk3
+  'R-Struc-Power-Upgrade03a',    // Vapor Turbine Generator Mk3
+  'R-Sys-Autorepair-General',    // Auto-Repair
+  'R-Defense-WallUpgrade06',     // Supercrete Mk3
+  'R-Sys-Engineering03',         // Advanced Engineering
+  'R-Defense-WallUpgrade07',     // Plascrete
+  'R-Defense-WallUpgrade08',     // Plascrete Mk2
+  'R-Defense-WallUpgrade09',     // Plascrete Mk3
+  'R-Defense-WallUpgrade10',     // Plasteel
+  'R-Sys-Sensor-Upgrade01',      // Sensor Upgrade
+  'R-Struc-Materials01',         // Reinforced Base Structure Materials
+  'R-Sys-Sensor-Upgrade02',      // Sensor Upgrade Mk2
+  'R-Struc-Materials02',         // Reinforced Base Structure Materials Mk2
+  'R-Struc-Factory-Module',      // Factory Module
+  'R-Vehicle-Metals01',          // Composite Alloys Mk1
+  'R-Struc-Materials03',         // Reinforced Base Structure Materials Mk3
+  'R-Sys-Sensor-Upgrade03',      // Sensor Upgrade Mk3
+  'R-Struc-Factory-Upgrade01',   // Automated Manufacturing
+  'R-Vehicle-Metals01',          // Composite Alloys
+  'R-Defense-WallUpgrade11',     // Plasteel Mk2
+  'R-Vehicle-Metals02',          // Composite Alloys Mk2
+  'R-Struc-Materials04',         // Hardened Base Structure Materials
+  'R-Struc-Materials05',         // Hardened Base Structure Materials Mk2
+  'R-Vehicle-Metals03',          // Composite Alloys Mk3
+  'R-Struc-Materials06',         // Hardened Base Structure Materials Mk3
+  'R-Defense-WallUpgrade12',     // Plasteel Mk3
+  'R-Struc-Materials07',         // Advanced Base Structure Materials
+  'R-Struc-Materials08',         // Advanced Base Structure Materials Mk2
+  'R-Struc-Materials09',         // Advanced Base Structure Materials Mk3
+  'R-Vehicle-Armor-Heat01',      // Thermal Armor
+  'R-Struc-Factory-Upgrade04',   // Robotic Manufacturing
+  'R-Vehicle-Metals04',          // Dense Composite Alloys
+  'R-Vehicle-Armor-Heat02',      // Thermal Armor Mk2
+  'R-Struc-Factory-Upgrade07',   // Advanced Manufacturing
+  'R-Vehicle-Metals05',          // Dense Composite Alloys Mk2
+  'R-Vehicle-Armor-Heat03',      // Thermal Armor Mk3
+  'R-Struc-Factory-Upgrade09',   // Self-Replicating Manufacturing
+  'R-Vehicle-Metals09',          // Superdense Composite Alloys Mk3
+  'R-Vehicle-Armor-Heat09',      // Vehicle Superdense Thermal Armor Mk3
 ];

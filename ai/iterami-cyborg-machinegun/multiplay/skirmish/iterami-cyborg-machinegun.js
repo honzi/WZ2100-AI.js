@@ -385,4 +385,5 @@ const researchOrder = [
   'R-Cyborg-Armor-Heat05',      // Cyborg High Intensity Thermal Armor Mk3
   'R-Cyborg-Metals09',          // Cyborg Superdense Composite Alloys Mk3
   'R-Cyborg-Armor-Heat09',      // Cyborg Superdense Thermal Armor Mk3
+  'R-Sys-Resistance-Circuits',  // Nexus Resistance Circuits
 ];

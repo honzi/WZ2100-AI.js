@@ -330,4 +330,5 @@ const researchOrder = [
   'R-Struc-Factory-Upgrade09',   // Self-Replicating Manufacturing
   'R-Vehicle-Metals09',          // Superdense Composite Alloys Mk3
   'R-Vehicle-Armor-Heat09',      // Vehicle Superdense Thermal Armor Mk3
+  'R-Sys-Resistance-Circuits',   // Nexus Resistance Circuits
 ];

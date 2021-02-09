@@ -399,6 +399,7 @@ const researchOrder = [
   'R-Cyborg-Metals06',          // Cyborg Dense Composite Alloys Mk3
   'R-Cyborg-Armor-Heat04',      // Cyborg High Intensity Thermal Armor
   'R-Cyborg-Metals07',          // Cyborg Superdense Composite Alloys
+  'R-Vehicle-Engine02',         // Fuel Injection Engine Mk2
   'R-Cyborg-Armor-Heat05',      // Cyborg High Intensity Thermal Armor Mk2
   'R-Cyborg-Metals08',          // Cyborg Superdense Composite Alloys Mk2
   'R-Cyborg-Armor-Heat05',      // Cyborg High Intensity Thermal Armor Mk3

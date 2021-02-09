@@ -352,6 +352,12 @@ const researchOrder = [
   'R-Vehicle-Metals05',          // Dense Composite Alloys Mk2
   'R-Vehicle-Armor-Heat03',      // Thermal Armor Mk3
   'R-Struc-Factory-Upgrade09',   // Self-Replicating Manufacturing
+  'R-Vehicle-Metals07',          // Superdense Composite Alloys
+  'R-Vehicle-Engine02',          // Fuel Injection Engine Mk2
+  'R-Vehicle-Armor-Heat07',      // Vehicle Superdense Thermal Armor
+  'R-Vehicle-Metals08',          // Superdense Composite Alloys Mk2
+  'R-Vehicle-Armor-Heat08',      // Vehicle Superdense Thermal Armor Mk2
+  'R-Wpn-MG1Mk1',                // Machinegun
   'R-Vehicle-Metals09',          // Superdense Composite Alloys Mk3
   'R-Vehicle-Armor-Heat09',      // Vehicle Superdense Thermal Armor Mk3
   'R-Sys-Resistance-Circuits',   // Nexus Resistance Circuits

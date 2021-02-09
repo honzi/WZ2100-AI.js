@@ -3,7 +3,7 @@ function buildOrder(){
     var powerModuleNeeded = checkNeedPowerModule();
     var researchModuleNeeded = checkNeedResearchModule();
 
-    // If prodcution has begun, give orders to idle Cyborg Factories.
+    // If production has begun, give orders to idle Cyborg Factories.
     if(beginProduction){
         var cyborgFactories = enumStruct(
           me,

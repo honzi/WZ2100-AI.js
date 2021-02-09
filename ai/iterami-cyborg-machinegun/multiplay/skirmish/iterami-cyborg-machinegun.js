@@ -49,7 +49,14 @@ function buildOrder(){
                   DORDER_HELPBUILD,
                   structures[structure]
                 );
+
+                return;
             }
+        }
+
+        // Only project manager gets to decide where to build.
+        if(checked_droid !== droids[0]){
+            return;
         }
 
         // Build 1 Research Facility.

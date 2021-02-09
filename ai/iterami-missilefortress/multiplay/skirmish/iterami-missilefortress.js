@@ -28,6 +28,11 @@ function buildOrder(){
             }
         }
 
+        // Only project manager gets to decide where to build.
+        if(checked_droid !== droids[0]){
+            return;
+        }
+
         // Build 1 Research Facility.
         if(checkStructure(
             'A0ResearchFacility',

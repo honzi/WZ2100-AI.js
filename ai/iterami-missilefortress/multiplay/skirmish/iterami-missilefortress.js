@@ -263,6 +263,7 @@ function eventResearched(research, structure, player){
 
     if(research.name === researchOrder[researchOrder.length - 1]){
         maxConstructionDroids = 5;
+        maxResearchFacilities = 1;
         researchDone = true;
     }
 }

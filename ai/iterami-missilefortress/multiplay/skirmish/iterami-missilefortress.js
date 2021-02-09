@@ -58,7 +58,7 @@ function buildOrder(){
               'A0ResourceExtractor'
             );
 
-        // Build as many Research Facilities as possible.
+        // Build Research Facilities.
         }else if(checkStructure(
             'A0ResearchFacility',
             maxResearchFacilities
@@ -106,7 +106,7 @@ function buildOrder(){
               researchModuleNeeded.y
             );
 
-        // Build many Missile Fortresses.
+        // Build Missile Fortresses.
         }else if(isStructureAvailable(
             'X-Super-Missile',
             me

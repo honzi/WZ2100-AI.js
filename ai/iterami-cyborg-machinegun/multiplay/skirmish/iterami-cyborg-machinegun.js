@@ -82,7 +82,7 @@ function buildOrder(){
               'A0ResourceExtractor'
             );
 
-        // Build as many Research Facilities as possible.
+        // Build Research Facilities.
         }else if(checkStructure(
             'A0ResearchFacility',
             maxResearchFacilities
@@ -112,7 +112,7 @@ function buildOrder(){
               'A0LightFactory'
             );
 
-        // Build as many Cyborg Factories as possible.
+        // Build Cyborg Factories.
         }else if(checkStructure(
             'A0CyborgFactory',
             maxCyborgFactories

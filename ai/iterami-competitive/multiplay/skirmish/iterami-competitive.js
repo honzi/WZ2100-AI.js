@@ -58,7 +58,7 @@ function buildOrder(){
               'A0ResourceExtractor'
             );
 
-        // Build as many Research Facilities as possible.
+        // Build Research Facilities.
         }else if(checkStructure(
             'A0ResearchFacility',
             maxResearchFacilities

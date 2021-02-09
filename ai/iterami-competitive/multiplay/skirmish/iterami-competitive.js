@@ -173,7 +173,8 @@ function buildStructure(droid, structure, x, y){
           DORDER_BUILD,
           structure,
           location.x,
-          location.y
+          location.y,
+          Math.floor(Math.random() * 4) * 90
         );
     }
 }

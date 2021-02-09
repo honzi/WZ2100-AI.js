@@ -118,23 +118,25 @@ function buildOrder(){
         }
     });
 
-    // Give orders to idle Research Facilities.
-    var researchFacilities = enumStruct(
-      me,
-      'A0ResearchFacility',
-      me
-    );
-    researchFacilities.some(function check_researchFacility_idle(checked_researchFacility){
-        if(checked_researchFacility.status !== BUILT
-          || !structureIdle(checked_researchFacility)){
-            return;
-        }
-
-        pursueResearch(
-          checked_researchFacility,
-          researchOrder
+    // Give orders to idle Research Facilities if needed.
+    if(!researchDone){
+        var researchFacilities = enumStruct(
+          me,
+          'A0ResearchFacility',
+          me
         );
-    });
+        researchFacilities.some(function check_researchFacility_idle(checked_researchFacility){
+            if(checked_researchFacility.status !== BUILT
+              || !structureIdle(checked_researchFacility)){
+                return;
+            }
+
+            pursueResearch(
+              checked_researchFacility,
+              researchOrder
+            );
+        });
+    }
 
     // Make sure we have enough construction droids.
     if(droids.length < maxConstructionDroids){
@@ -254,6 +256,17 @@ function eventGameLoaded(){
     init();
 }
 
+function eventResearched(research, structure, player){
+    if(me !== player){
+        return;
+    }
+
+    if(research.name === researchOrder[researchOrder.length - 1]){
+        maxConstructionDroids = 5;
+        researchDone = true;
+    }
+}
+
 function eventStartLevel(){
     init();
 }
@@ -274,6 +287,7 @@ function init(){
 
 var maxConstructionDroids = 2;
 var maxResearchFacilities = 5;
+var researchDone = false;
 const researchOrder = [
   'R-Sys-Engineering01',         // Engineering
   'R-Vehicle-Engine01',          // Fuel Injection Engine

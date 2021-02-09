@@ -4,7 +4,7 @@ function buildOrder(){
     var researchModuleNeeded = checkNeedResearchModule();
 
     // If production has begun, give orders to idle Cyborg Factories.
-    if(beginProduction){
+    if(productionBegin){
         var cyborgFactories = enumStruct(
           me,
           'A0CyborgFactory',
@@ -142,23 +142,25 @@ function buildOrder(){
         }
     });
 
-    // Give orders to idle Research Facilities.
-    var researchFacilities = enumStruct(
-      me,
-      'A0ResearchFacility',
-      me
-    );
-    researchFacilities.some(function check_researchFacility_idle(checked_researchFacility){
-        if(checked_researchFacility.status !== BUILT
-          || !structureIdle(checked_researchFacility)){
-            return;
-        }
-
-        pursueResearch(
-          checked_researchFacility,
-          researchOrder
+    // Give orders to idle Research Facilities if needed.
+    if(!researchDone){
+        var researchFacilities = enumStruct(
+          me,
+          'A0ResearchFacility',
+          me
         );
-    });
+        researchFacilities.some(function check_researchFacility_idle(checked_researchFacility){
+            if(checked_researchFacility.status !== BUILT
+              || !structureIdle(checked_researchFacility)){
+                return;
+            }
+
+            pursueResearch(
+              checked_researchFacility,
+              researchOrder
+            );
+        });
+    }
 
     // Make sure we have enough construction droids.
     if(droids.length < maxConstructionDroids){
@@ -292,7 +294,7 @@ function eventAttacked(victim, attacker){
         }
     }
 
-    beginProduction = true;
+    productionBegin = true;
 }
 
 function eventGameLoaded(){
@@ -304,8 +306,12 @@ function eventResearched(research, structure, player){
         return;
     }
 
-    if(research.name === 'R-Sys-Autorepair-General'){
-        beginProduction = true;
+    if(research.name === researchOrder[researchOrder.length - 1]){
+        maxConstructionDroids = 5;
+        researchDone = true;
+
+    }else if(research.name === 'R-Sys-Autorepair-General'){
+        productionBegin = true;
     }
 }
 
@@ -331,10 +337,11 @@ function init(){
     );
 }
 
-var beginProduction = false;
 var maxConstructionDroids = 2;
 var maxCyborgFactories = 5;
 var maxResearchFacilities = 5;
+var productionBegin = false;
+var researchDone = false;
 const researchOrder = [
   'R-Sys-Engineering01',        // Engineering
   'R-Vehicle-Engine01',         // Fuel Injection Engine

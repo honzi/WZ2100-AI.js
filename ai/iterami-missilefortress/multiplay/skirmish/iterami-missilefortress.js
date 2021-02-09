@@ -61,7 +61,7 @@ function buildOrder(){
         // Build as many Research Facilities as possible.
         }else if(checkStructure(
             'A0ResearchFacility',
-            limitResearchFacilities
+            maxResearchFacilities
           )){
             buildStructure(
               checked_droid,
@@ -136,8 +136,8 @@ function buildOrder(){
         );
     });
 
-    // Make sure we have at least 2 construction droids.
-    if(droids.length < 2){
+    // Make sure we have enough construction droids.
+    if(droids.length < maxConstructionDroids){
         var factories = enumStruct(
           me,
           'A0LightFactory',
@@ -260,7 +260,7 @@ function eventStartLevel(){
 
 function init(){
     // Get limitations.
-    limitResearchFacilities = getStructureLimit(
+    maxResearchFacilities = getStructureLimit(
       'A0ResearchFacility',
       me
     );
@@ -272,7 +272,8 @@ function init(){
     );
 }
 
-var limitResearchFacilities = 5;
+var maxConstructionDroids = 2;
+var maxResearchFacilities = 5;
 const researchOrder = [
   'R-Sys-Engineering01',         // Engineering
   'R-Vehicle-Engine01',          // Fuel Injection Engine

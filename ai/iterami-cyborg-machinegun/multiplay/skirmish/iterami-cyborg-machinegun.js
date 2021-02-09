@@ -92,16 +92,6 @@ function buildOrder(){
               'A0ResearchFacility'
             );
 
-        // Build 1 Command Center.
-        }else if(checkStructure(
-            'A0CommandCentre',
-            1
-          )){
-            buildStructure(
-              checked_droid,
-              'A0CommandCentre'
-            );
-
         // Build Factories.
         }else if(checkStructure(
             'A0LightFactory',
@@ -120,6 +110,16 @@ function buildOrder(){
             buildStructure(
               checked_droid,
               'A0CyborgFactory'
+            );
+
+        // Build 1 Command Center.
+        }else if(checkStructure(
+            'A0CommandCentre',
+            1
+          )){
+            buildStructure(
+              checked_droid,
+              'A0CommandCentre'
             );
 
         // Build Power Modules.

@@ -48,10 +48,10 @@ function buildOrder(){
               'A0PowerGenerator'
             );
 
-        // Build 4 Resource Extractors.
+        // Build Resource Extractors.
         }else if(checkStructure(
             'A0ResourceExtractor',
-            4
+            maxResourceExtractors
           )){
             buildStructure(
               checked_droid,
@@ -78,10 +78,10 @@ function buildOrder(){
               'A0CommandCentre'
             );
 
-        // Build 1 Factory.
+        // Build Factories.
         }else if(checkStructure(
             'A0LightFactory',
-            1
+            maxFactories
           )){
             buildStructure(
               checked_droid,
@@ -276,7 +276,9 @@ function init(){
 }
 
 var maxConstructionDroids = 2;
+var maxFactories = 2;
 var maxResearchFacilities = 5;
+var maxResourceExtractors = 4;
 var researchDone = false;
 const researchOrder = [
   'R-Sys-Engineering01',         // Engineering

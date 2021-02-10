@@ -11,14 +11,14 @@ function buildOrder(){
           me
         );
 
-        cyborgFactories.some(function check_cyborgFactory(checked_cyborgFactory){
-            if(checked_cyborgFactory.status !== BUILT
-              || !structureIdle(checked_cyborgFactory)){
+        cyborgFactories.some(function check_cyborgFactory(cyborgFactory){
+            if(cyborgFactory.status !== BUILT
+              || !structureIdle(cyborgFactory)){
                 return;
             }
 
             buildDroid(
-              checked_cyborgFactory,
+              cyborgFactory,
               'cyborg',
               'CyborgLightBody',
               'CyborgLegs',
@@ -35,17 +35,40 @@ function buildOrder(){
       DROID_CONSTRUCT,
       me
     );
-    droids.some(function check_droid_idle(checked_droid){
-        if(!checkDroidIdle(checked_droid)){
+    droids.some(function check_droid(droid){
+        const isProjectManager = droid === droids[0];
+        var structures = enumStruct(me);
+
+        // Chores for regular construction droids.
+        if(!isProjectManager){
+            for(var structure in structures){
+                // Repair damaged structures.
+                if(structures[structure].health < 100
+                  && structures[structure].status === BUILT){
+                    if(droid.order !== DORDER_REPAIR){
+                        orderDroidObj(
+                          droid,
+                          DORDER_REPAIR,
+                          structures[structure]
+                        );
+                    }
+
+                    return;
+                }
+            }
+        }
+
+        if(droid.order === DORDER_BUILD
+          || droid.order === DORDER_HELPBUILD){
             return;
         }
 
-        // Finish incomplete buildings first.
-        var structures = enumStruct(me);
+        // Chores for all construction droids.
         for(var structure in structures){
+            // Finish incomplete structures.
             if(structures[structure].status !== BUILT){
                 orderDroidObj(
-                  checked_droid,
+                  droid,
                   DORDER_HELPBUILD,
                   structures[structure]
                 );
@@ -54,8 +77,8 @@ function buildOrder(){
             }
         }
 
-        // Only project manager gets to decide where to build.
-        if(checked_droid !== droids[0]){
+        // Only project managers get to decide where to build.
+        if(!isProjectManager){
             return;
         }
 
@@ -65,7 +88,7 @@ function buildOrder(){
             1
           )){
             buildStructure(
-              checked_droid,
+              droid,
               'A0ResearchFacility'
             );
 
@@ -75,7 +98,7 @@ function buildOrder(){
             1
           )){
             buildStructure(
-              checked_droid,
+              droid,
               'A0PowerGenerator'
             );
 
@@ -85,7 +108,7 @@ function buildOrder(){
             maxResourceExtractors
           )){
             buildStructure(
-              checked_droid,
+              droid,
               'A0ResourceExtractor'
             );
 
@@ -95,7 +118,7 @@ function buildOrder(){
             maxResearchFacilities
           )){
             buildStructure(
-              checked_droid,
+              droid,
               'A0ResearchFacility'
             );
 
@@ -105,7 +128,7 @@ function buildOrder(){
             maxFactories
           )){
             buildStructure(
-              checked_droid,
+              droid,
               'A0LightFactory'
             );
 
@@ -115,7 +138,7 @@ function buildOrder(){
             maxCyborgFactories
           )){
             buildStructure(
-              checked_droid,
+              droid,
               'A0CyborgFactory'
             );
 
@@ -125,14 +148,14 @@ function buildOrder(){
             1
           )){
             buildStructure(
-              checked_droid,
+              droid,
               'A0CommandCentre'
             );
 
         // Build Power Modules.
         }else if(powerModuleNeeded !== false){
             buildStructure(
-              checked_droid,
+              droid,
               'A0PowMod1',
               powerModuleNeeded.x,
               powerModuleNeeded.y
@@ -141,7 +164,7 @@ function buildOrder(){
         // Build Research Modules.
         }else if(researchModuleNeeded !== false){
             buildStructure(
-              checked_droid,
+              droid,
               'A0ResearchModule1',
               researchModuleNeeded.x,
               researchModuleNeeded.y
@@ -156,14 +179,14 @@ function buildOrder(){
           'A0ResearchFacility',
           me
         );
-        researchFacilities.some(function check_researchFacility_idle(checked_researchFacility){
-            if(checked_researchFacility.status !== BUILT
-              || !structureIdle(checked_researchFacility)){
+        researchFacilities.some(function check_researchFacility(researchFacility){
+            if(researchFacility.status !== BUILT
+              || !structureIdle(researchFacility)){
                 return;
             }
 
             pursueResearch(
-              checked_researchFacility,
+              researchFacility,
               researchOrder
             );
         });
@@ -220,11 +243,6 @@ function buildStructure(droid, structure, x, y){
     }
 }
 
-function checkDroidIdle(droid){
-    return !(droid.order === DORDER_BUILD
-      || droid.order === DORDER_HELPBUILD);
-}
-
 function checkNeedPowerModule(){
     if(!isStructureAvailable(
         'A0PowMod1',
@@ -240,12 +258,12 @@ function checkNeedPowerModule(){
       me
     ).reverse();
 
-    powerGenerators.some(function check_powerGenerator_needmodule(checked_powerGenerator){
-        if(checked_powerGenerator.modules !== 0){
+    powerGenerators.some(function check_powerGenerator(powerGenerator){
+        if(powerGenerator.modules !== 0){
             return;
         }
 
-        generator = checked_powerGenerator;
+        generator = powerGenerator;
     });
 
     return generator;
@@ -266,12 +284,12 @@ function checkNeedResearchModule(){
       me
     ).reverse();
 
-    researchFacilities.some(function check_researchFacility_needmodule(checked_researchFacility){
-        if(checked_researchFacility.modules !== 0){
+    researchFacilities.some(function check_researchFacility(researchFacility){
+        if(researchFacility.modules !== 0){
             return;
         }
 
-        facility = checked_researchFacility;
+        facility = researchFacility;
     });
 
     return facility;

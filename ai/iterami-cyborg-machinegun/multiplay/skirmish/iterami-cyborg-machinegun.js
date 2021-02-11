@@ -1,7 +1,28 @@
+function attack(enemy){
+    var cyborgs = enumDroid(me);
+
+    for(var cyborg in cyborgs){
+        if(cyborgs[cyborg].droidType !== DROID_CONSTRUCT){
+            orderDroidLoc(
+              cyborgs[cyborg],
+              DORDER_SCOUT,
+              enemy.x,
+              enemy.y
+            );
+        }
+    }
+}
+
 function buildOrder(){
-    // Check module need.
+    var droids = enumDroid(
+      me,
+      DROID_CONSTRUCT,
+      me
+    );
+    const droidCount = droids.length;
     var powerModuleNeeded = checkNeedPowerModule();
     var researchModuleNeeded = checkNeedResearchModule();
+    var structures = enumStruct(me);
 
     // If production has begun, give orders to idle Cyborg Factories.
     if(productionBegin){
@@ -10,7 +31,6 @@ function buildOrder(){
           'A0CyborgFactory',
           me
         );
-
         cyborgFactories.some(function check_cyborgFactory(cyborgFactory){
             if(cyborgFactory.status !== BUILT
               || !structureIdle(cyborgFactory)){
@@ -29,18 +49,14 @@ function buildOrder(){
         });
     }
 
-    // Give orders to idle construction droids.
-    var droids = enumDroid(
-      me,
-      DROID_CONSTRUCT,
-      me
-    );
+    // Give orders to construction droids.
     droids.some(function check_droid(droid){
-        const isProjectManager = droid === droids[0];
-        var structures = enumStruct(me);
+        const isProjectManager = droid === droids[droidCount - 1];
 
         // Chores for regular construction droids.
-        if(!isProjectManager){
+        // Project manager must do these if nobody else can.
+        if(!isProjectManager
+          || droidCount <= 1){
             for(var structure in structures){
                 // Repair damaged structures.
                 if(structures[structure].health < 100
@@ -193,17 +209,20 @@ function buildOrder(){
     }
 
     // Make sure we have enough construction droids.
-    if(droids.length < maxConstructionDroids){
+    if(droidCount < maxConstructionDroids){
         var factories = enumStruct(
           me,
           'A0LightFactory',
           me
         );
+        factories.some(function check_factory(factory){
+            if(factory.status !== BUILT
+              || !structureIdle(factory)){
+                return;
+            }
 
-        if(factories.length > 0
-          && structureIdle(factories[0])){
             buildDroid(
-              factories[0],
+              factory,
               'Drone',
               'Body1REC',
               'wheeled01',
@@ -211,12 +230,29 @@ function buildOrder(){
               DROID_CONSTRUCT,
               'Spade1Mk1'
             );
-        }
+        });
     }
+
+    // Cyborgs attack visible enemy droids.
+    playerData.forEach(function(player, id){
+        if(allianceExistsBetween(me, id)){
+            return;
+        }
+
+        var enemies = enumDroid(
+          id,
+          DROID_ANY,
+          me
+        );
+        if(enemies.length > 0){
+            attack(enemies[0]);
+            attacking = true;
+        }
+    });
 
     queue(
       'buildOrder',
-      0
+      queueTimer
     );
 }
 
@@ -257,7 +293,6 @@ function checkNeedPowerModule(){
       'A0PowerGenerator',
       me
     ).reverse();
-
     powerGenerators.some(function check_powerGenerator(powerGenerator){
         if(powerGenerator.modules !== 0){
             return;
@@ -283,7 +318,6 @@ function checkNeedResearchModule(){
       'A0ResearchFacility',
       me
     ).reverse();
-
     researchFacilities.some(function check_researchFacility(researchFacility){
         if(researchFacility.modules !== 0){
             return;
@@ -307,19 +341,7 @@ function eventAttacked(victim, attacker){
         return;
     }
 
-    var cyborgs = enumDroid(me);
-
-    for(var cyborg in cyborgs){
-        if(cyborgs[cyborg].droidType !== DROID_CONSTRUCT){
-            orderDroidLoc(
-              cyborgs[cyborg],
-              DORDER_MOVE,
-              attacker.x,
-              attacker.y
-            );
-        }
-    }
-
+    attack(attacker);
     productionBegin = true;
 }
 
@@ -370,7 +392,9 @@ var maxFactories = 2;
 var maxResearchFacilities = 5;
 var maxResourceExtractors = 4;
 var productionBegin = false;
+var queueTimer = 1000;
 var researchDone = false;
+
 const researchOrder = [
   'R-Sys-Engineering01',        // Engineering
   'R-Vehicle-Engine01',         // Fuel Injection Engine
@@ -387,7 +411,7 @@ const researchOrder = [
   'R-Struc-Research-Upgrade02', // Synaptic Link Data Analysis Mk2
   'R-Wpn-MG-Damage03',          // APDSB MG Bullets Mk2
   'R-Struc-Research-Upgrade03', // Synaptic Link Data Analysis Mk3
-  'R-Wpn-MG-Damage04',          // APDSB MG Bullets Mk4
+  'R-Wpn-MG-Damage04',          // APDSB MG Bullets Mk3
   'R-Struc-Research-Upgrade04', // Dedicated Synaptic Link Data Analysis
   'R-Struc-Power-Upgrade01',    // Gas Turbine Generator
   'R-Struc-Research-Upgrade05', // Dedicated Synaptic Link Data Analysis Mk2
@@ -401,11 +425,14 @@ const researchOrder = [
   'R-Struc-Power-Upgrade03',    // Vapor Turbine Generator Mk2
   'R-Struc-Research-Upgrade09', // Neural Synapse Research Brain Mk3
   'R-Struc-Power-Upgrade03a',   // Vapor Turbine Generator Mk3
-  'R-Wpn-MG-Damage08',          // Depleted Uranium MG Bullets
+  'R-Wpn-MG-Damage05',          // Depleted Uranium MG Bullets
   'R-Struc-Factory-Upgrade01',  // Automated Manufacturing
+  'R-Wpn-MG-Damage06',          // Depleted Uranium MG Bullets
   'R-Cyborg-Metals01',          // Cyborg Composite Alloys
   'R-Struc-Factory-Upgrade04',  // Robotic Manufacturing
+  'R-Wpn-MG-Damage07',          // Depleted Uranium MG Bullets
   'R-Cyborg-Metals02',          // Cyborg Composite Alloys Mk2
+  'R-Wpn-MG-Damage08',          // Depleted Uranium MG Bullets
   'R-Struc-Factory-Upgrade07',  // Advanced Manufacturing
   'R-Cyborg-Metals03',          // Cyborg Composite Alloys Mk3
   'R-Struc-Factory-Upgrade09',  // Self-Replicating Manufacturing

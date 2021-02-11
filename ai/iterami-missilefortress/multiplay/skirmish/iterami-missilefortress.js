@@ -1,20 +1,22 @@
 function buildOrder(){
-    // Check module need.
-    var powerModuleNeeded = checkNeedPowerModule();
-    var researchModuleNeeded = checkNeedResearchModule();
-
-    // Give orders to idle construction droids.
     var droids = enumDroid(
       me,
       DROID_CONSTRUCT,
       me
     );
+    const droidCount = droids.length;
+    var powerModuleNeeded = checkNeedPowerModule();
+    var researchModuleNeeded = checkNeedResearchModule();
+    var structures = enumStruct(me);
+
+    // Give orders to construction droids.
     droids.some(function check_droid(droid){
-        const isProjectManager = droid === droids[0];
-        var structures = enumStruct(me);
+        const isProjectManager = droid === droids[droidCount - 1];
 
         // Chores for regular construction droids.
-        if(!isProjectManager){
+        // Project manager must do these if nobody else can.
+        if(!isProjectManager
+          || droidCount <= 1){
             for(var structure in structures){
                 // Repair damaged structures.
                 if(structures[structure].health < 100
@@ -167,17 +169,20 @@ function buildOrder(){
     }
 
     // Make sure we have enough construction droids.
-    if(droids.length < maxConstructionDroids){
+    if(droidCount < maxConstructionDroids){
         var factories = enumStruct(
           me,
           'A0LightFactory',
           me
         );
+        factories.some(function check_factory(factory){
+            if(factory.status !== BUILT
+              || !structureIdle(factory)){
+                return;
+            }
 
-        if(factories.length > 0
-          && structureIdle(factories[0])){
             buildDroid(
-              factories[0],
+              factory,
               'Drone',
               'Body1REC',
               'wheeled01',
@@ -185,12 +190,12 @@ function buildOrder(){
               DROID_CONSTRUCT,
               'Spade1Mk1'
             );
-        }
+        });
     }
 
     queue(
       'buildOrder',
-      0
+      queueTimer
     );
 }
 
@@ -231,7 +236,6 @@ function checkNeedPowerModule(){
       'A0PowerGenerator',
       me
     ).reverse();
-
     powerGenerators.some(function check_powerGenerator(powerGenerator){
         if(powerGenerator.modules !== 0){
             return;
@@ -257,7 +261,6 @@ function checkNeedResearchModule(){
       'A0ResearchFacility',
       me
     ).reverse();
-
     researchFacilities.some(function check_researchFacility(researchFacility){
         if(researchFacility.modules !== 0){
             return;
@@ -314,7 +317,9 @@ var maxConstructionDroids = 2;
 var maxFactories = 2;
 var maxResearchFacilities = 5;
 var maxResourceExtractors = 4;
+var queueTimer = 1000;
 var researchDone = false;
+
 const researchOrder = [
   'R-Sys-Engineering01',         // Engineering
   'R-Vehicle-Engine01',          // Fuel Injection Engine

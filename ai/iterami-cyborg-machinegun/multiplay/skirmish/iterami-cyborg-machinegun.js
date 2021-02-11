@@ -246,7 +246,6 @@ function buildOrder(){
         );
         if(enemies.length > 0){
             attack(enemies[0]);
-            attacking = true;
         }
     });
 

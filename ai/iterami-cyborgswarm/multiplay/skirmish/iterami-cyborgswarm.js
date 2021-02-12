@@ -470,10 +470,10 @@ const researchOrder = [
   'R-Vehicle-Engine02',         // Fuel Injection Engine Mk2
   'R-Cyborg-Metals04',          // Cyborg Dense Composite Alloys
   'R-Cyborg-Armor-Heat01',      // Cyborg Thermal Armor
-  'R-Struc-Factory-Upgrade09',  // Self-Replicating Manufacturing
   'R-Vehicle-Engine03',         // Fuel Injection Engine Mk3
   'R-Cyborg-Metals05',          // Cyborg Dense Composite Alloys Mk2
   'R-Cyborg-Armor-Heat02',      // Cyborg Thermal Armor Mk2
+  'R-Struc-Factory-Upgrade09',  // Self-Replicating Manufacturing
   'R-Cyborg-Metals06',          // Cyborg Dense Composite Alloys Mk3
   'R-Cyborg-Armor-Heat03',      // Cyborg Thermal Armor Mk3
   'R-Cyborg-Metals07',          // Cyborg Superdense Composite Alloys

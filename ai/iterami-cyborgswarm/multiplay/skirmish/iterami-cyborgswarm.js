@@ -6,9 +6,16 @@ function attack(enemy){
             return;
         }
 
-        if(enemy.isVTOL
-          && !cyborgs[cyborg].canHitAir){
-            return;
+        if(enemy.type === DROID){
+            if(enemy.isVTOL
+              && !cyborgs[cyborg].canHitAir){
+                return;
+            }
+
+            if(!enemy.isVTOL
+              && !cyborgs[cyborg].canHitGround){
+                return;
+            }
         }
 
         orderDroidLoc(

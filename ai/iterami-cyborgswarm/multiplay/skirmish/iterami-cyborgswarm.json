@@ -1,0 +1,7 @@
+{
+  "AI": {
+    "js": "iterami-cyborgswarm.js",
+    "name": "iterami-cyborgswarm",
+    "tip": "AI that attempts to swarm enemies with Cyborgs."
+  }
+}

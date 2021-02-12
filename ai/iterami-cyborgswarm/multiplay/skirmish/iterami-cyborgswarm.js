@@ -363,8 +363,14 @@ function eventResearched(research, structure, player){
         productionBegin = true;
 
     // Add weapons to use when they are researched.
+    }else if(research.name === 'R-Wpn-Cannon1Mk1'){
+        cyborgWeapons.push('CyborgCannon');
+
     }else if(research.name === 'R-Wpn-MG1Mk1'){
         cyborgWeapons.push('CyborgChaingun');
+
+    }else if(research.name === 'R-Wpn-Flamer01Mk1'){
+        cyborgWeapons.push('CyborgFlamer01');
     }
 }
 
@@ -406,6 +412,8 @@ const researchOrder = [
   'R-Struc-Factory-Cyborg',     // Cyborg Factory
   'R-Sys-Sensor-Turret01',      // Sensor Turret
   'R-Wpn-MG1Mk1',               // Machinegun
+  'R-Wpn-Flamer01Mk1',          // Flamer
+  'R-Wpn-Cannon1Mk1',           // Light Cannon
   'R-Sys-Sensor-Tower01',       // Sensor Tower
   'R-Struc-PowerModuleMk1',     // Power Module
   'R-Struc-CommandRelay',       // Command Relay Post
@@ -432,28 +440,34 @@ const researchOrder = [
   'R-Struc-Power-Upgrade03a',   // Vapor Turbine Generator Mk3
   'R-Wpn-MG-Damage05',          // Depleted Uranium MG Bullets
   'R-Struc-Factory-Upgrade01',  // Automated Manufacturing
+  'R-Wpn-Cannon-Damage01',      // HEAT Cannon Shells
+  'R-Wpn-Flamer-Damage01',      // High Temperature Flamer Gel
   'R-Wpn-MG-Damage06',          // Depleted Uranium MG Bullets
   'R-Cyborg-Metals01',          // Cyborg Composite Alloys
+  'R-Wpn-Cannon-Damage02',      // HEAT Cannon Shells Mk2
+  'R-Wpn-Flamer-Damage02',      // High Temperature Flamer Gel Mk2
   'R-Struc-Factory-Upgrade04',  // Robotic Manufacturing
   'R-Wpn-MG-Damage07',          // Depleted Uranium MG Bullets
   'R-Cyborg-Metals02',          // Cyborg Composite Alloys Mk2
-  'R-Wpn-MG-Damage08',          // Depleted Uranium MG Bullets
+  'R-Wpn-Cannon-Damage03',      // HEAT Cannon Shells Mk3
+  'R-Wpn-Flamer-Damage03',      // High Temperature Flamer Gel Mk3
   'R-Struc-Factory-Upgrade07',  // Advanced Manufacturing
+  'R-Wpn-MG-Damage08',          // Depleted Uranium MG Bullets
   'R-Cyborg-Metals03',          // Cyborg Composite Alloys Mk3
   'R-Struc-Factory-Upgrade09',  // Self-Replicating Manufacturing
   'R-Cyborg-Metals04',          // Cyborg Dense Composite Alloys
   'R-Cyborg-Armor-Heat01',      // Cyborg Thermal Armor
-  'R-Cyborg-Armor-Heat02',      // Cyborg Thermal Armor Mk2
   'R-Cyborg-Metals05',          // Cyborg Dense Composite Alloys Mk2
-  'R-Cyborg-Armor-Heat03',      // Cyborg Thermal Armor Mk3
+  'R-Cyborg-Armor-Heat02',      // Cyborg Thermal Armor Mk2
   'R-Cyborg-Metals06',          // Cyborg Dense Composite Alloys Mk3
-  'R-Cyborg-Armor-Heat04',      // Cyborg High Intensity Thermal Armor
-  'R-Cyborg-Metals07',          // Cyborg Superdense Composite Alloys
+  'R-Cyborg-Armor-Heat03',      // Cyborg Thermal Armor Mk3
   'R-Vehicle-Engine02',         // Fuel Injection Engine Mk2
-  'R-Cyborg-Armor-Heat05',      // Cyborg High Intensity Thermal Armor Mk2
+  'R-Cyborg-Metals07',          // Cyborg Superdense Composite Alloys
+  'R-Cyborg-Armor-Heat04',      // Cyborg High Intensity Thermal Armor
   'R-Cyborg-Metals08',          // Cyborg Superdense Composite Alloys Mk2
-  'R-Cyborg-Armor-Heat05',      // Cyborg High Intensity Thermal Armor Mk3
+  'R-Cyborg-Armor-Heat05',      // Cyborg High Intensity Thermal Armor Mk2
   'R-Cyborg-Metals09',          // Cyborg Superdense Composite Alloys Mk3
+  'R-Cyborg-Armor-Heat05',      // Cyborg High Intensity Thermal Armor Mk3
   'R-Cyborg-Armor-Heat09',      // Cyborg Superdense Thermal Armor Mk3
   'R-Sys-Resistance-Circuits',  // Nexus Resistance Circuits
 ];

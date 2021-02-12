@@ -343,44 +343,44 @@ const researchOrder = [
   'R-Sys-Autorepair-General',    // Auto-Repair
   'R-Defense-WallUpgrade06',     // Supercrete Mk3
   'R-Sys-Engineering03',         // Advanced Engineering
-  'R-Defense-WallUpgrade07',     // Plascrete
-  'R-Defense-WallUpgrade08',     // Plascrete Mk2
-  'R-Defense-WallUpgrade09',     // Plascrete Mk3
-  'R-Defense-WallUpgrade10',     // Plasteel
-  'R-Sys-Sensor-Upgrade01',      // Sensor Upgrade
   'R-Struc-Materials01',         // Reinforced Base Structure Materials
-  'R-Sys-Sensor-Upgrade02',      // Sensor Upgrade Mk2
+  'R-Defense-WallUpgrade07',     // Plascrete
+  'R-Sys-Sensor-Upgrade01',      // Sensor Upgrade
+  'R-Defense-WallUpgrade08',     // Plascrete Mk2
   'R-Struc-Materials02',         // Reinforced Base Structure Materials Mk2
+  'R-Defense-WallUpgrade09',     // Plascrete Mk3
+  'R-Sys-Sensor-Upgrade02',      // Sensor Upgrade Mk2
   'R-Struc-Factory-Module',      // Factory Module
   'R-Vehicle-Metals01',          // Composite Alloys Mk1
+  'R-Defense-WallUpgrade10',     // Plasteel
   'R-Struc-Materials03',         // Reinforced Base Structure Materials Mk3
   'R-Sys-Sensor-Upgrade03',      // Sensor Upgrade Mk3
   'R-Struc-Factory-Upgrade01',   // Automated Manufacturing
   'R-Vehicle-Metals01',          // Composite Alloys
+  'R-Struc-Materials04',         // Hardened Base Structure Materials
   'R-Defense-WallUpgrade11',     // Plasteel Mk2
   'R-Vehicle-Metals02',          // Composite Alloys Mk2
-  'R-Struc-Materials04',         // Hardened Base Structure Materials
   'R-Struc-Materials05',         // Hardened Base Structure Materials Mk2
   'R-Vehicle-Metals03',          // Composite Alloys Mk3
-  'R-Struc-Materials06',         // Hardened Base Structure Materials Mk3
   'R-Defense-WallUpgrade12',     // Plasteel Mk3
-  'R-Struc-Materials07',         // Advanced Base Structure Materials
-  'R-Struc-Materials08',         // Advanced Base Structure Materials Mk2
-  'R-Struc-Materials09',         // Advanced Base Structure Materials Mk3
+  'R-Struc-Materials06',         // Hardened Base Structure Materials Mk3
   'R-Vehicle-Armor-Heat01',      // Thermal Armor
   'R-Struc-Factory-Upgrade04',   // Robotic Manufacturing
+  'R-Struc-Materials07',         // Advanced Base Structure Materials
   'R-Vehicle-Metals04',          // Dense Composite Alloys
+  'R-Struc-Materials08',         // Advanced Base Structure Materials Mk2
   'R-Vehicle-Armor-Heat02',      // Thermal Armor Mk2
+  'R-Struc-Materials09',         // Advanced Base Structure Materials Mk3
   'R-Struc-Factory-Upgrade07',   // Advanced Manufacturing
   'R-Vehicle-Metals05',          // Dense Composite Alloys Mk2
   'R-Vehicle-Armor-Heat03',      // Thermal Armor Mk3
+  'R-Wpn-MG1Mk1',                // Machinegun
   'R-Struc-Factory-Upgrade09',   // Self-Replicating Manufacturing
   'R-Vehicle-Metals07',          // Superdense Composite Alloys
   'R-Vehicle-Engine02',          // Fuel Injection Engine Mk2
   'R-Vehicle-Armor-Heat07',      // Vehicle Superdense Thermal Armor
   'R-Vehicle-Metals08',          // Superdense Composite Alloys Mk2
   'R-Vehicle-Armor-Heat08',      // Vehicle Superdense Thermal Armor Mk2
-  'R-Wpn-MG1Mk1',                // Machinegun
   'R-Vehicle-Metals09',          // Superdense Composite Alloys Mk3
   'R-Vehicle-Armor-Heat09',      // Vehicle Superdense Thermal Armor Mk3
   'R-Sys-Resistance-Circuits',   // Nexus Resistance Circuits

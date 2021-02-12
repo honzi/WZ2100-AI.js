@@ -1,7 +1,0 @@
-{
-  "AI": {
-    "js": "iterami-cyborg-machinegun.js",
-    "name": "iterami-cyborg-machinegun",
-    "tip": "AI that attempts to spam Cyborgs carrying Machine Guns."
-  }
-}

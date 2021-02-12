@@ -390,19 +390,19 @@ const researchOrder = [
   'R-Vehicle-Metals01',          // Composite Alloys
   'R-Defense-WallUpgrade11',     // Plasteel Mk2
   'R-Wpn-Missile-Damage01',      // Advanced Missile Warhead Mk2
-  'R-Vehicle-Metals02',          // Composite Alloys Mk2
   'R-Struc-Materials04',         // Hardened Base Structure Materials
+  'R-Vehicle-Metals02',          // Composite Alloys Mk2
   'R-Struc-Materials05',         // Hardened Base Structure Materials Mk2
   'R-Vehicle-Metals03',          // Composite Alloys Mk3
   'R-Struc-Materials06',         // Hardened Base Structure Materials Mk3
   'R-Wpn-Missile-Accuracy02',    // Search & Destroy Missiles
   'R-Defense-WallUpgrade12',     // Plasteel Mk3
   'R-Struc-Materials07',         // Advanced Base Structure Materials
-  'R-Struc-Materials08',         // Advanced Base Structure Materials Mk2
   'R-Wpn-Missile-Damage03',      // Advanced Missile Warhead Mk3
-  'R-Struc-Materials09',         // Advanced Base Structure Materials Mk3
   'R-Vehicle-Armor-Heat01',      // Thermal Armor
+  'R-Struc-Materials08',         // Advanced Base Structure Materials Mk2
   'R-Struc-Factory-Upgrade04',   // Robotic Manufacturing
+  'R-Struc-Materials09',         // Advanced Base Structure Materials Mk3
   'R-Vehicle-Metals04',          // Dense Composite Alloys
   'R-Vehicle-Armor-Heat02',      // Thermal Armor Mk2
   'R-Struc-Factory-Upgrade07',   // Advanced Manufacturing

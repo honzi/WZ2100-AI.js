@@ -3,18 +3,17 @@ function attack(enemy){
 
     for(var cyborg in cyborgs){
         if(cyborgs[cyborg].droidType === DROID_CONSTRUCT){
-            return;
+            continue;
         }
 
         if(enemy.type === DROID){
-            if(enemy.isVTOL
-              && !cyborgs[cyborg].canHitAir){
-                return;
-            }
+            if(enemy.isVTOL){
+                if(!cyborgs[cyborg].canHitAir){
+                    continue;
+                }
 
-            if(!enemy.isVTOL
-              && !cyborgs[cyborg].canHitGround){
-                return;
+            }else if(!cyborgs[cyborg].canHitGround){
+                continue;
             }
         }
 
@@ -323,7 +322,7 @@ function checkNeedResearchModule(){
         'A0ResearchModule1',
         me
       )){
-        return false;
+         false;
     }
 
     var facility = false;
@@ -452,30 +451,31 @@ const researchOrder = [
   'R-Struc-Power-Upgrade03',    // Vapor Turbine Generator Mk2
   'R-Struc-Research-Upgrade09', // Neural Synapse Research Brain Mk3
   'R-Struc-Power-Upgrade03a',   // Vapor Turbine Generator Mk3
-  'R-Wpn-MG-Damage05',          // Depleted Uranium MG Bullets
+  'R-Wpn-MG-Damage05',          // Tungsten-Tipped MG Bullets
   'R-Struc-Factory-Upgrade01',  // Automated Manufacturing
   'R-Wpn-Cannon-Damage01',      // HEAT Cannon Shells
   'R-Wpn-Flamer-Damage01',      // High Temperature Flamer Gel
-  'R-Wpn-MG-Damage06',          // Depleted Uranium MG Bullets
   'R-Cyborg-Metals01',          // Cyborg Composite Alloys
   'R-Wpn-Cannon-Damage02',      // HEAT Cannon Shells Mk2
   'R-Wpn-Flamer-Damage02',      // High Temperature Flamer Gel Mk2
   'R-Struc-Factory-Upgrade04',  // Robotic Manufacturing
-  'R-Wpn-MG-Damage07',          // Depleted Uranium MG Bullets
+  'R-Wpn-MG-Damage06',          // Tungsten-Tipped MG Bullets Mk2
   'R-Cyborg-Metals02',          // Cyborg Composite Alloys Mk2
   'R-Wpn-Cannon-Damage03',      // HEAT Cannon Shells Mk3
   'R-Wpn-Flamer-Damage03',      // High Temperature Flamer Gel Mk3
+  'R-Wpn-MG-Damage07',          // Tungsten-Tipped MG Bullets Mk3
   'R-Struc-Factory-Upgrade07',  // Advanced Manufacturing
-  'R-Wpn-MG-Damage08',          // Depleted Uranium MG Bullets
   'R-Cyborg-Metals03',          // Cyborg Composite Alloys Mk3
-  'R-Struc-Factory-Upgrade09',  // Self-Replicating Manufacturing
+  'R-Wpn-MG-Damage08',          // Depleted Uranium MG Bullets
+  'R-Vehicle-Engine02',         // Fuel Injection Engine Mk2
   'R-Cyborg-Metals04',          // Cyborg Dense Composite Alloys
   'R-Cyborg-Armor-Heat01',      // Cyborg Thermal Armor
+  'R-Struc-Factory-Upgrade09',  // Self-Replicating Manufacturing
+  'R-Vehicle-Engine03',         // Fuel Injection Engine Mk3
   'R-Cyborg-Metals05',          // Cyborg Dense Composite Alloys Mk2
   'R-Cyborg-Armor-Heat02',      // Cyborg Thermal Armor Mk2
   'R-Cyborg-Metals06',          // Cyborg Dense Composite Alloys Mk3
   'R-Cyborg-Armor-Heat03',      // Cyborg Thermal Armor Mk3
-  'R-Vehicle-Engine02',         // Fuel Injection Engine Mk2
   'R-Cyborg-Metals07',          // Cyborg Superdense Composite Alloys
   'R-Cyborg-Armor-Heat04',      // Cyborg High Intensity Thermal Armor
   'R-Cyborg-Metals08',          // Cyborg Superdense Composite Alloys Mk2

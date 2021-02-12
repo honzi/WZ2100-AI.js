@@ -2,14 +2,21 @@ function attack(enemy){
     var cyborgs = enumDroid(me);
 
     for(var cyborg in cyborgs){
-        if(cyborgs[cyborg].droidType !== DROID_CONSTRUCT){
-            orderDroidLoc(
-              cyborgs[cyborg],
-              DORDER_SCOUT,
-              enemy.x,
-              enemy.y
-            );
+        if(cyborgs[cyborg].droidType === DROID_CONSTRUCT){
+            return;
         }
+
+        if(enemy.isVTOL
+          && !cyborgs[cyborg].canHitAir){
+            return;
+        }
+
+        orderDroidLoc(
+          cyborgs[cyborg],
+          DORDER_SCOUT,
+          enemy.x,
+          enemy.y
+        );
     }
 }
 

@@ -33,7 +33,8 @@ function buildOrder(){
         );
         cyborgFactories.some(function check_cyborgFactory(cyborgFactory){
             if(cyborgFactory.status !== BUILT
-              || !structureIdle(cyborgFactory)){
+              || !structureIdle(cyborgFactory)
+              || cyborgWeapons.length === 0){
                 return;
             }
 
@@ -44,7 +45,7 @@ function buildOrder(){
               'CyborgLegs',
               '',
               DROID_CYBORG,
-              'CyborgChaingun'
+              cyborgWeapons[Math.floor(Math.random() * cyborgWeapons.length)]
             );
         });
     }
@@ -360,6 +361,10 @@ function eventResearched(research, structure, player){
 
     }else if(research.name === 'R-Sys-Autorepair-General'){
         productionBegin = true;
+
+    // Add weapons to use when they are researched.
+    }else if(research.name === 'R-Wpn-MG1Mk1'){
+        cyborgWeapons.push('CyborgChaingun');
     }
 }
 
@@ -385,6 +390,7 @@ function init(){
     );
 }
 
+var cyborgWeapons = [];
 var maxConstructionDroids = 2;
 var maxCyborgFactories = 5;
 var maxFactories = 2;

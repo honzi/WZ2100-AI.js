@@ -259,7 +259,7 @@ function buildOrder(){
           me
         );
         if(enemies.length > 0){
-            attack(enemies[0]);
+            attack(enemies[enemies.length - 1]);
         }
     });
 
@@ -463,8 +463,8 @@ const researchOrder = [
   'R-Cyborg-Metals02',          // Cyborg Composite Alloys Mk2
   'R-Wpn-Cannon-Damage03',      // HEAT Cannon Shells Mk3
   'R-Wpn-Flamer-Damage03',      // High Temperature Flamer Gel Mk3
-  'R-Wpn-MG-Damage07',          // Tungsten-Tipped MG Bullets Mk3
   'R-Struc-Factory-Upgrade07',  // Advanced Manufacturing
+  'R-Wpn-MG-Damage07',          // Tungsten-Tipped MG Bullets Mk3
   'R-Cyborg-Metals03',          // Cyborg Composite Alloys Mk3
   'R-Wpn-MG-Damage08',          // Depleted Uranium MG Bullets
   'R-Vehicle-Engine02',         // Fuel Injection Engine Mk2

@@ -163,7 +163,9 @@ function buildOrder(){
 
             pursueResearch(
               researchFacility,
-              researchOrder
+              researchRandom
+                ? randomResearch()
+                : researchOrder
             );
         });
     }
@@ -291,10 +293,9 @@ function eventResearched(research, structure, player){
         return;
     }
 
+    // Modify strategy when research order is done.
     if(research.name === researchOrder[researchOrder.length - 1]){
-        maxConstructionDroids = 5;
-        maxResearchFacilities = 1;
-        researchDone = true;
+        researchRandom = true;
     }
 }
 
@@ -336,12 +337,27 @@ function randomLocation(droid){
     );
 }
 
+function randomResearch(){
+    const research = enumResearch();
+
+    // Modify strategy when all research is done.
+    if(research.length === 0){
+        maxConstructionDroids = 5;
+        maxResearchFacilities = 1;
+        researchDone = true;
+        return;
+    }
+
+    return [research[Math.floor(Math.random() * research.length)].name];
+}
+
 var maxConstructionDroids = 2;
 var maxFactories = 2;
 var maxResearchFacilities = 5;
 var maxResourceExtractors = 4;
 var queueTimer = 1000;
 var researchDone = false;
+var researchRandom = false;
 
 const researchOrder = [
   'R-Sys-Engineering01',         // Engineering
@@ -398,47 +414,4 @@ const researchOrder = [
   'R-Wpn-Missile-ROF03',         // Advanced Missile Allocation System Mk3
   'R-Defense-WallUpgrade10',     // Plasteel
   'R-Defense-Super-Missile',     // Missile Fortress
-  'R-Wpn-Missile-Damage01',      // Advanced Missile Warhead
-  'R-Sys-Sensor-Upgrade01',      // Sensor Upgrade
-  'R-Struc-Materials01',         // Reinforced Base Structure Materials
-  'R-Struc-Factory-Cyborg',      // Cyborg Factory
-  'R-Sys-Sensor-Upgrade02',      // Sensor Upgrade Mk2
-  'R-Struc-Materials02',         // Reinforced Base Structure Materials Mk2
-  'R-Struc-Factory-Module',      // Factory Module
-  'R-Vehicle-Metals01',          // Composite Alloys Mk1
-  'R-Struc-Materials03',         // Reinforced Base Structure Materials Mk3
-  'R-Sys-Sensor-Upgrade03',      // Sensor Upgrade Mk3
-  'R-Wpn-Missile-Accuracy01',    // Target Prediction Missiles
-  'R-Struc-Factory-Upgrade01',   // Automated Manufacturing
-  'R-Vehicle-Metals01',          // Composite Alloys
-  'R-Defense-WallUpgrade11',     // Plasteel Mk2
-  'R-Wpn-Missile-Damage01',      // Advanced Missile Warhead Mk2
-  'R-Struc-Materials04',         // Hardened Base Structure Materials
-  'R-Vehicle-Metals02',          // Composite Alloys Mk2
-  'R-Struc-Materials05',         // Hardened Base Structure Materials Mk2
-  'R-Vehicle-Metals03',          // Composite Alloys Mk3
-  'R-Struc-Materials06',         // Hardened Base Structure Materials Mk3
-  'R-Wpn-Missile-Accuracy02',    // Search & Destroy Missiles
-  'R-Defense-WallUpgrade12',     // Plasteel Mk3
-  'R-Struc-Materials07',         // Advanced Base Structure Materials
-  'R-Wpn-Missile-Damage03',      // Advanced Missile Warhead Mk3
-  'R-Vehicle-Armor-Heat01',      // Thermal Armor
-  'R-Struc-Materials08',         // Advanced Base Structure Materials Mk2
-  'R-Struc-Factory-Upgrade04',   // Robotic Manufacturing
-  'R-Struc-Materials09',         // Advanced Base Structure Materials Mk3
-  'R-Vehicle-Metals04',          // Dense Composite Alloys
-  'R-Vehicle-Armor-Heat02',      // Thermal Armor Mk2
-  'R-Struc-Factory-Upgrade07',   // Advanced Manufacturing
-  'R-Vehicle-Metals05',          // Dense Composite Alloys Mk2
-  'R-Vehicle-Armor-Heat03',      // Thermal Armor Mk3
-  'R-Struc-Factory-Upgrade09',   // Self-Replicating Manufacturing
-  'R-Vehicle-Metals07',          // Superdense Composite Alloys
-  'R-Vehicle-Engine02',          // Fuel Injection Engine Mk2
-  'R-Vehicle-Armor-Heat07',      // Vehicle Superdense Thermal Armor
-  'R-Vehicle-Metals08',          // Superdense Composite Alloys Mk2
-  'R-Vehicle-Armor-Heat08',      // Vehicle Superdense Thermal Armor Mk2
-  'R-Wpn-MG1Mk1',                // Machinegun
-  'R-Vehicle-Metals09',          // Superdense Composite Alloys Mk3
-  'R-Vehicle-Armor-Heat09',      // Vehicle Superdense Thermal Armor Mk3
-  'R-Sys-Resistance-Circuits',   // Nexus Resistance Circuits
 ];

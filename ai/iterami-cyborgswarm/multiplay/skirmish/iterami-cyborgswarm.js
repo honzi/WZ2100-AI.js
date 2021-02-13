@@ -217,7 +217,9 @@ function buildOrder(){
 
             pursueResearch(
               researchFacility,
-              researchOrder
+              researchRandom
+                ? randomResearch()
+                : researchOrder
             );
         });
     }
@@ -379,13 +381,10 @@ function eventResearched(research, structure, player){
       'R-Wpn-Rocket01-LtAT': 'CyborgRocket',
     };
 
+    // Modify strategy when research order is done.
     if(research.name === researchOrder[researchOrder.length - 1]){
-        maxConstructionDroids = 5;
-        maxResearchFacilities = 1;
-        researchDone = true;
-
-    }else if(research.name === 'R-Sys-Autorepair-General'){
         productionBegin = true;
+        researchRandom = true;
 
     // Add weapons to use when they are researched.
     }else if(cyborgWeaponResearch[research.name]){
@@ -454,6 +453,20 @@ function randomLocation(){
     );
 }
 
+function randomResearch(){
+    const research = enumResearch();
+
+    // Modify strategy when all research is done.
+    if(research.length === 0){
+        maxConstructionDroids = 5;
+        maxResearchFacilities = 1;
+        researchDone = true;
+        return;
+    }
+
+    return [research[Math.floor(Math.random() * research.length)].name];
+}
+
 var cyborgWeapons = [];
 var maxConstructionDroids = 2;
 var maxCyborgFactories = 5;
@@ -464,6 +477,7 @@ var productionBegin = false;
 var queueTimer = 1000;
 var randomLocationTimer = 600000; // 10 minutes
 var researchDone = false;
+var researchRandom = false;
 
 const researchOrder = [
   'R-Sys-Engineering01',        // Engineering
@@ -471,19 +485,13 @@ const researchOrder = [
   'R-Struc-Factory-Cyborg',     // Cyborg Factory
   'R-Sys-Sensor-Turret01',      // Sensor Turret
   'R-Wpn-MG1Mk1',               // Machinegun
-  'R-Wpn-Flamer01Mk1',          // Flamer
-  'R-Wpn-Cannon1Mk1',           // Light Cannon
   'R-Sys-Sensor-Tower01',       // Sensor Tower
   'R-Struc-PowerModuleMk1',     // Power Module
   'R-Struc-CommandRelay',       // Command Relay Post
   'R-Struc-Research-Module',    // Research Module
-  'R-Wpn-MG-Damage01',          // Hardened MG Bullets
   'R-Struc-Research-Upgrade01', // Synaptic Link Data Analysis
-  'R-Wpn-MG-Damage02',          // APDSB MG Bullets
   'R-Struc-Research-Upgrade02', // Synaptic Link Data Analysis Mk2
-  'R-Wpn-MG-Damage03',          // APDSB MG Bullets Mk2
   'R-Struc-Research-Upgrade03', // Synaptic Link Data Analysis Mk3
-  'R-Wpn-MG-Damage04',          // APDSB MG Bullets Mk3
   'R-Struc-Research-Upgrade04', // Dedicated Synaptic Link Data Analysis
   'R-Struc-Power-Upgrade01',    // Gas Turbine Generator
   'R-Struc-Research-Upgrade05', // Dedicated Synaptic Link Data Analysis Mk2
@@ -493,99 +501,8 @@ const researchOrder = [
   'R-Struc-Research-Upgrade07', // Neural Synapse Research Brain
   'R-Struc-Power-Upgrade02',    // Vapor Turbine Generator
   'R-Struc-Research-Upgrade08', // Neural Synapse Research Brain Mk2
-  'R-Sys-Autorepair-General',   // Auto-Repair
   'R-Struc-Power-Upgrade03',    // Vapor Turbine Generator Mk2
   'R-Struc-Research-Upgrade09', // Neural Synapse Research Brain Mk3
   'R-Struc-Power-Upgrade03a',   // Vapor Turbine Generator Mk3
-  'R-Wpn-MG-Damage05',          // Tungsten-Tipped MG Bullets
-  'R-Struc-Factory-Upgrade01',  // Automated Manufacturing
-  'R-Wpn-Cannon-Damage01',      // HEAT Cannon Shells
-  'R-Wpn-Flamer-Damage01',      // High Temperature Flamer Gel
-  'R-Cyborg-Metals01',          // Cyborg Composite Alloys
-  'R-Wpn-Cannon-Damage02',      // HEAT Cannon Shells Mk2
-  'R-Wpn-Flamer-Damage02',      // High Temperature Flamer Gel Mk2
-  'R-Struc-Factory-Upgrade04',  // Robotic Manufacturing
-  'R-Wpn-Mortar01Lt',           // Mortar
-  'R-Wpn-Rocket05-MiniPod',     // Mini-Rocket Pod
-  'R-Wpn-MG-Damage06',          // Tungsten-Tipped MG Bullets Mk2
-  'R-Cyborg-Metals02',          // Cyborg Composite Alloys Mk2
-  'R-Wpn-Cannon-Damage03',      // HEAT Cannon Shells Mk3
-  'R-Wpn-Rocket-Damage01',      // HE Rockets
-  'R-Wpn-Flamer-Damage03',      // High Temperature Flamer Gel Mk3
-  'R-Struc-Factory-Upgrade07',  // Advanced Manufacturing
-  'R-Wpn-Cannon-Accuracy01',    // Cannon Laser Rangefinder
-  'R-Wpn-Mortar-Damage01',      // HE Mortar Shells
-  'R-Wpn-MG-Damage07',          // Tungsten-Tipped MG Bullets Mk3
-  'R-Wpn-Rocket-Damage02',      // HE Rockets Mk2
-  'R-Cyborg-Metals03',          // Cyborg Composite Alloys Mk3
-  'R-Wpn-Flamer-ROF01',         // Flamer Autoloader
-  'R-Wpn-Cannon-Damage04',      // APFSDS Cannon Rounds
-  'R-Wpn-Flamer-Damage04',      // Superhot Flamer Gel
-  'R-Wpn-Mortar-Damage02',      // HE Mortar Shells Mk2
-  'R-Wpn-Rocket-Damage03',      // HE Rockets Mk3
-  'R-Wpn-MG-ROF01',             // Chaingun Upgrade
-  'R-Wpn-MG-Damage08',          // Depleted Uranium MG Bullets
-  'R-Vehicle-Engine02',         // Fuel Injection Engine Mk2
-  'R-Wpn-Flamer-ROF02',         // Flamer Autoloader Mk2
-  'R-Wpn-Rocket01-LtAT',        // Lancer AT Rocket
-  'R-Wpn-Mortar-Damage03',      // HE Mortar Shells Mk3
-  'R-Wpn-Flamer-Damage05',      // Superhot Flamer Gel Mk2
-  'R-Wpn-Cannon-Damage05',      // APFSDS Cannon Rounds Mk2
-  'R-Cyborg-Metals04',          // Cyborg Dense Composite Alloys
-  'R-Wpn-Rocket-Damage04',      // HEAT Rocket Warhead
-  'R-Cyborg-Armor-Heat01',      // Cyborg Thermal Armor
-  'R-Wpn-Mortar-ROF01',         // Mortar Autoloader
-  'R-Wpn-Cannon-Accuracy02',    // Cannon Laser Designator
-  'R-Vehicle-Engine03',         // Fuel Injection Engine Mk3
-  'R-Wpn-Flamer-ROF03',         // Flamer Autoloader Mk3
-  'R-Wpn-Mortar-Damage04',      // HEAP Mortar Shells
-  'R-Wpn-Rocket-Damage05',      // HEAT Rocket Warhead Mk2
-  'R-Wpn-Rocket-ROF01',         // Rocket Autoloader
-  'R-Wpn-Cannon-Damage06',      // APFSDS Cannon Rounds Mk3
-  'R-Wpn-Flamer-Damage06',      // Superhot Flamer Gel Mk3
-  'R-Wpn-Mortar-Acc01',         // Mortar Targeting Computer
-  'R-Wpn-MG-ROF02',             // Rapid Fire Chaingun
-  'R-Wpn-Mortar-ROF02',         // Mortar Autoloader Mk2
-  'R-Wpn-Rocket-ROF02',         // Rocket Autoloader Mk2
-  'R-Wpn-Rocket-Accuracy01',    // Stabilized Rockets
-  'R-Cyborg-Metals05',          // Cyborg Dense Composite Alloys Mk2
-  'R-Cyborg-Armor-Heat02',      // Cyborg Thermal Armor Mk2
-  'R-Wpn-Rocket-Damage06',      // HEAT Rocket Warhead Mk3
-  'R-Wpn-Mortar-Damage05',      // HEAP Mortar Shells Mk2
-  'R-Wpn-Cannon-Damage07',      // HVAPFSDS Cannon Rounds
-  'R-Wpn-Mortar-Acc02',         // Thermal Imaging Mortar Shells
-  'R-Wpn-Rocket-ROF03',         // Rocket Autoloader Mk3
-  'R-Wpn-Rocket-Accuracy02',    // Improved Rocket Wire Guidance
-  'R-Wpn-Cannon-ROF01',         // Cannon Autoloader
-  'R-Struc-Factory-Upgrade09',  // Self-Replicating Manufacturing
-  'R-Cyborg-Metals06',          // Cyborg Dense Composite Alloys Mk3
-  'R-Wpn-Mortar-ROF03',         // Mortar Autoloader Mk3
-  'R-Wpn-Rocket-Damage07',      // HESH Rocket Warhead
-  'R-Cyborg-Armor-Heat03',      // Cyborg Thermal Armor Mk3
-  'R-Wpn-Mortar-Damage06',      // HEAP Mortar Shells Mk3
-  'R-Wpn-Cannon-Damage08',      // HVAPFSDS Cannon Rounds Mk2
-  'R-Wpn-Cannon-ROF02',         // Cannon Autoloader Mk 2
-  'R-Wpn-Mortar-Acc03',         // Target Acquisition Mortar Shells
-  'R-Wpn-MG-ROF03',             // Hyper Fire Chaingun Upgrade
-  'R-Cyborg-Metals07',          // Cyborg Superdense Composite Alloys
-  'R-Wpn-Rocket-Damage08',      // HESH Rocket Warhead Mk2
-  'R-Cyborg-Armor-Heat04',      // Cyborg High Intensity Thermal Armor
-  'R-Wpn-MG4',                  // Assault Gun
-  'R-Wpn-Cannon-Damage09',      // HVAPFSDS Cannon Rounds Mk3
-  'R-Wpn-Cannon-ROF03',         // Cannon Autoloader Mk3
-  'R-Cyborg-Metals08',          // Cyborg Superdense Composite Alloys Mk2
-  'R-Cyborg-Armor-Heat05',      // Cyborg High Intensity Thermal Armor Mk2
-  'R-Wpn-Mortar-ROF04',         // Mortar Fast Loader
-  'R-Wpn-Rocket-Damage09',      // HESH Rocket Warhead Mk3
-  'R-Wpn-Cannon-ROF04',         // Cannon Rapid Loader
-  'R-Wpn-RailGun01',            // Needle Gun
-  'R-Cyborg-Metals09',          // Cyborg Superdense Composite Alloys Mk3
-  'R-Cyborg-Armor-Heat05',      // Cyborg High Intensity Thermal Armor Mk3
-  'R-Wpn-Cannon-ROF05',         // Cannon Rapid Loader Mk2
-  'R-Cyborg-Armor-Heat08',      // Cyborg Superdense Thermal Armor Mk2
-  'R-Wpn-Laser01',              // Laser - Flashlight
-  'R-Wpn-Missile2A-T',          // Scourge Missile
-  'R-Wpn-Cannon-ROF06',         // Cannon Rapid Loader Mk3
-  'R-Cyborg-Armor-Heat09',      // Cyborg Superdense Thermal Armor Mk3
-  'R-Sys-Resistance-Circuits',  // Nexus Resistance Circuits
+  'R-Sys-Autorepair-General',   // Auto-Repair
 ];

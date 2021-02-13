@@ -371,6 +371,7 @@ function eventResearched(research, structure, player){
       'R-Wpn-Cannon1Mk1': 'CyborgCannon',
       'R-Wpn-Flamer01Mk1': 'CyborgFlamer01',
       'R-Wpn-MG1Mk1': 'CyborgChaingun',
+      'R-Wpn-Mortar01Lt': 'Cyb-Wpn-Grenade',
     };
 
     if(research.name === researchOrder[researchOrder.length - 1]){
@@ -459,29 +460,54 @@ const researchOrder = [
   'R-Wpn-Cannon-Damage02',      // HEAT Cannon Shells Mk2
   'R-Wpn-Flamer-Damage02',      // High Temperature Flamer Gel Mk2
   'R-Struc-Factory-Upgrade04',  // Robotic Manufacturing
+  'R-Wpn-Mortar01Lt',           // Mortar
   'R-Wpn-MG-Damage06',          // Tungsten-Tipped MG Bullets Mk2
   'R-Cyborg-Metals02',          // Cyborg Composite Alloys Mk2
   'R-Wpn-Cannon-Damage03',      // HEAT Cannon Shells Mk3
   'R-Wpn-Flamer-Damage03',      // High Temperature Flamer Gel Mk3
   'R-Struc-Factory-Upgrade07',  // Advanced Manufacturing
+  'R-Wpn-Cannon-Accuracy01',    // Cannon Laser Rangefinder
   'R-Wpn-MG-Damage07',          // Tungsten-Tipped MG Bullets Mk3
   'R-Cyborg-Metals03',          // Cyborg Composite Alloys Mk3
+  'R-Wpn-Flamer-ROF01',         // Flamer Autoloader
+  'R-Wpn-Cannon-Damage04',      // APFSDS Cannon Rounds
+  'R-Wpn-Flamer-Damage04',      // Superhot Flamer Gel
+  'R-Wpn-MG-ROF01',             // Chaingun Upgrade
   'R-Wpn-MG-Damage08',          // Depleted Uranium MG Bullets
   'R-Vehicle-Engine02',         // Fuel Injection Engine Mk2
+  'R-Wpn-Flamer-ROF02',         // Flamer Autoloader Mk2
+  'R-Wpn-Flamer-Damage05',      // Superhot Flamer Gel Mk2
+  'R-Wpn-Cannon-Damage05',      // APFSDS Cannon Rounds Mk2
   'R-Cyborg-Metals04',          // Cyborg Dense Composite Alloys
   'R-Cyborg-Armor-Heat01',      // Cyborg Thermal Armor
+  'R-Wpn-Cannon-Accuracy02',    // Cannon Laser Designator
   'R-Vehicle-Engine03',         // Fuel Injection Engine Mk3
+  'R-Wpn-Flamer-ROF03',         // Flamer Autoloader Mk3
+  'R-Wpn-Cannon-Damage06',      // APFSDS Cannon Rounds Mk3
+  'R-Wpn-Flamer-Damage06',      // Superhot Flamer Gel Mk3
+  'R-Wpn-MG-ROF02',             // Rapid Fire Chaingun
   'R-Cyborg-Metals05',          // Cyborg Dense Composite Alloys Mk2
   'R-Cyborg-Armor-Heat02',      // Cyborg Thermal Armor Mk2
+  'R-Wpn-Cannon-Damage07',      // HVAPFSDS Cannon Rounds
+  'R-Wpn-Cannon-ROF01',         // Cannon Autoloader
   'R-Struc-Factory-Upgrade09',  // Self-Replicating Manufacturing
   'R-Cyborg-Metals06',          // Cyborg Dense Composite Alloys Mk3
   'R-Cyborg-Armor-Heat03',      // Cyborg Thermal Armor Mk3
+  'R-Wpn-Cannon-Damage08',      // HVAPFSDS Cannon Rounds Mk2
+  'R-Wpn-Cannon-ROF02',         // Cannon Autoloader Mk 2
+  'R-Wpn-MG-ROF03',             // Hyper Fire Chaingun Upgrade
   'R-Cyborg-Metals07',          // Cyborg Superdense Composite Alloys
   'R-Cyborg-Armor-Heat04',      // Cyborg High Intensity Thermal Armor
+  'R-Wpn-Cannon-Damage09',      // HVAPFSDS Cannon Rounds Mk3
+  'R-Wpn-Cannon-ROF03',         // Cannon Autoloader Mk3
   'R-Cyborg-Metals08',          // Cyborg Superdense Composite Alloys Mk2
   'R-Cyborg-Armor-Heat05',      // Cyborg High Intensity Thermal Armor Mk2
+  'R-Wpn-Cannon-ROF04',         // Cannon Rapid Loader
   'R-Cyborg-Metals09',          // Cyborg Superdense Composite Alloys Mk3
   'R-Cyborg-Armor-Heat05',      // Cyborg High Intensity Thermal Armor Mk3
+  'R-Wpn-Cannon-ROF05',         // Cannon Rapid Loader Mk2
+  'R-Cyborg-Armor-Heat08',      // Cyborg Superdense Thermal Armor Mk2
+  'R-Wpn-Cannon-ROF06',         // Cannon Rapid Loader Mk3
   'R-Cyborg-Armor-Heat09',      // Cyborg Superdense Thermal Armor Mk3
   'R-Sys-Resistance-Circuits',  // Nexus Resistance Circuits
 ];

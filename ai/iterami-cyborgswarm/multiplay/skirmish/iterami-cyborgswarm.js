@@ -428,22 +428,11 @@ function randomLocation(){
             continue;
         }
 
-        const randomX = Math.floor(Math.random() * mapWidth);
-        const randomY = Math.floor(Math.random() * mapHeight);
-
-        if(!droidCanReach(
-            cyborgs[cyborg],
-            randomX,
-            randomY
-          )){
-            continue;
-        }
-
         orderDroidLoc(
           cyborgs[cyborg],
           DORDER_SCOUT,
-          randomX,
-          randomY
+          Math.floor(Math.random() * mapWidth),
+          Math.floor(Math.random() * mapHeight)
         );
     }
 

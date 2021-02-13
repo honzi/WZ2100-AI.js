@@ -318,22 +318,11 @@ function init(){
 }
 
 function randomLocation(droid){
-    const randomX = Math.floor(Math.random() * mapWidth);
-    const randomY = Math.floor(Math.random() * mapHeight);
-
-    if(!droidCanReach(
-        droid,
-        randomX,
-        randomY
-      )){
-        continue;
-    }
-
     orderDroidLoc(
       droid,
       DORDER_MOVE,
-      randomX,
-      randomY
+      Math.floor(Math.random() * mapWidth),
+      Math.floor(Math.random() * mapHeight)
     );
 }
 

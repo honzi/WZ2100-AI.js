@@ -6,6 +6,15 @@ function attack(enemy){
             continue;
         }
 
+        // Return cyborgs to base if we don't have enough.
+        if(cyborgs.length < minCyborgs){
+            orderDroid(
+              cyborgs[cyborg],
+              DORDER_RTB
+            );
+            continue;
+        }
+
         if(enemy.type === DROID){
             if(enemy.isVTOL){
                 if(!cyborgs[cyborg].canHitAir){
@@ -462,6 +471,7 @@ var maxCyborgFactories = 5;
 var maxFactories = 2;
 var maxResearchFacilities = 5;
 var maxResourceExtractors = 4;
+var minCyborgs = 20;
 var productionBegin = false;
 var queueTimer = 1000;
 var randomLocationTimer = 600000; // 10 minutes

@@ -219,6 +219,9 @@ function buildStructure(droid, structure, x, y){
           location.y,
           Math.floor(Math.random() * 4) * 90
         );
+
+    }else{
+        randomLocation(droid);
     }
 }
 
@@ -310,6 +313,26 @@ function init(){
     queue(
       'buildOrder',
       0
+    );
+}
+
+function randomLocation(droid){
+    const randomX = Math.floor(Math.random() * mapWidth);
+    const randomY = Math.floor(Math.random() * mapHeight);
+
+    if(!droidCanReach(
+        droid,
+        randomX,
+        randomY
+      )){
+        continue;
+    }
+
+    orderDroidLoc(
+      droid,
+      DORDER_MOVE,
+      randomX,
+      randomY
     );
 }
 

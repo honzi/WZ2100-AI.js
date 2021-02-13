@@ -413,6 +413,45 @@ function init(){
       'buildOrder',
       0
     );
+
+    // Start randomLocation() loop.
+    queue(
+      'randomLocation',
+      randomLocationTimer
+    );
+}
+
+function randomLocation(){
+    var cyborgs = enumDroid(me);
+
+    for(var cyborg in cyborgs){
+        if(cyborgs[cyborg].droidType === DROID_CONSTRUCT){
+            continue;
+        }
+
+        const randomX = Math.floor(Math.random() * mapWidth);
+        const randomY = Math.floor(Math.random() * mapHeight);
+
+        if(!droidCanReach(
+            cyborgs[cyborg],
+            randomX,
+            randomY
+          )){
+            continue;
+        }
+
+        orderDroidLoc(
+          cyborgs[cyborg],
+          DORDER_SCOUT,
+          randomX,
+          randomY
+        );
+    }
+
+    queue(
+      'randomLocation',
+      randomLocationTimer
+    );
 }
 
 var cyborgWeapons = [];
@@ -423,6 +462,7 @@ var maxResearchFacilities = 5;
 var maxResourceExtractors = 4;
 var productionBegin = false;
 var queueTimer = 1000;
+var randomLocationTimer = 600000; // 10 minutes
 var researchDone = false;
 
 const researchOrder = [

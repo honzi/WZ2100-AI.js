@@ -303,6 +303,13 @@ function init(){
     );
 }
 
+function randomLocation(){
+    return {
+      'x': Math.floor(Math.random() * mapWidth),
+      'y': Math.floor(Math.random() * mapHeight),
+    };
+}
+
 var maxConstructionDroids = 2;
 var maxFactories = 2;
 var maxResearchFacilities = 5;

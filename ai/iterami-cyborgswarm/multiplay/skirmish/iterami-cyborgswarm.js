@@ -367,6 +367,12 @@ function eventResearched(research, structure, player){
         return;
     }
 
+    const cyborgWeaponResearch = {
+      'R-Wpn-Cannon1Mk1': 'CyborgCannon',
+      'R-Wpn-Flamer01Mk1': 'CyborgFlamer01',
+      'R-Wpn-MG1Mk1': 'CyborgChaingun',
+    };
+
     if(research.name === researchOrder[researchOrder.length - 1]){
         maxConstructionDroids = 5;
         maxResearchFacilities = 1;
@@ -376,14 +382,8 @@ function eventResearched(research, structure, player){
         productionBegin = true;
 
     // Add weapons to use when they are researched.
-    }else if(research.name === 'R-Wpn-Cannon1Mk1'){
-        cyborgWeapons.push('CyborgCannon');
-
-    }else if(research.name === 'R-Wpn-MG1Mk1'){
-        cyborgWeapons.push('CyborgChaingun');
-
-    }else if(research.name === 'R-Wpn-Flamer01Mk1'){
-        cyborgWeapons.push('CyborgFlamer01');
+    }else if(cyborgWeaponResearch[research.name]){
+        cyborgWeapons.push(cyborgWeaponResearch[research.name]);
     }
 }
 

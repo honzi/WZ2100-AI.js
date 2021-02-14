@@ -1,4 +1,6 @@
 function buildOrder(){
+    setMiniMap(true);
+
     var droids = enumDroid(
       me,
       DROID_CONSTRUCT,

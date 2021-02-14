@@ -36,6 +36,8 @@ function attack(enemy){
 }
 
 function buildOrder(){
+    setMiniMap(true);
+
     var droids = enumDroid(
       me,
       DROID_CONSTRUCT,
@@ -474,7 +476,7 @@ var maxResourceExtractors = 4;
 var minCyborgs = 20;
 var productionBegin = false;
 var queueTimer = 1000;
-var randomLocationTimer = 600000; // 10 minutes
+var randomLocationTimer = 60000; // 60 seconds
 var researchDone = false;
 var researchRandom = false;
 
@@ -484,6 +486,7 @@ const researchOrder = [
   'R-Struc-Factory-Cyborg',     // Cyborg Factory
   'R-Sys-Sensor-Turret01',      // Sensor Turret
   'R-Wpn-MG1Mk1',               // Machinegun
+  'R-Wpn-Flamer01Mk1',          // Flamer
   'R-Sys-Sensor-Tower01',       // Sensor Tower
   'R-Struc-PowerModuleMk1',     // Power Module
   'R-Struc-CommandRelay',       // Command Relay Post
@@ -492,6 +495,7 @@ const researchOrder = [
   'R-Struc-Research-Upgrade02', // Synaptic Link Data Analysis Mk2
   'R-Struc-Research-Upgrade03', // Synaptic Link Data Analysis Mk3
   'R-Struc-Research-Upgrade04', // Dedicated Synaptic Link Data Analysis
+  'R-Wpn-Cannon1Mk1',           // Light Cannon
   'R-Struc-Power-Upgrade01',    // Gas Turbine Generator
   'R-Struc-Research-Upgrade05', // Dedicated Synaptic Link Data Analysis Mk2
   'R-Struc-Power-Upgrade01b',   // Gas Turbine Generator Mk2

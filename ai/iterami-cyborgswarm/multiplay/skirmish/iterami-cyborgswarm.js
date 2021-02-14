@@ -260,19 +260,51 @@ function buildOrder(){
         });
     }
 
-    // Cyborgs attack visible enemy droids.
+    // Cyborgs attack visible enemies.
     playerData.forEach(function(player, id){
         if(allianceExistsBetween(me, id)){
             return;
         }
 
-        var enemies = enumDroid(
+        // First check for droids.
+        var droids = enumDroid(
           id,
           DROID_ANY,
           me
         );
-        if(enemies.length > 0){
-            attack(enemies[enemies.length - 1]);
+        if(droids.length > 0){
+            attack(droids[droids.length - 1]);
+            return;
+        }
+
+        // Then check for buildings.
+        const enemyList = [
+          DEFENSE,
+          FACTORY,
+          CYBORG_FACTORY,
+          VTOL_FACTORY,
+          RESOURCE_EXTRACTOR,
+          RESEARCH_LAB,
+          SAT_UPLINK,
+          LASSAT,
+          POWER_GEN,
+          HQ,
+          REPAIR_FACILITY,
+          COMMAND_CONTROL,
+          REARM_PAD,
+          WALL,
+          GATE,
+        ];
+        for(var enemy in enemyList){
+            var enemies = enumStruct(
+              id,
+              enemyList[enemy],
+              me
+            );
+            if(enemies.length > 0){
+                attack(enemies[enemies.length - 1]);
+                return;
+            }
         }
     });
 

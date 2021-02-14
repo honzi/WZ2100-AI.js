@@ -3,18 +3,12 @@ function attack(enemy){
       me,
       DROID_CYBORG
     );
-    var notEnoughCyborgs = cyborgs.length < minCyborgs;
+    // Don't give orders if we don't have enough cyborgs.
+    if(cyborgs.length < minCyborgs){
+        return;
+    }
 
     for(var cyborg in cyborgs){
-        // Return cyborgs to base if we don't have enough.
-        if(notEnoughCyborgs){
-            orderDroid(
-              cyborgs[cyborg],
-              DORDER_RTB
-            );
-            continue;
-        }
-
         if(enemy.type === DROID){
             if(enemy.isVTOL){
                 if(!cyborgs[cyborg].canHitAir){
@@ -263,7 +257,43 @@ function buildOrder(){
             return;
         }
 
-        // First check for droids.
+        // If we have enough cyborgs, attack structures.
+        if(enumDroid(
+            me,
+            DROID_CYBORG
+          ).length >= minCyborgsStructs){
+            var enemyList = [
+              DEFENSE,
+              FACTORY,
+              CYBORG_FACTORY,
+              VTOL_FACTORY,
+              RESOURCE_EXTRACTOR,
+              RESEARCH_LAB,
+              SAT_UPLINK,
+              LASSAT,
+              POWER_GEN,
+              HQ,
+              REPAIR_FACILITY,
+              COMMAND_CONTROL,
+              REARM_PAD,
+              WALL,
+              GATE,
+            ];
+            for(var enemy in enemyList){
+                var enemies = enumStruct(
+                  id,
+                  enemyList[enemy],
+                  me
+                );
+                if(enemies.length > 0){
+                    attack(enemies[enemies.length - 1]);
+                    attacking = true;
+                    return;
+                }
+            }
+        }
+
+        // Otherwise attack droids.
         var droids = enumDroid(
           id,
           DROID_ANY,
@@ -273,43 +303,6 @@ function buildOrder(){
             attack(droids[droids.length - 1]);
             attacking = true;
             return;
-        }
-
-        // Then check for structures if we have enough cyborgs.
-        if(enumDroid(
-            me,
-            DROID_CYBORG
-          ).length < minCyborgsStructs){
-            return;
-        }
-        var enemyList = [
-          DEFENSE,
-          FACTORY,
-          CYBORG_FACTORY,
-          VTOL_FACTORY,
-          RESOURCE_EXTRACTOR,
-          RESEARCH_LAB,
-          SAT_UPLINK,
-          LASSAT,
-          POWER_GEN,
-          HQ,
-          REPAIR_FACILITY,
-          COMMAND_CONTROL,
-          REARM_PAD,
-          WALL,
-          GATE,
-        ];
-        for(var enemy in enemyList){
-            var enemies = enumStruct(
-              id,
-              enemyList[enemy],
-              me
-            );
-            if(enemies.length > 0){
-                attack(enemies[enemies.length - 1]);
-                attacking = true;
-                return;
-            }
         }
     });
 
@@ -507,7 +500,7 @@ var maxCyborgFactories = 5;
 var maxFactories = 2;
 var maxResearchFacilities = 5;
 var maxResourceExtractors = 4;
-var minCyborgs = 20;
+var minCyborgs = 15;
 var minCyborgsStructs = 50;
 var productionBegin = false;
 var queueTimer = 1000;

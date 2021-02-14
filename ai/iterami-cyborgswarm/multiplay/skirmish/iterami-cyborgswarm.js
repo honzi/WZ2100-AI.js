@@ -259,8 +259,10 @@ function buildOrder(){
     }
 
     // Cyborgs attack visible enemies.
+    var attacking = false;
     playerData.forEach(function(player, id){
-        if(allianceExistsBetween(me, id)){
+        if(attacking
+          || allianceExistsBetween(me, id)){
             return;
         }
 
@@ -272,6 +274,7 @@ function buildOrder(){
         );
         if(droids.length > 0){
             attack(droids[droids.length - 1]);
+            attacking = true;
             return;
         }
 
@@ -307,6 +310,7 @@ function buildOrder(){
             );
             if(enemies.length > 0){
                 attack(enemies[enemies.length - 1]);
+                attacking = true;
                 return;
             }
         }

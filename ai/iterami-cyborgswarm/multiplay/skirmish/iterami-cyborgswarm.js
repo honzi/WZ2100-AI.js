@@ -277,7 +277,10 @@ function buildOrder(){
             return;
         }
 
-        // Then check for buildings.
+        // Then check for structures if we have enough cyborgs.
+        if(droidCount < minCyborgsStructs){
+            return;
+        }
         const enemyList = [
           DEFENSE,
           FACTORY,
@@ -506,6 +509,7 @@ var maxFactories = 2;
 var maxResearchFacilities = 5;
 var maxResourceExtractors = 4;
 var minCyborgs = 20;
+var minCyborgsStructs = 64;
 var productionBegin = false;
 var queueTimer = 1000;
 var randomLocationTimer = 60000; // 60 seconds
@@ -527,7 +531,6 @@ const researchOrder = [
   'R-Struc-Research-Upgrade02', // Synaptic Link Data Analysis Mk2
   'R-Struc-Research-Upgrade03', // Synaptic Link Data Analysis Mk3
   'R-Struc-Research-Upgrade04', // Dedicated Synaptic Link Data Analysis
-  'R-Wpn-Cannon1Mk1',           // Light Cannon
   'R-Struc-Power-Upgrade01',    // Gas Turbine Generator
   'R-Struc-Research-Upgrade05', // Dedicated Synaptic Link Data Analysis Mk2
   'R-Struc-Power-Upgrade01b',   // Gas Turbine Generator Mk2

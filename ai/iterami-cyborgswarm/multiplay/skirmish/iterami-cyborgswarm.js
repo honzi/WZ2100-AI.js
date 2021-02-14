@@ -1,11 +1,10 @@
 function attack(enemy){
-    var cyborgs = enumDroid(me);
+    var cyborgs = enumDroid(
+      me,
+      DROID_CYBORG
+    );
 
     for(var cyborg in cyborgs){
-        if(cyborgs[cyborg].droidType === DROID_CONSTRUCT){
-            continue;
-        }
-
         // Return cyborgs to base if we don't have enough.
         if(cyborgs.length < minCyborgs){
             orderDroid(
@@ -40,8 +39,7 @@ function buildOrder(){
 
     var droids = enumDroid(
       me,
-      DROID_CONSTRUCT,
-      me
+      DROID_CONSTRUCT
     );
     const droidCount = droids.length;
     var powerModuleNeeded = checkNeedPowerModule();
@@ -278,7 +276,10 @@ function buildOrder(){
         }
 
         // Then check for structures if we have enough cyborgs.
-        if(droidCount < minCyborgsStructs){
+        if(enumDroid(
+            me,
+            DROID_CYBORG
+          ).length < minCyborgsStructs){
             return;
         }
         const enemyList = [
@@ -467,23 +468,20 @@ function init(){
 }
 
 function randomLocation(){
-    var cyborgs = enumDroid(me);
+    var cyborgs = enumDroid(
+      me,
+      DROID_CYBORG
+    );
 
-    if(cyborgs.length < minCyborgsStructs){
-        return;
-    }
-
-    for(var cyborg in cyborgs){
-        if(cyborgs[cyborg].droidType === DROID_CONSTRUCT){
-            continue;
+    if(cyborgs.length >= minCyborgsStructs){
+        for(var cyborg in cyborgs){
+            orderDroidLoc(
+              cyborgs[cyborg],
+              DORDER_SCOUT,
+              Math.floor(Math.random() * mapWidth),
+              Math.floor(Math.random() * mapHeight)
+            );
         }
-
-        orderDroidLoc(
-          cyborgs[cyborg],
-          DORDER_SCOUT,
-          Math.floor(Math.random() * mapWidth),
-          Math.floor(Math.random() * mapHeight)
-        );
     }
 
     queue(
@@ -513,7 +511,7 @@ var maxFactories = 2;
 var maxResearchFacilities = 5;
 var maxResourceExtractors = 4;
 var minCyborgs = 20;
-var minCyborgsStructs = 64;
+var minCyborgsStructs = 50;
 var productionBegin = false;
 var queueTimer = 1000;
 var randomLocationTimer = 60000; // 60 seconds

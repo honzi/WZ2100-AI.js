@@ -3,8 +3,7 @@ function buildOrder(){
 
     var droids = enumDroid(
       me,
-      DROID_CONSTRUCT,
-      me
+      DROID_CONSTRUCT
     );
     const droidCount = droids.length;
     var powerModuleNeeded = checkNeedPowerModule();

@@ -469,6 +469,10 @@ function init(){
 function randomLocation(){
     var cyborgs = enumDroid(me);
 
+    if(cyborgs.length < minCyborgsStructs){
+        return;
+    }
+
     for(var cyborg in cyborgs){
         if(cyborgs[cyborg].droidType === DROID_CONSTRUCT){
             continue;

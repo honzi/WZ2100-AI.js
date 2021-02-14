@@ -46,7 +46,6 @@ function buildOrder(){
     var researchModuleNeeded = checkNeedResearchModule();
     var structures = enumStruct(me);
 
-    // If production has begun, give orders to idle Cyborg Factories.
     if(productionBegin){
         var cyborgFactories = enumStruct(
           me,
@@ -72,7 +71,6 @@ function buildOrder(){
         });
     }
 
-    // Give orders to construction droids.
     droids.some(function check_droid(droid){
         const isProjectManager = droid === droids[droidCount - 1];
 
@@ -211,7 +209,6 @@ function buildOrder(){
         }
     });
 
-    // Give orders to idle Research Facilities if needed.
     if(!researchDone){
         var researchFacilities = enumStruct(
           me,
@@ -233,7 +230,6 @@ function buildOrder(){
         });
     }
 
-    // Make sure we have enough construction droids.
     if(droidCount < maxConstructionDroids){
         var factories = enumStruct(
           me,
@@ -258,7 +254,6 @@ function buildOrder(){
         });
     }
 
-    // Cyborgs attack visible enemies.
     var attacking = false;
     playerData.forEach(function(player, id){
         if(attacking
@@ -448,7 +443,6 @@ function eventStartLevel(){
 }
 
 function init(){
-    // Get limitations.
     maxCyborgFactories = getStructureLimit(
       'A0CyborgFactory',
       me
@@ -458,13 +452,10 @@ function init(){
       me
     );
 
-    // Start build order loop.
     queue(
       'buildOrder',
       0
     );
-
-    // Start randomLocation() loop.
     queue(
       'randomLocation',
       randomLocationTimer
@@ -518,7 +509,7 @@ var minCyborgs = 20;
 var minCyborgsStructs = 50;
 var productionBegin = false;
 var queueTimer = 1000;
-var randomLocationTimer = 60000; // 60 seconds
+var randomLocationTimer = 60000;
 var researchDone = false;
 var researchRandom = false;
 

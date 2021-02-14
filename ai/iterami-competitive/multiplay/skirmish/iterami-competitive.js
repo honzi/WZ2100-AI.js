@@ -10,7 +10,6 @@ function buildOrder(){
     var researchModuleNeeded = checkNeedResearchModule();
     var structures = enumStruct(me);
 
-    // Give orders to construction droids.
     droids.some(function check_droid(droid){
         const isProjectManager = droid === droids[droidCount - 1];
 
@@ -139,7 +138,6 @@ function buildOrder(){
         }
     });
 
-    // Give orders to idle Research Facilities if needed.
     if(!researchDone){
         var researchFacilities = enumStruct(
           me,
@@ -159,7 +157,6 @@ function buildOrder(){
         });
     }
 
-    // Make sure we have enough construction droids.
     if(droidCount < maxConstructionDroids){
         var factories = enumStruct(
           me,
@@ -279,13 +276,11 @@ function eventStartLevel(){
 }
 
 function init(){
-    // Get limitations.
     maxResearchFacilities = getStructureLimit(
       'A0ResearchFacility',
       me
     );
 
-    // Start build order loop.
     queue(
       'buildOrder',
       0

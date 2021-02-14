@@ -3,10 +3,11 @@ function attack(enemy){
       me,
       DROID_CYBORG
     );
+    var notEnoughCyborgs = cyborgs.length < minCyborgs;
 
     for(var cyborg in cyborgs){
         // Return cyborgs to base if we don't have enough.
-        if(cyborgs.length < minCyborgs){
+        if(notEnoughCyborgs){
             orderDroid(
               cyborgs[cyborg],
               DORDER_RTB
@@ -41,7 +42,8 @@ function buildOrder(){
       me,
       DROID_CONSTRUCT
     );
-    const droidCount = droids.length;
+    var droidCount = droids.length;
+    var lessThan2 = droidCount < 2;
     var powerModuleNeeded = checkNeedPowerModule();
     var researchModuleNeeded = checkNeedResearchModule();
     var structures = enumStruct(me);
@@ -72,12 +74,12 @@ function buildOrder(){
     }
 
     droids.some(function check_droid(droid){
-        const isProjectManager = droid === droids[droidCount - 1];
+        var isProjectManager = droid === droids[droidCount - 1];
 
         // Chores for regular construction droids.
         // Project manager must do these if nobody else can.
         if(!isProjectManager
-          || droidCount <= 1){
+          || lessThan2){
             for(var structure in structures){
                 // Repair damaged structures.
                 if(structures[structure].health < 100
@@ -280,7 +282,7 @@ function buildOrder(){
           ).length < minCyborgsStructs){
             return;
         }
-        const enemyList = [
+        var enemyList = [
           DEFENSE,
           FACTORY,
           CYBORG_FACTORY,
@@ -415,7 +417,7 @@ function eventResearched(research, structure, player){
         return;
     }
 
-    const cyborgWeaponResearch = {
+    var cyborgWeaponResearch = {
       'R-Wpn-Cannon1Mk1': 'CyborgCannon',
       'R-Wpn-Flamer01Mk1': 'CyborgFlamer01',
       'R-Wpn-Laser01': 'Cyb-Wpn-Laser',
@@ -486,7 +488,7 @@ function randomLocation(){
 }
 
 function randomResearch(){
-    const research = enumResearch();
+    var research = enumResearch();
 
     // Modify strategy when all research is done.
     if(research.length === 0){
@@ -513,7 +515,7 @@ var randomLocationTimer = 60000;
 var researchDone = false;
 var researchRandom = false;
 
-const researchOrder = [
+var researchOrder = [
   'R-Sys-Engineering01',        // Engineering
   'R-Vehicle-Engine01',         // Fuel Injection Engine
   'R-Struc-Factory-Cyborg',     // Cyborg Factory

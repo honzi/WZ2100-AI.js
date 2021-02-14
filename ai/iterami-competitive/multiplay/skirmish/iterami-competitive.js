@@ -5,18 +5,19 @@ function buildOrder(){
       me,
       DROID_CONSTRUCT
     );
-    const droidCount = droids.length;
+    var droidCount = droids.length;
+    var lessThan2 = droidCount < 2;
     var powerModuleNeeded = checkNeedPowerModule();
     var researchModuleNeeded = checkNeedResearchModule();
     var structures = enumStruct(me);
 
     droids.some(function check_droid(droid){
-        const isProjectManager = droid === droids[droidCount - 1];
+        var isProjectManager = droid === droids[droidCount - 1];
 
         // Chores for regular construction droids.
         // Project manager must do these if nobody else can.
         if(!isProjectManager
-          || droidCount <= 1){
+          || lessThan2){
             for(var structure in structures){
                 // Repair damaged structures.
                 if(structures[structure].health < 100
@@ -295,7 +296,7 @@ function randomLocation(){
 }
 
 function randomResearch(){
-    const research = enumResearch();
+    var research = enumResearch();
 
     // Modify strategy when all research is done.
     if(research.length === 0){

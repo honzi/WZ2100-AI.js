@@ -305,11 +305,6 @@ function buildOrder(){
             return;
         }
     });
-
-    queue(
-      'buildOrder',
-      queueTimer
-    );
 }
 
 function buildStructure(droid, structure, x, y){
@@ -447,13 +442,14 @@ function init(){
       me
     );
 
-    queue(
+    setTimer(
       'buildOrder',
-      0
+      timerBuildOrder
     );
-    queue(
+    buildOrder();
+    setTimer(
       'randomLocation',
-      randomLocationTimer
+      timerRandomLocation
     );
 }
 
@@ -473,11 +469,6 @@ function randomLocation(){
             );
         }
     }
-
-    queue(
-      'randomLocation',
-      randomLocationTimer
-    );
 }
 
 function randomResearch(){
@@ -503,10 +494,10 @@ var maxResourceExtractors = 4;
 var minCyborgs = 15;
 var minCyborgsStructs = 50;
 var productionBegin = false;
-var queueTimer = 1000;
-var randomLocationTimer = 60000;
 var researchDone = false;
 var researchRandom = false;
+var timerBuildOrder = 1000;
+var timerRandomLocation = 60000;
 
 var researchOrder = [
   'R-Sys-Engineering01',        // Engineering

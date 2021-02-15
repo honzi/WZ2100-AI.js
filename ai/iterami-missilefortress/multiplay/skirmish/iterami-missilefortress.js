@@ -193,11 +193,6 @@ function buildOrder(){
             );
         });
     }
-
-    queue(
-      'buildOrder',
-      queueTimer
-    );
 }
 
 function buildStructure(droid, structure, x, y){
@@ -308,10 +303,11 @@ function init(){
       me
     );
 
-    queue(
+    setTimer(
       'buildOrder',
-      0
+      timerBuildOrder
     );
+    buildOrder();
 }
 
 function randomLocation(droid){
@@ -341,9 +337,9 @@ var maxConstructionDroids = 2;
 var maxFactories = 2;
 var maxResearchFacilities = 5;
 var maxResourceExtractors = 4;
-var queueTimer = 1000;
 var researchDone = false;
 var researchRandom = false;
+var timerBuildOrder = 1000;
 
 var researchOrder = [
   'R-Sys-Engineering01',         // Engineering

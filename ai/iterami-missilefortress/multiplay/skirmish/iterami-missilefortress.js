@@ -293,7 +293,7 @@ function randomResearch(){
         return;
     }
 
-    return [research[Math.floor(Math.random() * research.length)].name];
+    return research[Math.floor(Math.random() * research.length)].name;
 }
 
 var maxConstructionDroids = 2;

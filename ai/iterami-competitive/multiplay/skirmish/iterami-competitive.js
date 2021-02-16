@@ -14,12 +14,9 @@ function buildOrder(){
     droids.some(function check_droid(droid){
         var isProjectManager = droid === droids[droidCount - 1];
 
-        // Chores for regular construction droids.
-        // Project manager must do these if nobody else can.
         if(!isProjectManager
           || lessThan2){
             for(var structure in structures){
-                // Repair damaged structures.
                 if(structures[structure].health < 100
                   && structures[structure].status === BUILT){
                     if(droid.order !== DORDER_REPAIR){
@@ -40,9 +37,7 @@ function buildOrder(){
             return;
         }
 
-        // Chores for all construction droids.
         for(var structure in structures){
-            // Finish incomplete structures.
             if(structures[structure].status !== BUILT){
                 orderDroidObj(
                   droid,
@@ -54,12 +49,10 @@ function buildOrder(){
             }
         }
 
-        // Only project managers get to decide where to build.
         if(!isProjectManager){
             return;
         }
 
-        // Build 1 Research Facility.
         if(checkStructure(
             'A0ResearchFacility',
             1
@@ -69,7 +62,6 @@ function buildOrder(){
               'A0ResearchFacility'
             );
 
-        // Build 1 Power Generator.
         }else if(checkStructure(
             'A0PowerGenerator',
             1
@@ -79,7 +71,6 @@ function buildOrder(){
               'A0PowerGenerator'
             );
 
-        // Build Resource Extractors.
         }else if(checkStructure(
             'A0ResourceExtractor',
             maxResourceExtractors
@@ -89,7 +80,6 @@ function buildOrder(){
               'A0ResourceExtractor'
             );
 
-        // Build Research Facilities.
         }else if(checkStructure(
             'A0ResearchFacility',
             maxResearchFacilities
@@ -99,7 +89,6 @@ function buildOrder(){
               'A0ResearchFacility'
             );
 
-        // Build Factories.
         }else if(checkStructure(
             'A0LightFactory',
             maxFactories
@@ -109,7 +98,6 @@ function buildOrder(){
               'A0LightFactory'
             );
 
-        // Build 1 Command Center.
         }else if(checkStructure(
             'A0CommandCentre',
             1
@@ -119,7 +107,6 @@ function buildOrder(){
               'A0CommandCentre'
             );
 
-        // Build Power Modules.
         }else if(powerModuleNeeded !== false){
             buildStructure(
               droid,
@@ -128,7 +115,6 @@ function buildOrder(){
               powerModuleNeeded.y
             );
 
-        // Build Research Modules.
         }else if(researchModuleNeeded !== false){
             buildStructure(
               droid,
@@ -294,7 +280,6 @@ function randomLocation(){
 function randomResearch(){
     var research = enumResearch();
 
-    // Modify strategy when all research is done.
     if(research.length === 0){
         maxConstructionDroids = 5;
         maxResearchFacilities = 1;

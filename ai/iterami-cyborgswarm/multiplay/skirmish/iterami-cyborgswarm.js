@@ -1,10 +1,10 @@
-function attack(enemy){
+function attack(enemy, structureAttacked){
     var cyborgs = enumDroid(
       me,
       DROID_CYBORG
     );
-    // Don't give orders if we don't have enough cyborgs.
-    if(cyborgs.length < minCyborgs){
+    if(!structureAttacked
+      && cyborgs.length < minCyborgs){
         return;
     }
 
@@ -70,12 +70,9 @@ function buildOrder(){
     droids.some(function check_droid(droid){
         var isProjectManager = droid === droids[droidCount - 1];
 
-        // Chores for regular construction droids.
-        // Project manager must do these if nobody else can.
         if(!isProjectManager
           || lessThan2){
             for(var structure in structures){
-                // Repair damaged structures.
                 if(structures[structure].health < 100
                   && structures[structure].status === BUILT){
                     if(droid.order !== DORDER_REPAIR){
@@ -96,9 +93,7 @@ function buildOrder(){
             return;
         }
 
-        // Chores for all construction droids.
         for(var structure in structures){
-            // Finish incomplete structures.
             if(structures[structure].status !== BUILT){
                 orderDroidObj(
                   droid,
@@ -110,12 +105,10 @@ function buildOrder(){
             }
         }
 
-        // Only project managers get to decide where to build.
         if(!isProjectManager){
             return;
         }
 
-        // Build 1 Research Facility.
         if(checkStructure(
             'A0ResearchFacility',
             1
@@ -125,7 +118,6 @@ function buildOrder(){
               'A0ResearchFacility'
             );
 
-        // Build 1 Power Generator.
         }else if(checkStructure(
             'A0PowerGenerator',
             1
@@ -135,7 +127,6 @@ function buildOrder(){
               'A0PowerGenerator'
             );
 
-        // Build Resource Extractors.
         }else if(checkStructure(
             'A0ResourceExtractor',
             maxResourceExtractors
@@ -145,7 +136,6 @@ function buildOrder(){
               'A0ResourceExtractor'
             );
 
-        // Build Research Facilities.
         }else if(checkStructure(
             'A0ResearchFacility',
             maxResearchFacilities
@@ -155,7 +145,6 @@ function buildOrder(){
               'A0ResearchFacility'
             );
 
-        // Build Factories.
         }else if(checkStructure(
             'A0LightFactory',
             maxFactories
@@ -165,7 +154,6 @@ function buildOrder(){
               'A0LightFactory'
             );
 
-        // Build Cyborg Factories.
         }else if(checkStructure(
             'A0CyborgFactory',
             maxCyborgFactories
@@ -175,7 +163,6 @@ function buildOrder(){
               'A0CyborgFactory'
             );
 
-        // Build 1 Command Center.
         }else if(checkStructure(
             'A0CommandCentre',
             1
@@ -185,7 +172,6 @@ function buildOrder(){
               'A0CommandCentre'
             );
 
-        // Build Power Modules.
         }else if(powerModuleNeeded !== false){
             buildStructure(
               droid,
@@ -194,7 +180,6 @@ function buildOrder(){
               powerModuleNeeded.y
             );
 
-        // Build Research Modules.
         }else if(researchModuleNeeded !== false){
             buildStructure(
               droid,
@@ -257,7 +242,6 @@ function buildOrder(){
             return;
         }
 
-        // If we have enough cyborgs, attack structures.
         if(enumDroid(
             me,
             DROID_CYBORG
@@ -286,21 +270,26 @@ function buildOrder(){
                   me
                 );
                 if(enemies.length > 0){
-                    attack(enemies[enemies.length - 1]);
+                    attack(
+                      enemies[enemies.length - 1],
+                      false
+                    );
                     attacking = true;
                     return;
                 }
             }
         }
 
-        // Otherwise attack droids.
         var droids = enumDroid(
           id,
           DROID_ANY,
           me
         );
         if(droids.length > 0){
-            attack(droids[droids.length - 1]);
+            attack(
+              droids[droids.length - 1],
+              false
+            );
             attacking = true;
             return;
         }
@@ -388,11 +377,15 @@ function checkStructure(structure, count){
 }
 
 function eventAttacked(victim, attacker){
-    if(me !== victim.player){
+    if(me !== victim.player
+      || victim.type !== STRUCTURE){
         return;
     }
 
-    attack(attacker);
+    attack(
+      attacker,
+      true
+    );
     productionBegin = true;
 }
 
@@ -417,12 +410,10 @@ function eventResearched(research, structure, player){
       'R-Wpn-Rocket01-LtAT': 'CyborgRocket',
     };
 
-    // Modify strategy when research order is done.
     if(research.name === researchOrder[researchOrder.length - 1]){
         productionBegin = true;
         researchRandom = true;
 
-    // Add weapons to use when they are researched.
     }else if(cyborgWeaponResearch[research.name]){
         cyborgWeapons.push(cyborgWeaponResearch[research.name]);
     }
@@ -474,7 +465,6 @@ function randomLocation(){
 function randomResearch(){
     var research = enumResearch();
 
-    // Modify strategy when all research is done.
     if(research.length === 0){
         maxConstructionDroids = 5;
         maxResearchFacilities = 1;
@@ -500,30 +490,30 @@ var timerBuildOrder = 1000;
 var timerRandomLocation = 60000;
 
 var researchOrder = [
-  'R-Sys-Engineering01',        // Engineering
-  'R-Vehicle-Engine01',         // Fuel Injection Engine
-  'R-Struc-Factory-Cyborg',     // Cyborg Factory
-  'R-Sys-Sensor-Turret01',      // Sensor Turret
-  'R-Wpn-MG1Mk1',               // Machinegun
-  'R-Wpn-Flamer01Mk1',          // Flamer
-  'R-Sys-Sensor-Tower01',       // Sensor Tower
-  'R-Struc-PowerModuleMk1',     // Power Module
-  'R-Struc-CommandRelay',       // Command Relay Post
-  'R-Struc-Research-Module',    // Research Module
-  'R-Struc-Research-Upgrade01', // Synaptic Link Data Analysis
-  'R-Struc-Research-Upgrade02', // Synaptic Link Data Analysis Mk2
-  'R-Struc-Research-Upgrade03', // Synaptic Link Data Analysis Mk3
-  'R-Struc-Research-Upgrade04', // Dedicated Synaptic Link Data Analysis
-  'R-Struc-Power-Upgrade01',    // Gas Turbine Generator
-  'R-Struc-Research-Upgrade05', // Dedicated Synaptic Link Data Analysis Mk2
-  'R-Struc-Power-Upgrade01b',   // Gas Turbine Generator Mk2
-  'R-Struc-Research-Upgrade06', // Dedicated Synaptic Link Data Analysis Mk3
-  'R-Struc-Power-Upgrade01c',   // Gas Turbine Generator Mk3
-  'R-Struc-Research-Upgrade07', // Neural Synapse Research Brain
-  'R-Struc-Power-Upgrade02',    // Vapor Turbine Generator
-  'R-Struc-Research-Upgrade08', // Neural Synapse Research Brain Mk2
-  'R-Struc-Power-Upgrade03',    // Vapor Turbine Generator Mk2
-  'R-Struc-Research-Upgrade09', // Neural Synapse Research Brain Mk3
-  'R-Struc-Power-Upgrade03a',   // Vapor Turbine Generator Mk3
-  'R-Sys-Autorepair-General',   // Auto-Repair
+  'R-Sys-Engineering01',
+  'R-Vehicle-Engine01',
+  'R-Struc-Factory-Cyborg',
+  'R-Sys-Sensor-Turret01',
+  'R-Wpn-MG1Mk1',
+  'R-Wpn-Flamer01Mk1',
+  'R-Sys-Sensor-Tower01',
+  'R-Struc-PowerModuleMk1',
+  'R-Struc-CommandRelay',
+  'R-Struc-Research-Module',
+  'R-Struc-Research-Upgrade01',
+  'R-Struc-Research-Upgrade02',
+  'R-Struc-Research-Upgrade03',
+  'R-Struc-Research-Upgrade04',
+  'R-Struc-Power-Upgrade01',
+  'R-Struc-Research-Upgrade05',
+  'R-Struc-Power-Upgrade01b',
+  'R-Struc-Research-Upgrade06',
+  'R-Struc-Power-Upgrade01c',
+  'R-Struc-Research-Upgrade07',
+  'R-Struc-Power-Upgrade02',
+  'R-Struc-Research-Upgrade08',
+  'R-Struc-Power-Upgrade03',
+  'R-Struc-Research-Upgrade09',
+  'R-Struc-Power-Upgrade03a',
+  'R-Sys-Autorepair-General',
 ];

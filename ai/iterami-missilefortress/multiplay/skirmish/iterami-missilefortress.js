@@ -14,12 +14,9 @@ function buildOrder(){
     droids.some(function check_droid(droid){
         var isProjectManager = droid === droids[droidCount - 1];
 
-        // Chores for regular construction droids.
-        // Project manager must do these if nobody else can.
         if(!isProjectManager
           || lessThan2){
             for(var structure in structures){
-                // Repair damaged structures.
                 if(structures[structure].health < 100
                   && structures[structure].status === BUILT){
                     if(droid.order !== DORDER_REPAIR){
@@ -40,9 +37,7 @@ function buildOrder(){
             return;
         }
 
-        // Chores for all construction droids.
         for(var structure in structures){
-            // Finish incomplete structures.
             if(structures[structure].status !== BUILT){
                 orderDroidObj(
                   droid,
@@ -54,12 +49,10 @@ function buildOrder(){
             }
         }
 
-        // Only project managers get to decide where to build.
         if(!isProjectManager){
             return;
         }
 
-        // Build 1 Research Facility.
         if(checkStructure(
             'A0ResearchFacility',
             1
@@ -69,7 +62,6 @@ function buildOrder(){
               'A0ResearchFacility'
             );
 
-        // Build 1 Power Generator.
         }else if(checkStructure(
             'A0PowerGenerator',
             1
@@ -79,7 +71,6 @@ function buildOrder(){
               'A0PowerGenerator'
             );
 
-        // Build Resource Extractors.
         }else if(checkStructure(
             'A0ResourceExtractor',
             maxResourceExtractors
@@ -89,7 +80,6 @@ function buildOrder(){
               'A0ResourceExtractor'
             );
 
-        // Build Research Facilities.
         }else if(checkStructure(
             'A0ResearchFacility',
             maxResearchFacilities
@@ -99,7 +89,6 @@ function buildOrder(){
               'A0ResearchFacility'
             );
 
-        // Build Factories.
         }else if(checkStructure(
             'A0LightFactory',
             maxFactories
@@ -109,7 +98,6 @@ function buildOrder(){
               'A0LightFactory'
             );
 
-        // Build 1 Command Center.
         }else if(checkStructure(
             'A0CommandCentre',
             1
@@ -119,7 +107,6 @@ function buildOrder(){
               'A0CommandCentre'
             );
 
-        // Build Power Modules.
         }else if(powerModuleNeeded !== false){
             buildStructure(
               droid,
@@ -128,7 +115,6 @@ function buildOrder(){
               powerModuleNeeded.y
             );
 
-        // Build Research Modules.
         }else if(researchModuleNeeded !== false){
             buildStructure(
               droid,
@@ -137,7 +123,6 @@ function buildOrder(){
               researchModuleNeeded.y
             );
 
-        // Build Missile Fortresses.
         }else if(isStructureAvailable(
             'X-Super-Missile',
             me
@@ -287,7 +272,6 @@ function eventResearched(research, structure, player){
         return;
     }
 
-    // Modify strategy when research order is done.
     if(research.name === researchOrder[researchOrder.length - 1]){
         researchRandom = true;
     }
@@ -322,7 +306,6 @@ function randomLocation(droid){
 function randomResearch(){
     var research = enumResearch();
 
-    // Modify strategy when all research is done.
     if(research.length === 0){
         maxConstructionDroids = 5;
         maxResearchFacilities = 1;
@@ -342,58 +325,58 @@ var researchRandom = false;
 var timerBuildOrder = 1000;
 
 var researchOrder = [
-  'R-Sys-Engineering01',         // Engineering
-  'R-Vehicle-Engine01',          // Fuel Injection Engine
-  'R-Sys-Sensor-Turret01',       // Sensor Turret
-  'R-Defense-HardcreteWall',     // Hardcrete Wall
-  'R-Defense-WallUpgrade01',     // Improved Hardcrete
-  'R-Sys-Sensor-Tower01',        // Sensor Tower
-  'R-Struc-PowerModuleMk1',      // Power Module
-  'R-Wpn-Rocket05-MiniPod',      // Mini-Rocket Pod
-  'R-Struc-CommandRelay',        // Command Relay Post
-  'R-Defense-WallUpgrade02',     // Improved Hardcrete Mk2
-  'R-Wpn-Rocket-Damage01',       // HE Rockets
-  'R-Struc-Research-Module',     // Research Module
-  'R-Wpn-Rocket-Damage02',       // HE Rockets Mk2
-  'R-Struc-Research-Upgrade01',  // Synaptic Link Data Analysis
-  'R-Defense-WallUpgrade03',     // Improved Hardcrete Mk3
-  'R-Struc-Research-Upgrade02',  // Synaptic Link Data Analysis Mk2
-  'R-Wpn-Rocket-Damage03',       // HE Rockets Mk3
-  'R-Wpn-Rocket-Accuracy01',     // Stabilized Rockets
-  'R-Struc-Research-Upgrade03',  // Synaptic Link Data Analysis Mk3
-  'R-Wpn-Rocket01-LtAT',         // Lancer AT Rocket
-  'R-Struc-Research-Upgrade04',  // Dedicated Synaptic Link Data Analysis
-  'R-Wpn-Rocket-Damage04',       // HEAT Rocket Warhead
-  'R-Struc-Power-Upgrade01',     // Gas Turbine Generator
-  'R-Struc-Research-Upgrade05',  // Dedicated Synaptic Link Data Analysis Mk2
-  'R-Wpn-Rocket-Damage05',       // HEAT Rocket Warhead Mk2
-  'R-Sys-Engineering02',         // Improved Engineering
-  'R-Struc-Power-Upgrade01b',    // Gas Turbine Generator Mk2
-  'R-Struc-Research-Upgrade06',  // Dedicated Synaptic Link Data Analysis Mk3
-  'R-Defense-WallUpgrade04',     // Supercrete
-  'R-Struc-Power-Upgrade01c',    // Gas Turbine Generator Mk3
-  'R-Struc-Research-Upgrade07',  // Neural Synapse Research Brain
-  'R-Struc-Power-Upgrade02',     // Vapor Turbine Generator
-  'R-Wpn-Rocket-Accuracy02',     // Improved Rocket Wire Guidance
-  'R-Struc-Research-Upgrade08',  // Neural Synapse Research Brain Mk2
-  'R-Struc-Power-Upgrade03',     // Vapor Turbine Generator Mk2
-  'R-Defense-WallUpgrade05',     // Supercrete Mk2
-  'R-Struc-Research-Upgrade09',  // Neural Synapse Research Brain Mk3
-  'R-Struc-Power-Upgrade03a',    // Vapor Turbine Generator Mk3
-  'R-Wpn-RocketSlow-Accuracy01', // Rocket Laser Designator
-  'R-Wpn-Rocket-Damage06',       // HEAT Rocket Warhead Mk3
-  'R-Sys-Autorepair-General',    // Auto-Repair
-  'R-Wpn-RocketSlow-Accuracy02', // Thermal Imaging Rockets
-  'R-Wpn-Rocket07-Tank-Killer',  // Tank Killer Rocket
-  'R-Defense-WallUpgrade06',     // Supercrete Mk3
-  'R-Sys-Engineering03',         // Advanced Engineering
-  'R-Wpn-Missile2A-T',           // Scourge Missile
-  'R-Defense-WallUpgrade07',     // Plascrete
-  'R-Wpn-Missile-ROF01',         // Advanced Missile Allocation System
-  'R-Defense-WallUpgrade08',     // Plascrete Mk2
-  'R-Wpn-Missile-ROF02',         // Advanced Missile Allocation System Mk2
-  'R-Defense-WallUpgrade09',     // Plascrete Mk3
-  'R-Wpn-Missile-ROF03',         // Advanced Missile Allocation System Mk3
-  'R-Defense-WallUpgrade10',     // Plasteel
-  'R-Defense-Super-Missile',     // Missile Fortress
+  'R-Sys-Engineering01',
+  'R-Vehicle-Engine01',
+  'R-Sys-Sensor-Turret01',
+  'R-Defense-HardcreteWall',
+  'R-Defense-WallUpgrade01',
+  'R-Sys-Sensor-Tower01',
+  'R-Struc-PowerModuleMk1',
+  'R-Wpn-Rocket05-MiniPod',
+  'R-Struc-CommandRelay',
+  'R-Defense-WallUpgrade02',
+  'R-Wpn-Rocket-Damage01',
+  'R-Struc-Research-Module',
+  'R-Wpn-Rocket-Damage02',
+  'R-Struc-Research-Upgrade01',
+  'R-Defense-WallUpgrade03',
+  'R-Struc-Research-Upgrade02',
+  'R-Wpn-Rocket-Damage03',
+  'R-Wpn-Rocket-Accuracy01',
+  'R-Struc-Research-Upgrade03',
+  'R-Wpn-Rocket01-LtAT',
+  'R-Struc-Research-Upgrade04',
+  'R-Wpn-Rocket-Damage04',
+  'R-Struc-Power-Upgrade01',
+  'R-Struc-Research-Upgrade05',
+  'R-Wpn-Rocket-Damage05',
+  'R-Sys-Engineering02',
+  'R-Struc-Power-Upgrade01b',
+  'R-Struc-Research-Upgrade06',
+  'R-Defense-WallUpgrade04',
+  'R-Struc-Power-Upgrade01c',
+  'R-Struc-Research-Upgrade07',
+  'R-Struc-Power-Upgrade02',
+  'R-Wpn-Rocket-Accuracy02',
+  'R-Struc-Research-Upgrade08',
+  'R-Struc-Power-Upgrade03',
+  'R-Defense-WallUpgrade05',
+  'R-Struc-Research-Upgrade09',
+  'R-Struc-Power-Upgrade03a',
+  'R-Wpn-RocketSlow-Accuracy01',
+  'R-Wpn-Rocket-Damage06',
+  'R-Sys-Autorepair-General',
+  'R-Wpn-RocketSlow-Accuracy02',
+  'R-Wpn-Rocket07-Tank-Killer',
+  'R-Defense-WallUpgrade06',
+  'R-Sys-Engineering03',
+  'R-Wpn-Missile2A-T',
+  'R-Defense-WallUpgrade07',
+  'R-Wpn-Missile-ROF01',
+  'R-Defense-WallUpgrade08',
+  'R-Wpn-Missile-ROF02',
+  'R-Defense-WallUpgrade09',
+  'R-Wpn-Missile-ROF03',
+  'R-Defense-WallUpgrade10',
+  'R-Defense-Super-Missile',
 ];

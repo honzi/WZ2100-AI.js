@@ -7,14 +7,6 @@ function buildOrder(){
     );
     var droidCount = droids.length;
     var lessThan2 = droidCount < 2;
-    var powerModuleNeeded = checkNeedModule(
-      'A0PowerGenerator',
-      'A0PowMod1'
-    );
-    var researchModuleNeeded = checkNeedModule(
-      'A0ResearchFacility',
-      'A0ResearchModule1'
-    );
     var structures = enumStruct(me);
 
     droids.some(function check_droid(droid){
@@ -58,6 +50,15 @@ function buildOrder(){
         if(!isProjectManager){
             return;
         }
+
+        var powerModuleNeeded = checkNeedModule(
+          'A0PowerGenerator',
+          'A0PowMod1'
+        );
+        var researchModuleNeeded = checkNeedModule(
+          'A0ResearchFacility',
+          'A0ResearchModule1'
+        );
 
         if(checkStructure(
             'A0ResearchFacility',

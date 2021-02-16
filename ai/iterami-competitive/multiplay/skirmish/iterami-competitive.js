@@ -53,15 +53,18 @@ function buildOrder(){
 
         var factoryModuleNeeded = checkNeedModule(
           'A0LightFactory',
-          'A0FacMod1'
+          'A0FacMod1',
+          2
         );
         var powerModuleNeeded = checkNeedModule(
           'A0PowerGenerator',
-          'A0PowMod1'
+          'A0PowMod1',
+          1
         );
         var researchModuleNeeded = checkNeedModule(
           'A0ResearchFacility',
-          'A0ResearchModule1'
+          'A0ResearchModule1',
+          1
         );
 
         if(checkStructure(
@@ -211,7 +214,7 @@ function buildStructure(droid, structure, x, y){
     }
 }
 
-function checkNeedModule(structure, module){
+function checkNeedModule(structure, module, count){
     if(!isStructureAvailable(
         module,
         me
@@ -225,7 +228,7 @@ function checkNeedModule(structure, module){
       structure
     );
     structures.some(function check_structure(checkedStructure){
-        if(checkedStructure.modules !== 0){
+        if(checkedStructure.modules >= count){
             return;
         }
 

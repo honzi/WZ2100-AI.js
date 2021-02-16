@@ -38,8 +38,14 @@ function buildOrder(){
     );
     var droidCount = droids.length;
     var lessThan2 = droidCount < 2;
-    var powerModuleNeeded = checkNeedPowerModule();
-    var researchModuleNeeded = checkNeedResearchModule();
+    var powerModuleNeeded = checkNeedModule(
+      'A0PowerGenerator',
+      'A0PowMod1'
+    );
+    var researchModuleNeeded = checkNeedModule(
+      'A0ResearchFacility',
+      'A0ResearchModule1'
+    );
     var structures = enumStruct(me);
 
     if(productionBegin){
@@ -319,54 +325,28 @@ function buildStructure(droid, structure, x, y){
     }
 }
 
-function checkNeedPowerModule(){
+function checkNeedModule(structure, module){
     if(!isStructureAvailable(
-        'A0PowMod1',
+        module,
         me
       )){
         return false;
     }
 
-    var generator = false;
-    var powerGenerators = enumStruct(
+    var moduleNeeded = false;
+    var structures = enumStruct(
       me,
-      'A0PowerGenerator',
-      me
-    ).reverse();
-    powerGenerators.some(function check_powerGenerator(powerGenerator){
-        if(powerGenerator.modules !== 0){
+      structure
+    );
+    structures.some(function check_structure(checkedStructure){
+        if(checkedStructure.modules !== 0){
             return;
         }
 
-        generator = powerGenerator;
+        moduleNeeded = checkedStructure;
     });
 
-    return generator;
-}
-
-function checkNeedResearchModule(){
-    if(!isStructureAvailable(
-        'A0ResearchModule1',
-        me
-      )){
-         false;
-    }
-
-    var facility = false;
-    var researchFacilities = enumStruct(
-      me,
-      'A0ResearchFacility',
-      me
-    ).reverse();
-    researchFacilities.some(function check_researchFacility(researchFacility){
-        if(researchFacility.modules !== 0){
-            return;
-        }
-
-        facility = researchFacility;
-    });
-
-    return facility;
+    return moduleNeeded;
 }
 
 function checkStructure(structure, count){

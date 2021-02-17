@@ -145,6 +145,19 @@ function buildOrder(){
                   factoryModuleNeeded.x,
                   factoryModuleNeeded.y
                 );
+
+            }else{
+                var defenseStructure = defenseStructures[Math.floor(Math.random() * defenseStructures.length)];
+
+                if(checkStructure(
+                    defenseStructure,
+                    3
+                  )){
+                    buildStructure(
+                      droid,
+                      defenseStructure
+                    );
+                }
             }
         }
     });
@@ -241,14 +254,39 @@ function checkNeedModule(structure, module, count){
 }
 
 function checkStructure(structure, count){
-    return isStructureAvailable(
-      structure,
-      me
-    ) && countStruct(structure) < count;
+    return structure !== undefined
+      && isStructureAvailable(
+        structure,
+        me
+      ) && countStruct(structure) < count;
 }
 
 function eventGameLoaded(){
     init();
+}
+
+function eventResearched(research, structure, player){
+    if(me !== player){
+        return;
+    }
+
+    var defenseStructureResearch = {
+      'R-Defense-Emplacement-HPVcannon': 'Emplacement-HPVcannon',
+      'R-Defense-PrisLas': 'Emplacement-PrisLas',
+      'R-Defense-PulseLas': 'GuardTower-BeamLas',
+      'R-Defense-Super-Missile': 'X-Super-Missile',
+      'R-Defense-Tower01': 'GuardTower1',
+      'R-Defense-Tower06': 'GuardTower6',
+      'R-Defense-Wall-RotMg': 'Wall-RotMg',
+      'R-Defense-WallTower-HPVcannon': 'WallTower-HPVcannon',
+      'R-Defense-WallTower-PulseLas': 'WallTower-PulseLas',
+      'R-Defense-WallTower-TwinAGun': 'WallTower-TwinAssaultGun',
+      'R-Defense-WallTower01': 'WallTower01',
+    };
+
+    if(defenseStructureResearch[research.name]){
+        defenseStructures.push(defenseStructureResearch[research.name]);
+    }
 }
 
 function eventStartLevel(){
@@ -288,6 +326,7 @@ function randomResearch(){
     return research[Math.floor(Math.random() * research.length)].name;
 }
 
+var defenseStructures = [];
 var maxConstructionDroids = 2;
 var maxFactories = 2;
 var maxResearchFacilities = 5;

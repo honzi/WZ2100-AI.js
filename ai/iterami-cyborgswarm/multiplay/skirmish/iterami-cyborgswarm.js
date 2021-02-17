@@ -210,6 +210,19 @@ function buildOrder(){
                   factoryModuleNeeded.x,
                   factoryModuleNeeded.y
                 );
+
+            }else{
+                var defenseStructure = defenseStructures[Math.floor(Math.random() * defenseStructures.length)];
+
+                if(checkStructure(
+                    defenseStructure,
+                    3
+                  )){
+                    buildStructure(
+                      droid,
+                      defenseStructure
+                    );
+                }
             }
         }
     });
@@ -368,10 +381,11 @@ function checkNeedModule(structure, module, count){
 }
 
 function checkStructure(structure, count){
-    return isStructureAvailable(
-      structure,
-      me
-    ) && countStruct(structure) < count;
+    return structure !== undefined
+      && isStructureAvailable(
+        structure,
+        me
+      ) && countStruct(structure) < count;
 }
 
 function eventAttacked(victim, attacker){
@@ -407,6 +421,19 @@ function eventResearched(research, structure, player){
       'R-Wpn-RailGun01': 'Cyb-Wpn-Rail1',
       'R-Wpn-Rocket01-LtAT': 'CyborgRocket',
     };
+    var defenseStructureResearch = {
+      'R-Defense-Emplacement-HPVcannon': 'Emplacement-HPVcannon',
+      'R-Defense-PrisLas': 'Emplacement-PrisLas',
+      'R-Defense-PulseLas': 'GuardTower-BeamLas',
+      'R-Defense-Super-Missile': 'X-Super-Missile',
+      'R-Defense-Tower01': 'GuardTower1',
+      'R-Defense-Tower06': 'GuardTower6',
+      'R-Defense-Wall-RotMg': 'Wall-RotMg',
+      'R-Defense-WallTower-HPVcannon': 'WallTower-HPVcannon',
+      'R-Defense-WallTower-PulseLas': 'WallTower-PulseLas',
+      'R-Defense-WallTower-TwinAGun': 'WallTower-TwinAssaultGun',
+      'R-Defense-WallTower01': 'WallTower01',
+    };
 
     if(research.name === researchOrder[researchOrder.length - 1]){
         productionBegin = true;
@@ -414,6 +441,9 @@ function eventResearched(research, structure, player){
 
     }else if(cyborgWeaponResearch[research.name]){
         cyborgWeapons.push(cyborgWeaponResearch[research.name]);
+
+    }else if(defenseStructureResearch[research.name]){
+        defenseStructures.push(defenseStructureResearch[research.name]);
     }
 }
 
@@ -474,6 +504,7 @@ function randomResearch(){
 }
 
 var cyborgWeapons = [];
+var defenseStructures = [];
 var maxConstructionDroids = 2;
 var maxCyborgFactories = 5;
 var maxFactories = 2;

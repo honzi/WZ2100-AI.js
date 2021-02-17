@@ -216,7 +216,7 @@ function buildOrder(){
 
                 if(checkStructure(
                     defenseStructure,
-                    3
+                    maxDefenseStructures
                   )){
                     buildStructure(
                       droid,
@@ -507,6 +507,7 @@ var cyborgWeapons = [];
 var defenseStructures = [];
 var maxConstructionDroids = 3;
 var maxCyborgFactories = 5;
+var maxDefenseStructures = 3;
 var maxFactories = 2;
 var maxResearchFacilities = 5;
 var maxResourceExtractors = 4;

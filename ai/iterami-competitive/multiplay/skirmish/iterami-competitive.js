@@ -317,7 +317,7 @@ function randomResearch(){
     var research = enumResearch();
 
     if(research.length === 0){
-        maxConstructionDroids = 5;
+        maxConstructionDroids = 6;
         maxResearchFacilities = 1;
         researchDone = true;
         return;
@@ -327,7 +327,7 @@ function randomResearch(){
 }
 
 var defenseStructures = [];
-var maxConstructionDroids = 2;
+var maxConstructionDroids = 3;
 var maxFactories = 2;
 var maxResearchFacilities = 5;
 var maxResourceExtractors = 4;

@@ -51,22 +51,6 @@ function buildOrder(){
             return;
         }
 
-        var factoryModuleNeeded = checkNeedModule(
-          'A0LightFactory',
-          'A0FacMod1',
-          2
-        );
-        var powerModuleNeeded = checkNeedModule(
-          'A0PowerGenerator',
-          'A0PowMod1',
-          1
-        );
-        var researchModuleNeeded = checkNeedModule(
-          'A0ResearchFacility',
-          'A0ResearchModule1',
-          1
-        );
-
         if(checkStructure(
             'A0ResearchFacility',
             1
@@ -121,29 +105,47 @@ function buildOrder(){
               'A0CommandCentre'
             );
 
-        }else if(powerModuleNeeded !== false){
-            buildStructure(
-              droid,
-              'A0PowMod1',
-              powerModuleNeeded.x,
-              powerModuleNeeded.y
-            );
-
-        }else if(researchModuleNeeded !== false){
-            buildStructure(
-              droid,
-              'A0ResearchModule1',
-              researchModuleNeeded.x,
-              researchModuleNeeded.y
-            );
-
-        }else if(factoryModuleNeeded !== false){
-            buildStructure(
-              droid,
+        }else{
+            var factoryModuleNeeded = checkNeedModule(
+              'A0LightFactory',
               'A0FacMod1',
-              factoryModuleNeeded.x,
-              factoryModuleNeeded.y
+              2
             );
+            var powerModuleNeeded = checkNeedModule(
+              'A0PowerGenerator',
+              'A0PowMod1',
+              1
+            );
+            var researchModuleNeeded = checkNeedModule(
+              'A0ResearchFacility',
+              'A0ResearchModule1',
+              1
+            );
+
+            if(powerModuleNeeded !== false){
+                buildStructure(
+                  droid,
+                  'A0PowMod1',
+                  powerModuleNeeded.x,
+                  powerModuleNeeded.y
+                );
+
+            }else if(researchModuleNeeded !== false){
+                buildStructure(
+                  droid,
+                  'A0ResearchModule1',
+                  researchModuleNeeded.x,
+                  researchModuleNeeded.y
+                );
+
+            }else if(factoryModuleNeeded !== false){
+                buildStructure(
+                  droid,
+                  'A0FacMod1',
+                  factoryModuleNeeded.x,
+                  factoryModuleNeeded.y
+                );
+            }
         }
     });
 

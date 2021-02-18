@@ -43,8 +43,7 @@ function buildOrder(){
     if(productionBegin){
         var cyborgFactories = enumStruct(
           me,
-          'A0CyborgFactory',
-          me
+          'A0CyborgFactory'
         );
         cyborgFactories.some(function check_cyborgFactory(cyborgFactory){
             if(cyborgFactory.status !== BUILT
@@ -227,32 +226,28 @@ function buildOrder(){
         }
     });
 
-    if(!researchDone){
-        var researchFacilities = enumStruct(
-          me,
-          'A0ResearchFacility',
-          me
-        );
-        researchFacilities.some(function check_researchFacility(researchFacility){
-            if(researchFacility.status !== BUILT
-              || !structureIdle(researchFacility)){
-                return;
-            }
+    var researchFacilities = enumStruct(
+      me,
+      'A0ResearchFacility'
+    );
+    researchFacilities.some(function check_researchFacility(researchFacility){
+        if(researchFacility.status !== BUILT
+          || !structureIdle(researchFacility)){
+            return;
+        }
 
-            pursueResearch(
-              researchFacility,
-              researchRandom
-                ? randomResearch()
-                : researchOrder
-            );
-        });
-    }
+        pursueResearch(
+          researchFacility,
+          researchRandom
+            ? randomResearch()
+            : researchOrder
+        );
+    });
 
     if(droidCount < maxConstructionDroids){
         var factories = enumStruct(
           me,
-          'A0LightFactory',
-          me
+          'A0LightFactory'
         );
         factories.some(function check_factory(factory){
             if(factory.status !== BUILT
@@ -496,7 +491,6 @@ function randomResearch(){
     if(research.length === 0){
         maxConstructionDroids = 6;
         maxResearchFacilities = 1;
-        researchDone = true;
         return;
     }
 
@@ -514,7 +508,6 @@ var maxResourceExtractors = 4;
 var minCyborgs = 15;
 var minCyborgsStructs = 50;
 var productionBegin = false;
-var researchDone = false;
 var researchRandom = false;
 var timerBuildOrder = 1000;
 var timerRandomLocation = 60000;

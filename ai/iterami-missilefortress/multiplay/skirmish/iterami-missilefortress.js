@@ -87,7 +87,26 @@ function init(){
 }
 
 function perSecond(){
-    setMiniMap(true);
+    var researchFacilities = enumStruct(
+      me,
+      'A0ResearchFacility'
+    );
+    researchFacilities.some(function check_researchFacility(researchFacility){
+        if(researchFacility.status !== BUILT
+          || !structureIdle(researchFacility)){
+            return;
+        }
+
+        if(researchRandom){
+            randomResearch(researchFacility);
+
+        }else{
+            pursueResearch(
+              researchFacility,
+              researchOrder
+            );
+        }
+    });
 
     var droids = enumDroid(
       me,
@@ -255,27 +274,6 @@ function perSecond(){
         }
     });
 
-    var researchFacilities = enumStruct(
-      me,
-      'A0ResearchFacility'
-    );
-    researchFacilities.some(function check_researchFacility(researchFacility){
-        if(researchFacility.status !== BUILT
-          || !structureIdle(researchFacility)){
-            return;
-        }
-
-        if(researchRandom){
-            randomResearch(researchFacility);
-
-        }else{
-            pursueResearch(
-              researchFacility,
-              researchOrder
-            );
-        }
-    });
-
     if(droidCount < maxConstructionDroids){
         var factories = enumStruct(
           me,
@@ -298,6 +296,8 @@ function perSecond(){
             );
         });
     }
+
+    setMiniMap(true);
 }
 
 function randomLocation(droid){

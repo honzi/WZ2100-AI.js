@@ -1,32 +1,24 @@
-function attack(enemy, structureAttacked){
-    var cyborgs = enumDroid(
-      me,
-      DROID_CYBORG
-    );
-    if(!structureAttacked
-      && cyborgs.length < minCyborgs){
-        return;
-    }
-
-    for(var cyborg in cyborgs){
-        if(enemy.type === DROID){
-            if(enemy.isVTOL){
-                if(!cyborgs[cyborg].canHitAir){
-                    continue;
+function attack(group, target){
+    var droids = enumGroup(group);
+    droids.some(function check_droid(droid){
+        if(target.type === DROID){
+            if(target.isVTOL){
+                if(!droid.canHitAir){
+                    return;
                 }
 
-            }else if(!cyborgs[cyborg].canHitGround){
-                continue;
+            }else if(!droid.canHitGround){
+                return;
             }
         }
 
         orderDroidLoc(
-          cyborgs[cyborg],
+          droid,
           DORDER_SCOUT,
-          enemy.x,
-          enemy.y
+          target.x,
+          target.y
         );
-    }
+    });
 }
 
 function buildStructure(droid, structure, x, y){
@@ -91,10 +83,18 @@ function eventAttacked(victim, attacker){
     }
 
     attack(
-      attacker,
-      true
+      groupDefend,
+      attacker
     );
-    productionBegin = true;
+}
+
+function eventDroidBuilt(droid, structure){
+    groupAddDroid(
+      groupSize(groupDefend) > maxCyborgsDefend
+        ? groupAttack
+        : groupDefend,
+      droid
+    );
 }
 
 function eventGameLoaded(){
@@ -191,27 +191,22 @@ function init(){
 }
 
 function perMinute(){
-    var cyborgs = enumDroid(
-      me,
-      DROID_CYBORG
-    );
-
-    if(cyborgs.length >= minCyborgsStructs){
-        for(var cyborg in cyborgs){
+    if(groupSize(groupAttack) >= minCyborgsAttackStructures){
+        var droids = enumGroup(groupAttack);
+        droids.some(function check_droid(droid){
             orderDroidLoc(
-              cyborgs[cyborg],
+              droid,
               DORDER_SCOUT,
               Math.floor(Math.random() * mapWidth),
               Math.floor(Math.random() * mapHeight)
             );
-        }
+        });
     }
 
     var droids = enumDroid(
       me,
       DROID_CONSTRUCT
     );
-
     droids.some(function check_droid(droid){
         if(droid.order === 0){
             orderDroid(
@@ -252,7 +247,8 @@ function perSecond(){
     var lessThan2 = droidCount < 2;
     var structures = enumStruct(me);
 
-    if(productionBegin){
+    if(productionBegin
+      || groupSize(groupDefend) < maxCyborgsDefend){
         var cyborgFactories = enumStruct(
           me,
           'A0CyborgFactory'
@@ -473,14 +469,12 @@ function perSecond(){
     var attacking = false;
     playerData.forEach(function(player, id){
         if(attacking
+          || groupSize(groupAttack) < minCyborgsAttack
           || allianceExistsBetween(me, id)){
             return;
         }
 
-        if(enumDroid(
-            me,
-            DROID_CYBORG
-          ).length >= minCyborgsStructs){
+        if(groupSize(groupAttack) >= minCyborgsAttackStructures){
             var enemyList = [
               DEFENSE,
               FACTORY,
@@ -506,8 +500,8 @@ function perSecond(){
                 );
                 if(enemies.length > 0){
                     attack(
-                      enemies[enemies.length - 1],
-                      false
+                      groupAttack,
+                      enemies[enemies.length - 1]
                     );
                     attacking = true;
                     return;
@@ -522,8 +516,8 @@ function perSecond(){
         );
         if(droids.length > 0){
             attack(
-              droids[droids.length - 1],
-              false
+              groupAttack,
+              droids[droids.length - 1]
             );
             attacking = true;
             return;
@@ -568,14 +562,17 @@ function startResearch(researchFacility, research){
 var bodies = ['Body1REC'];
 var cyborgWeapons = [];
 var defenseStructures = [];
+var groupAttack = newGroup();
+var groupDefend = newGroup();
 var maxConstructionDroids = 3;
 var maxCyborgFactories = 5;
+var maxCyborgsDefend = 20;
 var maxDefenseStructures = 3;
 var maxFactories = 2;
 var maxResearchFacilities = 5;
 var maxResourceExtractors = 4;
-var minCyborgs = 15;
-var minCyborgsStructs = 50;
+var minCyborgsAttack = 10;
+var minCyborgsAttackStructures = 40;
 var productionBegin = false;
 var propulsion = ['wheeled01'];
 var researchRandom = false;

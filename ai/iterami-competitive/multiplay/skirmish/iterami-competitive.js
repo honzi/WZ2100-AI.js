@@ -1,3 +1,26 @@
+function attack(group, target){
+    var droids = enumGroup(group);
+    droids.some(function check_droid(droid){
+        if(target.type === DROID){
+            if(target.isVTOL){
+                if(!droid.canHitAir){
+                    return;
+                }
+
+            }else if(!droid.canHitGround){
+                return;
+            }
+        }
+
+        orderDroidLoc(
+          droid,
+          DORDER_SCOUT,
+          target.x,
+          target.y
+        );
+    });
+}
+
 function buildStructure(droid, structure, x, y){
     x = x || droid.x;
     y = y || droid.y;
@@ -51,6 +74,13 @@ function checkStructure(structure, count){
         structure,
         me
       ) && countStruct(structure) < count;
+}
+
+function eventDroidBuilt(droid, structure){
+    groupAddDroid(
+      groupDefend,
+      droid
+    );
 }
 
 function eventGameLoaded(){
@@ -378,6 +408,8 @@ function randomResearch(researchFacility){
 
 var bodies = ['Body1REC'];
 var defenseStructures = [];
+var groupAttack = newGroup();
+var groupDefend = newGroup();
 var maxConstructionDroids = 3;
 var maxDefenseStructures = 3;
 var maxFactories = 2;

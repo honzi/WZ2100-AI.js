@@ -148,6 +148,16 @@ function eventStartLevel(){
 }
 
 function init(){
+    perSecond();
+    setTimer(
+      'perSecond',
+      1000
+    );
+    setTimer(
+      'perMinute',
+      60000
+    );
+
     maxCyborgFactories = getStructureLimit(
       'A0CyborgFactory',
       me
@@ -155,16 +165,6 @@ function init(){
     maxResearchFacilities = getStructureLimit(
       'A0ResearchFacility',
       me
-    );
-
-    setTimer(
-      'perSecond',
-      1000
-    );
-    perSecond();
-    setTimer(
-      'perMinute',
-      60000
     );
 }
 

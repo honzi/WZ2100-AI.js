@@ -86,19 +86,19 @@ function eventStartLevel(){
 }
 
 function init(){
-    maxResearchFacilities = getStructureLimit(
-      'A0ResearchFacility',
-      me
-    );
-
+    perSecond();
     setTimer(
       'perSecond',
       1000
     );
-    perSecond();
     setTimer(
       'perMinute',
       60000
+    );
+
+    maxResearchFacilities = getStructureLimit(
+      'A0ResearchFacility',
+      me
     );
 }
 

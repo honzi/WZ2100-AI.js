@@ -340,6 +340,15 @@ function perSecond(){
               'A0CommandCentre'
             );
 
+        }else if(checkStructure(
+            'A0Sat-linkCentre',
+            1
+          )){
+            buildStructure(
+              droid,
+              'A0Sat-linkCentre'
+            );
+
         }else{
             var factoryModuleNeeded = checkNeedModule(
               'A0LightFactory',

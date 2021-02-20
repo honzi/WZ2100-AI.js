@@ -130,12 +130,20 @@ function eventResearched(research, structure, player){
       'R-Defense-WallTower-TwinAGun': 'WallTower-TwinAssaultGun',
       'R-Defense-WallTower01': 'WallTower01',
     };
+    var propulsionResearch = {
+      'R-Vehicle-Prop-Halftracks': 'HalfTrack',
+      'R-Vehicle-Prop-Hover': 'hover01',
+      'R-Vehicle-Prop-Tracks': 'tracked01',
+    };
 
     if(cyborgWeaponResearch[research.name]){
         cyborgWeapons.push(cyborgWeaponResearch[research.name]);
 
     }else if(defenseStructureResearch[research.name]){
         defenseStructures.push(defenseStructureResearch[research.name]);
+
+    }else if(propulsionResearch[research.name]){
+        propulsion.push(propulsionResearch[research.name]);
     }
 }
 
@@ -436,7 +444,7 @@ function perSecond(){
               factory,
               'Drone',
               'Body1REC',
-              'wheeled01',
+              propulsion[Math.floor(Math.random() * propulsion.length)],
               '',
               DROID_CONSTRUCT,
               'Spade1Mk1'
@@ -549,6 +557,7 @@ var maxResourceExtractors = 4;
 var minCyborgs = 15;
 var minCyborgsStructs = 50;
 var productionBegin = false;
+var propulsion = ['wheeled01'];
 var researchRandom = false;
 
 var researchOrder = [

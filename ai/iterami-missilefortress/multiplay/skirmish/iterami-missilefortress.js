@@ -59,6 +59,22 @@ function eventGameLoaded(){
     init();
 }
 
+function eventResearched(research, structure, player){
+    if(me !== player){
+        return;
+    }
+
+    var propulsionResearch = {
+      'R-Vehicle-Prop-Halftracks': 'HalfTrack',
+      'R-Vehicle-Prop-Hover': 'hover01',
+      'R-Vehicle-Prop-Tracks': 'tracked01',
+    };
+
+    if(propulsionResearch[research.name]){
+        propulsion.push(propulsionResearch[research.name]);
+    }
+}
+
 function eventStartLevel(){
     init();
 }
@@ -290,7 +306,7 @@ function perSecond(){
               factory,
               'Drone',
               'Body1REC',
-              'wheeled01',
+              propulsion[Math.floor(Math.random() * propulsion.length)],
               '',
               DROID_CONSTRUCT,
               'Spade1Mk1'
@@ -330,6 +346,7 @@ var maxConstructionDroids = 3;
 var maxFactories = 2;
 var maxResearchFacilities = 5;
 var maxResourceExtractors = 4;
+var propulsion = ['wheeled01'];
 var researchRandom = false;
 
 var researchOrder = [

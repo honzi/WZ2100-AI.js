@@ -75,9 +75,17 @@ function eventResearched(research, structure, player){
       'R-Defense-WallTower-TwinAGun': 'WallTower-TwinAssaultGun',
       'R-Defense-WallTower01': 'WallTower01',
     };
+    var propulsionResearch = {
+      'R-Vehicle-Prop-Halftracks': 'HalfTrack',
+      'R-Vehicle-Prop-Hover': 'hover01',
+      'R-Vehicle-Prop-Tracks': 'tracked01',
+    };
 
     if(defenseStructureResearch[research.name]){
         defenseStructures.push(defenseStructureResearch[research.name]);
+
+    }else if(propulsionResearch[research.name]){
+        propulsion.push(propulsionResearch[research.name]);
     }
 }
 
@@ -317,7 +325,7 @@ function perSecond(){
               factory,
               'Drone',
               'Body1REC',
-              'wheeled01',
+              propulsion[Math.floor(Math.random() * propulsion.length)],
               '',
               DROID_CONSTRUCT,
               'Spade1Mk1'
@@ -356,3 +364,4 @@ var maxDefenseStructures = 3;
 var maxFactories = 2;
 var maxResearchFacilities = 5;
 var maxResourceExtractors = 4;
+var propulsion = ['wheeled01'];

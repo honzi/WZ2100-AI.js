@@ -29,7 +29,176 @@ function attack(enemy, structureAttacked){
     }
 }
 
-function buildOrder(){
+function buildStructure(droid, structure, x, y){
+    x = x || droid.x;
+    y = y || droid.y;
+
+    var location = pickStructLocation(
+      droid,
+      structure,
+      x,
+      y
+    );
+
+    if(location){
+        orderDroidBuild(
+          droid,
+          DORDER_BUILD,
+          structure,
+          location.x,
+          location.y,
+          Math.floor(Math.random() * 4) * 90
+        );
+    }
+}
+
+function checkNeedModule(structure, module, count){
+    if(!isStructureAvailable(
+        module,
+        me
+      )){
+        return false;
+    }
+
+    var moduleNeeded = false;
+    var structures = enumStruct(
+      me,
+      structure
+    );
+    structures.some(function check_structure(checkedStructure){
+        if(checkedStructure.modules >= count){
+            return;
+        }
+
+        moduleNeeded = checkedStructure;
+    });
+
+    return moduleNeeded;
+}
+
+function checkStructure(structure, count){
+    return structure !== undefined
+      && isStructureAvailable(
+        structure,
+        me
+      ) && countStruct(structure) < count;
+}
+
+function eventAttacked(victim, attacker){
+    if(me !== victim.player
+      || victim.type !== STRUCTURE){
+        return;
+    }
+
+    attack(
+      attacker,
+      true
+    );
+    productionBegin = true;
+}
+
+function eventGameLoaded(){
+    init();
+}
+
+function eventResearched(research, structure, player){
+    if(me !== player){
+        return;
+    }
+
+    var cyborgWeaponResearch = {
+      'R-Wpn-Cannon1Mk1': 'CyborgCannon',
+      'R-Wpn-Flamer01Mk1': 'CyborgFlamer01',
+      'R-Wpn-Laser01': 'Cyb-Wpn-Laser',
+      'R-Wpn-MG1Mk1': 'CyborgChaingun',
+      'R-Wpn-MG4': 'CyborgRotMG',
+      'R-Wpn-Missile2A-T': 'Cyb-Wpn-Atmiss',
+      'R-Wpn-Mortar01Lt': 'Cyb-Wpn-Grenade',
+      'R-Wpn-RailGun01': 'Cyb-Wpn-Rail1',
+      'R-Wpn-Rocket01-LtAT': 'CyborgRocket',
+    };
+    var defenseStructureResearch = {
+      'R-Defense-Emplacement-HPVcannon': 'Emplacement-HPVcannon',
+      'R-Defense-PrisLas': 'Emplacement-PrisLas',
+      'R-Defense-PulseLas': 'GuardTower-BeamLas',
+      'R-Defense-Super-Missile': 'X-Super-Missile',
+      'R-Defense-Tower01': 'GuardTower1',
+      'R-Defense-Tower06': 'GuardTower6',
+      'R-Defense-Wall-RotMg': 'Wall-RotMg',
+      'R-Defense-WallTower-HPVcannon': 'WallTower-HPVcannon',
+      'R-Defense-WallTower-PulseLas': 'WallTower-PulseLas',
+      'R-Defense-WallTower-TwinAGun': 'WallTower-TwinAssaultGun',
+      'R-Defense-WallTower01': 'WallTower01',
+    };
+
+    if(research.name === researchOrder[researchOrder.length - 1]){
+        productionBegin = true;
+        researchRandom = true;
+
+    }else if(cyborgWeaponResearch[research.name]){
+        cyborgWeapons.push(cyborgWeaponResearch[research.name]);
+
+    }else if(defenseStructureResearch[research.name]){
+        defenseStructures.push(defenseStructureResearch[research.name]);
+    }
+}
+
+function eventStartLevel(){
+    init();
+}
+
+function init(){
+    maxCyborgFactories = getStructureLimit(
+      'A0CyborgFactory',
+      me
+    );
+    maxResearchFacilities = getStructureLimit(
+      'A0ResearchFacility',
+      me
+    );
+
+    setTimer(
+      'perSecond',
+      1000
+    );
+    perSecond();
+    setTimer(
+      'perMinute',
+      60000
+    );
+}
+
+function perMinute(){
+    var cyborgs = enumDroid(
+      me,
+      DROID_CYBORG
+    );
+
+    if(cyborgs.length >= minCyborgsStructs){
+        for(var cyborg in cyborgs){
+            orderDroidLoc(
+              cyborgs[cyborg],
+              DORDER_SCOUT,
+              Math.floor(Math.random() * mapWidth),
+              Math.floor(Math.random() * mapHeight)
+            );
+        }
+    }
+
+    var droids = enumDroid(
+      me,
+      DROID_CONSTRUCT
+    );
+
+    droids.some(function check_droid(droid){
+        orderDroid(
+          droid,
+          DORDER_RTB
+        );
+    });
+}
+
+function perSecond(){
     setMiniMap(true);
 
     var droids = enumDroid(
@@ -331,163 +500,6 @@ function buildOrder(){
     });
 }
 
-function buildStructure(droid, structure, x, y){
-    x = x || droid.x;
-    y = y || droid.y;
-
-    var location = pickStructLocation(
-      droid,
-      structure,
-      x,
-      y
-    );
-
-    if(location){
-        orderDroidBuild(
-          droid,
-          DORDER_BUILD,
-          structure,
-          location.x,
-          location.y,
-          Math.floor(Math.random() * 4) * 90
-        );
-    }
-}
-
-function checkNeedModule(structure, module, count){
-    if(!isStructureAvailable(
-        module,
-        me
-      )){
-        return false;
-    }
-
-    var moduleNeeded = false;
-    var structures = enumStruct(
-      me,
-      structure
-    );
-    structures.some(function check_structure(checkedStructure){
-        if(checkedStructure.modules >= count){
-            return;
-        }
-
-        moduleNeeded = checkedStructure;
-    });
-
-    return moduleNeeded;
-}
-
-function checkStructure(structure, count){
-    return structure !== undefined
-      && isStructureAvailable(
-        structure,
-        me
-      ) && countStruct(structure) < count;
-}
-
-function eventAttacked(victim, attacker){
-    if(me !== victim.player
-      || victim.type !== STRUCTURE){
-        return;
-    }
-
-    attack(
-      attacker,
-      true
-    );
-    productionBegin = true;
-}
-
-function eventGameLoaded(){
-    init();
-}
-
-function eventResearched(research, structure, player){
-    if(me !== player){
-        return;
-    }
-
-    var cyborgWeaponResearch = {
-      'R-Wpn-Cannon1Mk1': 'CyborgCannon',
-      'R-Wpn-Flamer01Mk1': 'CyborgFlamer01',
-      'R-Wpn-Laser01': 'Cyb-Wpn-Laser',
-      'R-Wpn-MG1Mk1': 'CyborgChaingun',
-      'R-Wpn-MG4': 'CyborgRotMG',
-      'R-Wpn-Missile2A-T': 'Cyb-Wpn-Atmiss',
-      'R-Wpn-Mortar01Lt': 'Cyb-Wpn-Grenade',
-      'R-Wpn-RailGun01': 'Cyb-Wpn-Rail1',
-      'R-Wpn-Rocket01-LtAT': 'CyborgRocket',
-    };
-    var defenseStructureResearch = {
-      'R-Defense-Emplacement-HPVcannon': 'Emplacement-HPVcannon',
-      'R-Defense-PrisLas': 'Emplacement-PrisLas',
-      'R-Defense-PulseLas': 'GuardTower-BeamLas',
-      'R-Defense-Super-Missile': 'X-Super-Missile',
-      'R-Defense-Tower01': 'GuardTower1',
-      'R-Defense-Tower06': 'GuardTower6',
-      'R-Defense-Wall-RotMg': 'Wall-RotMg',
-      'R-Defense-WallTower-HPVcannon': 'WallTower-HPVcannon',
-      'R-Defense-WallTower-PulseLas': 'WallTower-PulseLas',
-      'R-Defense-WallTower-TwinAGun': 'WallTower-TwinAssaultGun',
-      'R-Defense-WallTower01': 'WallTower01',
-    };
-
-    if(research.name === researchOrder[researchOrder.length - 1]){
-        productionBegin = true;
-        researchRandom = true;
-
-    }else if(cyborgWeaponResearch[research.name]){
-        cyborgWeapons.push(cyborgWeaponResearch[research.name]);
-
-    }else if(defenseStructureResearch[research.name]){
-        defenseStructures.push(defenseStructureResearch[research.name]);
-    }
-}
-
-function eventStartLevel(){
-    init();
-}
-
-function init(){
-    maxCyborgFactories = getStructureLimit(
-      'A0CyborgFactory',
-      me
-    );
-    maxResearchFacilities = getStructureLimit(
-      'A0ResearchFacility',
-      me
-    );
-
-    setTimer(
-      'buildOrder',
-      timerBuildOrder
-    );
-    buildOrder();
-    setTimer(
-      'randomLocation',
-      timerRandomLocation
-    );
-}
-
-function randomLocation(){
-    var cyborgs = enumDroid(
-      me,
-      DROID_CYBORG
-    );
-
-    if(cyborgs.length >= minCyborgsStructs){
-        for(var cyborg in cyborgs){
-            orderDroidLoc(
-              cyborgs[cyborg],
-              DORDER_SCOUT,
-              Math.floor(Math.random() * mapWidth),
-              Math.floor(Math.random() * mapHeight)
-            );
-        }
-    }
-}
-
 function randomResearch(researchFacility){
     var research = enumResearch();
 
@@ -515,8 +527,6 @@ var minCyborgs = 15;
 var minCyborgsStructs = 50;
 var productionBegin = false;
 var researchRandom = false;
-var timerBuildOrder = 1000;
-var timerRandomLocation = 60000;
 
 var researchOrder = [
   'R-Sys-Engineering01',

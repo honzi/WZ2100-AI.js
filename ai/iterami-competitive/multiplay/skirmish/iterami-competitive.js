@@ -1,4 +1,122 @@
-function buildOrder(){
+function buildStructure(droid, structure, x, y){
+    x = x || droid.x;
+    y = y || droid.y;
+
+    var location = pickStructLocation(
+      droid,
+      structure,
+      x,
+      y
+    );
+
+    if(location){
+        orderDroidBuild(
+          droid,
+          DORDER_BUILD,
+          structure,
+          location.x,
+          location.y,
+          Math.floor(Math.random() * 4) * 90
+        );
+    }
+}
+
+function checkNeedModule(structure, module, count){
+    if(!isStructureAvailable(
+        module,
+        me
+      )){
+        return false;
+    }
+
+    var moduleNeeded = false;
+    var structures = enumStruct(
+      me,
+      structure
+    );
+    structures.some(function check_structure(checkedStructure){
+        if(checkedStructure.modules >= count){
+            return;
+        }
+
+        moduleNeeded = checkedStructure;
+    });
+
+    return moduleNeeded;
+}
+
+function checkStructure(structure, count){
+    return structure !== undefined
+      && isStructureAvailable(
+        structure,
+        me
+      ) && countStruct(structure) < count;
+}
+
+function eventGameLoaded(){
+    init();
+}
+
+function eventResearched(research, structure, player){
+    if(me !== player){
+        return;
+    }
+
+    var defenseStructureResearch = {
+      'R-Defense-Emplacement-HPVcannon': 'Emplacement-HPVcannon',
+      'R-Defense-PrisLas': 'Emplacement-PrisLas',
+      'R-Defense-PulseLas': 'GuardTower-BeamLas',
+      'R-Defense-Super-Missile': 'X-Super-Missile',
+      'R-Defense-Tower01': 'GuardTower1',
+      'R-Defense-Tower06': 'GuardTower6',
+      'R-Defense-Wall-RotMg': 'Wall-RotMg',
+      'R-Defense-WallTower-HPVcannon': 'WallTower-HPVcannon',
+      'R-Defense-WallTower-PulseLas': 'WallTower-PulseLas',
+      'R-Defense-WallTower-TwinAGun': 'WallTower-TwinAssaultGun',
+      'R-Defense-WallTower01': 'WallTower01',
+    };
+
+    if(defenseStructureResearch[research.name]){
+        defenseStructures.push(defenseStructureResearch[research.name]);
+    }
+}
+
+function eventStartLevel(){
+    init();
+}
+
+function init(){
+    maxResearchFacilities = getStructureLimit(
+      'A0ResearchFacility',
+      me
+    );
+
+    setTimer(
+      'perSecond',
+      1000
+    );
+    perSecond();
+    setTimer(
+      'perMinute',
+      60000
+    );
+}
+
+function perMinute(){
+    var droids = enumDroid(
+      me,
+      DROID_CONSTRUCT
+    );
+
+    droids.some(function check_droid(droid){
+        orderDroid(
+          droid,
+          DORDER_RTB
+        );
+    });
+}
+
+function perSecond(){
     setMiniMap(true);
 
     var droids = enumDroid(
@@ -199,106 +317,6 @@ function buildOrder(){
     }
 }
 
-function buildStructure(droid, structure, x, y){
-    x = x || droid.x;
-    y = y || droid.y;
-
-    var location = pickStructLocation(
-      droid,
-      structure,
-      x,
-      y
-    );
-
-    if(location){
-        orderDroidBuild(
-          droid,
-          DORDER_BUILD,
-          structure,
-          location.x,
-          location.y,
-          Math.floor(Math.random() * 4) * 90
-        );
-    }
-}
-
-function checkNeedModule(structure, module, count){
-    if(!isStructureAvailable(
-        module,
-        me
-      )){
-        return false;
-    }
-
-    var moduleNeeded = false;
-    var structures = enumStruct(
-      me,
-      structure
-    );
-    structures.some(function check_structure(checkedStructure){
-        if(checkedStructure.modules >= count){
-            return;
-        }
-
-        moduleNeeded = checkedStructure;
-    });
-
-    return moduleNeeded;
-}
-
-function checkStructure(structure, count){
-    return structure !== undefined
-      && isStructureAvailable(
-        structure,
-        me
-      ) && countStruct(structure) < count;
-}
-
-function eventGameLoaded(){
-    init();
-}
-
-function eventResearched(research, structure, player){
-    if(me !== player){
-        return;
-    }
-
-    var defenseStructureResearch = {
-      'R-Defense-Emplacement-HPVcannon': 'Emplacement-HPVcannon',
-      'R-Defense-PrisLas': 'Emplacement-PrisLas',
-      'R-Defense-PulseLas': 'GuardTower-BeamLas',
-      'R-Defense-Super-Missile': 'X-Super-Missile',
-      'R-Defense-Tower01': 'GuardTower1',
-      'R-Defense-Tower06': 'GuardTower6',
-      'R-Defense-Wall-RotMg': 'Wall-RotMg',
-      'R-Defense-WallTower-HPVcannon': 'WallTower-HPVcannon',
-      'R-Defense-WallTower-PulseLas': 'WallTower-PulseLas',
-      'R-Defense-WallTower-TwinAGun': 'WallTower-TwinAssaultGun',
-      'R-Defense-WallTower01': 'WallTower01',
-    };
-
-    if(defenseStructureResearch[research.name]){
-        defenseStructures.push(defenseStructureResearch[research.name]);
-    }
-}
-
-function eventStartLevel(){
-    init();
-}
-
-function init(){
-    maxResearchFacilities = getStructureLimit(
-      'A0ResearchFacility',
-      me
-    );
-
-    setTimer(
-      'buildOrder',
-      timerBuildOrder
-    );
-    buildOrder();
-}
-
 function randomLocation(){
     return {
       'x': Math.floor(Math.random() * mapWidth),
@@ -327,4 +345,3 @@ var maxDefenseStructures = 3;
 var maxFactories = 2;
 var maxResearchFacilities = 5;
 var maxResourceExtractors = 4;
-var timerBuildOrder = 1000;

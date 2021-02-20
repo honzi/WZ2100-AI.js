@@ -1,4 +1,92 @@
-function buildOrder(){
+function buildStructure(droid, structure, x, y){
+    x = x || droid.x;
+    y = y || droid.y;
+
+    var location = pickStructLocation(
+      droid,
+      structure,
+      x,
+      y
+    );
+
+    if(location){
+        orderDroidBuild(
+          droid,
+          DORDER_BUILD,
+          structure,
+          location.x,
+          location.y,
+          Math.floor(Math.random() * 4) * 90
+        );
+
+    }else{
+        randomLocation(droid);
+    }
+}
+
+function checkNeedModule(structure, module, count){
+    if(!isStructureAvailable(
+        module,
+        me
+      )){
+        return false;
+    }
+
+    var moduleNeeded = false;
+    var structures = enumStruct(
+      me,
+      structure
+    );
+    structures.some(function check_structure(checkedStructure){
+        if(checkedStructure.modules >= count){
+            return;
+        }
+
+        moduleNeeded = checkedStructure;
+    });
+
+    return moduleNeeded;
+}
+
+function checkStructure(structure, count){
+    return isStructureAvailable(
+      structure,
+      me
+    ) && countStruct(structure) < count;
+}
+
+function eventGameLoaded(){
+    init();
+}
+
+function eventResearched(research, structure, player){
+    if(me !== player){
+        return;
+    }
+
+    if(research.name === researchOrder[researchOrder.length - 1]){
+        researchRandom = true;
+    }
+}
+
+function eventStartLevel(){
+    init();
+}
+
+function init(){
+    maxResearchFacilities = getStructureLimit(
+      'A0ResearchFacility',
+      me
+    );
+
+    setTimer(
+      'perSecond',
+      1000
+    );
+    perSecond();
+}
+
+function perSecond(){
     setMiniMap(true);
 
     var droids = enumDroid(
@@ -203,94 +291,6 @@ function buildOrder(){
     }
 }
 
-function buildStructure(droid, structure, x, y){
-    x = x || droid.x;
-    y = y || droid.y;
-
-    var location = pickStructLocation(
-      droid,
-      structure,
-      x,
-      y
-    );
-
-    if(location){
-        orderDroidBuild(
-          droid,
-          DORDER_BUILD,
-          structure,
-          location.x,
-          location.y,
-          Math.floor(Math.random() * 4) * 90
-        );
-
-    }else{
-        randomLocation(droid);
-    }
-}
-
-function checkNeedModule(structure, module, count){
-    if(!isStructureAvailable(
-        module,
-        me
-      )){
-        return false;
-    }
-
-    var moduleNeeded = false;
-    var structures = enumStruct(
-      me,
-      structure
-    );
-    structures.some(function check_structure(checkedStructure){
-        if(checkedStructure.modules >= count){
-            return;
-        }
-
-        moduleNeeded = checkedStructure;
-    });
-
-    return moduleNeeded;
-}
-
-function checkStructure(structure, count){
-    return isStructureAvailable(
-      structure,
-      me
-    ) && countStruct(structure) < count;
-}
-
-function eventGameLoaded(){
-    init();
-}
-
-function eventResearched(research, structure, player){
-    if(me !== player){
-        return;
-    }
-
-    if(research.name === researchOrder[researchOrder.length - 1]){
-        researchRandom = true;
-    }
-}
-
-function eventStartLevel(){
-    init();
-}
-
-function init(){
-    maxResearchFacilities = getStructureLimit(
-      'A0ResearchFacility',
-      me
-    );
-
-    setTimer(
-      'buildOrder',
-      timerBuildOrder
-    );
-    buildOrder();
-}
-
 function randomLocation(droid){
     orderDroidLoc(
       droid,
@@ -320,7 +320,6 @@ var maxFactories = 2;
 var maxResearchFacilities = 5;
 var maxResourceExtractors = 4;
 var researchRandom = false;
-var timerBuildOrder = 1000;
 
 var researchOrder = [
   'R-Sys-Engineering01',

@@ -131,11 +131,7 @@ function eventResearched(research, structure, player){
       'R-Defense-WallTower01': 'WallTower01',
     };
 
-    if(research.name === researchOrder[researchOrder.length - 1]){
-        productionBegin = true;
-        researchRandom = true;
-
-    }else if(cyborgWeaponResearch[research.name]){
+    if(cyborgWeaponResearch[research.name]){
         cyborgWeapons.push(cyborgWeaponResearch[research.name]);
 
     }else if(defenseStructureResearch[research.name]){
@@ -215,7 +211,7 @@ function perSecond(){
             randomResearch(researchFacility);
 
         }else{
-            pursueResearch(
+            startResearch(
               researchFacility,
               researchOrder
             );
@@ -520,9 +516,25 @@ function randomResearch(researchFacility){
         return;
     }
 
-    pursueResearch(
+    startResearch(
       researchFacility,
       research[Math.floor(Math.random() * research.length)].name
+    );
+}
+
+function startResearch(researchFacility, research){
+    if(!researchRandom){
+        var targetResearch = getResearch('R-Sys-Autorepair-General');
+
+        if(targetResearch.done
+          || targetResearch.started){
+            researchRandom = true;
+        }
+    }
+
+    pursueResearch(
+      researchFacility,
+      research
     );
 }
 

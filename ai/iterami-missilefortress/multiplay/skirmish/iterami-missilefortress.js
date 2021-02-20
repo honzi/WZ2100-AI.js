@@ -59,16 +59,6 @@ function eventGameLoaded(){
     init();
 }
 
-function eventResearched(research, structure, player){
-    if(me !== player){
-        return;
-    }
-
-    if(research.name === researchOrder[researchOrder.length - 1]){
-        researchRandom = true;
-    }
-}
-
 function eventStartLevel(){
     init();
 }
@@ -98,10 +88,21 @@ function perSecond(){
         }
 
         if(researchRandom){
-            randomResearch(researchFacility);
+            var research = enumResearch();
+
+            if(research.length === 0){
+                maxConstructionDroids = 6;
+                maxResearchFacilities = 1;
+                return;
+            }
+
+            startResearch(
+              researchFacility,
+              research[Math.floor(Math.random() * research.length)].name
+            );
 
         }else{
-            pursueResearch(
+            startResearch(
               researchFacility,
               researchOrder
             );
@@ -309,18 +310,19 @@ function randomLocation(droid){
     );
 }
 
-function randomResearch(researchFacility){
-    var research = enumResearch();
+function startResearch(researchFacility, research){
+    if(!researchRandom){
+        var targetResearch = getResearch('R-Defense-Super-Missile');
 
-    if(research.length === 0){
-        maxConstructionDroids = 6;
-        maxResearchFacilities = 1;
-        return;
+        if(targetResearch.done
+          || targetResearch.started){
+            researchRandom = true;
+        }
     }
 
     pursueResearch(
       researchFacility,
-      research[Math.floor(Math.random() * research.length)].name
+      research
     );
 }
 

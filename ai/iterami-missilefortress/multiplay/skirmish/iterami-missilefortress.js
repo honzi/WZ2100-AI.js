@@ -64,13 +64,31 @@ function eventResearched(research, structure, player){
         return;
     }
 
+    var bodyResearch = {
+      'R-Vehicle-Body02': 'Body2SUP',
+      'R-Vehicle-Body03': 'Body3MBT',
+      'R-Vehicle-Body04': 'Body4ABT',
+      'R-Vehicle-Body05': 'Body5REC',
+      'R-Vehicle-Body06': 'Body6SUPP',
+      'R-Vehicle-Body07': 'Body7ABT',
+      'R-Vehicle-Body08': 'Body8MBT',
+      'R-Vehicle-Body09': 'Body9REC',
+      'R-Vehicle-Body10': 'Body10MBT',
+      'R-Vehicle-Body11': 'Body11ABT',
+      'R-Vehicle-Body12': 'Body12SUP',
+      'R-Vehicle-Body13': 'Body13SUP',
+      'R-Vehicle-Body14': 'Body14SUP',
+    };
     var propulsionResearch = {
       'R-Vehicle-Prop-Halftracks': 'HalfTrack',
       'R-Vehicle-Prop-Hover': 'hover01',
       'R-Vehicle-Prop-Tracks': 'tracked01',
     };
 
-    if(propulsionResearch[research.name]){
+    if(bodyResearch[research.name]){
+        bodies.push(bodyResearch[research.name]);
+
+    }else if(propulsionResearch[research.name]){
         propulsion.push(propulsionResearch[research.name]);
     }
 }
@@ -305,7 +323,7 @@ function perSecond(){
             buildDroid(
               factory,
               'Drone',
-              'Body1REC',
+              bodies[Math.floor(Math.random() * bodies.length)],
               propulsion[Math.floor(Math.random() * propulsion.length)],
               '',
               DROID_CONSTRUCT,
@@ -342,6 +360,7 @@ function startResearch(researchFacility, research){
     );
 }
 
+var bodies = ['Body1REC'];
 var maxConstructionDroids = 3;
 var maxFactories = 2;
 var maxResearchFacilities = 5;

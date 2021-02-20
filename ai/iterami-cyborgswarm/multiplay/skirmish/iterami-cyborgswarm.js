@@ -191,10 +191,12 @@ function perMinute(){
     );
 
     droids.some(function check_droid(droid){
-        orderDroid(
-          droid,
-          DORDER_RTB
-        );
+        if(droid.order === 0){
+            orderDroid(
+              droid,
+              DORDER_RTB
+            );
+        }
     });
 }
 

@@ -172,10 +172,7 @@ function buildOrder(){
             return;
         }
 
-        pursueResearch(
-          researchFacility,
-          randomResearch()
-        );
+        randomResearch(researchFacility);
     });
 
     if(droidCount < maxConstructionDroids){
@@ -309,7 +306,7 @@ function randomLocation(){
     };
 }
 
-function randomResearch(){
+function randomResearch(researchFacility){
     var research = enumResearch();
 
     if(research.length === 0){
@@ -318,7 +315,10 @@ function randomResearch(){
         return;
     }
 
-    return research[Math.floor(Math.random() * research.length)].name;
+    pursueResearch(
+      researchFacility,
+      research[Math.floor(Math.random() * research.length)].name
+    );
 }
 
 var defenseStructures = [];

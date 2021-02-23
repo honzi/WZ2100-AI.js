@@ -89,10 +89,21 @@ function eventAttacked(victim, attacker){
 }
 
 function eventDroidBuilt(droid, structure){
+    if(droid.droidType === DROID_CONSTRUCT){
+        return;
+    }
+
+    if(groupSize(groupDefend) >= maxCyborgsDefend){
+        var defenders = enumGroup(groupDefend);
+
+        groupAddDroid(
+          groupAttack,
+          defenders[defenders.length - 1]
+        );
+    }
+
     groupAddDroid(
-      groupSize(groupDefend) > maxCyborgsDefend
-        ? groupAttack
-        : groupDefend,
+      groupDefend,
       droid
     );
 }

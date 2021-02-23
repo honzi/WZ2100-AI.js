@@ -77,6 +77,10 @@ function checkStructure(structure, count){
 }
 
 function eventDroidBuilt(droid, structure){
+    if(droid.droidType === DROID_CONSTRUCT){
+        return;
+    }
+
     groupAddDroid(
       groupDefend,
       droid

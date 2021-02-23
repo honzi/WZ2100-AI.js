@@ -320,14 +320,19 @@ function perSecond(){
                 return;
             }
 
+            var body = bodies[Math.floor(Math.random() * bodies.length)];
+
             buildDroid(
               factory,
               'Drone',
-              bodies[Math.floor(Math.random() * bodies.length)],
+              body,
               propulsion[Math.floor(Math.random() * propulsion.length)],
               '',
               DROID_CONSTRUCT,
-              'Spade1Mk1'
+              'Spade1Mk1',
+              body === 'Body14SUP'
+                ? 'SensorTurret1Mk1'
+                : undefined
             );
         });
     }

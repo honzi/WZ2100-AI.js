@@ -77,8 +77,12 @@ function checkStructure(structure, count){
 }
 
 function eventAttacked(victim, attacker){
-    if(me !== victim.player
-      || victim.type !== STRUCTURE){
+    if(me !== victim.player){
+        return;
+    }
+
+    if(victim.type === DROID
+      && victim.group !== groupDefend){
         return;
     }
 
@@ -98,7 +102,7 @@ function eventDroidBuilt(droid, structure){
 
         groupAddDroid(
           groupAttack,
-          defenders[defenders.length - 1]
+          defenders[Math.floor(Math.random() * defenders.length)]
         );
     }
 

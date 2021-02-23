@@ -564,6 +564,7 @@ function startResearch(researchFacility, research){
 
         if(targetResearch.done
           || targetResearch.started){
+            maxCyborgsDefend = 20;
             productionBegin = true;
             researchRandom = true;
         }
@@ -582,7 +583,7 @@ var groupAttack = newGroup();
 var groupDefend = newGroup();
 var maxConstructionDroids = 3;
 var maxCyborgFactories = 5;
-var maxCyborgsDefend = 20;
+var maxCyborgsDefend = 30;
 var maxDefenseStructures = 3;
 var maxFactories = 2;
 var maxResearchFacilities = 5;

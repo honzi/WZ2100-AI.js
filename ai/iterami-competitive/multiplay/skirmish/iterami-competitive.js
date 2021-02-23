@@ -163,13 +163,11 @@ function init(){
 }
 
 function perMinute(){
-    var droids = enumDroid(
-      me,
-      DROID_CONSTRUCT
-    );
+    var droids = enumDroid(me);
 
     droids.some(function check_droid(droid){
-        if(droid.order === 0){
+        if(droid.group !== groupAttack
+          && droid.order === 0){
             orderDroid(
               droid,
               DORDER_RTB

@@ -77,12 +77,8 @@ function checkStructure(structure, count){
 }
 
 function eventAttacked(victim, attacker){
-    if(me !== victim.player){
-        return;
-    }
-
-    if(victim.type === DROID
-      && victim.group !== groupDefend){
+    if(me !== victim.player
+      || victim.type !== STRUCTURE){
         return;
     }
 
@@ -218,12 +214,15 @@ function perMinute(){
         });
     }
 
-    var droids = enumDroid(
-      me,
-      DROID_CONSTRUCT
-    );
+    var droids = enumDroid(me);
+
     droids.some(function check_droid(droid){
-        if(droid.order === 0){
+        if(droid.group === groupAttack){
+            return;
+        }
+
+        if(droid.order === 0
+          || droid.order === 25){
             orderDroid(
               droid,
               DORDER_RTB

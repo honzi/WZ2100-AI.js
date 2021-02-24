@@ -1,6 +1,12 @@
-function attack(group, target){
+function attack(group, target, override){
     var droids = enumGroup(group);
     droids.some(function check_droid(droid){
+        if(!override
+          && (droid.order !== 0 || droid.order !== 25)){
+            return;
+        }
+
+
         if(target.type === DROID){
             if(target.isVTOL){
                 if(!droid.canHitAir){
@@ -77,15 +83,24 @@ function checkStructure(structure, count){
 }
 
 function eventAttacked(victim, attacker){
-    if(me !== victim.player
-      || victim.type !== STRUCTURE){
+    if(victim.player !== me){
         return;
     }
 
-    attack(
-      groupDefend,
-      attacker
-    );
+    if(victim.group === groupAttack){
+        attack(
+          groupAttack,
+          attacker,
+          false
+        );
+
+    }else if(victim.type === STRUCTURE){
+        attack(
+          groupDefend,
+          attacker,
+          true
+        );
+    }
 }
 
 function eventDroidBuilt(droid, structure){
@@ -520,7 +535,8 @@ function perSecond(){
                 if(enemies.length > 0){
                     attack(
                       groupAttack,
-                      enemies[enemies.length - 1]
+                      enemies[enemies.length - 1],
+                      true
                     );
                     attacking = true;
                     return;
@@ -536,7 +552,8 @@ function perSecond(){
         if(droids.length > 0){
             attack(
               groupAttack,
-              droids[droids.length - 1]
+              droids[droids.length - 1],
+              true
             );
             attacking = true;
             return;

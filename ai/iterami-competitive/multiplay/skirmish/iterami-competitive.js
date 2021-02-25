@@ -164,13 +164,22 @@ function init(){
 
 function perMinute(){
     var droids = enumDroid(me);
+    var structures = enumStruct(me);
 
     droids.some(function check_droid(droid){
-        if(droid.group !== groupAttack
-          && droid.order === 0){
-            orderDroid(
+        if(droid.group !== groupAttack){
+            return;
+        }
+
+        if(droid.order !== DORDER_BUILD
+          || droid.order !== DORDER_HELPBUILD){
+            var randomStructure = structures[Math.floor(Math.random() * structures.length)];
+
+            orderDroidLoc(
               droid,
-              DORDER_RTB
+              DORDER_SCOUT,
+              randomStructure.x,
+              randomStructure.y
             );
         }
     });

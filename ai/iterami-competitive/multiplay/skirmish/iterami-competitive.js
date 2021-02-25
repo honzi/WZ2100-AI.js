@@ -171,17 +171,19 @@ function perMinute(){
             return;
         }
 
-        if(droid.order !== DORDER_BUILD
-          || droid.order !== DORDER_HELPBUILD){
-            var randomStructure = structures[Math.floor(Math.random() * structures.length)];
-
-            orderDroidLoc(
-              droid,
-              DORDER_SCOUT,
-              randomStructure.x,
-              randomStructure.y
-            );
+        if(droid.order === DORDER_BUILD
+          || droid.order === DORDER_HELPBUILD){
+            return;
         }
+
+        var randomStructure = structures[Math.floor(Math.random() * structures.length)];
+
+        orderDroidLoc(
+          droid,
+          DORDER_SCOUT,
+          randomStructure.x,
+          randomStructure.y
+        );
     });
 }
 

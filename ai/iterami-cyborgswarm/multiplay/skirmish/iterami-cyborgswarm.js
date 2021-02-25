@@ -108,19 +108,22 @@ function eventDroidBuilt(droid, structure){
         return;
     }
 
-    if(groupSize(groupDefend) >= maxCyborgsDefend){
-        var defenders = enumGroup(groupDefend);
-
-        groupAddDroid(
-          groupAttack,
-          defenders[Math.floor(Math.random() * defenders.length)]
-        );
-    }
-
     groupAddDroid(
       groupDefend,
       droid
     );
+
+    if(groupSize(groupDefend) >= limitCyborgsAttack){
+        var defenders = enumGroup(groupDefend);
+
+        for(var i = 0; i < maxCyborgsDefend; i++){
+            groupAddDroid(
+              groupAttack,
+              defenders[Math.floor(Math.random() * (defenders.length - i))]
+            );
+        }
+
+    }
 }
 
 function eventGameLoaded(){
@@ -609,6 +612,7 @@ var cyborgWeapons = [];
 var defenseStructures = [];
 var groupAttack = newGroup();
 var groupDefend = newGroup();
+var limitCyborgsAttack = 40;
 var maxConstructionDroids = 3;
 var maxCyborgFactories = 5;
 var maxCyborgsDefend = 30;

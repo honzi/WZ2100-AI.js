@@ -5,8 +5,8 @@ function buildStructure(droid, structure, x, y){
     var location = pickStructLocation(
       droid,
       structure,
-      x,
-      y
+      x + (Math.random() * 4 - 2),
+      y + (Math.random() * 4 - 2)
     );
 
     if(location){

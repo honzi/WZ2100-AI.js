@@ -85,6 +85,27 @@ function checkStructure(structure, count){
       ) && countStruct(structure) < count;
 }
 
+function eventAttacked(victim, attacker){
+    if(victim.player !== me){
+        return;
+    }
+
+    if(victim.group === groupAttack){
+        attack(
+          groupAttack,
+          attacker,
+          false
+        );
+
+    }else if(victim.type === STRUCTURE){
+        attack(
+          groupDefend,
+          attacker,
+          true
+        );
+    }
+}
+
 function eventDroidBuilt(droid, structure){
     if(droid.droidType === DROID_CONSTRUCT){
         return;
@@ -94,6 +115,18 @@ function eventDroidBuilt(droid, structure){
       groupDefend,
       droid
     );
+
+    if(groupSize(groupDefend) >= limitDroidsAttack){
+        var defenders = enumGroup(groupDefend);
+
+        for(var i = 0; i < maxDroidsDefend; i++){
+            groupAddDroid(
+              groupAttack,
+              defenders[Math.floor(Math.random() * (defenders.length - i))]
+            );
+        }
+
+    }
 }
 
 function eventGameLoaded(){
@@ -133,6 +166,46 @@ function eventResearched(research, structure, player){
       'R-Defense-WallTower-TwinAGun': 'WallTower-TwinAssaultGun',
       'R-Defense-WallTower01': 'WallTower01',
     };
+    var droidWeaponResearch = {
+      'R-Wpn-Cannon1Mk1': 'Cannon1Mk1',
+      'R-Wpn-Cannon2Mk1': 'Cannon2A-TMk1',
+      'R-Wpn-Cannon3Mk1': 'Cannon375mmMk1',
+      'R-Wpn-Cannon4AMk1': 'Cannon4AUTOMk1',
+      'R-Wpn-Cannon5': 'Cannon5VulcanMk1',
+      'R-Wpn-Cannon6TwinAslt': 'Cannon6TwinAslt',
+      'R-Wpn-Flame2': 'Flame2',
+      'R-Wpn-Flamer01Mk1': 'Flame1Mk1',
+      'R-Wpn-Howitzer-Incenediary': 'Howitzer-Incenediary',
+      'R-Wpn-Howitzer03-Rot': 'Howitzer03-Rot',
+      'R-Wpn-HowitzerMk1': 'Howitzer105Mk1',
+      'R-Wpn-HvArtMissile': 'Missile-HvyArt',
+      'R-Wpn-HvyHowitzer': 'Howitzer150Mk1',
+      'R-Wpn-HvyLaser': 'HeavyLaser',
+      'R-Wpn-Laser01': 'Laser3BEAMMk1',
+      'R-Wpn-Laser02': 'Laser2PULSEMk1',
+      'R-Wpn-MG1Mk1': 'MG1Mk1',
+      'R-Wpn-MG2Mk1': 'MG2Mk1',
+      'R-Wpn-MG3Mk1': 'MG3Mk1',
+      'R-Wpn-MG4': 'MG4ROTARYMk1',
+      'R-Wpn-MG5': 'MG5TWINROTARY',
+      'R-Wpn-MdArtMissile': 'Missile-MdArt',
+      'R-Wpn-Missile2A-T': 'Missile-A-T',
+      'R-Wpn-Mortar-Incenediary': 'Mortar-Incenediary',
+      'R-Wpn-Mortar01Lt': 'Mortar1Mk1',
+      'R-Wpn-Mortar02Hvy': 'Mortar2Mk1',
+      'R-Wpn-Mortar3': 'Mortar3ROTARYMk1',
+      'R-Wpn-PlasmaCannon': 'Laser4-PlasmaCannon',
+      'R-Wpn-Plasmite-Flamer': 'PlasmiteFlamer',
+      'R-Wpn-RailGun01': 'RailGun1Mk1',
+      'R-Wpn-RailGun02': 'RailGun2Mk1',
+      'R-Wpn-RailGun03': 'RailGun3Mk1',
+      'R-Wpn-Rocket01-LtAT': 'Rocket-LtA-T',
+      'R-Wpn-Rocket02-MRL': 'Rocket-MRL',
+      'R-Wpn-Rocket03-HvAT': 'Rocket-BB',
+      'R-Wpn-Rocket05-MiniPod': 'Rocket-Pod',
+      'R-Wpn-Rocket06-IDF': 'Rocket-IDF',
+      'R-Wpn-Rocket07-Tank-Killer': 'Rocket-HvyA-T',
+    };
     var propulsionResearch = {
       'R-Vehicle-Prop-Halftracks': 'HalfTrack',
       'R-Vehicle-Prop-Hover': 'hover01',
@@ -144,6 +217,9 @@ function eventResearched(research, structure, player){
 
     }else if(bodyResearch[research.name]){
         bodies.push(bodyResearch[research.name]);
+
+    }else if(droidWeaponResearch[research.name]){
+        droidWeapons.push(droidWeaponResearch[research.name]);
 
     }else if(propulsionResearch[research.name]){
         propulsion.push(propulsionResearch[research.name]);
@@ -165,6 +241,10 @@ function init(){
       60000
     );
 
+    maxFactories = getStructureLimit(
+      'A0LightFactory',
+      me
+    );
     maxResearchFacilities = getStructureLimit(
       'A0ResearchFacility',
       me
@@ -172,11 +252,18 @@ function init(){
 }
 
 function perMinute(){
+    if(groupSize(groupAttack) >= minDroidsAttackStructures){
+        var droids = enumGroup(groupAttack);
+        droids.some(function check_droid(droid){
+            randomLocation(droid);
+        });
+    }
+
     var droids = enumDroid(me);
     var structures = enumStruct(me);
 
     droids.some(function check_droid(droid){
-        if(droid.group !== groupAttack){
+        if(droid.group === groupAttack){
             return;
         }
 
@@ -208,7 +295,15 @@ function perSecond(){
             return;
         }
 
-        randomResearch(researchFacility);
+        if(researchRandom){
+            randomResearch(researchFacility);
+
+        }else{
+            startResearch(
+              researchFacility,
+              researchOrder
+            );
+        }
     });
 
     var droids = enumDroid(
@@ -218,6 +313,36 @@ function perSecond(){
     var droidCount = droids.length;
     var lessThan2 = droidCount < 2;
     var structures = enumStruct(me);
+
+    if(productionBegin
+      || groupSize(groupDefend) < maxDroidsDefend){
+        var factories = enumStruct(
+          me,
+          'A0LightFactory'
+        );
+        factories.some(function check_factory(factory){
+            if(factory.status !== BUILT
+              || !structureIdle(factory)
+              || droidWeapons.length === 0){
+                return;
+            }
+
+            var body = bodies[Math.floor(Math.random() * bodies.length)];
+
+            buildDroid(
+              factory,
+              'Droid',
+              body,
+              propulsion[Math.floor(Math.random() * propulsion.length)],
+              '',
+              DROID_WEAPON,
+              droidWeapons[Math.floor(Math.random() * droidWeapons.length)],
+              body === 'Body14SUP'
+                ? droidWeapons[Math.floor(Math.random() * droidWeapons.length)]
+                : undefined
+            );
+        });
+    }
 
     droids.some(function check_droid(droid){
         var isProjectManager = droid === droids[droidCount - 1];
@@ -409,6 +534,66 @@ function perSecond(){
         });
     }
 
+    var attacking = false;
+    playerData.forEach(function(player, id){
+        if(attacking
+          || groupSize(groupAttack) < minDroidsAttack
+          || allianceExistsBetween(me, id)){
+            return;
+        }
+
+        if(groupSize(groupAttack) >= minDroidsAttackStructures){
+            var enemyList = [
+              DEFENSE,
+              FACTORY,
+              CYBORG_FACTORY,
+              VTOL_FACTORY,
+              RESOURCE_EXTRACTOR,
+              RESEARCH_LAB,
+              SAT_UPLINK,
+              LASSAT,
+              POWER_GEN,
+              HQ,
+              REPAIR_FACILITY,
+              COMMAND_CONTROL,
+              REARM_PAD,
+              WALL,
+              GATE,
+            ];
+            for(var enemy in enemyList){
+                var enemies = enumStruct(
+                  id,
+                  enemyList[enemy],
+                  me
+                );
+                if(enemies.length > 0){
+                    attack(
+                      groupAttack,
+                      enemies[enemies.length - 1],
+                      true
+                    );
+                    attacking = true;
+                    return;
+                }
+            }
+        }
+
+        var droids = enumDroid(
+          id,
+          DROID_ANY,
+          me
+        );
+        if(droids.length > 0){
+            attack(
+              groupAttack,
+              droids[droids.length - 1],
+              true
+            );
+            attacking = true;
+            return;
+        }
+    });
+
     setMiniMap(true);
 }
 
@@ -430,19 +615,71 @@ function randomResearch(researchFacility){
         return;
     }
 
-    pursueResearch(
+    startResearch(
       researchFacility,
       research[Math.floor(Math.random() * research.length)].name
     );
 }
 
+function startResearch(researchFacility, research){
+    if(!researchRandom){
+        var targetResearch = getResearch('R-Sys-Autorepair-General');
+
+        if(targetResearch.done
+          || targetResearch.started){
+            productionBegin = true;
+            researchRandom = true;
+        }
+    }
+
+    pursueResearch(
+      researchFacility,
+      research
+    );
+}
+
 var bodies = ['Body1REC'];
 var defenseStructures = [];
+var droidWeapons = [];
 var groupAttack = newGroup();
 var groupDefend = newGroup();
+var limitDroidsAttack = 40;
 var maxConstructionDroids = 3;
 var maxDefenseStructures = 3;
-var maxFactories = 2;
+var maxDroidsDefend = 20;
+var maxFactories = 5;
 var maxResearchFacilities = 5;
 var maxResourceExtractors = 4;
+var minDroidsAttack = 10;
+var minDroidsAttackStructures = 40;
+var productionBegin = false;
 var propulsion = ['wheeled01'];
+var researchRandom = false;
+
+var researchOrder = [
+  'R-Sys-Engineering01',
+  'R-Vehicle-Engine01',
+  'R-Sys-Sensor-Turret01',
+  'R-Wpn-MG1Mk1',
+  'R-Wpn-Flamer01Mk1',
+  'R-Sys-Sensor-Tower01',
+  'R-Struc-PowerModuleMk1',
+  'R-Struc-CommandRelay',
+  'R-Struc-Research-Module',
+  'R-Struc-Research-Upgrade01',
+  'R-Struc-Research-Upgrade02',
+  'R-Struc-Research-Upgrade03',
+  'R-Struc-Research-Upgrade04',
+  'R-Struc-Power-Upgrade01',
+  'R-Struc-Research-Upgrade05',
+  'R-Struc-Power-Upgrade01b',
+  'R-Struc-Research-Upgrade06',
+  'R-Struc-Power-Upgrade01c',
+  'R-Struc-Research-Upgrade07',
+  'R-Struc-Power-Upgrade02',
+  'R-Struc-Research-Upgrade08',
+  'R-Struc-Power-Upgrade03',
+  'R-Struc-Research-Upgrade09',
+  'R-Struc-Power-Upgrade03a',
+  'R-Sys-Autorepair-General',
+];

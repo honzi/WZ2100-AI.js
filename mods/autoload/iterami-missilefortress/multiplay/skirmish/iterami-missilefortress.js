@@ -105,6 +105,10 @@ function init(){
       1000
     );
 
+    maxFactories = getStructureLimit(
+      'A0LightFactory',
+      me
+    );
     maxResearchFacilities = getStructureLimit(
       'A0ResearchFacility',
       me

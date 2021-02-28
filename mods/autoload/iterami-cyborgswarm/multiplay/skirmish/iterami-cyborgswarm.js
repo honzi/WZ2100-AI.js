@@ -216,6 +216,10 @@ function init(){
       'A0CyborgFactory',
       me
     );
+    maxFactories = getStructureLimit(
+      'A0LightFactory',
+      me
+    );
     maxResearchFacilities = getStructureLimit(
       'A0ResearchFacility',
       me

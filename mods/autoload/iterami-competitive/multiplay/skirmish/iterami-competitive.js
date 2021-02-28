@@ -1,6 +1,12 @@
-function attack(group, target){
+function attack(group, target, override){
     var droids = enumGroup(group);
     droids.some(function check_droid(droid){
+        if(!override
+          && droid.order !== 0
+          && droid.order !== 25){
+            return;
+        }
+
         if(target.type === DROID){
             if(target.isVTOL){
                 if(!droid.canHitAir){

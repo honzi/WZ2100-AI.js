@@ -49,10 +49,11 @@ function checkNeedModule(structure, module, count){
 }
 
 function checkStructure(structure, count){
-    return isStructureAvailable(
-      structure,
-      me
-    ) && countStruct(structure) < count;
+    return structure !== undefined
+      && isStructureAvailable(
+        structure,
+        me
+      ) && countStruct(structure) < count;
 }
 
 function eventGameLoaded(){

@@ -47,6 +47,9 @@ function buildStructure(droid, structure, x, y){
           location.y,
           Math.floor(Math.random() * 4) * 90
         );
+
+    }else{
+        randomLocation(droid);
     }
 }
 
@@ -223,12 +226,7 @@ function perMinute(){
     if(groupSize(groupAttack) >= minCyborgsAttackStructures){
         var droids = enumGroup(groupAttack);
         droids.some(function check_droid(droid){
-            orderDroidLoc(
-              droid,
-              DORDER_SCOUT,
-              Math.floor(Math.random() * mapWidth),
-              Math.floor(Math.random() * mapHeight)
-            );
+            randomLocation(droid);
         });
     }
 
@@ -240,20 +238,20 @@ function perMinute(){
             return;
         }
 
-
         if(droid.order === DORDER_BUILD
           || droid.order === DORDER_HELPBUILD){
             return;
         }
 
         var randomStructure = structures[Math.floor(Math.random() * structures.length)];
-
-        orderDroidLoc(
-          droid,
-          DORDER_SCOUT,
-          randomStructure.x,
-          randomStructure.y
-        );
+        if(randomStructure !== undefined){
+            orderDroidLoc(
+              droid,
+              DORDER_SCOUT,
+              randomStructure.x,
+              randomStructure.y
+            );
+        }
     });
 }
 
@@ -572,6 +570,15 @@ function perSecond(){
     });
 
     setMiniMap(true);
+}
+
+function randomLocation(droid){
+    orderDroidLoc(
+      droid,
+      DORDER_MOVE,
+      Math.floor(Math.random() * mapWidth),
+      Math.floor(Math.random() * mapHeight)
+    );
 }
 
 function randomResearch(researchFacility){

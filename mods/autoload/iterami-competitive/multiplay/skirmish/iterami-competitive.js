@@ -327,19 +327,23 @@ function perSecond(){
                 return;
             }
 
-            var body = bodies[Math.floor(Math.random() * bodies.length)];
+            var droidBody = bodies[Math.floor(Math.random() * bodies.length)];
+            var droidPropulsion = propulsion[Math.floor(Math.random() * propulsion.length)];
+            var droidWeapon0 = droidWeapons[Math.floor(Math.random() * droidWeapons.length)];
+            var droidWeapon1 = droidBody === 'Body14SUP'
+              ? droidWeapons[Math.floor(Math.random() * droidWeapons.length)]
+              : undefined;
 
             buildDroid(
               factory,
-              'Droid',
-              body,
-              propulsion[Math.floor(Math.random() * propulsion.length)],
+              'droid-' + droidBody + '-' + droidPropulsion + '-' + droidWeapon0
+                + (droidWeapon1 !== undefined ? '+' + droidWeapon1 : ''),
+              droidBody,
+              droidPropulsion,
               '',
               DROID_WEAPON,
-              droidWeapons[Math.floor(Math.random() * droidWeapons.length)],
-              body === 'Body14SUP'
-                ? droidWeapons[Math.floor(Math.random() * droidWeapons.length)]
-                : undefined
+              droidWeapon0,
+              droidWeapon1
             );
         });
     }
@@ -517,19 +521,22 @@ function perSecond(){
                 return;
             }
 
-            var body = bodies[Math.floor(Math.random() * bodies.length)];
+            var droidBody = bodies[Math.floor(Math.random() * bodies.length)];
+            var droidPropulsion = propulsion[Math.floor(Math.random() * propulsion.length)];
+            var droidWeapon1 = droidBody === 'Body14SUP'
+              ? 'SensorTurret1Mk1'
+              : undefined;
 
             buildDroid(
               factory,
-              'Drone',
-              body,
-              propulsion[Math.floor(Math.random() * propulsion.length)],
+              'drone-' + droidBody + '-' + droidPropulsion + '-Spade1Mk1'
+                + (droidWeapon1 !== undefined ? '+' + droidWeapon1 : ''),
+              droidBody,
+              droidPropulsion,
               '',
               DROID_CONSTRUCT,
               'Spade1Mk1',
-              body === 'Body14SUP'
-                ? 'SensorTurret1Mk1'
-                : undefined
+              droidWeapon1
             );
         });
     }

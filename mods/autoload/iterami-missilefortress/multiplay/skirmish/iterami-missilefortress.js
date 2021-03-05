@@ -42,15 +42,8 @@ function init(){
     );
 
     maxFactories = Math.min(
-      getStructureLimit(
-        'A0LightFactory',
-        me
-      ),
-      maxFactories
-    );
-    maxResearchFacilities = getStructureLimit(
-      'A0ResearchFacility',
-      me
+      maxFactories,
+      2
     );
 }
 
@@ -305,8 +298,6 @@ function startResearch(researchFacility, research){
 
 var bodies = ['Body1REC'];
 var maxConstructionDroids = 3;
-var maxFactories = 2;
-var maxResearchFacilities = 5;
 var maxResourceExtractors = 4;
 var propulsion = ['wheeled01'];
 var researchRandom = false;

@@ -147,15 +147,6 @@ function init(){
       'perMinute',
       60000
     );
-
-    maxFactories = getStructureLimit(
-      'A0LightFactory',
-      me
-    );
-    maxResearchFacilities = getStructureLimit(
-      'A0ResearchFacility',
-      me
-    );
 }
 
 function perMinute(){
@@ -552,8 +543,6 @@ var limitDroidsAttack = 40;
 var maxConstructionDroids = 3;
 var maxDefenseStructures = 3;
 var maxDroidsDefend = 20;
-var maxFactories = 5;
-var maxResearchFacilities = 5;
 var maxResourceExtractors = 4;
 var minDroidsAttack = 10;
 var minDroidsAttackStructures = 40;

@@ -119,20 +119,9 @@ function init(){
       60000
     );
 
-    maxCyborgFactories = getStructureLimit(
-      'A0CyborgFactory',
-      me
-    );
     maxFactories = Math.min(
-      getStructureLimit(
-        'A0LightFactory',
-        me
-      ),
-      maxFactories
-    );
-    maxResearchFacilities = getStructureLimit(
-      'A0ResearchFacility',
-      me
+      maxFactories,
+      2
     );
 }
 
@@ -531,11 +520,8 @@ var groupAttack = newGroup();
 var groupDefend = newGroup();
 var limitCyborgsAttack = 40;
 var maxConstructionDroids = 3;
-var maxCyborgFactories = 5;
 var maxCyborgsDefend = 30;
 var maxDefenseStructures = 3;
-var maxFactories = 2;
-var maxResearchFacilities = 5;
 var maxResourceExtractors = 4;
 var minCyborgsAttack = 10;
 var minCyborgsAttackStructures = 40;

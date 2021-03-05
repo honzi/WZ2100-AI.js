@@ -86,10 +86,27 @@ function checkStructure(structure, count){
 }
 
 function eventGameLoaded(){
-    init();
+    preInit();
 }
 
 function eventStartLevel(){
+    preInit();
+}
+
+function preInit(){
+    maxCyborgFactories = getStructureLimit(
+      'A0CyborgFactory',
+      me
+    );
+    maxFactories = getStructureLimit(
+      'A0LightFactory',
+      me
+    );
+    maxResearchFacilities = getStructureLimit(
+      'A0ResearchFacility',
+      me
+    );
+
     init();
 }
 
@@ -101,3 +118,7 @@ function randomLocation(droid){
       Math.floor(Math.random() * mapHeight)
     );
 }
+
+var maxCyborgFactories = 5;
+var maxFactories = 5;
+var maxResearchFacilities = 5;

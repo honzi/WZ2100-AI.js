@@ -40,7 +40,6 @@ function eventDroidBuilt(droid, structure){
               defenders[Math.floor(Math.random() * (defenders.length - i))]
             );
         }
-
     }
 }
 

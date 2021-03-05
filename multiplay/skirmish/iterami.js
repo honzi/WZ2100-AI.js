@@ -27,7 +27,7 @@ function attack(group, target, override){
     });
 }
 
-function buildStructure(droid, structure, x, y, todo){
+function buildStructure(droid, structure, x, y){
     x = x || droid.x;
     y = y || droid.y;
 
@@ -48,8 +48,8 @@ function buildStructure(droid, structure, x, y, todo){
           Math.floor(Math.random() * 4) * 90
         );
 
-    }else if(todo !== undefined){
-        todo(droid);
+    }else{
+        randomLocation(droid);
     }
 }
 

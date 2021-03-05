@@ -122,3 +122,4 @@ function randomLocation(droid){
 var maxCyborgFactories = 5;
 var maxFactories = 5;
 var maxResearchFacilities = 5;
+var maxResourceExtractors = 4;

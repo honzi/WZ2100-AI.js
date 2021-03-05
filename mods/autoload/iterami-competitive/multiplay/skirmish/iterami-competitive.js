@@ -542,7 +542,6 @@ var limitDroidsAttack = 40;
 var maxConstructionDroids = 3;
 var maxDefenseStructures = 3;
 var maxDroidsDefend = 20;
-var maxResourceExtractors = 4;
 var minDroidsAttack = 10;
 var minDroidsAttackStructures = 40;
 var productionBegin = false;

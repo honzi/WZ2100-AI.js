@@ -521,7 +521,6 @@ var limitCyborgsAttack = 40;
 var maxConstructionDroids = 3;
 var maxCyborgsDefend = 30;
 var maxDefenseStructures = 3;
-var maxResourceExtractors = 4;
 var minCyborgsAttack = 10;
 var minCyborgsAttackStructures = 40;
 var productionBegin = false;

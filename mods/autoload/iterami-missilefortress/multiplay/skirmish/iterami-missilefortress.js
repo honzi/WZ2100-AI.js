@@ -298,7 +298,6 @@ function startResearch(researchFacility, research){
 
 var bodies = ['Body1REC'];
 var maxConstructionDroids = 3;
-var maxResourceExtractors = 4;
 var propulsion = ['wheeled01'];
 var researchRandom = false;
 

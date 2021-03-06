@@ -184,7 +184,6 @@ function perSecond(){
       DROID_CONSTRUCT
     );
     var droidCount = droids.length;
-    var lessThan2 = droidCount < 2;
     var structures = enumStruct(me);
 
     if(productionBegin
@@ -217,8 +216,7 @@ function perSecond(){
     droids.some(function check_droid(droid){
         var isProjectManager = droid === droids[droidCount - 1];
 
-        if(!isProjectManager
-          || lessThan2){
+        if(!isProjectManager){
             for(var structure in structures){
                 if(structures[structure].health < 100
                   && structures[structure].status === BUILT){

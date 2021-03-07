@@ -43,70 +43,6 @@ function eventDroidBuilt(droid, structure){
     }
 }
 
-function eventResearched(research, structure, player){
-    if(me !== player){
-        return;
-    }
-
-    var bodyResearch = {
-      'R-Vehicle-Body02': 'Body2SUP',
-      'R-Vehicle-Body03': 'Body3MBT',
-      'R-Vehicle-Body04': 'Body4ABT',
-      'R-Vehicle-Body05': 'Body5REC',
-      'R-Vehicle-Body06': 'Body6SUPP',
-      'R-Vehicle-Body07': 'Body7ABT',
-      'R-Vehicle-Body08': 'Body8MBT',
-      'R-Vehicle-Body09': 'Body9REC',
-      'R-Vehicle-Body10': 'Body10MBT',
-      'R-Vehicle-Body11': 'Body11ABT',
-      'R-Vehicle-Body12': 'Body12SUP',
-      'R-Vehicle-Body13': 'Body13SUP',
-      'R-Vehicle-Body14': 'Body14SUP',
-    };
-    var cyborgWeaponResearch = {
-      'R-Wpn-Cannon1Mk1': 'CyborgCannon',
-      'R-Wpn-Flamer01Mk1': 'CyborgFlamer01',
-      'R-Wpn-Laser01': 'Cyb-Wpn-Laser',
-      'R-Wpn-MG1Mk1': 'CyborgChaingun',
-      'R-Wpn-MG4': 'CyborgRotMG',
-      'R-Wpn-Missile2A-T': 'Cyb-Wpn-Atmiss',
-      'R-Wpn-Mortar01Lt': 'Cyb-Wpn-Grenade',
-      'R-Wpn-RailGun01': 'Cyb-Wpn-Rail1',
-      'R-Wpn-Rocket01-LtAT': 'CyborgRocket',
-    };
-    var defenseStructureResearch = {
-      'R-Defense-Emplacement-HPVcannon': 'Emplacement-HPVcannon',
-      'R-Defense-PrisLas': 'Emplacement-PrisLas',
-      'R-Defense-PulseLas': 'GuardTower-BeamLas',
-      'R-Defense-Super-Missile': 'X-Super-Missile',
-      'R-Defense-Tower01': 'GuardTower1',
-      'R-Defense-Tower06': 'GuardTower6',
-      'R-Defense-Wall-RotMg': 'Wall-RotMg',
-      'R-Defense-WallTower-HPVcannon': 'WallTower-HPVcannon',
-      'R-Defense-WallTower-PulseLas': 'WallTower-PulseLas',
-      'R-Defense-WallTower-TwinAGun': 'WallTower-TwinAssaultGun',
-      'R-Defense-WallTower01': 'WallTower01',
-    };
-    var propulsionResearch = {
-      'R-Vehicle-Prop-Halftracks': 'HalfTrack',
-      'R-Vehicle-Prop-Hover': 'hover01',
-      'R-Vehicle-Prop-Tracks': 'tracked01',
-    };
-
-    if(cyborgWeaponResearch[research.name]){
-        cyborgWeapons.push(cyborgWeaponResearch[research.name]);
-
-    }else if(defenseStructureResearch[research.name]){
-        defenseStructures.push(defenseStructureResearch[research.name]);
-
-    }else if(bodyResearch[research.name]){
-        bodies.push(bodyResearch[research.name]);
-
-    }else if(propulsionResearch[research.name]){
-        propulsion.push(propulsionResearch[research.name]);
-    }
-}
-
 function init(){
     perSecond();
     setTimer(
@@ -520,9 +456,6 @@ function startResearch(researchFacility, research){
     );
 }
 
-var bodies = ['Body1REC'];
-var cyborgWeapons = [];
-var defenseStructures = [];
 var groupAttack = newGroup();
 var groupDefend = newGroup();
 var limitCyborgsAttack = 40;
@@ -532,7 +465,6 @@ var maxDefenseStructures = 3;
 var minCyborgsAttack = 10;
 var minCyborgsAttackStructures = 40;
 var productionBegin = false;
-var propulsion = ['wheeled01'];
 var researchRandom = false;
 
 var researchOrder = [

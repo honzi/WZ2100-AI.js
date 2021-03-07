@@ -184,20 +184,24 @@ function eventResearched(research, structure, player){
       'R-Vehicle-Prop-Tracks': 'tracked01',
     };
 
+    if(bodyResearch[research.name]){
+        bodies.push(bodyResearch[research.name]);
+    }
+
+    if(cyborgWeaponResearch[research.name]){
+        cyborgWeapons.push(cyborgWeaponResearch[research.name]);
+    }
+
+    if(defenseStructureResearch[research.name]){
+        defenseStructures.push(defenseStructureResearch[research.name]);
+    }
+
+    if(droidWeaponResearch[research.name]){
+        droidWeapons.push(droidWeaponResearch[research.name]);
+    }
+
     if(propulsionResearch[research.name]){
         propulsion.push(propulsionResearch[research.name]);
-
-    }else if(bodyResearch[research.name]){
-        bodies.push(bodyResearch[research.name]);
-
-    }else if(defenseStructureResearch[research.name]){
-        defenseStructures.push(defenseStructureResearch[research.name]);
-
-    }else if(cyborgWeaponResearch[research.name]){
-        cyborgWeapons.push(cyborgWeaponResearch[research.name]);
-
-    }else if(droidWeaponResearch[research.name]){
-        droidWeapons.push(droidWeaponResearch[research.name]);
     }
 }
 

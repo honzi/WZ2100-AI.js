@@ -139,17 +139,7 @@ function perSecond(){
                 return;
             }
 
-            var cyborgWeapon = cyborgWeapons[Math.floor(Math.random() * cyborgWeapons.length)];
-
-            buildDroid(
-              cyborgFactory,
-              'cyborg-CyborgLightBody-CyborgLegs-' + cyborgWeapon,
-              'CyborgLightBody',
-              'CyborgLegs',
-              '',
-              DROID_CYBORG,
-              cyborgWeapon
-            );
+            randomCyborg(cyborgFactory);
         });
     }
 
@@ -360,23 +350,7 @@ function perSecond(){
                 return;
             }
 
-            var droidBody = bodies[Math.floor(Math.random() * bodies.length)];
-            var droidPropulsion = propulsion[Math.floor(Math.random() * propulsion.length)];
-            var droidWeapon1 = droidBody === 'Body14SUP'
-              ? 'SensorTurret1Mk1'
-              : undefined;
-
-            buildDroid(
-              factory,
-              'drone-' + droidBody + '-' + droidPropulsion + '-Spade1Mk1'
-                + (droidWeapon1 !== undefined ? '+' + droidWeapon1 : ''),
-              droidBody,
-              droidPropulsion,
-              '',
-              DROID_CONSTRUCT,
-              'Spade1Mk1',
-              droidWeapon1
-            );
+            randomConstructionDroid(factory);
         });
     }
 

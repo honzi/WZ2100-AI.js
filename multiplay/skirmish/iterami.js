@@ -27,15 +27,16 @@ function attack(group, target, override){
     });
 }
 
-function buildStructure(droid, structure, x, y){
+function buildStructure(droid, structure, x, y, offset){
+    offset = offset || 4;
     x = x || droid.x;
     y = y || droid.y;
 
     var location = pickStructLocation(
       droid,
       structure,
-      x + (Math.random() * 4 - 2),
-      y + (Math.random() * 4 - 2)
+      x + (Math.random() * offset - offset / 2),
+      y + (Math.random() * offset - offset / 2)
     );
 
     if(location){
@@ -49,7 +50,13 @@ function buildStructure(droid, structure, x, y){
         );
 
     }else{
-        randomLocation(droid);
+        buildStructure(
+          droid,
+          structure,
+          x,
+          y,
+          offset + 2
+        );
     }
 }
 

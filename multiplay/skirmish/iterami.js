@@ -208,6 +208,8 @@ function eventStartLevel(){
 }
 
 function preInit(){
+    maxResourceExtractors = 4 + Math.ceil((derrickPositions.length - startPositions.length * 4) / startPositions.length);
+
     maxCyborgFactories = getStructureLimit(
       'A0CyborgFactory',
       me
@@ -216,6 +218,7 @@ function preInit(){
       'A0LightFactory',
       me
     );
+    maxPowerGenerators = 1 + Math.ceil(maxResourceExtractors / 4);
     maxResearchFacilities = getStructureLimit(
       'A0ResearchFacility',
       me
@@ -239,6 +242,7 @@ var defenseStructures = [];
 var droidWeapons = [];
 var maxCyborgFactories = 5;
 var maxFactories = 5;
+var maxPowerGenerators = 1;
 var maxResearchFacilities = 5;
 var maxResourceExtractors = 4;
 var propulsion = ['wheeled01'];

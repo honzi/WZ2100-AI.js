@@ -264,6 +264,15 @@ function perSecond(){
             );
 
         }else if(checkStructure(
+            'A0PowerGenerator',
+            maxPowerGenerators
+          )){
+            buildStructure(
+              droid,
+              'A0PowerGenerator'
+            );
+
+        }else if(checkStructure(
             'A0Sat-linkCentre',
             1
           )){

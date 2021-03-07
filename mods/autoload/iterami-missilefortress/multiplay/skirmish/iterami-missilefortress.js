@@ -6,11 +6,38 @@ function init(){
       'perSecond',
       1000
     );
+    setTimer(
+      'perMinute',
+      60000
+    );
 
+    maxCyborgFactories = 0;
     maxFactories = Math.min(
       maxFactories,
       2
     );
+}
+
+function perMinute(){
+    var droids = enumDroid(me);
+    var structures = enumStruct(me);
+
+    droids.some(function check_droid(droid){
+        if(droid.order === DORDER_BUILD
+          || droid.order === DORDER_HELPBUILD){
+            return;
+        }
+
+        var randomStructure = structures[Math.floor(Math.random() * structures.length)];
+        if(randomStructure !== undefined){
+            orderDroidLoc(
+              droid,
+              DORDER_SCOUT,
+              randomStructure.x,
+              randomStructure.y
+            );
+        }
+    });
 }
 
 function perSecond(){

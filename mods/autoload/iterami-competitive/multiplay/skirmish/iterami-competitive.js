@@ -53,6 +53,8 @@ function init(){
       'perMinute',
       60000
     );
+
+    maxCyborgFactories = 0;
 }
 
 function perMinute(){

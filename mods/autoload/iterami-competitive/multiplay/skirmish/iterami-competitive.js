@@ -203,13 +203,6 @@ function perSecond(){
         }
     });
 
-    var droids = enumDroid(
-      me,
-      DROID_CONSTRUCT
-    );
-    var droidCount = droids.length;
-    var structures = enumStruct(me);
-
     if(productionBegin
       || groupSize(groupDefend) < maxDroidsDefend){
         var factories = enumStruct(
@@ -244,24 +237,43 @@ function perSecond(){
         });
     }
 
+    var droids = enumDroid(
+      me,
+      DROID_CONSTRUCT
+    );
+    var droidCount = droids.length;
+    var structures = enumStruct(me);
+    var damagedStructure = false;
+    var unfinishedStructure = false;
+
+    for(var structure in structures){
+        if(damagedStructure !== false
+          && unfinishedStructure !== false){
+            break;
+        }
+
+        if(structures[structure].status !== BUILT){
+            unfinishedStructure = structures[structure];
+
+        }else if(structures[structure].health < 100){
+            damagedStructure = structures[structure];
+        }
+    }
+
     droids.some(function check_droid(droid){
         var isProjectManager = droid === droids[droidCount - 1];
 
-        if(!isProjectManager){
-            for(var structure in structures){
-                if(structures[structure].health < 100
-                  && structures[structure].status === BUILT){
-                    if(droid.order !== DORDER_REPAIR){
-                        orderDroidObj(
-                          droid,
-                          DORDER_REPAIR,
-                          structures[structure]
-                        );
-                    }
-
-                    return;
-                }
+        if(damagedStructure !== false
+          && !isProjectManager){
+            if(droid.order !== DORDER_REPAIR){
+                orderDroidObj(
+                  droid,
+                  DORDER_REPAIR,
+                  damagedStructure
+                );
             }
+
+            return;
         }
 
         if(droid.order === DORDER_BUILD
@@ -269,16 +281,14 @@ function perSecond(){
             return;
         }
 
-        for(var structure in structures){
-            if(structures[structure].status !== BUILT){
-                orderDroidObj(
-                  droid,
-                  DORDER_HELPBUILD,
-                  structures[structure]
-                );
+        if(unfinishedStructure !== false){
+            orderDroidObj(
+              droid,
+              DORDER_HELPBUILD,
+              unfinishedStructure
+            );
 
-                return;
-            }
+            return;
         }
 
         if(!isProjectManager){

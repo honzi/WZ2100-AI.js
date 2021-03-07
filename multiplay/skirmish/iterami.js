@@ -50,13 +50,7 @@ function buildStructure(droid, structure, x, y, offset){
         );
 
     }else{
-        buildStructure(
-          droid,
-          structure,
-          x,
-          y,
-          offset + 2
-        );
+        randomLocation(droid);
     }
 }
 
@@ -208,8 +202,6 @@ function eventStartLevel(){
 }
 
 function preInit(){
-    maxResourceExtractors = 4 + Math.ceil((derrickPositions.length - startPositions.length * 4) / startPositions.length);
-
     maxCyborgFactories = getStructureLimit(
       'A0CyborgFactory',
       me

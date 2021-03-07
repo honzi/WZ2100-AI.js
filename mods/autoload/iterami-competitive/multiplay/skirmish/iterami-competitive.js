@@ -43,6 +43,17 @@ function eventDroidBuilt(droid, structure){
     }
 }
 
+function eventObjectTransfer(gameObject, from){
+    if(gameObject.player === me){
+        if(gameObject.type === DROID){
+            groupAddDroid(
+              groupDefend,
+              gameObject
+            );
+        }
+    }
+}
+
 function init(){
     perSecond();
     setTimer(

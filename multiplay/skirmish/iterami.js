@@ -32,11 +32,15 @@ function buildStructure(droid, structure, x, y, offset){
     x = x || droid.x;
     y = y || droid.y;
 
+    var coordinates = locationClamp(
+      x + (Math.random() * offset - offset / 2),
+      y + (Math.random() * offset - offset / 2)
+    );
     var location = pickStructLocation(
       droid,
       structure,
-      x + (Math.random() * offset - offset / 2),
-      y + (Math.random() * offset - offset / 2)
+      coordinates.x,
+      coordinates.y
     );
 
     if(location){
@@ -199,6 +203,25 @@ function eventResearched(research, structure, player){
 
 function eventStartLevel(){
     preInit();
+}
+
+function locationClamp(x, y){
+    return {
+      'x': Math.max(
+        Math.min(
+          x,
+          mapWidth
+        ),
+        0
+      ),
+      'y': Math.max(
+        Math.min(
+          y,
+          mapHeight
+        ),
+        0
+      ),
+    };
 }
 
 function preInit(){

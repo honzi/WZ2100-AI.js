@@ -147,10 +147,11 @@ function perSecond(){
       me,
       DROID_CONSTRUCT
     );
+    var damagedStructure = false;
     var droidCount = droids.length;
     var structures = enumStruct(me);
-    var damagedStructure = false;
     var unfinishedStructure = false;
+    var visibleFeature = false;
 
     for(var structure in structures){
         if(damagedStructure !== false
@@ -166,20 +167,45 @@ function perSecond(){
         }
     }
 
+    if(damagedStructure === false){
+        var features = enumFeature(me);
+        for(var i = 0; i < features.length; i++){
+            var stattype = features[i].stattype;
+
+            if(stattype === OIL_DRUM
+              || stattype === ARTIFACT){
+                visibleFeature = features[i];
+                break;
+            }
+        }
+    }
+
     droids.some(function check_droid(droid){
         var isProjectManager = droid === droids[droidCount - 1];
 
-        if(damagedStructure !== false
-          && !isProjectManager){
-            if(droid.order !== DORDER_REPAIR){
-                orderDroidObj(
-                  droid,
-                  DORDER_REPAIR,
-                  damagedStructure
-                );
-            }
+        if(!isProjectManager){
+            if(damagedStructure !== false){
+                if(droid.order !== DORDER_REPAIR){
+                    orderDroidObj(
+                      droid,
+                      DORDER_REPAIR,
+                      damagedStructure
+                    );
+                }
 
-            return;
+                return;
+
+            }else if(visibleFeature !== false){
+                if(droid.order !== DORDER_RECOVER){
+                    orderDroidObj(
+                      droid,
+                      DORDER_RECOVER,
+                      visibleFeature
+                    );
+                }
+
+                return;
+            }
         }
 
         if(droid.order === DORDER_BUILD

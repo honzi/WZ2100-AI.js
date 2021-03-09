@@ -90,6 +90,20 @@ function checkStructure(structure, count){
       ) && countStruct(structure) < count;
 }
 
+function enumStructByType(player, types, visibility){
+    var structures = [];
+
+    for(var type in types){
+        structures = structures.concat(enumStruct(
+          player,
+          types[type],
+          visibility
+        ));
+    }
+
+    return structures;
+}
+
 function eventGameLoaded(){
     preInit();
 }

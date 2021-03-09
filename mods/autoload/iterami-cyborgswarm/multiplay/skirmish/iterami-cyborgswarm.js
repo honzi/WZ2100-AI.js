@@ -80,7 +80,20 @@ function perMinute(){
     }
 
     var droids = enumDroid(me);
-    var structures = enumStruct(me);
+    var structures = enumStructByType(
+      me,
+      [
+        DEFENSE,
+        FACTORY,
+        CYBORG_FACTORY,
+        RESOURCE_EXTRACTOR,
+        RESEARCH_LAB,
+        SAT_UPLINK,
+        POWER_GEN,
+        HQ,
+      ],
+      ALL_PLAYERS
+    );
 
     droids.some(function check_droid(droid){
         if(droid.group === groupAttack){
@@ -389,38 +402,36 @@ function perSecond(){
         }
 
         if(groupSize(groupAttack) >= minCyborgsAttackStructures){
-            var enemyList = [
-              DEFENSE,
-              FACTORY,
-              CYBORG_FACTORY,
-              VTOL_FACTORY,
-              RESOURCE_EXTRACTOR,
-              RESEARCH_LAB,
-              SAT_UPLINK,
-              LASSAT,
-              POWER_GEN,
-              HQ,
-              REPAIR_FACILITY,
-              COMMAND_CONTROL,
-              REARM_PAD,
-              WALL,
-              GATE,
-            ];
-            for(var enemy in enemyList){
-                var enemies = enumStruct(
-                  id,
-                  enemyList[enemy],
-                  me
+            var structures = enumStructByType(
+              id,
+              [
+                DEFENSE,
+                FACTORY,
+                CYBORG_FACTORY,
+                VTOL_FACTORY,
+                RESOURCE_EXTRACTOR,
+                RESEARCH_LAB,
+                SAT_UPLINK,
+                LASSAT,
+                POWER_GEN,
+                HQ,
+                REPAIR_FACILITY,
+                COMMAND_CONTROL,
+                REARM_PAD,
+                WALL,
+                GATE,
+              ],
+              me
+            );
+
+            if(structures.length > 0){
+                attack(
+                  groupAttack,
+                  structures[structures.length - 1],
+                  true
                 );
-                if(enemies.length > 0){
-                    attack(
-                      groupAttack,
-                      enemies[enemies.length - 1],
-                      true
-                    );
-                    attacking = true;
-                    return;
-                }
+                attacking = true;
+                return;
             }
         }
 

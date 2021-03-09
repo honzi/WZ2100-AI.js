@@ -20,7 +20,19 @@ function init(){
 
 function perMinute(){
     var droids = enumDroid(me);
-    var structures = enumStruct(me);
+    var structures = enumStructByType(
+      me,
+      [
+        DEFENSE,
+        FACTORY,
+        RESOURCE_EXTRACTOR,
+        RESEARCH_LAB,
+        SAT_UPLINK,
+        POWER_GEN,
+        HQ,
+      ],
+      ALL_PLAYERS
+    );
 
     droids.some(function check_droid(droid){
         if(droid.order === DORDER_BUILD

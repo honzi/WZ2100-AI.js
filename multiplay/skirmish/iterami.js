@@ -216,6 +216,10 @@ function eventResearched(research, structure, player){
 
     if(propulsionResearch[research.name]){
         propulsion.push(propulsionResearch[research.name]);
+
+        if(research.name === 'R-Vehicle-Prop-Hover'){
+            propulsionHover = true;
+        }
     }
 }
 
@@ -262,7 +266,9 @@ function preInit(){
 
 function randomConstructionDroid(factory){
     var droidBody = bodies[Math.floor(Math.random() * bodies.length)];
-    var droidPropulsion = propulsion[Math.floor(Math.random() * propulsion.length)];
+    var droidPropulsion = propulsionHover
+      ? 'hover01'
+      : propulsion[Math.floor(Math.random() * propulsion.length)];
     var droidWeapon1 = droidBody === 'Body14SUP'
       ? 'SensorTurret1Mk1'
       : undefined;
@@ -334,3 +340,4 @@ var maxPowerGenerators = 1;
 var maxResearchFacilities = 5;
 var maxResourceExtractors = 4;
 var propulsion = ['wheeled01'];
+var propulsionHover = false;

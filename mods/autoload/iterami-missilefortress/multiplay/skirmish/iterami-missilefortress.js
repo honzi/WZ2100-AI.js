@@ -89,9 +89,9 @@ function perSecond(){
       me,
       DROID_CONSTRUCT
     );
+    var damagedStructure = false;
     const droidCount = droids.length;
     const structures = enumStruct(me);
-    var damagedStructure = false;
     var unfinishedStructure = false;
     var visibleFeature = false;
 

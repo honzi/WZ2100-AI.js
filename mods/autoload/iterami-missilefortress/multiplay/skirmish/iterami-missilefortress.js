@@ -339,6 +339,7 @@ var researchOrder = [
   'R-Defense-WallUpgrade01',
   'R-Sys-Sensor-Tower01',
   'R-Struc-PowerModuleMk1',
+  'R-Vehicle-Prop-Halftracks',
   'R-Wpn-Rocket05-MiniPod',
   'R-Struc-CommandRelay',
   'R-Defense-WallUpgrade02',

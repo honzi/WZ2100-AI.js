@@ -124,25 +124,27 @@ function perSecond(){
 
     droids.some(function check_droid(droid){
         var isProjectManager = droid === droids[droidCount - 1];
+        var isScout = droid === droids[droidCount - 2];
 
         if(!isProjectManager){
-            if(damagedStructure !== false){
-                if(droid.order !== DORDER_REPAIR){
-                    orderDroidObj(
-                      droid,
-                      DORDER_REPAIR,
-                      damagedStructure
-                    );
-                }
-
-                return;
-
-            }else if(visibleFeature !== false){
+            if(isScout
+              && visibleFeature !== false){
                 if(droid.order !== DORDER_RECOVER){
                     orderDroidObj(
                       droid,
                       DORDER_RECOVER,
                       visibleFeature
+                    );
+                }
+
+                return;
+
+            }else if(damagedStructure !== false){
+                if(droid.order !== DORDER_REPAIR){
+                    orderDroidObj(
+                      droid,
+                      DORDER_REPAIR,
+                      damagedStructure
                     );
                 }
 

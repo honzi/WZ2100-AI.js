@@ -1,5 +1,5 @@
 function attack(group, target, override){
-    var droids = enumGroup(group);
+    const droids = enumGroup(group);
     droids.some(function check_droid(droid){
         if(!override
           && droid.order !== 0
@@ -32,11 +32,11 @@ function buildStructure(droid, structure, x, y, offset){
     x = x || droid.x;
     y = y || droid.y;
 
-    var coordinates = locationClamp(
+    const coordinates = locationClamp(
       x + (Math.random() * offset - offset / 2),
       y + (Math.random() * offset - offset / 2)
     );
-    var location = pickStructLocation(
+    const location = pickStructLocation(
       droid,
       structure,
       coordinates.x,
@@ -67,7 +67,7 @@ function checkNeedModule(structure, module, count){
     }
 
     var moduleNeeded = false;
-    var structures = enumStruct(
+    const structures = enumStruct(
       me,
       structure
     );
@@ -113,7 +113,7 @@ function eventResearched(research, structure, player){
         return;
     }
 
-    var bodyResearch = {
+    const bodyResearch = {
       'R-Vehicle-Body02': 'Body2SUP',
       'R-Vehicle-Body03': 'Body3MBT',
       'R-Vehicle-Body04': 'Body4ABT',
@@ -128,7 +128,7 @@ function eventResearched(research, structure, player){
       'R-Vehicle-Body13': 'Body13SUP',
       'R-Vehicle-Body14': 'Body14SUP',
     };
-    var cyborgWeaponResearch = {
+    const cyborgWeaponResearch = {
       'R-Wpn-Cannon1Mk1': 'CyborgCannon',
       'R-Wpn-Flamer01Mk1': 'CyborgFlamer01',
       'R-Wpn-Laser01': 'Cyb-Wpn-Laser',
@@ -139,7 +139,7 @@ function eventResearched(research, structure, player){
       'R-Wpn-RailGun01': 'Cyb-Wpn-Rail1',
       'R-Wpn-Rocket01-LtAT': 'CyborgRocket',
     };
-    var defenseStructureResearch = {
+    const defenseStructureResearch = {
       'R-Defense-Emplacement-HPVcannon': 'Emplacement-HPVcannon',
       'R-Defense-PrisLas': 'Emplacement-PrisLas',
       'R-Defense-PulseLas': 'GuardTower-BeamLas',
@@ -152,7 +152,7 @@ function eventResearched(research, structure, player){
       'R-Defense-WallTower-TwinAGun': 'WallTower-TwinAssaultGun',
       'R-Defense-WallTower01': 'WallTower01',
     };
-    var droidWeaponResearch = {
+    const droidWeaponResearch = {
       'R-Wpn-Cannon1Mk1': 'Cannon1Mk1',
       'R-Wpn-Cannon2Mk1': 'Cannon2A-TMk1',
       'R-Wpn-Cannon3Mk1': 'Cannon375mmMk1',
@@ -192,7 +192,7 @@ function eventResearched(research, structure, player){
       'R-Wpn-Rocket06-IDF': 'Rocket-IDF',
       'R-Wpn-Rocket07-Tank-Killer': 'Rocket-HvyA-T',
     };
-    var propulsionResearch = {
+    const propulsionResearch = {
       'R-Vehicle-Prop-Halftracks': 'HalfTrack',
       'R-Vehicle-Prop-Hover': 'hover01',
       'R-Vehicle-Prop-Tracks': 'tracked01',
@@ -265,11 +265,11 @@ function preInit(){
 }
 
 function randomConstructionDroid(factory){
-    var droidBody = bodies[Math.floor(Math.random() * bodies.length)];
-    var droidPropulsion = propulsionHover
+    const droidBody = bodies[Math.floor(Math.random() * bodies.length)];
+    const droidPropulsion = propulsionHover
       ? 'hover01'
       : propulsion[Math.floor(Math.random() * propulsion.length)];
-    var droidWeapon1 = droidBody === 'Body14SUP'
+    const droidWeapon1 = droidBody === 'Body14SUP'
       ? 'SensorTurret1Mk1'
       : undefined;
 
@@ -287,7 +287,7 @@ function randomConstructionDroid(factory){
 }
 
 function randomCyborg(cyborgFactory){
-    var cyborgWeapon = cyborgWeapons[Math.floor(Math.random() * cyborgWeapons.length)];
+    const cyborgWeapon = cyborgWeapons[Math.floor(Math.random() * cyborgWeapons.length)];
 
     buildDroid(
       cyborgFactory,
@@ -301,10 +301,10 @@ function randomCyborg(cyborgFactory){
 }
 
 function randomWeaponDroid(factory){
-    var droidBody = bodies[Math.floor(Math.random() * bodies.length)];
-    var droidPropulsion = propulsion[Math.floor(Math.random() * propulsion.length)];
-    var droidWeapon0 = droidWeapons[Math.floor(Math.random() * droidWeapons.length)];
-    var droidWeapon1 = droidBody === 'Body14SUP'
+    const droidBody = bodies[Math.floor(Math.random() * bodies.length)];
+    const droidPropulsion = propulsion[Math.floor(Math.random() * propulsion.length)];
+    const droidWeapon0 = droidWeapons[Math.floor(Math.random() * droidWeapons.length)];
+    const droidWeapon1 = droidBody === 'Body14SUP'
       ? droidWeapons[Math.floor(Math.random() * droidWeapons.length)]
       : undefined;
 
@@ -330,14 +330,14 @@ function randomLocation(droid){
     );
 }
 
-var bodies = ['Body1REC'];
-var cyborgWeapons = [];
-var defenseStructures = [];
-var droidWeapons = [];
+const bodies = ['Body1REC'];
+const cyborgWeapons = [];
+const defenseStructures = [];
+const droidWeapons = [];
+const propulsion = ['wheeled01'];
 var maxCyborgFactories = 5;
 var maxFactories = 5;
 var maxPowerGenerators = 1;
 var maxResearchFacilities = 5;
 var maxResourceExtractors = 4;
-var propulsion = ['wheeled01'];
 var propulsionHover = false;

@@ -32,7 +32,7 @@ function eventDroidBuilt(droid, structure){
     );
 
     if(groupSize(groupDefend) >= limitCyborgsAttack){
-        var defenders = enumGroup(groupDefend);
+        const defenders = enumGroup(groupDefend);
 
         for(var i = 0; i < maxCyborgsDefend; i++){
             groupAddDroid(
@@ -73,14 +73,14 @@ function init(){
 
 function perMinute(){
     if(groupSize(groupAttack) >= minCyborgsAttackStructures){
-        var droids = enumGroup(groupAttack);
+        const droids = enumGroup(groupAttack);
         droids.some(function check_droid(droid){
             randomLocation(droid);
         });
     }
 
-    var droids = enumDroid(me);
-    var structures = enumStructByType(
+    const droids = enumDroid(me);
+    const structures = enumStructByType(
       me,
       [
         DEFENSE,
@@ -105,7 +105,7 @@ function perMinute(){
             return;
         }
 
-        var randomStructure = structures[Math.floor(Math.random() * structures.length)];
+        const randomStructure = structures[Math.floor(Math.random() * structures.length)];
         if(randomStructure !== undefined){
             orderDroidLoc(
               droid,
@@ -118,7 +118,7 @@ function perMinute(){
 }
 
 function perSecond(){
-    var researchFacilities = enumStruct(
+    const researchFacilities = enumStruct(
       me,
       'A0ResearchFacility'
     );
@@ -141,7 +141,7 @@ function perSecond(){
 
     if(productionBegin
       || groupSize(groupDefend) < maxCyborgsDefend){
-        var cyborgFactories = enumStruct(
+        const cyborgFactories = enumStruct(
           me,
           'A0CyborgFactory'
         );
@@ -156,13 +156,13 @@ function perSecond(){
         });
     }
 
-    var droids = enumDroid(
+    const droids = enumDroid(
       me,
       DROID_CONSTRUCT
     );
     var damagedStructure = false;
-    var droidCount = droids.length;
-    var structures = enumStruct(me);
+    const droidCount = droids.length;
+    const structures = enumStruct(me);
     var unfinishedStructure = false;
     var visibleFeature = false;
 
@@ -181,9 +181,9 @@ function perSecond(){
     }
 
     if(damagedStructure === false){
-        var features = enumFeature(me);
+        const features = enumFeature(me);
         for(var i = 0; i < features.length; i++){
-            var stattype = features[i].stattype;
+            const stattype = features[i].stattype;
 
             if(stattype === OIL_DRUM
               || stattype === ARTIFACT){
@@ -194,8 +194,8 @@ function perSecond(){
     }
 
     droids.some(function check_droid(droid){
-        var isProjectManager = droid === droids[droidCount - 1];
-        var isScout = droid === droids[droidCount - 2];
+        const isProjectManager = droid === droids[droidCount - 1];
+        const isScout = droid === droids[droidCount - 2];
 
         if(!isProjectManager){
             if(isScout
@@ -333,17 +333,17 @@ function perSecond(){
             );
 
         }else{
-            var factoryModuleNeeded = checkNeedModule(
+            const factoryModuleNeeded = checkNeedModule(
               'A0LightFactory',
               'A0FacMod1',
               2
             );
-            var powerModuleNeeded = checkNeedModule(
+            const powerModuleNeeded = checkNeedModule(
               'A0PowerGenerator',
               'A0PowMod1',
               1
             );
-            var researchModuleNeeded = checkNeedModule(
+            const researchModuleNeeded = checkNeedModule(
               'A0ResearchFacility',
               'A0ResearchModule1',
               1
@@ -374,7 +374,7 @@ function perSecond(){
                 );
 
             }else{
-                var defenseStructure = defenseStructures[Math.floor(Math.random() * defenseStructures.length)];
+                const defenseStructure = defenseStructures[Math.floor(Math.random() * defenseStructures.length)];
 
                 if(checkStructure(
                     defenseStructure,
@@ -390,7 +390,7 @@ function perSecond(){
     });
 
     if(droidCount < maxConstructionDroids){
-        var factories = enumStruct(
+        const factories = enumStruct(
           me,
           'A0LightFactory'
         );
@@ -413,7 +413,7 @@ function perSecond(){
         }
 
         if(groupSize(groupAttack) >= minCyborgsAttackStructures){
-            var structures = enumStructByType(
+            const structures = enumStructByType(
               id,
               [
                 DEFENSE,
@@ -446,7 +446,7 @@ function perSecond(){
             }
         }
 
-        var droids = enumDroid(
+        const droids = enumDroid(
           id,
           DROID_ANY,
           me
@@ -466,7 +466,7 @@ function perSecond(){
 }
 
 function randomResearch(researchFacility){
-    var research = enumResearch();
+    const research = enumResearch();
 
     if(research.length === 0){
         maxConstructionDroids = 6;
@@ -482,7 +482,7 @@ function randomResearch(researchFacility){
 
 function startResearch(researchFacility, research){
     if(!researchRandom){
-        var targetResearch = getResearch('R-Sys-Autorepair-General');
+        const targetResearch = getResearch('R-Sys-Autorepair-General');
 
         if(targetResearch.done
           || targetResearch.started){
@@ -498,8 +498,8 @@ function startResearch(researchFacility, research){
     );
 }
 
-var groupAttack = newGroup();
-var groupDefend = newGroup();
+const groupAttack = newGroup();
+const groupDefend = newGroup();
 var limitCyborgsAttack = 40;
 var maxConstructionDroids = 3;
 var maxCyborgsDefend = 30;
@@ -509,7 +509,7 @@ var minCyborgsAttackStructures = 40;
 var productionBegin = false;
 var researchRandom = false;
 
-var researchOrder = [
+const researchOrder = [
   'R-Sys-Engineering01',
   'R-Vehicle-Engine01',
   'R-Sys-Sensor-Turret01',

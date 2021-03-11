@@ -268,6 +268,15 @@ function perSecond(){
             );
 
         }else if(checkStructure(
+            'A0LightFactory',
+            1
+          )){
+            buildStructure(
+              droid,
+              'A0LightFactory'
+            );
+
+        }else if(checkStructure(
             'A0ResearchFacility',
             maxResearchFacilities
           )){

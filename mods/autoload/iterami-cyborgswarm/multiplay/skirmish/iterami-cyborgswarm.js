@@ -175,9 +175,12 @@ function perSecond(){
 
     for(var structure in structures){
         if(damagedStructure !== false
-          && unfinishedStructure !== false
-          && structures[structure].stattype !== RESOURCE_EXTRACTOR){
+          && unfinishedStructure !== false){
             break;
+        }
+
+        if(structures[structure].stattype === RESOURCE_EXTRACTOR){
+            continue;
         }
 
         if(structures[structure].status !== BUILT){

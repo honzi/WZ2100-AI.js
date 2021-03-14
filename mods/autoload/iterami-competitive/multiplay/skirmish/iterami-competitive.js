@@ -186,7 +186,7 @@ function perSecond(){
 
     if(damagedStructure === false){
         const features = enumFeature(me);
-        for(var i = 0; i < features.length; i++){
+        for(var i = features.length - 1; i >= 0; i--){
             const stattype = features[i].stattype;
 
             if(stattype === OIL_RESOURCE){
@@ -196,7 +196,7 @@ function perSecond(){
         }
 
         if(visibleOil === false){
-            for(var i = 0; i < features.length; i++){
+            for(var i = features.length - 1; i >= 0; i--){
                 const stattype = features[i].stattype;
 
                 if(stattype === OIL_DRUM
@@ -238,9 +238,8 @@ function perSecond(){
 
                     return;
                 }
-            }
 
-            if(damagedStructure !== false){
+            }else if(damagedStructure !== false){
                 if(droid.order !== DORDER_REPAIR){
                     orderDroidObj(
                       droid,

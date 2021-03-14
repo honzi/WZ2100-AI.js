@@ -31,7 +31,6 @@ function perMinute(){
       [
         DEFENSE,
         FACTORY,
-        RESOURCE_EXTRACTOR,
         RESEARCH_LAB,
         SAT_UPLINK,
         POWER_GEN,

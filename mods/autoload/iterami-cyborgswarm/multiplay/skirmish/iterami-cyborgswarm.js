@@ -92,7 +92,6 @@ function perMinute(){
         DEFENSE,
         FACTORY,
         CYBORG_FACTORY,
-        RESOURCE_EXTRACTOR,
         RESEARCH_LAB,
         SAT_UPLINK,
         POWER_GEN,

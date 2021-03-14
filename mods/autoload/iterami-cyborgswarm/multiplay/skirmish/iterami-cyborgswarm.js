@@ -165,6 +165,7 @@ function perSecond(){
     const structures = enumStruct(me);
     var unfinishedStructure = false;
     var visibleFeature = false;
+    var visibleOil = false;
 
     for(var structure in structures){
         if(damagedStructure !== false
@@ -185,10 +186,21 @@ function perSecond(){
         for(var i = 0; i < features.length; i++){
             const stattype = features[i].stattype;
 
-            if(stattype === OIL_DRUM
-              || stattype === ARTIFACT){
-                visibleFeature = features[i];
+            if(stattype === OIL_RESOURCE){
+                visibleOil = features[i];
                 break;
+            }
+        }
+
+        if(visibleOil === false){
+            for(var i = 0; i < features.length; i++){
+                const stattype = features[i].stattype;
+
+                if(stattype === OIL_DRUM
+                  || stattype === ARTIFACT){
+                    visibleFeature = features[i];
+                    break;
+                }
             }
         }
     }
@@ -198,19 +210,33 @@ function perSecond(){
         const isScout = droid === droids[droidCount - 2];
 
         if(!isProjectManager){
-            if(isScout
-              && visibleFeature !== false){
-                if(droid.order !== DORDER_RECOVER){
-                    orderDroidObj(
-                      droid,
-                      DORDER_RECOVER,
-                      visibleFeature
-                    );
+            if(isScout){
+                if(visibleOil !== false){
+                    if(droid.order !== DORDER_BUILD){
+                        buildStructure(
+                          droid,
+                          'A0ResourceExtractor',
+                          visibleOil.x,
+                          visibleOil.y
+                        );
+                    }
+
+                    return;
+
+                }else if(visibleFeature !== false){
+                    if(droid.order !== DORDER_RECOVER){
+                        orderDroidObj(
+                          droid,
+                          DORDER_RECOVER,
+                          visibleFeature
+                        );
+                    }
+
+                    return;
                 }
+            }
 
-                return;
-
-            }else if(damagedStructure !== false){
+            if(damagedStructure !== false){
                 if(droid.order !== DORDER_REPAIR){
                     orderDroidObj(
                       droid,

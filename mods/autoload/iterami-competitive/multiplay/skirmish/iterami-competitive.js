@@ -171,7 +171,8 @@ function perSecond(){
 
     for(var structure in structures){
         if(damagedStructure !== false
-          && unfinishedStructure !== false){
+          && unfinishedStructure !== false
+          && structures[structure].stattype !== RESOURCE_EXTRACTOR){
             break;
         }
 

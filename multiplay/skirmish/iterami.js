@@ -91,7 +91,7 @@ function checkStructure(structure, count){
 }
 
 function enumStructByType(player, types, visibility){
-    const structures = [];
+    var structures = [];
 
     for(var type in types){
         structures = structures.concat(enumStruct(

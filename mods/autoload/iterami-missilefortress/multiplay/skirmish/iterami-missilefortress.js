@@ -157,7 +157,8 @@ function perSecond(){
 
                     return;
 
-                }else if(visibleFeature !== false){
+                }else if(visibleFeature !== false
+                  && droid.order !== DORDER_BUILD){
                     if(droid.order !== DORDER_RECOVER){
                         orderDroidObj(
                           droid,

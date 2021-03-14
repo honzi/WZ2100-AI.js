@@ -12,7 +12,8 @@ function eventAttacked(victim, attacker){
           false
         );
 
-    }else if(victim.type === STRUCTURE){
+    }else if(victim.type === STRUCTURE
+      && victim.stattype !== RESOURCE_EXTRACTOR){
         attack(
           groupDefend,
           attacker,
@@ -228,7 +229,8 @@ function perSecond(){
 
                     return;
 
-                }else if(visibleFeature !== false){
+                }else if(visibleFeature !== false
+                  && droid.order !== DORDER_BUILD){
                     if(droid.order !== DORDER_RECOVER){
                         orderDroidObj(
                           droid,

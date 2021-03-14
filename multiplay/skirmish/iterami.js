@@ -255,7 +255,6 @@ function preInit(){
       'A0LightFactory',
       me
     );
-    maxPowerGenerators = 1 + Math.ceil(maxResourceExtractors / 4);
     maxResearchFacilities = getStructureLimit(
       'A0ResearchFacility',
       me
@@ -339,5 +338,5 @@ var maxCyborgFactories = 5;
 var maxFactories = 5;
 var maxPowerGenerators = 1;
 var maxResearchFacilities = 5;
-var maxResourceExtractors = 4;
 var propulsionHover = false;
+var resourceExtractorCount = 0;

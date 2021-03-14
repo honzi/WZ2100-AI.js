@@ -19,6 +19,12 @@ function init(){
 }
 
 function perMinute(){
+    resourceExtractorCount = enumStruct(
+      me,
+      RESOURCE_EXTRACTOR
+    ).length;
+    maxPowerGenerators = 1 + Math.ceil(resourceExtractorCount / 4);
+
     const droids = enumDroid(me);
     const structures = enumStructByType(
       me,
@@ -217,7 +223,7 @@ function perSecond(){
 
         }else if(checkStructure(
             'A0ResourceExtractor',
-            maxResourceExtractors
+            4
           )){
             buildStructure(
               droid,

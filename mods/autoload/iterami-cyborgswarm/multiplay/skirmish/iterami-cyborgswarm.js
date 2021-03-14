@@ -72,6 +72,12 @@ function init(){
 }
 
 function perMinute(){
+    resourceExtractorCount = enumStruct(
+      me,
+      RESOURCE_EXTRACTOR
+    ).length;
+    maxPowerGenerators = 1 + Math.ceil(resourceExtractorCount / 4);
+
     if(groupSize(groupAttack) >= minCyborgsAttackStructures){
         const droids = enumGroup(groupAttack);
         droids.some(function check_droid(droid){
@@ -288,7 +294,7 @@ function perSecond(){
 
         }else if(checkStructure(
             'A0ResourceExtractor',
-            maxResourceExtractors
+            4
           )){
             buildStructure(
               droid,

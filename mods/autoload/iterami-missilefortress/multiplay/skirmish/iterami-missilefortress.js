@@ -364,6 +364,7 @@ function startResearch(researchFacility, research){
 
         if(targetResearch.done
           || targetResearch.started){
+            maxConstructionDroids = 10;
             researchRandom = true;
         }
     }

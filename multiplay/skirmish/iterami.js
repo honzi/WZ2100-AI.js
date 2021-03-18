@@ -52,9 +52,6 @@ function buildStructure(droid, structure, x, y, offset){
           location.y,
           Math.floor(Math.random() * 4) * 90
         );
-
-    }else{
-        randomLocation(droid);
     }
 }
 

@@ -12,10 +12,6 @@ function init(){
     );
 
     maxCyborgFactories = 0;
-    maxFactories = Math.min(
-      maxFactories,
-      2
-    );
 }
 
 function perMinute(){

@@ -55,6 +55,15 @@ function eventObjectTransfer(gameObject, from){
     }
 }
 
+function eventPickup(feature, droid){
+    if(droid.player === me){
+        orderDroid(
+          droid,
+          DORDER_RTB
+        );
+    }
+}
+
 function init(){
     perSecond();
     setTimer(

@@ -1,5 +1,14 @@
 include('iterami.js');
 
+function eventPickup(feature, droid){
+    if(droid.player === me){
+        orderDroid(
+          droid,
+          DORDER_RTB
+        );
+    }
+}
+
 function init(){
     perSecond();
     setTimer(

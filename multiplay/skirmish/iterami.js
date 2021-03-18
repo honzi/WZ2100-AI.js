@@ -296,6 +296,15 @@ function randomCyborg(cyborgFactory){
     );
 }
 
+function randomLocation(droid){
+    orderDroidLoc(
+      droid,
+      DORDER_MOVE,
+      Math.floor(Math.random() * mapWidth),
+      Math.floor(Math.random() * mapHeight)
+    );
+}
+
 function randomWeaponDroid(factory){
     const droidBody = bodies[Math.floor(Math.random() * bodies.length)];
     const droidPropulsion = propulsion[Math.floor(Math.random() * propulsion.length)];
@@ -314,15 +323,6 @@ function randomWeaponDroid(factory){
       DROID_WEAPON,
       droidWeapon0,
       droidWeapon1
-    );
-}
-
-function randomLocation(droid){
-    orderDroidLoc(
-      droid,
-      DORDER_MOVE,
-      Math.floor(Math.random() * mapWidth),
-      Math.floor(Math.random() * mapHeight)
     );
 }
 

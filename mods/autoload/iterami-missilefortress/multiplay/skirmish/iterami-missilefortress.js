@@ -97,6 +97,7 @@ function perSecond(){
     const structures = enumStruct(me);
     var unfinishedStructure = false;
     var visibleFeature = false;
+    var visibleFeaturesChecked = false;
     var visibleOil = false;
 
     for(var structure in structures){
@@ -117,36 +118,38 @@ function perSecond(){
         }
     }
 
-    if(damagedStructure === false){
-        const features = enumFeature(me);
-        for(var i = features.length - 1; i >= 0; i--){
-            const stattype = features[i].stattype;
-
-            if(stattype === OIL_RESOURCE){
-                visibleOil = features[i];
-                break;
-            }
-        }
-
-        if(visibleOil === false){
-            for(var i = features.length - 1; i >= 0; i--){
-                const stattype = features[i].stattype;
-
-                if(stattype === OIL_DRUM
-                  || stattype === ARTIFACT){
-                    visibleFeature = features[i];
-                    break;
-                }
-            }
-        }
-    }
-
     droids.some(function check_droid(droid){
         const isProjectManager = droid === droids[droidCount - 1];
         const isScout = droid === droids[droidCount - 2];
 
         if(!isProjectManager){
             if(isScout){
+                if(visibleFeaturesChecked === false){
+                    visibleFeaturesChecked = true;
+
+                    const features = enumFeature(me);
+                    for(var i = features.length - 1; i >= 0; i--){
+                        const stattype = features[i].stattype;
+
+                        if(stattype === OIL_RESOURCE){
+                            visibleOil = features[i];
+                            break;
+                        }
+                    }
+
+                    if(visibleOil === false){
+                        for(var i = features.length - 1; i >= 0; i--){
+                            const stattype = features[i].stattype;
+
+                            if(stattype === OIL_DRUM
+                              || stattype === ARTIFACT){
+                                visibleFeature = features[i];
+                                break;
+                            }
+                        }
+                    }
+                }
+
                 if(visibleOil !== false){
                     if(droid.order !== DORDER_BUILD){
                         buildStructure(

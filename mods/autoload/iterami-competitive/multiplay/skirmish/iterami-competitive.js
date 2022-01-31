@@ -69,6 +69,8 @@ function eventStructureBuilt(structure, droid){
 }
 
 function init(){
+    maxCyborgFactories = 0;
+
     perSecond();
     setTimer(
       'perSecond',
@@ -78,8 +80,6 @@ function init(){
       'perMinute',
       60000
     );
-
-    maxCyborgFactories = 0;
 }
 
 function perMinute(){

@@ -69,6 +69,11 @@ function eventStructureBuilt(structure, droid){
 }
 
 function init(){
+    maxFactories = Math.min(
+      maxFactories,
+      2
+    );
+
     perSecond();
     setTimer(
       'perSecond',
@@ -77,11 +82,6 @@ function init(){
     setTimer(
       'perMinute',
       60000
-    );
-
-    maxFactories = Math.min(
-      maxFactories,
-      2
     );
 }
 

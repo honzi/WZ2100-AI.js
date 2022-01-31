@@ -169,7 +169,6 @@ function perSecond(){
     const structures = enumStruct(me);
     var unfinishedStructure = false;
     var visibleFeature = false;
-    var visibleFeaturesChecked = false;
     var visibleOil = false;
 
     for(var structure in structures){
@@ -196,46 +195,43 @@ function perSecond(){
 
         if(!isProjectManager){
             if(isScout){
-                if(visibleFeaturesChecked === false){
-                    visibleFeaturesChecked = true;
+                if(droid.order === DORDER_BUILD){
+                    return;
+                }
 
-                    const features = enumFeature(me);
+                const features = enumFeature(me);
+                for(var i = features.length - 1; i >= 0; i--){
+                    const stattype = features[i].stattype;
+
+                    if(stattype === OIL_RESOURCE){
+                        visibleOil = features[i];
+                        break;
+                    }
+                }
+
+                if(visibleOil === false){
                     for(var i = features.length - 1; i >= 0; i--){
                         const stattype = features[i].stattype;
 
-                        if(stattype === OIL_RESOURCE){
-                            visibleOil = features[i];
+                        if(stattype === OIL_DRUM
+                          || stattype === ARTIFACT){
+                            visibleFeature = features[i];
                             break;
-                        }
-                    }
-
-                    if(visibleOil === false){
-                        for(var i = features.length - 1; i >= 0; i--){
-                            const stattype = features[i].stattype;
-
-                            if(stattype === OIL_DRUM
-                              || stattype === ARTIFACT){
-                                visibleFeature = features[i];
-                                break;
-                            }
                         }
                     }
                 }
 
                 if(visibleOil !== false){
-                    if(droid.order !== DORDER_BUILD){
-                        buildStructure(
-                          droid,
-                          'A0ResourceExtractor',
-                          visibleOil.x,
-                          visibleOil.y
-                        );
-                    }
+                    buildStructure(
+                      droid,
+                      'A0ResourceExtractor',
+                      visibleOil.x,
+                      visibleOil.y
+                    );
 
                     return;
 
-                }else if(visibleFeature !== false
-                  && droid.order !== DORDER_BUILD){
+                }else if(visibleFeature !== false){
                     if(droid.order !== DORDER_RECOVER){
                         orderDroidObj(
                           droid,

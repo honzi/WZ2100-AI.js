@@ -100,19 +100,7 @@ function perMinute(){
     }
 
     const droids = enumDroid(me);
-    const structures = enumStructByType(
-      me,
-      [
-        DEFENSE,
-        FACTORY,
-        CYBORG_FACTORY,
-        RESEARCH_LAB,
-        SAT_UPLINK,
-        POWER_GEN,
-        HQ,
-      ],
-      ALL_PLAYERS
-    );
+    const structures = enumStruct();
 
     droids.some(function check_droid(droid){
         if(droid.group === groupAttack){

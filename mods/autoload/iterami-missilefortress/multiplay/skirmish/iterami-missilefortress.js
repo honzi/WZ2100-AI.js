@@ -35,18 +35,7 @@ function perMinute(){
     maxPowerGenerators = 1 + Math.ceil(resourceExtractorCount / 4);
 
     const droids = enumDroid(me);
-    const structures = enumStructByType(
-      me,
-      [
-        DEFENSE,
-        FACTORY,
-        RESEARCH_LAB,
-        SAT_UPLINK,
-        POWER_GEN,
-        HQ,
-      ],
-      ALL_PLAYERS
-    );
+    const structures = enumStruct();
 
     droids.some(function check_droid(droid){
         if(droid.order === DORDER_BUILD

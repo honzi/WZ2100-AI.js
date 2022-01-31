@@ -64,6 +64,10 @@ function eventPickup(feature, droid){
     }
 }
 
+function eventStructureBuilt(structure, droid){
+    perMinute();
+}
+
 function init(){
     perSecond();
     setTimer(

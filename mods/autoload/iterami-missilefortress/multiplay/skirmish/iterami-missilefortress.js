@@ -38,11 +38,6 @@ function perMinute(){
     const structures = enumStruct();
 
     droids.some(function check_droid(droid){
-        if(droid.order === DORDER_BUILD
-          || droid.order === DORDER_HELPBUILD){
-            return;
-        }
-
         const randomStructure = structures[Math.floor(Math.random() * structures.length)];
         if(randomStructure !== undefined){
             orderDroidLoc(

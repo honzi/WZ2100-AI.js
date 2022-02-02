@@ -107,11 +107,6 @@ function perMinute(){
             return;
         }
 
-        if(droid.order === DORDER_BUILD
-          || droid.order === DORDER_HELPBUILD){
-            return;
-        }
-
         const randomStructure = structures[Math.floor(Math.random() * structures.length)];
         if(randomStructure !== undefined){
             orderDroidLoc(

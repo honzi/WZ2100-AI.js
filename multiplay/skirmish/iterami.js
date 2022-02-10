@@ -69,11 +69,9 @@ function checkNeedModule(structure, module, count){
       structure
     );
     structures.some(function check_structure(checkedStructure){
-        if(checkedStructure.modules >= count){
-            return;
+        if(checkedStructure.modules < count){
+            moduleNeeded = checkedStructure;
         }
-
-        moduleNeeded = checkedStructure;
     });
 
     return moduleNeeded;

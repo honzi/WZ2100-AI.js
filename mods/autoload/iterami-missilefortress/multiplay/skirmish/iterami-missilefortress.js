@@ -101,57 +101,65 @@ function perSecond(){
         if(structures[structure].status !== BUILT){
             unfinishedStructure = structures[structure];
 
-        }else if(structures[structure].stattype !== RESOURCE_EXTRACTOR
-          && structures[structure].health < 100){
+        }else if(structures[structure].health < 100){
             damagedStructure = structures[structure];
         }
     }
 
-    droids.some(function check_droid(droid){
-        const isProjectManager = droid === droids[droidCount - 1];
-        const isScout = droid === droids[droidCount - 2];
+    droids.some(function check_droid(droid, index){
+        const isProjectManager = index === droidCount - 1;
+        const isScout = index === droidCount - 2;
 
-        if(!isProjectManager){
-            if(isScout){
-                const features = enumFeature(me);
-                for(var i = features.length - 1; i >= 0; i--){
-                    const stattype = features[i].stattype;
+        if(isScout){
+            const features = enumFeature(me);
+            for(var i = features.length - 1; i >= 0; i--){
+                const stattype = features[i].stattype;
 
-                    if(stattype === OIL_DRUM
-                      || stattype === ARTIFACT){
-                        if(droid.order !== DORDER_RECOVER){
-                            orderDroidObj(
-                              droid,
-                              DORDER_RECOVER,
-                              features[i]
-                            );
-                        }
-
-                        return;
-
-                    }else if(stattype === OIL_RESOURCE){
-                        if(droid.order !== DORDER_BUILD){
-                            buildStructure(
-                              droid,
-                              'A0ResourceExtractor',
-                              features[i].x,
-                              features[i].y
-                            );
-                        }
-
-                        return;
+                if(stattype === ARTIFACT){
+                    if(droid.order !== DORDER_RECOVER){
+                        orderDroidObj(
+                          droid,
+                          DORDER_RECOVER,
+                          features[i]
+                        );
                     }
+
+                    return;
+
+                }else if(stattype === OIL_RESOURCE){
+                    if(droid.order !== DORDER_BUILD){
+                        buildStructure(
+                          droid,
+                          'A0ResourceExtractor',
+                          features[i].x,
+                          features[i].y
+                        );
+                    }
+
+                    return;
+
+                }else if(stattype === OIL_DRUM){
+                    if(droid.order !== DORDER_RECOVER){
+                        orderDroidObj(
+                          droid,
+                          DORDER_RECOVER,
+                          features[i]
+                        );
+                    }
+
+                    return;
                 }
-
-            }else if(damagedStructure !== false){
-                orderDroidObj(
-                  droid,
-                  DORDER_REPAIR,
-                  damagedStructure
-                );
-
-                return;
             }
+
+        }else if(damagedStructure !== false
+          && index <= droidCount / 2 - 1){
+            orderDroidObj(
+              droid,
+              DORDER_REPAIR,
+              damagedStructure
+            );
+
+            return;
         }
 
         if(droid.order === DORDER_BUILD

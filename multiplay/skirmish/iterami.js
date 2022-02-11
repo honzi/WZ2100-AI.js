@@ -123,6 +123,10 @@ function eventResearched(research, structure, player){
       'R-Vehicle-Body13': 'Body13SUP',
       'R-Vehicle-Body14': 'Body14SUP',
     };
+    if(bodyResearch[research.name]){
+        bodies.push(bodyResearch[research.name]);
+    }
+
     const cyborgWeaponResearch = {
       'R-Wpn-Cannon1Mk1': 'CyborgCannon',
       'R-Wpn-Flamer01Mk1': 'CyborgFlamer01',
@@ -134,6 +138,10 @@ function eventResearched(research, structure, player){
       'R-Wpn-RailGun01': 'Cyb-Wpn-Rail1',
       'R-Wpn-Rocket01-LtAT': 'CyborgRocket',
     };
+    if(cyborgWeaponResearch[research.name]){
+        cyborgWeapons.push(cyborgWeaponResearch[research.name]);
+    }
+
     const defenseStructureResearch = {
       'R-Defense-Emplacement-HPVcannon': 'Emplacement-HPVcannon',
       'R-Defense-PrisLas': 'Emplacement-PrisLas',
@@ -147,6 +155,10 @@ function eventResearched(research, structure, player){
       'R-Defense-WallTower-TwinAGun': 'WallTower-TwinAssaultGun',
       'R-Defense-WallTower01': 'WallTower01',
     };
+    if(defenseStructureResearch[research.name]){
+        defenseStructures.push(defenseStructureResearch[research.name]);
+    }
+
     const droidWeaponResearch = {
       'R-Wpn-Cannon1Mk1': 'Cannon1Mk1',
       'R-Wpn-Cannon2Mk1': 'Cannon2A-TMk1',
@@ -187,25 +199,16 @@ function eventResearched(research, structure, player){
       'R-Wpn-Rocket06-IDF': 'Rocket-IDF',
       'R-Wpn-Rocket07-Tank-Killer': 'Rocket-HvyA-T',
     };
+    if(droidWeaponResearch[research.name]){
+        droidWeapons.push(droidWeaponResearch[research.name]);
+    }
+
     const propulsionResearch = {
       'R-Vehicle-Prop-Halftracks': 'HalfTrack',
       'R-Vehicle-Prop-Hover': 'hover01',
       'R-Vehicle-Prop-Tracks': 'tracked01',
     };
-
-    if(droidWeaponResearch[research.name]){
-        droidWeapons.push(droidWeaponResearch[research.name]);
-
-    }else if(bodyResearch[research.name]){
-        bodies.push(bodyResearch[research.name]);
-
-    }else if(cyborgWeaponResearch[research.name]){
-        cyborgWeapons.push(cyborgWeaponResearch[research.name]);
-
-    }else if(defenseStructureResearch[research.name]){
-        defenseStructures.push(defenseStructureResearch[research.name]);
-
-    }else if(propulsionResearch[research.name]){
+    if(propulsionResearch[research.name]){
         propulsion.push(propulsionResearch[research.name]);
 
         if(research.name === 'R-Vehicle-Prop-Hover'){

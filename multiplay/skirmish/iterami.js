@@ -27,7 +27,7 @@ function attack(group, target, override){
     });
 }
 
-function buildStructure(droid, structure, x, y, offset){
+function buildStructure(droid, structure, offset, x, y){
     offset = offset || 4;
     x = x || droid.x;
     y = y || droid.y;

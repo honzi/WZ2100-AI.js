@@ -130,6 +130,7 @@ function perSecond(){
                         buildStructure(
                           droid,
                           'A0ResourceExtractor',
+                          1,
                           features[i].x,
                           features[i].y
                         );
@@ -282,6 +283,7 @@ function perSecond(){
                 buildStructure(
                   droid,
                   'A0PowMod1',
+                  1,
                   powerModuleNeeded.x,
                   powerModuleNeeded.y
                 );
@@ -290,6 +292,7 @@ function perSecond(){
                 buildStructure(
                   droid,
                   'A0ResearchModule1',
+                  1,
                   researchModuleNeeded.x,
                   researchModuleNeeded.y
                 );
@@ -298,6 +301,7 @@ function perSecond(){
                 buildStructure(
                   droid,
                   'A0FacMod1',
+                  1,
                   factoryModuleNeeded.x,
                   factoryModuleNeeded.y
                 );

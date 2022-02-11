@@ -65,7 +65,6 @@ function perSecond(){
             const research = enumResearch();
 
             if(research.length === 0){
-                maxConstructionDroids = 6;
                 maxResearchFacilities = 1;
                 return;
             }

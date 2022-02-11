@@ -392,7 +392,7 @@ function perSecond(){
 
                 if(checkStructure(
                     defenseStructure,
-                    maxDefenseStructures
+                    maxPowerGenerators
                   )){
                     buildStructure(
                       droid,
@@ -517,7 +517,6 @@ const groupDefend = newGroup();
 var limitCyborgsAttack = 40;
 var maxConstructionDroids = 3;
 var maxCyborgsDefend = 30;
-var maxDefenseStructures = 3;
 var minCyborgsAttack = 10;
 var minCyborgsAttackStructures = 40;
 var productionBegin = false;

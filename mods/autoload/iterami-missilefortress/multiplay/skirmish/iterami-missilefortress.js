@@ -86,12 +86,12 @@ function perSecond(){
       me,
       DROID_CONSTRUCT
     );
-    var damagedStructure = false;
+    let damagedStructure = false;
     const droidCount = droids.length;
     const structures = enumStruct(me);
-    var unfinishedStructure = false;
+    let unfinishedStructure = false;
 
-    for(var structure in structures){
+    for(let structure in structures){
         if(damagedStructure !== false
           && unfinishedStructure !== false){
             break;
@@ -111,7 +111,7 @@ function perSecond(){
 
         if(isScout){
             const features = enumFeature(me);
-            for(var i = features.length - 1; i >= 0; i--){
+            for(let i = features.length - 1; i >= 0; i--){
                 const stattype = features[i].stattype;
 
                 if(stattype === ARTIFACT){
@@ -353,8 +353,8 @@ function startResearch(researchFacility, research){
     );
 }
 
-var maxConstructionDroids = 3;
-var researchRandom = false;
+let maxConstructionDroids = 3;
+let researchRandom = false;
 
 const researchOrder = [
   'R-Sys-Engineering01',

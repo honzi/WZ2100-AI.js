@@ -35,7 +35,7 @@ function eventDroidBuilt(droid, structure){
     if(groupSize(groupDefend) >= limitDroidsAttack){
         const defenders = enumGroup(groupDefend);
 
-        for(var i = 0; i < maxDroidsDefend; i++){
+        for(let i = 0; i < maxDroidsDefend; i++){
             groupAddDroid(
               groupAttack,
               defenders[Math.floor(Math.random() * (defenders.length - i))]
@@ -159,12 +159,12 @@ function perSecond(){
       me,
       DROID_CONSTRUCT
     );
-    var damagedStructure = false;
+    let damagedStructure = false;
     const droidCount = droids.length;
     const structures = enumStruct(me);
-    var unfinishedStructure = false;
+    let unfinishedStructure = false;
 
-    for(var structure in structures){
+    for(let structure in structures){
         if(damagedStructure !== false
           && unfinishedStructure !== false){
             break;
@@ -184,7 +184,7 @@ function perSecond(){
 
         if(isScout){
             const features = enumFeature(me);
-            for(var i = features.length - 1; i >= 0; i--){
+            for(let i = features.length - 1; i >= 0; i--){
                 const stattype = features[i].stattype;
 
                 if(stattype === ARTIFACT){
@@ -410,7 +410,7 @@ function perSecond(){
         });
     }
 
-    var attacking = false;
+    let attacking = false;
     playerData.forEach(function(player, id){
         if(attacking
           || groupSize(groupAttack) < minDroidsAttack
@@ -505,13 +505,13 @@ function startResearch(researchFacility, research){
 
 const groupAttack = newGroup();
 const groupDefend = newGroup();
-var limitDroidsAttack = 40;
-var maxConstructionDroids = 3;
-var maxDroidsDefend = 20;
-var minDroidsAttack = 10;
-var minDroidsAttackStructures = 40;
-var productionBegin = false;
-var researchRandom = false;
+let limitDroidsAttack = 40;
+let maxConstructionDroids = 3;
+let maxDroidsDefend = 20;
+let minDroidsAttack = 10;
+let minDroidsAttackStructures = 40;
+let productionBegin = false;
+let researchRandom = false;
 
 const researchOrder = [
   'R-Sys-Engineering01',

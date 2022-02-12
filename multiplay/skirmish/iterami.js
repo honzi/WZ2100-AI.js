@@ -63,7 +63,7 @@ function checkNeedModule(structure, module, count){
         return false;
     }
 
-    var moduleNeeded = false;
+    let moduleNeeded = false;
     const structures = enumStruct(
       me,
       structure
@@ -86,9 +86,9 @@ function checkStructure(structure, count){
 }
 
 function enumStructByType(player, types, visibility){
-    var structures = [];
+    let structures = [];
 
-    for(var type in types){
+    for(let type in types){
         structures = structures.concat(enumStruct(
           player,
           types[type],
@@ -328,9 +328,9 @@ const cyborgWeapons = [];
 const defenseStructures = [];
 const droidWeapons = [];
 const propulsion = ['wheeled01'];
-var maxCyborgFactories = 5;
-var maxFactories = 5;
-var maxPowerGenerators = 1;
-var maxResearchFacilities = 5;
-var propulsionHover = false;
-var resourceExtractorCount = 0;
+let maxCyborgFactories = 5;
+let maxFactories = 5;
+let maxPowerGenerators = 1;
+let maxResearchFacilities = 5;
+let propulsionHover = false;
+let resourceExtractorCount = 0;

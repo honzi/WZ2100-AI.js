@@ -35,7 +35,7 @@ function eventDroidBuilt(droid, structure){
     if(groupSize(groupDefend) >= limitCyborgsAttack){
         const defenders = enumGroup(groupDefend);
 
-        for(var i = 0; i < maxCyborgsDefend; i++){
+        for(let i = 0; i < maxCyborgsDefend; i++){
             groupAddDroid(
               groupAttack,
               defenders[Math.floor(Math.random() * (defenders.length - i))]
@@ -162,12 +162,12 @@ function perSecond(){
       me,
       DROID_CONSTRUCT
     );
-    var damagedStructure = false;
+    let damagedStructure = false;
     const droidCount = droids.length;
     const structures = enumStruct(me);
-    var unfinishedStructure = false;
+    let unfinishedStructure = false;
 
-    for(var structure in structures){
+    for(let structure in structures){
         if(damagedStructure !== false
           && unfinishedStructure !== false){
             break;
@@ -187,7 +187,7 @@ function perSecond(){
 
         if(isScout){
             const features = enumFeature(me);
-            for(var i = features.length - 1; i >= 0; i--){
+            for(let i = features.length - 1; i >= 0; i--){
                 const stattype = features[i].stattype;
 
                 if(stattype === ARTIFACT){
@@ -422,7 +422,7 @@ function perSecond(){
         });
     }
 
-    var attacking = false;
+    let attacking = false;
     playerData.forEach(function(player, id){
         if(attacking
           || groupSize(groupAttack) < minCyborgsAttack
@@ -518,13 +518,13 @@ function startResearch(researchFacility, research){
 
 const groupAttack = newGroup();
 const groupDefend = newGroup();
-var limitCyborgsAttack = 40;
-var maxConstructionDroids = 3;
-var maxCyborgsDefend = 30;
-var minCyborgsAttack = 10;
-var minCyborgsAttackStructures = 40;
-var productionBegin = false;
-var researchRandom = false;
+let limitCyborgsAttack = 40;
+let maxConstructionDroids = 3;
+let maxCyborgsDefend = 30;
+let minCyborgsAttack = 10;
+let minCyborgsAttackStructures = 40;
+let productionBegin = false;
+let researchRandom = false;
 
 const researchOrder = [
   'R-Sys-Engineering01',

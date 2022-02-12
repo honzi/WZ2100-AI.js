@@ -12,8 +12,7 @@ function eventAttacked(victim, attacker){
           false
         );
 
-    }else if(victim.type === STRUCTURE
-      && victim.stattype !== RESOURCE_EXTRACTOR){
+    }else if(victim.type === STRUCTURE){
         attack(
           groupDefend,
           attacker,
@@ -321,21 +320,21 @@ function perSecond(){
             );
 
         }else if(checkStructure(
-            'A0CommandCentre',
-            1
-          )){
-            buildStructure(
-              droid,
-              'A0CommandCentre'
-            );
-
-        }else if(checkStructure(
             'A0PowerGenerator',
             maxPowerGenerators
           )){
             buildStructure(
               droid,
               'A0PowerGenerator'
+            );
+
+        }else if(checkStructure(
+            'A0CommandCentre',
+            1
+          )){
+            buildStructure(
+              droid,
+              'A0CommandCentre'
             );
 
         }else if(checkStructure(

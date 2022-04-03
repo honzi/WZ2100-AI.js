@@ -172,11 +172,6 @@ function perSecond(){
     let unfinishedStructure = false;
 
     for(let structure in structures){
-        if(damagedStructure !== false
-          && unfinishedStructure !== false){
-            break;
-        }
-
         if(structures[structure].status !== BUILT){
             unfinishedStructure = structures[structure];
 
@@ -233,11 +228,13 @@ function perSecond(){
 
         }else if(damagedStructure !== false
           && index <= droidCount / 2 - 1){
-            orderDroidObj(
-              droid,
-              DORDER_REPAIR,
-              damagedStructure
-            );
+            if(droid.order !== DORDER_REPAIR){
+                orderDroidObj(
+                  droid,
+                  DORDER_REPAIR,
+                  damagedStructure
+                );
+            }
 
             return;
         }

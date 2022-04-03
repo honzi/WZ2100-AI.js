@@ -79,8 +79,8 @@ function init(){
       1000
     );
     setTimer(
-      'perMinute',
-      60000
+      'perMinuteStart',
+      60000 - (me * 1000)
     );
 }
 
@@ -116,6 +116,14 @@ function perMinute(){
             );
         }
     });
+}
+
+function perMinuteStart(){
+    removeTimer('perMinuteStart');
+    setTimer(
+      'perMinute',
+      60000
+    );
 }
 
 function perSecond(){

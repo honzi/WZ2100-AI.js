@@ -171,11 +171,13 @@ function perSecond(){
     const structures = enumStruct(me);
     let unfinishedStructure = false;
 
+    let damagedHealth = 100;
     for(let structure in structures){
         if(structures[structure].status !== BUILT){
             unfinishedStructure = structures[structure];
 
-        }else if(structures[structure].health < 100){
+        }else if(structures[structure].health < damagedHealth){
+            damagedHealth = structures[structure].health;
             damagedStructure = structures[structure];
         }
     }

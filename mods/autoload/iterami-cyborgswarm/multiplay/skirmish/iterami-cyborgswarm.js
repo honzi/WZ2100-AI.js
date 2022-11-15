@@ -127,6 +127,7 @@ function perMinuteStart(){
 }
 
 function perSecond(){
+    const tooMuchPower = playerPower(me) > maxPowerReserve;
     const researchFacilities = enumStruct(
       me,
       'A0ResearchFacility'
@@ -138,7 +139,7 @@ function perSecond(){
         }
 
         if(researchRandom
-          || playerPower(me) > researchRandomPower){
+          || tooMuchPower){
             randomResearch(researchFacility);
 
         }else{
@@ -150,6 +151,7 @@ function perSecond(){
     });
 
     if(productionBegin
+      || tooMuchPower
       || groupSize(groupDefend) < maxCyborgsDefend){
         const cyborgFactories = enumStruct(
           me,
@@ -528,11 +530,11 @@ const groupDefend = newGroup();
 let limitCyborgsAttack = 40;
 let maxConstructionDroids = 3;
 let maxCyborgsDefend = 30;
+let maxPowerReserve = 2000;
 let minCyborgsAttack = 10;
 let minCyborgsAttackStructures = 40;
 let productionBegin = false;
 let researchRandom = false;
-let researchRandomPower = 2000;
 
 const researchOrder = [
   'R-Sys-Engineering01',

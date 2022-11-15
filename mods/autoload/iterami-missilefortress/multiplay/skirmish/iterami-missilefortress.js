@@ -59,6 +59,7 @@ function perMinuteStart(){
 }
 
 function perSecond(){
+    const tooMuchPower = playerPower(me) > maxPowerReserve;
     const researchFacilities = enumStruct(
       me,
       'A0ResearchFacility'
@@ -70,7 +71,7 @@ function perSecond(){
         }
 
         if(researchRandom
-          || playerPower(me) > researchRandomPower){
+          || tooMuchPower){
             const research = enumResearch();
 
             if(research.length === 0){
@@ -362,8 +363,8 @@ function startResearch(researchFacility, research){
 }
 
 let maxConstructionDroids = 3;
+let maxPowerReserve = 5000;
 let researchRandom = false;
-let researchRandomPower = 5000;
 
 const researchOrder = [
   'R-Sys-Engineering01',

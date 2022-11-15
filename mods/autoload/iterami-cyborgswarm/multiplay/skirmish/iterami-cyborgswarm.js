@@ -300,21 +300,12 @@ function perSecond(){
             );
 
         }else if(checkStructure(
-            'A0ResearchFacility',
-            maxResearchFacilities
+            'A0PowerGenerator',
+            maxPowerGenerators
           )){
             buildStructure(
               droid,
-              'A0ResearchFacility'
-            );
-
-        }else if(checkStructure(
-            'A0LightFactory',
-            maxFactories
-          )){
-            buildStructure(
-              droid,
-              'A0LightFactory'
+              'A0PowerGenerator'
             );
 
         }else if(checkStructure(
@@ -327,21 +318,30 @@ function perSecond(){
             );
 
         }else if(checkStructure(
-            'A0PowerGenerator',
-            maxPowerGenerators
-          )){
-            buildStructure(
-              droid,
-              'A0PowerGenerator'
-            );
-
-        }else if(checkStructure(
             'A0CommandCentre',
             1
           )){
             buildStructure(
               droid,
               'A0CommandCentre'
+            );
+
+        }else if(checkStructure(
+            'A0LightFactory',
+            maxFactories
+          )){
+            buildStructure(
+              droid,
+              'A0LightFactory'
+            );
+
+        }else if(checkStructure(
+            'A0ResearchFacility',
+            maxResearchFacilities
+          )){
+            buildStructure(
+              droid,
+              'A0ResearchFacility'
             );
 
         }else if(checkStructure(

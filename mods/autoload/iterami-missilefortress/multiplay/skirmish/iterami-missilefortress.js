@@ -69,7 +69,8 @@ function perSecond(){
             return;
         }
 
-        if(researchRandom){
+        if(researchRandom
+          || playerPower(me) > researchRandomPower){
             const research = enumResearch();
 
             if(research.length === 0){
@@ -362,6 +363,7 @@ function startResearch(researchFacility, research){
 
 let maxConstructionDroids = 3;
 let researchRandom = false;
+let researchRandomPower = 5000;
 
 const researchOrder = [
   'R-Sys-Engineering01',

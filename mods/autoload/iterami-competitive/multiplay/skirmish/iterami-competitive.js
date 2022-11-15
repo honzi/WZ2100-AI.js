@@ -134,7 +134,8 @@ function perSecond(){
             return;
         }
 
-        if(researchRandom){
+        if(researchRandom
+          || playerPower(me) > researchRandomPower){
             randomResearch(researchFacility);
 
         }else{
@@ -518,6 +519,7 @@ let minDroidsAttack = 10;
 let minDroidsAttackStructures = 40;
 let productionBegin = false;
 let researchRandom = false;
+let researchRandomPower = 2000;
 
 const researchOrder = [
   'R-Sys-Engineering01',

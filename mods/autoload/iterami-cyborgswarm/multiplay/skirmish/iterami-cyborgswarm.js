@@ -537,6 +537,7 @@ let productionBegin = false;
 let researchRandom = false;
 
 const researchOrder = [
+  'R-Wpn-MG1Mk1',
   'R-Sys-Engineering01',
   'R-Vehicle-Engine01',
   'R-Sys-Sensor-Turret01',
@@ -545,7 +546,6 @@ const researchOrder = [
   'R-Sys-Sensor-Tower01',
   'R-Struc-CommandRelay',
   'R-Struc-Research-Module',
-  'R-Wpn-MG1Mk1',
   'R-Wpn-Flamer01Mk1',
   'R-Vehicle-Prop-Halftracks',
   'R-Struc-Research-Upgrade01',

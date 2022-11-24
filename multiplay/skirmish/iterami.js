@@ -1,4 +1,4 @@
-function attack(group, target, location, override){
+function attack(group, target, override){
     const droids = enumGroup(group);
     droids.some(function check_droid(droid){
         if(!override
@@ -16,23 +16,25 @@ function attack(group, target, location, override){
             }else if(!droid.canHitGround){
                 return;
             }
+
+        }else if(target.type === STRUCTURE){
+            if(target.stattype === WALL){
+                orderDroidObj(
+                  droid,
+                  DORDER_ATTACK,
+                  target
+                );
+
+                return;
+            }
         }
 
-        if(location){
-            orderDroidLoc(
-              droid,
-              DORDER_SCOUT,
-              target.x,
-              target.y
-            );
-
-        }else{
-            orderDroidObj(
-              droid,
-              DORDER_ATTACK,
-              target
-            );
-        }
+        orderDroidLoc(
+          droid,
+          DORDER_SCOUT,
+          target.x,
+          target.y
+        );
     });
 }
 

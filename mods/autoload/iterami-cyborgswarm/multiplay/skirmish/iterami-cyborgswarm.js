@@ -9,7 +9,6 @@ function eventAttacked(victim, attacker){
         attack(
           groupAttack,
           attacker,
-          true,
           false
         );
 
@@ -17,7 +16,6 @@ function eventAttacked(victim, attacker){
         attack(
           groupDefend,
           attacker,
-          true,
           true
         );
     }
@@ -442,7 +440,7 @@ function perSecond(){
         }
 
         if(groupSize(groupAttack) >= minCyborgsAttackStructures){
-            const structures = enumStructByType(
+            let structures = enumStructByType(
               id,
               [
                 DEFENSE,
@@ -457,6 +455,23 @@ function perSecond(){
                 HQ,
                 REPAIR_FACILITY,
                 COMMAND_CONTROL,
+              ],
+              me
+            );
+
+            if(structures.length > 0){
+                attack(
+                  groupAttack,
+                  structures[structures.length - 1],
+                  true
+                );
+                attacking = true;
+                return;
+            }
+
+            structures = enumStructByType(
+              id,
+              [
                 REARM_PAD,
                 WALL,
                 GATE,
@@ -468,7 +483,6 @@ function perSecond(){
                 attack(
                   groupAttack,
                   structures[structures.length - 1],
-                  false,
                   true
                 );
                 attacking = true;
@@ -485,7 +499,6 @@ function perSecond(){
             attack(
               groupAttack,
               droids[droids.length - 1],
-              true,
               true
             );
             attacking = true;

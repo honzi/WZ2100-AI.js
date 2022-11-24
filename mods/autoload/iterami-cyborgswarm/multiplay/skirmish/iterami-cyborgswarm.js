@@ -9,6 +9,7 @@ function eventAttacked(victim, attacker){
         attack(
           groupAttack,
           attacker,
+          true,
           false
         );
 
@@ -16,6 +17,7 @@ function eventAttacked(victim, attacker){
         attack(
           groupDefend,
           attacker,
+          true,
           true
         );
     }
@@ -466,6 +468,7 @@ function perSecond(){
                 attack(
                   groupAttack,
                   structures[structures.length - 1],
+                  false,
                   true
                 );
                 attacking = true;
@@ -482,6 +485,7 @@ function perSecond(){
             attack(
               groupAttack,
               droids[droids.length - 1],
+              true,
               true
             );
             attacking = true;

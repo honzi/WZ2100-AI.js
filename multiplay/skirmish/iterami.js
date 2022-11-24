@@ -1,4 +1,4 @@
-function attack(group, target, override){
+function attack(group, target, location, override){
     const droids = enumGroup(group);
     droids.some(function check_droid(droid){
         if(!override
@@ -18,12 +18,21 @@ function attack(group, target, override){
             }
         }
 
-        orderDroidLoc(
-          droid,
-          DORDER_SCOUT,
-          target.x,
-          target.y
-        );
+        if(location){
+            orderDroidLoc(
+              droid,
+              DORDER_SCOUT,
+              target.x,
+              target.y
+            );
+
+        }else{
+            orderDroidObj(
+              droid,
+              DORDER_ATTACK,
+              target
+            );
+        }
     });
 }
 

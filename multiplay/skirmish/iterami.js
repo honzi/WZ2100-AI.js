@@ -38,7 +38,7 @@ function attack(group, target, override){
     });
 }
 
-function buildStructure(droid, structure, offset, x, y){
+function buildStructure(droid, structure, maxBlockingTiles, offset, x, y){
     offset = offset || 4;
     x = x || droid.x;
     y = y || droid.y;
@@ -51,7 +51,8 @@ function buildStructure(droid, structure, offset, x, y){
       droid,
       structure,
       coordinates.x,
-      coordinates.y
+      coordinates.y,
+      maxBlockingTiles
     );
 
     if(location){

@@ -210,6 +210,7 @@ function perSecond(){
                         buildStructure(
                           droid,
                           'A0ResourceExtractor',
+                          -1,
                           1,
                           features[i].x,
                           features[i].y
@@ -269,7 +270,8 @@ function perSecond(){
           )){
             buildStructure(
               droid,
-              'A0ResearchFacility'
+              'A0ResearchFacility',
+              1
             );
 
         }else if(checkStructure(
@@ -278,7 +280,8 @@ function perSecond(){
           )){
             buildStructure(
               droid,
-              'A0PowerGenerator'
+              'A0PowerGenerator',
+              1
             );
 
         }else if(checkStructure(
@@ -287,7 +290,8 @@ function perSecond(){
           )){
             buildStructure(
               droid,
-              'A0ResourceExtractor'
+              'A0ResourceExtractor',
+              -1
             );
 
         }else if(checkStructure(
@@ -296,7 +300,8 @@ function perSecond(){
           )){
             buildStructure(
               droid,
-              'A0LightFactory'
+              'A0LightFactory',
+              1
             );
 
         }else if(checkStructure(
@@ -305,7 +310,8 @@ function perSecond(){
           )){
             buildStructure(
               droid,
-              'A0PowerGenerator'
+              'A0PowerGenerator',
+              1
             );
 
         }else if(checkStructure(
@@ -314,7 +320,8 @@ function perSecond(){
           )){
             buildStructure(
               droid,
-              'A0LightFactory'
+              'A0LightFactory',
+              1
             );
 
         }else if(checkStructure(
@@ -323,7 +330,8 @@ function perSecond(){
           )){
             buildStructure(
               droid,
-              'A0CommandCentre'
+              'A0CommandCentre',
+              1
             );
 
         }else if(checkStructure(
@@ -332,7 +340,8 @@ function perSecond(){
           )){
             buildStructure(
               droid,
-              'A0ResearchFacility'
+              'A0ResearchFacility',
+              1
             );
 
         }else if(checkStructure(
@@ -341,7 +350,8 @@ function perSecond(){
           )){
             buildStructure(
               droid,
-              'A0Sat-linkCentre'
+              'A0Sat-linkCentre',
+              1
             );
 
         }else{
@@ -365,6 +375,7 @@ function perSecond(){
                 buildStructure(
                   droid,
                   'A0PowMod1',
+                  -1,
                   1,
                   powerModuleNeeded.x,
                   powerModuleNeeded.y
@@ -374,6 +385,7 @@ function perSecond(){
                 buildStructure(
                   droid,
                   'A0ResearchModule1',
+                  -1,
                   1,
                   researchModuleNeeded.x,
                   researchModuleNeeded.y
@@ -383,6 +395,7 @@ function perSecond(){
                 buildStructure(
                   droid,
                   'A0FacMod1',
+                  -1,
                   1,
                   factoryModuleNeeded.x,
                   factoryModuleNeeded.y
@@ -397,7 +410,8 @@ function perSecond(){
                   )){
                     buildStructure(
                       droid,
-                      defenseStructure
+                      defenseStructure,
+                      1
                     );
                 }
             }

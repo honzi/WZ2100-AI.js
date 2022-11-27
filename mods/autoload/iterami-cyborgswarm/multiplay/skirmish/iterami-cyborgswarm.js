@@ -100,14 +100,20 @@ function perMinute(){
     if(groupSize(groupScout) > 0){
         const droids = enumGroup(groupScout);
         droids.some(function check_droid(droid){
-            randomLocation(droid);
+            randomLocation(
+              droid,
+              DORDER_MOVE
+            );
         });
     }
 
     if(groupSize(groupAttack) >= minCyborgsAttackStructures){
         const droids = enumGroup(groupAttack);
         droids.some(function check_droid(droid){
-            randomLocation(droid);
+            randomLocation(
+              droid,
+              DORDER_SCOUT
+            );
         });
     }
 

@@ -305,10 +305,10 @@ function randomCyborg(cyborgFactory){
     );
 }
 
-function randomLocation(droid){
+function randomLocation(droid, order){
     orderDroidLoc(
       droid,
-      DORDER_MOVE,
+      order,
       Math.floor(Math.random() * mapWidth),
       Math.floor(Math.random() * mapHeight)
     );

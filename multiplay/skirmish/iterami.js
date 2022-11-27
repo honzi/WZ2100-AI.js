@@ -305,13 +305,16 @@ function randomCyborg(cyborgFactory){
     );
 }
 
-function randomLocation(droid, order){
-    orderDroidLoc(
-      droid,
-      order,
-      Math.floor(Math.random() * mapWidth),
-      Math.floor(Math.random() * mapHeight)
-    );
+function randomLocation(group, order){
+    const droids = enumGroup(group);
+    droids.some(function check_droid(droid){
+        orderDroidLoc(
+          droid,
+          order,
+          Math.floor(Math.random() * mapWidth),
+          Math.floor(Math.random() * mapHeight)
+        );
+    });
 }
 
 function randomWeaponDroid(factory){

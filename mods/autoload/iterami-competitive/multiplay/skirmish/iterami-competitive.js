@@ -93,24 +93,18 @@ function perMinute(){
     ).length;
     maxPowerGenerators = 1 + Math.ceil(resourceExtractorCount / 4);
 
-    if(groupSize(groupScout) > 0){
-        const droids = enumGroup(groupScout);
-        droids.some(function check_droid(droid){
-            randomLocation(
-              droid,
-              DORDER_MOVE
-            );
-        });
-    }
 
+    if(groupSize(groupScout) > 0){
+        randomLocation(
+          groupScout,
+          DORDER_MOVE
+        );
+    }
     if(groupSize(groupAttack) >= minDroidsAttackStructures){
-        const droids = enumGroup(groupAttack);
-        droids.some(function check_droid(droid){
-            randomLocation(
-              droid,
-              DORDER_SCOUT
-            );
-        });
+        randomLocation(
+          groupAttack,
+          DORDER_SCOUT
+        );
     }
 
     const droids = enumDroid(me);

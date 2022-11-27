@@ -26,6 +26,11 @@ function eventDroidBuilt(droid, structure){
         return;
     }
 
+    groupAddDroid(
+      groupDefend,
+      droid
+    );
+
     if(groupSize(groupScout) < maxDroidsScout){
         groupAddDroid(
           groupScout,
@@ -40,12 +45,6 @@ function eventDroidBuilt(droid, structure){
               defenders[Math.floor(Math.random() * (defenders.length - i))]
             );
         }
-
-    }else{
-        groupAddDroid(
-          groupDefend,
-          droid
-        );
     }
 }
 

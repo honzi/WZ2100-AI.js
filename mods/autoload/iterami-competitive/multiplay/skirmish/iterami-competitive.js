@@ -26,20 +26,26 @@ function eventDroidBuilt(droid, structure){
         return;
     }
 
-    groupAddDroid(
-      groupDefend,
-      droid
-    );
+    if(groupSize(groupScout) < maxDroidsScout){
+        groupAddDroid(
+          groupScout,
+          droid
+        );
 
-    if(groupSize(groupDefend) >= limitDroidsAttack){
+    }else if(groupSize(groupDefend) >= limitDroidsAttack){
         const defenders = enumGroup(groupDefend);
-
         for(let i = 0; i < maxDroidsDefend; i++){
             groupAddDroid(
               groupAttack,
               defenders[Math.floor(Math.random() * (defenders.length - i))]
             );
         }
+
+    }else{
+        groupAddDroid(
+          groupDefend,
+          droid
+        );
     }
 }
 
@@ -88,6 +94,13 @@ function perMinute(){
     ).length;
     maxPowerGenerators = 1 + Math.ceil(resourceExtractorCount / 4);
 
+    if(groupSize(groupScout) > 0){
+        const droids = enumGroup(groupScout);
+        droids.some(function check_droid(droid){
+            randomLocation(droid);
+        });
+    }
+
     if(groupSize(groupAttack) >= minDroidsAttackStructures){
         const droids = enumGroup(groupAttack);
         droids.some(function check_droid(droid){
@@ -95,14 +108,9 @@ function perMinute(){
         });
     }
 
-    const droids = enumDroid(me);
+    const defenseDroids = enumGroup(groupDefend);
     const structures = enumStruct();
-
-    droids.some(function check_droid(droid){
-        if(droid.group === groupAttack){
-            return;
-        }
-
+    defenseDroids.some(function check_droid(droid){
         const randomStructure = structures[Math.floor(Math.random() * structures.length)];
         if(randomStructure !== undefined){
             orderDroidLoc(
@@ -545,9 +553,11 @@ function startResearch(researchFacility, research){
 
 const groupAttack = newGroup();
 const groupDefend = newGroup();
+const groupScout = newGroup();
 let limitDroidsAttack = 40;
 let maxConstructionDroids = 3;
 let maxDroidsDefend = 20;
+let maxDroidsScout = 1;
 let maxPowerReserve = 2000;
 let minDroidsAttack = 10;
 let minDroidsAttackStructures = 40;

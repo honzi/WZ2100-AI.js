@@ -26,20 +26,26 @@ function eventDroidBuilt(droid, structure){
         return;
     }
 
-    groupAddDroid(
-      groupDefend,
-      droid
-    );
+    if(groupSize(groupScout) < maxCyborgsScout){
+        groupAddDroid(
+          groupScout,
+          droid
+        );
 
-    if(groupSize(groupDefend) >= limitCyborgsAttack){
+    }else if(groupSize(groupDefend) >= limitCyborgsAttack){
         const defenders = enumGroup(groupDefend);
-
         for(let i = 0; i < maxCyborgsDefend; i++){
             groupAddDroid(
               groupAttack,
               defenders[Math.floor(Math.random() * (defenders.length - i))]
             );
         }
+
+    }else{
+        groupAddDroid(
+          groupDefend,
+          droid
+        );
     }
 }
 
@@ -91,6 +97,13 @@ function perMinute(){
     ).length;
     maxPowerGenerators = 1 + Math.ceil(resourceExtractorCount / 4);
 
+    if(groupSize(groupScout) > 0){
+        const droids = enumGroup(groupScout);
+        droids.some(function check_droid(droid){
+            randomLocation(droid);
+        });
+    }
+
     if(groupSize(groupAttack) >= minCyborgsAttackStructures){
         const droids = enumGroup(groupAttack);
         droids.some(function check_droid(droid){
@@ -98,14 +111,9 @@ function perMinute(){
         });
     }
 
-    const droids = enumDroid(me);
+    const defenseDroids = enumGroup(groupDefend);
     const structures = enumStruct();
-
-    droids.some(function check_droid(droid){
-        if(droid.group === groupAttack){
-            return;
-        }
-
+    defenseDroids.some(function check_droid(droid){
         const randomStructure = structures[Math.floor(Math.random() * structures.length)];
         if(randomStructure !== undefined){
             orderDroidLoc(
@@ -559,9 +567,11 @@ function startResearch(researchFacility, research){
 
 const groupAttack = newGroup();
 const groupDefend = newGroup();
+const groupScout = newGroup();
 let limitCyborgsAttack = 40;
 let maxConstructionDroids = 3;
 let maxCyborgsDefend = 30;
+let maxCyborgsScout = 1;
 let maxPowerReserve = 2000;
 let minCyborgsAttack = 10;
 let minCyborgsAttackStructures = 40;

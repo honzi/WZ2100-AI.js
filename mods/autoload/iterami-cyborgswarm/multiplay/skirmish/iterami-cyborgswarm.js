@@ -116,9 +116,14 @@ function perMinute(){
         });
     }
 
-    const defenseDroids = enumGroup(groupDefend);
+    const droids = enumDroid(me);
     const structures = enumStruct();
-    defenseDroids.some(function check_droid(droid){
+    droids.some(function check_droid(droid){
+        if(droid.group !== null
+          && droid.group !== groupDefend){
+            return;
+        }
+
         const randomStructure = structures[Math.floor(Math.random() * structures.length)];
         if(randomStructure !== undefined){
             orderDroidLoc(

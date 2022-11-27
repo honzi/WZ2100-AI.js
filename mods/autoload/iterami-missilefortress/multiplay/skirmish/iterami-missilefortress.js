@@ -112,9 +112,13 @@ function perSecond(){
 
     droids.some(function check_droid(droid, index){
         const isProjectManager = index === droidCount - 1;
-        const isScout = index === droidCount - 2;
+        const isCollector = index === droidCount - 2;
 
-        if(isScout){
+        if(isCollector){
+            if(droid.order === DORDER_BUILD){
+                return;
+            }
+
             const features = enumFeature(me);
             for(let i = features.length - 1; i >= 0; i--){
                 const stattype = features[i].stattype;

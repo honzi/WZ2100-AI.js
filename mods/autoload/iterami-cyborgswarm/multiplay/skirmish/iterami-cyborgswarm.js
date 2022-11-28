@@ -296,32 +296,12 @@ function perSecond(){
             );
 
         }else if(checkStructure(
-            'A0ResearchFacility',
-            1
-          )){
-            buildStructure(
-              droid,
-              'A0ResearchFacility',
-              1
-            );
-
-        }else if(checkStructure(
             'A0LightFactory',
             1
           )){
             buildStructure(
               droid,
               'A0LightFactory',
-              1
-            );
-
-        }else if(checkStructure(
-            'A0PowerGenerator',
-            maxPowerGenerators
-          )){
-            buildStructure(
-              droid,
-              'A0PowerGenerator',
               1
             );
 
@@ -336,6 +316,26 @@ function perSecond(){
             );
 
         }else if(checkStructure(
+            'A0ResearchFacility',
+            1
+          )){
+            buildStructure(
+              droid,
+              'A0ResearchFacility',
+              1
+            );
+
+        }else if(checkStructure(
+            'A0PowerGenerator',
+            maxPowerGenerators
+          )){
+            buildStructure(
+              droid,
+              'A0PowerGenerator',
+              1
+            );
+
+        }else if(checkStructure(
             'A0CommandCentre',
             1
           )){
@@ -346,22 +346,22 @@ function perSecond(){
             );
 
         }else if(checkStructure(
-            'A0LightFactory',
-            maxFactories
-          )){
-            buildStructure(
-              droid,
-              'A0LightFactory',
-              1
-            );
-
-        }else if(checkStructure(
             'A0ResearchFacility',
             maxResearchFacilities
           )){
             buildStructure(
               droid,
               'A0ResearchFacility',
+              1
+            );
+
+        }else if(checkStructure(
+            'A0LightFactory',
+            maxFactories
+          )){
+            buildStructure(
+              droid,
+              'A0LightFactory',
               1
             );
 

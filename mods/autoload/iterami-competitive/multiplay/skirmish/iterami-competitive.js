@@ -294,6 +294,16 @@ function perSecond(){
             );
 
         }else if(checkStructure(
+            'A0LightFactory',
+            1
+          )){
+            buildStructure(
+              droid,
+              'A0LightFactory',
+              1
+            );
+
+        }else if(checkStructure(
             'A0ResearchFacility',
             1
           )){
@@ -305,7 +315,7 @@ function perSecond(){
 
         }else if(checkStructure(
             'A0LightFactory',
-            1
+            maxFactories
           )){
             buildStructure(
               droid,
@@ -320,16 +330,6 @@ function perSecond(){
             buildStructure(
               droid,
               'A0PowerGenerator',
-              1
-            );
-
-        }else if(checkStructure(
-            'A0LightFactory',
-            maxFactories
-          )){
-            buildStructure(
-              droid,
-              'A0LightFactory',
               1
             );
 

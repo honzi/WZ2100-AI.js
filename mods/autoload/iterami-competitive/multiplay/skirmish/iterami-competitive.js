@@ -93,7 +93,6 @@ function perMinute(){
     ).length;
     maxPowerGenerators = 1 + Math.ceil(resourceExtractorCount / 4);
 
-
     if(groupSize(groupScout) > 0){
         randomLocation(
           groupScout,

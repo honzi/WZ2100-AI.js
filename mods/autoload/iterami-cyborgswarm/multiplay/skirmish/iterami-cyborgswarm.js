@@ -276,13 +276,13 @@ function perSecond(){
         }
 
         if(checkStructure(
-            'A0ResearchFacility',
+            'A0ResourceExtractor',
             1
           )){
             buildStructure(
               droid,
-              'A0ResearchFacility',
-              1
+              'A0ResourceExtractor',
+              -1
             );
 
         }else if(checkStructure(
@@ -296,13 +296,13 @@ function perSecond(){
             );
 
         }else if(checkStructure(
-            'A0ResourceExtractor',
-            4
+            'A0ResearchFacility',
+            1
           )){
             buildStructure(
               droid,
-              'A0ResourceExtractor',
-              -1
+              'A0ResearchFacility',
+              1
             );
 
         }else if(checkStructure(

@@ -202,7 +202,9 @@ function perSecond(){
         const isCollector = index === droidCount - 2;
 
         if(isCollector){
-            if(droid.order === DORDER_BUILD){
+            if(droid.order === DORDER_BUILD
+              || droid.order === DORDER_HELPBUILD
+              || droid.order === DORDER_RECOVER){
                 return;
             }
 
@@ -211,39 +213,30 @@ function perSecond(){
                 const stattype = features[i].stattype;
 
                 if(stattype === ARTIFACT){
-                    if(droid.order !== DORDER_RECOVER){
-                        orderDroidObj(
-                          droid,
-                          DORDER_RECOVER,
-                          features[i]
-                        );
-                    }
-
+                    orderDroidObj(
+                      droid,
+                      DORDER_RECOVER,
+                      features[i]
+                    );
                     return;
 
                 }else if(stattype === OIL_RESOURCE){
-                    if(droid.order !== DORDER_BUILD){
-                        buildStructure(
-                          droid,
-                          'A0ResourceExtractor',
-                          -1,
-                          1,
-                          features[i].x,
-                          features[i].y
-                        );
-                    }
-
+                    buildStructure(
+                      droid,
+                      'A0ResourceExtractor',
+                      -1,
+                      1,
+                      features[i].x,
+                      features[i].y
+                    );
                     return;
 
                 }else if(stattype === OIL_DRUM){
-                    if(droid.order !== DORDER_RECOVER){
-                        orderDroidObj(
-                          droid,
-                          DORDER_RECOVER,
-                          features[i]
-                        );
-                    }
-
+                    orderDroidObj(
+                      droid,
+                      DORDER_RECOVER,
+                      features[i]
+                    );
                     return;
                 }
             }

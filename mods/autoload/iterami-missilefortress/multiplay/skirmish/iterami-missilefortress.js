@@ -59,6 +59,11 @@ function perMinuteStart(){
 }
 
 function perSecond(){
+    const availableResearch = enumResearch();
+    availableResearch.filter(function(value){
+        return !researchExcluded.includes(value.name);
+    });
+
     const researchFacilities = enumStruct(
       me,
       'A0ResearchFacility'
@@ -70,16 +75,14 @@ function perSecond(){
         }
 
         if(researchRandom){
-            const research = enumResearch();
-
-            if(research.length === 0){
+            if(availableResearch.length === 0){
                 maxResearchFacilities = 1;
                 return;
             }
 
             startResearch(
               researchFacility,
-              research[Math.floor(Math.random() * research.length)].name
+              availableResearch[Math.floor(Math.random() * availableResearch.length)].name
             );
 
         }else{
@@ -433,4 +436,15 @@ const researchOrder = [
   'R-Wpn-Missile-ROF03',
   'R-Defense-WallUpgrade10',
   'R-Defense-Super-Missile',
+];
+
+const researchExcluded = [
+  'R-Cyborg-Metals01',
+  'R-Cyborg-Transport',
+  'R-Defense-HardcreteGate',
+  'R-Defense-TankTrap01',
+  'R-Struc-VTOLFactory',
+  'R-SuperTransport',
+  'R-Wpn-AAGun02',
+  'R-Wpn-Flamer01Mk1',
 ];

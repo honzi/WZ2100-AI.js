@@ -135,6 +135,11 @@ function perMinuteStart(){
 }
 
 function perSecond(){
+    const availableResearch = enumResearch();
+    availableResearch.filter(function(value){
+        return !researchExcluded.includes(value.name);
+    });
+
     const tooMuchPower = playerPower(me) > maxPowerReserve;
     const researchFacilities = enumStruct(
       me,
@@ -148,7 +153,10 @@ function perSecond(){
 
         if(researchRandom
           || tooMuchPower){
-            randomResearch(researchFacility);
+            randomResearch(
+              researchFacility,
+              availableResearch
+            );
 
         }else{
             startResearch(
@@ -519,10 +527,8 @@ function perSecond(){
     setMiniMap(true);
 }
 
-function randomResearch(researchFacility){
-    const research = enumResearch();
-
-    if(research.length === 0){
+function randomResearch(researchFacility, availableResearch){
+    if(availableResearch.length === 0){
         maxConstructionDroids = 6;
         maxResearchFacilities = 1;
         return;
@@ -530,7 +536,7 @@ function randomResearch(researchFacility){
 
     startResearch(
       researchFacility,
-      research[Math.floor(Math.random() * research.length)].name
+      availableResearch[Math.floor(Math.random() * availableResearch.length)].name
     );
 }
 
@@ -600,4 +606,12 @@ const researchOrder = [
   'R-Struc-Research-Upgrade09',
   'R-Struc-Power-Upgrade03a',
   'R-Sys-Autorepair-General',
+];
+const researchExcluded = [
+  'R-Cyborg-Transport',
+  'R-Defense-HardcreteGate',
+  'R-Defense-TankTrap01',
+  'R-Struc-VTOLFactory',
+  'R-SuperTransport',
+  'R-Wpn-AAGun02',
 ];

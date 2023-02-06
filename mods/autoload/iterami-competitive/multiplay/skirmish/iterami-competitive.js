@@ -135,8 +135,7 @@ function perMinuteStart(){
 }
 
 function perSecond(){
-    const availableResearch = enumResearch();
-    availableResearch.filter(function(value){
+    const availableResearch = enumResearch().filter(function(value){
         return !researchExcluded.includes(value.name);
     });
 

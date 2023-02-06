@@ -75,14 +75,9 @@ function perSecond(){
         }
 
         if(researchRandom){
-            if(availableResearch.length === 0){
-                maxResearchFacilities = 1;
-                return;
-            }
-
-            startResearch(
+            randomResearch(
               researchFacility,
-              availableResearch[Math.floor(Math.random() * availableResearch.length)].name
+              availableResearch
             );
 
         }else{
@@ -357,6 +352,18 @@ function perSecond(){
     setMiniMap(true);
 }
 
+function randomResearch(researchFacility, availableResearch){
+    if(availableResearch.length === 0){
+        maxResearchFacilities = 1;
+        return;
+    }
+
+    startResearch(
+      researchFacility,
+      availableResearch[Math.floor(Math.random() * availableResearch.length)].name
+    );
+}
+
 function startResearch(researchFacility, research){
     if(!researchRandom){
         const targetResearch = getResearch('R-Defense-Super-Missile');
@@ -437,7 +444,6 @@ const researchOrder = [
   'R-Defense-WallUpgrade10',
   'R-Defense-Super-Missile',
 ];
-
 const researchExcluded = [
   'R-Cyborg-Metals01',
   'R-Cyborg-Transport',

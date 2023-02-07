@@ -115,6 +115,15 @@ function eventGameLoaded(){
     preInit();
 }
 
+function eventPickup(feature, droid){
+    if(droid.player === me){
+        orderDroid(
+          droid,
+          DORDER_RTB
+        );
+    }
+}
+
 function eventResearched(research, structure, player){
     if(me !== player){
         return;
@@ -233,6 +242,10 @@ function eventStartLevel(){
     preInit();
 }
 
+function eventStructureBuilt(structure, droid){
+    perMinute();
+}
+
 function locationClamp(x, y){
     return {
       'x': Math.max(
@@ -250,6 +263,14 @@ function locationClamp(x, y){
         0
       ),
     };
+}
+
+function perMinuteStart(){
+    removeTimer('perMinuteStart');
+    setTimer(
+      'perMinute',
+      60000
+    );
 }
 
 function preInit(){
@@ -315,6 +336,13 @@ function randomLocation(group, order){
           Math.floor(Math.random() * mapHeight)
         );
     });
+}
+
+function randomResearch(researchFacility, availableResearch){
+    startResearch(
+      researchFacility,
+      availableResearch[Math.floor(Math.random() * availableResearch.length)].name
+    );
 }
 
 function randomWeaponDroid(factory){

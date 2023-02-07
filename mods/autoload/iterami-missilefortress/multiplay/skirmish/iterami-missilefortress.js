@@ -1,18 +1,5 @@
 include('iterami.js');
 
-function eventPickup(feature, droid){
-    if(droid.player === me){
-        orderDroid(
-          droid,
-          DORDER_RTB
-        );
-    }
-}
-
-function eventStructureBuilt(structure, droid){
-    perMinute();
-}
-
 function init(){
     maxCyborgFactories = 0;
 
@@ -50,42 +37,40 @@ function perMinute(){
     });
 }
 
-function perMinuteStart(){
-    removeTimer('perMinuteStart');
-    setTimer(
-      'perMinute',
-      60000
-    );
-}
-
 function perSecond(){
     const availableResearch = enumResearch().filter(function(value){
         return !researchExcluded.includes(value.name);
     });
 
-    const researchFacilities = enumStruct(
-      me,
-      'A0ResearchFacility'
-    );
-    researchFacilities.some(function check_researchFacility(researchFacility){
-        if(researchFacility.status !== BUILT
-          || !structureIdle(researchFacility)){
-            return;
-        }
+    if(availableResearch.length === 0){
+        maxConstructionDroids = 6;
+        maxResearchFacilities = 1;
 
-        if(researchRandom){
-            randomResearch(
-              researchFacility,
-              availableResearch
-            );
+    }else{
+        const researchFacilities = enumStruct(
+          me,
+          'A0ResearchFacility'
+        );
+        researchFacilities.some(function check_researchFacility(researchFacility){
+            if(researchFacility.status !== BUILT
+              || !structureIdle(researchFacility)){
+                return;
+            }
 
-        }else{
-            startResearch(
-              researchFacility,
-              researchOrder
-            );
-        }
-    });
+            if(researchRandom){
+                randomResearch(
+                  researchFacility,
+                  availableResearch
+                );
+
+            }else{
+                startResearch(
+                  researchFacility,
+                  researchOrder
+                );
+            }
+        });
+    }
 
     const droids = enumDroid(
       me,

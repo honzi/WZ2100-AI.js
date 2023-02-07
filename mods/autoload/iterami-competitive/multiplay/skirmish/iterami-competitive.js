@@ -59,19 +59,6 @@ function eventObjectTransfer(gameObject, from){
     }
 }
 
-function eventPickup(feature, droid){
-    if(droid.player === me){
-        orderDroid(
-          droid,
-          DORDER_RTB
-        );
-    }
-}
-
-function eventStructureBuilt(structure, droid){
-    perMinute();
-}
-
 function init(){
     maxCyborgFactories = 0;
 
@@ -126,44 +113,42 @@ function perMinute(){
     });
 }
 
-function perMinuteStart(){
-    removeTimer('perMinuteStart');
-    setTimer(
-      'perMinute',
-      60000
-    );
-}
-
 function perSecond(){
     const availableResearch = enumResearch().filter(function(value){
         return !researchExcluded.includes(value.name);
     });
 
     const tooMuchPower = playerPower(me) > maxPowerReserve;
-    const researchFacilities = enumStruct(
-      me,
-      'A0ResearchFacility'
-    );
-    researchFacilities.some(function check_researchFacility(researchFacility){
-        if(researchFacility.status !== BUILT
-          || !structureIdle(researchFacility)){
-            return;
-        }
+    if(availableResearch.length === 0){
+        maxConstructionDroids = 6;
+        maxResearchFacilities = 1;
 
-        if(researchRandom
-          || tooMuchPower){
-            randomResearch(
-              researchFacility,
-              availableResearch
-            );
+    }else{
+        const researchFacilities = enumStruct(
+          me,
+          'A0ResearchFacility'
+        );
+        researchFacilities.some(function check_researchFacility(researchFacility){
+            if(researchFacility.status !== BUILT
+              || !structureIdle(researchFacility)){
+                return;
+            }
 
-        }else{
-            startResearch(
-              researchFacility,
-              researchOrder
-            );
-        }
-    });
+            if(researchRandom
+              || tooMuchPower){
+                randomResearch(
+                  researchFacility,
+                  availableResearch
+                );
+
+            }else{
+                startResearch(
+                  researchFacility,
+                  researchOrder
+                );
+            }
+        });
+    }
 
     if(productionBegin
       || tooMuchPower
@@ -524,19 +509,6 @@ function perSecond(){
     });
 
     setMiniMap(true);
-}
-
-function randomResearch(researchFacility, availableResearch){
-    if(availableResearch.length === 0){
-        maxConstructionDroids = 6;
-        maxResearchFacilities = 1;
-        return;
-    }
-
-    startResearch(
-      researchFacility,
-      availableResearch[Math.floor(Math.random() * availableResearch.length)].name
-    );
 }
 
 function startResearch(researchFacility, research){

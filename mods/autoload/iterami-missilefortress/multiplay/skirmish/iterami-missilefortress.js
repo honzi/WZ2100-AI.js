@@ -449,7 +449,7 @@ const researchExcluded = [
   'R-Sys-MobileRepairTurretHvy',
   'R-Sys-RadarDetector01',
   'R-Sys-Sensor-Tower02',
-  'R-Sys-SpyTurret',
+  'R-Sys-SpyTower',
   'R-Wpn-AAGun02',
   'R-Wpn-Bomb06',
   'R-Wpn-Cannon1Mk1',

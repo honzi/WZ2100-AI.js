@@ -168,7 +168,6 @@ function eventResearched(research, structure, player){
       'R-Defense-PrisLas': 'Emplacement-PrisLas',
       'R-Defense-PulseLas': 'GuardTower-BeamLas',
       'R-Defense-Super-Missile': 'X-Super-Missile',
-      'R-Defense-Tower01': 'GuardTower1',
       'R-Defense-Tower06': 'GuardTower6',
       'R-Defense-Wall-RotMg': 'Wall-RotMg',
       'R-Defense-WallTower-HPVcannon': 'WallTower-HPVcannon',

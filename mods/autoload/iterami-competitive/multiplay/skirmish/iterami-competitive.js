@@ -216,7 +216,7 @@ function perSecond(){
                       droid,
                       'A0ResourceExtractor',
                       -1,
-                      1,
+                      0,
                       features[i].x,
                       features[i].y
                     );
@@ -281,7 +281,7 @@ function perSecond(){
             buildStructure(
               droid,
               'A0PowerGenerator',
-              1
+              maxBlockingTiles
             );
 
         }else if(checkStructure(
@@ -291,7 +291,7 @@ function perSecond(){
             buildStructure(
               droid,
               'A0LightFactory',
-              1
+              maxBlockingTiles
             );
 
         }else if(checkStructure(
@@ -301,7 +301,7 @@ function perSecond(){
             buildStructure(
               droid,
               'A0ResearchFacility',
-              1
+              maxBlockingTiles
             );
 
         }else if(checkStructure(
@@ -311,7 +311,7 @@ function perSecond(){
             buildStructure(
               droid,
               'A0LightFactory',
-              1
+              maxBlockingTiles
             );
 
         }else if(checkStructure(
@@ -321,7 +321,7 @@ function perSecond(){
             buildStructure(
               droid,
               'A0PowerGenerator',
-              1
+              maxBlockingTiles
             );
 
         }else if(checkStructure(
@@ -331,7 +331,7 @@ function perSecond(){
             buildStructure(
               droid,
               'A0CommandCentre',
-              1
+              maxBlockingTiles
             );
 
         }else if(checkStructure(
@@ -341,7 +341,7 @@ function perSecond(){
             buildStructure(
               droid,
               'A0ResearchFacility',
-              1
+              maxBlockingTiles
             );
 
         }else if(checkStructure(
@@ -351,7 +351,7 @@ function perSecond(){
             buildStructure(
               droid,
               'A0Sat-linkCentre',
-              1
+              maxBlockingTiles
             );
 
         }else{
@@ -376,7 +376,7 @@ function perSecond(){
                   droid,
                   'A0PowMod1',
                   -1,
-                  1,
+                  0,
                   powerModuleNeeded.x,
                   powerModuleNeeded.y
                 );
@@ -386,7 +386,7 @@ function perSecond(){
                   droid,
                   'A0ResearchModule1',
                   -1,
-                  1,
+                  0,
                   researchModuleNeeded.x,
                   researchModuleNeeded.y
                 );
@@ -396,7 +396,7 @@ function perSecond(){
                   droid,
                   'A0FacMod1',
                   -1,
-                  1,
+                  0,
                   factoryModuleNeeded.x,
                   factoryModuleNeeded.y
                 );
@@ -411,7 +411,7 @@ function perSecond(){
                     buildStructure(
                       droid,
                       defenseStructure,
-                      1
+                      0
                     );
                 }
             }
@@ -532,6 +532,7 @@ const groupAttack = newGroup();
 const groupDefend = newGroup();
 const groupScout = newGroup();
 let limitDroidsAttack = 40;
+let maxBlockingTiles = 3;
 let maxConstructionDroids = 3;
 let maxDroidsDefend = 20;
 let maxDroidsScout = 1;

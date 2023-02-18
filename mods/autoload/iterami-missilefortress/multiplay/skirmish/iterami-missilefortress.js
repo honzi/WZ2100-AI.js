@@ -64,7 +64,15 @@ function perSecond(){
                 );
 
             }else{
-                startResearch(
+                const targetResearch = getResearch('R-Defense-Super-Missile');
+
+                if(targetResearch.done
+                  || targetResearch.started){
+                    maxConstructionDroids = 10;
+                    randomResearch = true;
+                }
+
+                pursueResearch(
                   researchFacility,
                   researchOrder
                 );
@@ -335,39 +343,6 @@ function perSecond(){
 
     setMiniMap(true);
 }
-
-function randomResearch(researchFacility, availableResearch){
-    if(availableResearch.length === 0){
-        maxResearchFacilities = 1;
-        return;
-    }
-
-    startResearch(
-      researchFacility,
-      availableResearch[Math.floor(Math.random() * availableResearch.length)].name
-    );
-}
-
-function startResearch(researchFacility, research){
-    if(!researchRandom){
-        const targetResearch = getResearch('R-Defense-Super-Missile');
-
-        if(targetResearch.done
-          || targetResearch.started){
-            maxConstructionDroids = 10;
-            researchRandom = true;
-        }
-    }
-
-    pursueResearch(
-      researchFacility,
-      research
-    );
-}
-
-let maxBlockingTiles = 3;
-let maxConstructionDroids = 3;
-let researchRandom = false;
 
 const researchOrder = [
   'R-Sys-Engineering01',

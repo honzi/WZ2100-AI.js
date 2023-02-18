@@ -145,7 +145,16 @@ function perSecond(){
                 );
 
             }else{
-                startResearch(
+                const targetResearch = getResearch('R-Sys-Autorepair-General');
+
+                if(targetResearch.done
+                  || targetResearch.started){
+                    maxCyborgsDefend = 20;
+                    productionBegin = true;
+                    researchRandom = true;
+                }
+
+                pursueResearch(
                   researchFacility,
                   researchOrder
                 );
@@ -524,37 +533,16 @@ function perSecond(){
     setMiniMap(true);
 }
 
-function startResearch(researchFacility, research){
-    if(!researchRandom){
-        const targetResearch = getResearch('R-Sys-Autorepair-General');
-
-        if(targetResearch.done
-          || targetResearch.started){
-            maxCyborgsDefend = 20;
-            productionBegin = true;
-            researchRandom = true;
-        }
-    }
-
-    pursueResearch(
-      researchFacility,
-      research
-    );
-}
-
 const groupAttack = newGroup();
 const groupDefend = newGroup();
 const groupScout = newGroup();
 let limitCyborgsAttack = 40;
-let maxBlockingTiles = 3;
-let maxConstructionDroids = 3;
 let maxCyborgsDefend = 30;
 let maxCyborgsScout = 1;
 let maxPowerReserve = 2000;
 let minCyborgsAttack = 10;
 let minCyborgsAttackStructures = 40;
 let productionBegin = false;
-let researchRandom = false;
 
 const researchOrder = [
   'R-Wpn-MG1Mk1',

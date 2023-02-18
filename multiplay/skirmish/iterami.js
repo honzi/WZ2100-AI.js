@@ -340,7 +340,7 @@ function randomLocation(group, order){
 }
 
 function randomResearch(researchFacility, availableResearch){
-    startResearch(
+    pursueResearch(
       researchFacility,
       availableResearch[Math.floor(Math.random() * availableResearch.length)].name
     );
@@ -372,9 +372,12 @@ const cyborgWeapons = [];
 const defenseStructures = [];
 const droidWeapons = [];
 const propulsion = ['wheeled01'];
+let maxBlockingTiles = 1;
+let maxConstructionDroids = 3;
 let maxCyborgFactories = 5;
 let maxFactories = 5;
 let maxPowerGenerators = 1;
 let maxResearchFacilities = 5;
 let propulsionHover = false;
+let researchRandom = false;
 let resourceExtractorCount = 0;

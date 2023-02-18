@@ -142,7 +142,15 @@ function perSecond(){
                 );
 
             }else{
-                startResearch(
+                const targetResearch = getResearch('R-Sys-Autorepair-General');
+
+                if(targetResearch.done
+                  || targetResearch.started){
+                    productionBegin = true;
+                    researchRandom = true;
+                }
+
+                pursueResearch(
                   researchFacility,
                   researchOrder
                 );
@@ -511,36 +519,16 @@ function perSecond(){
     setMiniMap(true);
 }
 
-function startResearch(researchFacility, research){
-    if(!researchRandom){
-        const targetResearch = getResearch('R-Sys-Autorepair-General');
-
-        if(targetResearch.done
-          || targetResearch.started){
-            productionBegin = true;
-            researchRandom = true;
-        }
-    }
-
-    pursueResearch(
-      researchFacility,
-      research
-    );
-}
-
 const groupAttack = newGroup();
 const groupDefend = newGroup();
 const groupScout = newGroup();
 let limitDroidsAttack = 40;
-let maxBlockingTiles = 3;
-let maxConstructionDroids = 3;
 let maxDroidsDefend = 20;
 let maxDroidsScout = 1;
 let maxPowerReserve = 2000;
 let minDroidsAttack = 10;
 let minDroidsAttackStructures = 40;
 let productionBegin = false;
-let researchRandom = false;
 
 const researchOrder = [
   'R-Wpn-MG1Mk1',

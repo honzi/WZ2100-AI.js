@@ -84,12 +84,27 @@ function perSecond(){
       me,
       DROID_CONSTRUCT
     );
-    let damagedStructure = false;
     const droidCount = droids.length;
-    const structures = enumStruct(me);
-    let unfinishedStructure = false;
+
+    if(droidCount < maxConstructionDroids){
+        const factories = enumStruct(
+          me,
+          'A0LightFactory'
+        );
+        factories.some(function check_factory(factory){
+            if(factory.status !== BUILT
+              || !structureIdle(factory)){
+                return;
+            }
+
+            randomConstructionDroid(factory);
+        });
+    }
 
     let damagedHealth = 100;
+    let damagedStructure = false;
+    const structures = enumStruct(me);
+    let unfinishedStructure = false;
     for(let structure in structures){
         if(structures[structure].status !== BUILT){
             unfinishedStructure = structures[structure];
@@ -290,21 +305,6 @@ function perSecond(){
             }
         }
     });
-
-    if(droidCount < maxConstructionDroids){
-        const factories = enumStruct(
-          me,
-          'A0LightFactory'
-        );
-        factories.some(function check_factory(factory){
-            if(factory.status !== BUILT
-              || !structureIdle(factory)){
-                return;
-            }
-
-            randomConstructionDroid(factory);
-        });
-    }
 
     setMiniMap(true);
 }

@@ -160,7 +160,27 @@ function perSecond(){
         });
     }
 
-    if(productionBegin
+    const droids = enumDroid(
+      me,
+      DROID_CONSTRUCT
+    );
+    const droidCount = droids.length;
+
+    if(droidCount < maxConstructionDroids){
+        const factories = enumStruct(
+          me,
+          'A0LightFactory'
+        );
+        factories.some(function check_factory(factory){
+            if(factory.status !== BUILT
+              || !structureIdle(factory)){
+                return;
+            }
+
+            randomConstructionDroid(factory);
+        });
+
+    }else if(productionBegin
       || tooMuchPower
       || groupSize(groupDefend) < maxCyborgsDefend){
         const cyborgFactories = enumStruct(
@@ -178,16 +198,10 @@ function perSecond(){
         });
     }
 
-    const droids = enumDroid(
-      me,
-      DROID_CONSTRUCT
-    );
+    let damagedHealth = 100;
     let damagedStructure = false;
-    const droidCount = droids.length;
     const structures = enumStruct(me);
     let unfinishedStructure = false;
-
-    let damagedHealth = 100;
     for(let structure in structures){
         if(structures[structure].status !== BUILT){
             unfinishedStructure = structures[structure];
@@ -402,21 +416,6 @@ function perSecond(){
             }
         }
     });
-
-    if(droidCount < maxConstructionDroids){
-        const factories = enumStruct(
-          me,
-          'A0LightFactory'
-        );
-        factories.some(function check_factory(factory){
-            if(factory.status !== BUILT
-              || !structureIdle(factory)){
-                return;
-            }
-
-            randomConstructionDroid(factory);
-        });
-    }
 
     let attacking = false;
     playerData.forEach(function(player, id){

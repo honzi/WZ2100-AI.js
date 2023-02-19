@@ -201,43 +201,8 @@ function perSecond(){
         const isCollector = index === droidCount - 2;
 
         if(isCollector){
-            if(droid.order === DORDER_BUILD
-              || droid.order === DORDER_HELPBUILD
-              || droid.order === DORDER_RECOVER){
+            if(handleCollector(droid)){
                 return;
-            }
-
-            const features = enumFeature(me);
-            for(let i = features.length - 1; i >= 0; i--){
-                const stattype = features[i].stattype;
-
-                if(stattype === ARTIFACT){
-                    orderDroidObj(
-                      droid,
-                      DORDER_RECOVER,
-                      features[i]
-                    );
-                    return;
-
-                }else if(stattype === OIL_RESOURCE){
-                    buildStructure(
-                      droid,
-                      'A0ResourceExtractor',
-                      -1,
-                      0,
-                      features[i].x,
-                      features[i].y
-                    );
-                    return;
-
-                }else if(stattype === OIL_DRUM){
-                    orderDroidObj(
-                      droid,
-                      DORDER_RECOVER,
-                      features[i]
-                    );
-                    return;
-                }
             }
 
         }else if(damagedStructure !== false

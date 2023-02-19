@@ -247,6 +247,56 @@ function eventStructureBuilt(structure, droid){
     perMinute();
 }
 
+function handleCollector(droid){
+    if(droid.order === DORDER_BUILD){
+        return true;
+    }
+
+    const features = enumFeature(me);
+    for(let i = features.length - 1; i >= 0; i--){
+        const stattype = features[i].stattype;
+
+        if(stattype === OIL_RESOURCE){
+            buildStructure(
+              droid,
+              'A0ResourceExtractor',
+              -1,
+              0,
+              features[i].x,
+              features[i].y
+            );
+            return true;
+        }
+    }
+
+    if(droid.order === DORDER_RECOVER){
+        return true;
+    }
+
+    for(let i = features.length - 1; i >= 0; i--){
+        const stattype = features[i].stattype;
+
+        if(stattype === ARTIFACT){
+            orderDroidObj(
+              droid,
+              DORDER_RECOVER,
+              features[i]
+            );
+            return true;
+
+        }else if(stattype === OIL_DRUM){
+            orderDroidObj(
+              droid,
+              DORDER_RECOVER,
+              features[i]
+            );
+            return true;
+        }
+    }
+
+    return false;
+}
+
 function locationClamp(x, y){
     return {
       'x': Math.max(

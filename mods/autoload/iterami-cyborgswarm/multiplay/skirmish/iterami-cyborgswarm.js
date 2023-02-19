@@ -37,14 +37,12 @@ function eventDroidBuilt(droid, structure){
           droid
         );
 
-    }else if(groupSize(groupDefend) >= limitCyborgsAttack){
+    }else if(groupSize(groupDefend) > maxCyborgsDefend){
         const defenders = enumGroup(groupDefend);
-        for(let i = 0; i < maxCyborgsDefend; i++){
-            groupAddDroid(
-              groupAttack,
-              defenders[Math.floor(Math.random() * (defenders.length - i))]
-            );
-        }
+        groupAddDroid(
+          groupAttack,
+          defenders[Math.floor(Math.random() * defenders.length)]
+        );
     }
 }
 
@@ -501,8 +499,7 @@ function perSecond(){
 const groupAttack = newGroup();
 const groupDefend = newGroup();
 const groupScout = newGroup();
-let limitCyborgsAttack = 40;
-let maxCyborgsDefend = 30;
+let maxCyborgsDefend = 25;
 let maxCyborgsScout = 1;
 let maxPowerReserve = 2000;
 let minCyborgsAttack = 10;

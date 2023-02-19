@@ -37,14 +37,12 @@ function eventDroidBuilt(droid, structure){
           droid
         );
 
-    }else if(groupSize(groupDefend) >= limitDroidsAttack){
+    }else if(groupSize(groupDefend) > maxDroidsDefend){
         const defenders = enumGroup(groupDefend);
-        for(let i = 0; i < maxDroidsDefend; i++){
-            groupAddDroid(
-              groupAttack,
-              defenders[Math.floor(Math.random() * (defenders.length - i))]
-            );
-        }
+        groupAddDroid(
+          groupAttack,
+          defenders[Math.floor(Math.random() * defenders.length)]
+        );
     }
 }
 
@@ -487,8 +485,7 @@ function perSecond(){
 const groupAttack = newGroup();
 const groupDefend = newGroup();
 const groupScout = newGroup();
-let limitDroidsAttack = 40;
-let maxDroidsDefend = 20;
+let maxDroidsDefend = 25;
 let maxDroidsScout = 1;
 let maxPowerReserve = 2000;
 let minDroidsAttack = 10;

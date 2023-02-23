@@ -22,9 +22,14 @@ function perMinute(){
     maxPowerGenerators = 1 + Math.ceil(resourceExtractorCount / 4);
 
     const droids = enumDroid(me);
+    const droidCount = droids.length;
     const structures = enumStruct();
+    droids.some(function check_droid(droid, index){
+        if(index === droidCount - 2
+          && droid.order === DORDER_BUILD){
+            return;
+        }
 
-    droids.some(function check_droid(droid){
         const randomStructure = structures[Math.floor(Math.random() * structures.length)];
         if(randomStructure !== undefined){
             orderDroidLoc(

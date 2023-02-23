@@ -92,10 +92,16 @@ function perMinute(){
     }
 
     const droids = enumDroid(me);
+    const droidCount = droids.length;
     const structures = enumStruct();
-    droids.some(function check_droid(droid){
+    droids.some(function check_droid(droid, index){
         if(droid.group !== null
           && droid.group !== groupDefend){
+            return;
+        }
+
+        if(index === droidCount - 2
+          && droid.order === DORDER_BUILD){
             return;
         }
 

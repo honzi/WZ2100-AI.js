@@ -91,17 +91,32 @@ function perMinute(){
         );
     }
 
-    const droids = enumDroid(me);
-    const droidCount = droids.length;
     const structures = enumStruct();
-    droids.some(function check_droid(droid, index){
-        if(droid.group !== null
-          && droid.group !== groupDefend){
+    const constructionDroids = enumDroid(
+      me,
+      DROID_CONSTRUCT
+    );
+    constructionDroids.some(function check_droid(droid, index){
+        if(index === constructionDroids.length - 2
+          && droid.order === DORDER_BUILD){
             return;
         }
 
-        if(index === droidCount - 2
-          && droid.order === DORDER_BUILD){
+        const randomStructure = structures[Math.floor(Math.random() * structures.length)];
+        if(randomStructure !== undefined){
+            orderDroidLoc(
+              droid,
+              DORDER_SCOUT,
+              randomStructure.x,
+              randomStructure.y
+            );
+        }
+    });
+
+    const droids = enumDroid(me);
+    droids.some(function check_droid(droid){
+        if(droid.droidType === DROID_CONSTRUCT
+          || droid.group !== groupDefend){
             return;
         }
 

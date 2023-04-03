@@ -423,7 +423,6 @@ const defenseStructures = [];
 const droidWeapons = [];
 const propulsion = ['wheeled01'];
 let maxBlockingTiles = 1;
-let maxConstructionDroids = 3;
 let maxCyborgFactories = 5;
 let maxFactories = 5;
 let maxPowerGenerators = 1;

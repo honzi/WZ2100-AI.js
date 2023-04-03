@@ -313,6 +313,7 @@ function perSecond(){
     setMiniMap(true);
 }
 
+let maxConstructionDroids = 3;
 const researchOrder = [
   'R-Sys-Engineering01',
   'R-Vehicle-Engine01',

@@ -519,6 +519,7 @@ function perSecond(){
 const groupAttack = newGroup();
 const groupDefend = newGroup();
 const groupScout = newGroup();
+let maxConstructionDroids = 3;
 let maxCyborgsDefend = 25;
 let maxCyborgsScout = 1;
 let maxPowerReserve = 2000;

@@ -142,7 +142,7 @@ function perSecond(){
 
     const tooMuchPower = playerPower(me) > maxPowerReserve;
     if(availableResearch.length === 0){
-        maxConstructionDroids = 6;
+        maxConstructionDroids = 7;
         maxResearchFacilities = 1;
 
     }else{
@@ -519,7 +519,7 @@ function perSecond(){
 const groupAttack = newGroup();
 const groupDefend = newGroup();
 const groupScout = newGroup();
-let maxConstructionDroids = 3;
+let maxConstructionDroids = 4;
 let maxCyborgsDefend = 25;
 let maxCyborgsScout = 1;
 let maxPowerReserve = 2000;

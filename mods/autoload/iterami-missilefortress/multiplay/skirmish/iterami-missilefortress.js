@@ -47,7 +47,7 @@ function perSecond(){
     });
 
     if(availableResearch.length === 0){
-        maxConstructionDroids = 6;
+        maxConstructionDroids = 10;
         maxResearchFacilities = 1;
 
     }else{
@@ -313,7 +313,7 @@ function perSecond(){
     setMiniMap(true);
 }
 
-let maxConstructionDroids = 3;
+let maxConstructionDroids = 4;
 const researchOrder = [
   'R-Sys-Engineering01',
   'R-Vehicle-Engine01',

@@ -311,22 +311,22 @@ function perSecond(){
             );
 
         }else if(checkStructure(
-            'A0LightFactory',
-            maxFactories
-          )){
-            buildStructure(
-              droid,
-              'A0LightFactory',
-              maxBlockingTiles
-            );
-
-        }else if(checkStructure(
             'A0PowerGenerator',
             maxPowerGenerators
           )){
             buildStructure(
               droid,
               'A0PowerGenerator',
+              maxBlockingTiles
+            );
+
+        }else if(checkStructure(
+            'A0LightFactory',
+            maxFactories
+          )){
+            buildStructure(
+              droid,
+              'A0LightFactory',
               maxBlockingTiles
             );
 

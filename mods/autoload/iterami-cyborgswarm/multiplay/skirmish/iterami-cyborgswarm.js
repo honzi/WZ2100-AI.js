@@ -305,16 +305,6 @@ function perSecond(){
             );
 
         }else if(checkStructure(
-            'A0CyborgFactory',
-            maxCyborgFactories
-          )){
-            buildStructure(
-              droid,
-              'A0CyborgFactory',
-              maxBlockingTiles
-            );
-
-        }else if(checkStructure(
             'A0ResearchFacility',
             1
           )){
@@ -331,6 +321,16 @@ function perSecond(){
             buildStructure(
               droid,
               'A0PowerGenerator',
+              maxBlockingTiles
+            );
+
+        }else if(checkStructure(
+            'A0CyborgFactory',
+            maxCyborgFactories
+          )){
+            buildStructure(
+              droid,
+              'A0CyborgFactory',
               maxBlockingTiles
             );
 

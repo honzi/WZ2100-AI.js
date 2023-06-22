@@ -1,0 +1,7 @@
+{
+  "AI": {
+    "js": "iterami-turtle-cyborgswarm.js",
+    "name": "iterami-turtle-cyborgswarm",
+    "tip": "Same as iterami-cyborgswarm, except it doesn't move to attack enemy structures."
+  }
+}

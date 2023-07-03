@@ -73,7 +73,7 @@ function perSecond(){
                 if(targetResearch.done
                   || targetResearch.started){
                     maxConstructionDroids = 10;
-                    randomResearch = true;
+                    researchRandom = true;
                 }
 
                 pursueResearch(

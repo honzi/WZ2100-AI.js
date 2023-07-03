@@ -538,7 +538,7 @@ const researchExcluded = [
   'R-Defense-WallTower02',
   'R-Defense-WallTower06',
   'R-Struc-RepairFacility',
-  'R-Struc-VTOLFactory',
+  'R-Struc-VTOLPad',
   'R-SuperTransport',
   'R-Sys-CBSensor-Tower01',
   'R-Sys-MobileRepairTurret01',
@@ -546,5 +546,6 @@ const researchExcluded = [
   'R-Sys-SpyTower',
   'R-Wpn-AAGun01',
   'R-Wpn-AAGun03',
+  'R-Wpn-Bomb01',
   'R-Wpn-Sunburst',
 ];

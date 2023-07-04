@@ -140,7 +140,13 @@ function perSecond(){
         return !researchExcluded.includes(value.name);
     });
 
+    const droids = enumDroid(
+      me,
+      DROID_CONSTRUCT
+    );
+    const droidCount = droids.length;
     const tooMuchPower = playerPower(me) > maxPowerReserve;
+
     if(availableResearch.length === 0){
         maxConstructionDroids = 7;
         maxResearchFacilities = 1;
@@ -158,10 +164,12 @@ function perSecond(){
 
             if(researchRandom
               || tooMuchPower){
-                randomResearch(
-                  researchFacility,
-                  availableResearch
-                );
+                if(droidCount >= maxConstructionDroids){
+                    randomResearch(
+                      researchFacility,
+                      availableResearch
+                    );
+                }
 
             }else{
                 const targetResearch = getResearch('R-Sys-Autorepair-General');
@@ -180,12 +188,6 @@ function perSecond(){
             }
         });
     }
-
-    const droids = enumDroid(
-      me,
-      DROID_CONSTRUCT
-    );
-    const droidCount = droids.length;
 
     if(droidCount < maxConstructionDroids){
         const factories = enumStruct(

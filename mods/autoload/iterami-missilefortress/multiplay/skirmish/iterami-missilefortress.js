@@ -46,6 +46,12 @@ function perSecond(){
         return !researchExcluded.includes(value.name);
     });
 
+    const droids = enumDroid(
+      me,
+      DROID_CONSTRUCT
+    );
+    const droidCount = droids.length;
+
     if(availableResearch.length === 0){
         maxConstructionDroids = 10;
         maxResearchFacilities = 1;
@@ -62,10 +68,12 @@ function perSecond(){
             }
 
             if(researchRandom){
-                randomResearch(
-                  researchFacility,
-                  availableResearch
-                );
+                if(droidCount >= maxConstructionDroids){
+                    randomResearch(
+                      researchFacility,
+                      availableResearch
+                    );
+                }
 
             }else{
                 const targetResearch = getResearch('R-Defense-Super-Missile');
@@ -83,12 +91,6 @@ function perSecond(){
             }
         });
     }
-
-    const droids = enumDroid(
-      me,
-      DROID_CONSTRUCT
-    );
-    const droidCount = droids.length;
 
     if(droidCount < maxConstructionDroids){
         const factories = enumStruct(

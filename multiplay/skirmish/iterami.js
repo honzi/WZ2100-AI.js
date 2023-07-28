@@ -389,10 +389,18 @@ function randomLocation(group, order){
     });
 }
 
-function randomResearch(researchFacility, availableResearch){
+function randomAvailableResearch(researchFacility, availableResearch){
     pursueResearch(
       researchFacility,
       availableResearch[Math.floor(Math.random() * availableResearch.length)].name
+    );
+}
+
+function randomResearch(researchFacility){
+    const research = enumResearch();
+    pursueResearch(
+      researchFacility,
+      research[Math.floor(Math.random() * research.length)].name
     );
 }
 

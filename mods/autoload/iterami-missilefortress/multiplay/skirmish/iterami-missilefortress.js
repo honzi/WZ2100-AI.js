@@ -69,7 +69,7 @@ function perSecond(){
 
             if(researchRandom){
                 if(droidCount >= maxConstructionDroids){
-                    randomResearch(
+                    randomAvailableResearch(
                       researchFacility,
                       availableResearch
                     );

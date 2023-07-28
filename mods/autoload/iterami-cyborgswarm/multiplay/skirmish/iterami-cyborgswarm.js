@@ -165,10 +165,15 @@ function perSecond(){
             if(researchRandom
               || tooMuchPower){
                 if(droidCount >= maxConstructionDroids){
-                    randomResearch(
-                      researchFacility,
-                      availableResearch
-                    );
+                    if(playerPower(me) > maxPowerResearchAll){
+                        randomResearch(researchFacility);
+
+                    }else{
+                        randomAvailableResearch(
+                          researchFacility,
+                          availableResearch
+                        );
+                    }
                 }
 
             }else{
@@ -525,6 +530,7 @@ let maxConstructionDroids = 4;
 let maxCyborgsDefend = 25;
 let maxCyborgsScout = 1;
 let maxPowerReserve = 2000;
+let maxPowerResearchAll = 100000;
 let minCyborgsAttack = 10;
 let minCyborgsAttackStructures = 40;
 let productionBegin = false;

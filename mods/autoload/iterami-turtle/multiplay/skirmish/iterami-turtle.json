@@ -1,7 +1,0 @@
-{
-  "AI": {
-    "js": "iterami-turtle.js",
-    "name": "iterami-turtle",
-    "tip": "Same as iterami-competitive, except it doesn't move to attack enemy structures."
-  }
-}

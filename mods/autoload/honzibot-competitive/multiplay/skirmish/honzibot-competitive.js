@@ -1,4 +1,4 @@
-include('iterami.js');
+include('honzibot.js');
 
 function eventAttacked(victim, attacker){
     if(victim.player !== me){
@@ -31,13 +31,13 @@ function eventDroidBuilt(droid, structure){
       droid
     );
 
-    if(groupSize(groupScout) < maxCyborgsScout){
+    if(groupSize(groupScout) < maxDroidsScout){
         groupAddDroid(
           groupScout,
           droid
         );
 
-    }else if(groupSize(groupDefend) > maxCyborgsDefend){
+    }else if(groupSize(groupDefend) > maxDroidsDefend){
         const defenders = enumGroup(groupDefend);
         groupAddDroid(
           groupAttack,
@@ -58,10 +58,7 @@ function eventObjectTransfer(gameObject, from){
 }
 
 function init(){
-    maxFactories = Math.min(
-      maxFactories,
-      2
-    );
+    maxCyborgFactories = 0;
 
     perSecond();
     setTimer(
@@ -87,7 +84,7 @@ function perMinute(){
           DORDER_MOVE
         );
     }
-    if(groupSize(groupAttack) >= minCyborgsAttackStructures){
+    if(groupSize(groupAttack) >= minDroidsAttackStructures){
         randomLocation(
           groupAttack,
           DORDER_SCOUT
@@ -181,7 +178,6 @@ function perSecond(){
 
                 if(targetResearch.done
                   || targetResearch.started){
-                    maxCyborgsDefend = 20;
                     productionBegin = true;
                     researchRandom = true;
                 }
@@ -210,19 +206,19 @@ function perSecond(){
 
     }else if(productionBegin
       || tooMuchPower
-      || groupSize(groupDefend) < maxCyborgsDefend){
-        const cyborgFactories = enumStruct(
+      || groupSize(groupDefend) < maxDroidsDefend){
+        const factories = enumStruct(
           me,
-          'A0CyborgFactory'
+          'A0LightFactory'
         );
-        cyborgFactories.some(function check_cyborgFactory(cyborgFactory){
-            if(cyborgFactory.status !== BUILT
-              || !structureIdle(cyborgFactory)
-              || cyborgWeapons.length === 0){
+        factories.some(function check_factory(factory){
+            if(factory.status !== BUILT
+              || !structureIdle(factory)
+              || droidWeapons.length === 0){
                 return;
             }
 
-            randomCyborg(cyborgFactory);
+            randomWeaponDroid(factory);
         });
     }
 
@@ -332,12 +328,12 @@ function perSecond(){
             );
 
         }else if(checkStructure(
-            'A0CyborgFactory',
-            maxCyborgFactories
+            'A0LightFactory',
+            maxFactories
           )){
             buildStructure(
               droid,
-              'A0CyborgFactory',
+              'A0LightFactory',
               maxBlockingTiles
             );
 
@@ -358,16 +354,6 @@ function perSecond(){
             buildStructure(
               droid,
               'A0ResearchFacility',
-              maxBlockingTiles
-            );
-
-        }else if(checkStructure(
-            'A0LightFactory',
-            maxFactories
-          )){
-            buildStructure(
-              droid,
-              'A0LightFactory',
               maxBlockingTiles
             );
 
@@ -448,12 +434,12 @@ function perSecond(){
     let attacking = false;
     playerData.forEach(function(player, id){
         if(attacking
-          || groupSize(groupAttack) < minCyborgsAttack
+          || groupSize(groupAttack) < minDroidsAttack
           || allianceExistsBetween(me, id)){
             return;
         }
 
-        if(groupSize(groupAttack) >= minCyborgsAttackStructures){
+        if(groupSize(groupAttack) >= minDroidsAttackStructures){
             let structures = enumStructByType(
               id,
               [
@@ -527,12 +513,12 @@ const groupAttack = newGroup();
 const groupDefend = newGroup();
 const groupScout = newGroup();
 let maxConstructionDroids = 4;
-let maxCyborgsDefend = 25;
-let maxCyborgsScout = 1;
+let maxDroidsDefend = 25;
+let maxDroidsScout = 1;
 let maxPowerReserve = 2000;
 let maxPowerResearchAll = 100000;
-let minCyborgsAttack = 10;
-let minCyborgsAttackStructures = 40;
+let minDroidsAttack = 10;
+let minDroidsAttackStructures = 40;
 let productionBegin = false;
 
 const researchOrder = [
@@ -541,7 +527,6 @@ const researchOrder = [
   'R-Vehicle-Engine01',
   'R-Sys-Sensor-Turret01',
   'R-Struc-PowerModuleMk1',
-  'R-Struc-Factory-Cyborg',
   'R-Sys-Sensor-Tower01',
   'R-Struc-CommandRelay',
   'R-Struc-Research-Module',
@@ -574,6 +559,7 @@ const researchOrder = [
   'R-Sys-Autorepair-General',
 ];
 const researchExcluded = [
+  'R-Cyborg-Metals01',
   'R-Cyborg-Transport',
   'R-Defense-Cannon6',
   'R-Defense-EMPCannon',

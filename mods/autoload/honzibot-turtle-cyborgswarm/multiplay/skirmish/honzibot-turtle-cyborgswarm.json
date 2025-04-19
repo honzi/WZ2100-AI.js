@@ -1,0 +1,7 @@
+{
+  "AI": {
+    "js": "honzibot-turtle-cyborgswarm.js",
+    "name": "honzibot-turtle-cyborgswarm",
+    "tip": "Same as honzibot-cyborgswarm, except it doesn't move to attack enemy structures."
+  }
+}

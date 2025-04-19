@@ -1,4 +1,4 @@
-include('iterami.js');
+include('honzibot.js');
 
 function eventAttacked(victim, attacker){
     if(victim.player !== me){
@@ -437,57 +437,6 @@ function perSecond(){
           || groupSize(groupAttack) < minDroidsAttack
           || allianceExistsBetween(me, id)){
             return;
-        }
-
-        if(groupSize(groupAttack) >= minDroidsAttackStructures){
-            let structures = enumStructByType(
-              id,
-              [
-                DEFENSE,
-                FACTORY,
-                CYBORG_FACTORY,
-                VTOL_FACTORY,
-                RESOURCE_EXTRACTOR,
-                RESEARCH_LAB,
-                SAT_UPLINK,
-                LASSAT,
-                POWER_GEN,
-                HQ,
-                REPAIR_FACILITY,
-                COMMAND_CONTROL,
-              ],
-              me
-            );
-
-            if(structures.length > 0){
-                attack(
-                  groupAttack,
-                  structures[structures.length - 1],
-                  true
-                );
-                attacking = true;
-                return;
-            }
-
-            structures = enumStructByType(
-              id,
-              [
-                REARM_PAD,
-                WALL,
-                GATE,
-              ],
-              me
-            );
-
-            if(structures.length > 0){
-                attack(
-                  groupAttack,
-                  structures[structures.length - 1],
-                  true
-                );
-                attacking = true;
-                return;
-            }
         }
 
         const droids = enumDroid(

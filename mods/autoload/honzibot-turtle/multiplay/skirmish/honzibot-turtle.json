@@ -1,0 +1,7 @@
+{
+  "AI": {
+    "js": "honzibot-turtle.js",
+    "name": "honzibot-turtle",
+    "tip": "Same as honzibot-competitive, except it doesn't move to attack enemy structures."
+  }
+}

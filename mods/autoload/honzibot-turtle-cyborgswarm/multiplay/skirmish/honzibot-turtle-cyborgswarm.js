@@ -1,4 +1,4 @@
-include('iterami.js');
+include('honzibot.js');
 
 function eventAttacked(victim, attacker){
     if(victim.player !== me){

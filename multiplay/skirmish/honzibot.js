@@ -101,7 +101,7 @@ function enumStructByType(player, types, visibility){
     const structures = [];
 
     for(const type in types){
-        structures.push(enumStruct(
+        structures.push(...enumStruct(
           player,
           types[type],
           visibility

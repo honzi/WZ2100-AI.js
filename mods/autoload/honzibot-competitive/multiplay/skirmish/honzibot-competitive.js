@@ -440,7 +440,7 @@ function perSecond(){
         }
 
         if(groupSize(groupAttack) >= minDroidsAttackStructures){
-            let structures = enumStructByType(
+            const structures = enumStructByType(
               id,
               [
                 DEFENSE,
@@ -458,7 +458,6 @@ function perSecond(){
               ],
               me
             );
-
             if(structures.length > 0){
                 attack(
                   groupAttack,
@@ -469,7 +468,7 @@ function perSecond(){
                 return;
             }
 
-            structures = enumStructByType(
+            const others = enumStructByType(
               id,
               [
                 REARM_PAD,
@@ -478,11 +477,10 @@ function perSecond(){
               ],
               me
             );
-
-            if(structures.length > 0){
+            if(others.length > 0){
                 attack(
                   groupAttack,
-                  structures[structures.length - 1],
+                  others[others.length - 1],
                   true
                 );
                 attacking = true;

@@ -98,10 +98,10 @@ function checkStructure(structure, count){
 }
 
 function enumStructByType(player, types, visibility){
-    let structures = [];
+    const structures = [];
 
-    for(let type in types){
-        structures = structures.concat(enumStruct(
+    for(const type in types){
+        structures.push(enumStruct(
           player,
           types[type],
           visibility

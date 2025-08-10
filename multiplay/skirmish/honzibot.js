@@ -146,21 +146,7 @@ function eventResearched(research, structure, player){
     };
     if(bodyResearch[research.name]){
         bodies.push(bodyResearch[research.name]);
-    }
-
-    const cyborgWeaponResearch = {
-      'R-Wpn-Cannon1Mk1': 'CyborgCannon',
-      'R-Wpn-Flamer01Mk1': 'CyborgFlamer01',
-      'R-Wpn-Laser01': 'Cyb-Wpn-Laser',
-      'R-Wpn-MG1Mk1': 'CyborgChaingun',
-      'R-Wpn-MG4': 'CyborgRotMG',
-      'R-Wpn-Missile2A-T': 'Cyb-Wpn-Atmiss',
-      'R-Wpn-Mortar01Lt': 'Cyb-Wpn-Grenade',
-      'R-Wpn-RailGun01': 'Cyb-Wpn-Rail1',
-      'R-Wpn-Rocket01-LtAT': 'CyborgRocket',
-    };
-    if(cyborgWeaponResearch[research.name]){
-        cyborgWeapons.push(cyborgWeaponResearch[research.name]);
+	return;
     }
 
     const defenseStructureResearch = {
@@ -177,6 +163,21 @@ function eventResearched(research, structure, player){
     };
     if(defenseStructureResearch[research.name]){
         defenseStructures.push(defenseStructureResearch[research.name]);
+	return;
+    }
+
+    const propulsionResearch = {
+      'R-Vehicle-Prop-Halftracks': 'HalfTrack',
+      'R-Vehicle-Prop-Hover': 'hover01',
+      'R-Vehicle-Prop-Tracks': 'tracked01',
+    };
+    if(propulsionResearch[research.name]){
+        if(research.name === 'R-Vehicle-Prop-Hover'){
+            propulsionHover = true;
+        }
+
+        propulsion.push(propulsionResearch[research.name]);
+	return;
     }
 
     const droidWeaponResearch = {
@@ -222,20 +223,53 @@ function eventResearched(research, structure, player){
       'R-Wpn-Rocket07-Tank-Killer': 'Rocket-HvyA-T',
     };
     if(droidWeaponResearch[research.name]){
+        if(research.name === 'R-Wpn-MG5'){
+            removeTech(['MG1Mk1', 'MG2Mk1', 'MG3Mk1', 'MG4ROTARYMk1'], droidWeapons);
+
+        }else if(research.name === 'R-Wpn-MG4'){
+            removeTech(['MG1Mk1', 'MG2Mk1', 'MG3Mk1'], droidWeapons);
+
+        }else if(research.name === 'R-Wpn-MG3Mk1'){
+            removeTech(['MG1Mk1', 'MG2Mk1'], droidWeapons);
+
+        }else if(research.name === 'R-Wpn-MG2Mk1'){
+            removeTech(['MG1Mk1'], droidWeapons);
+
+        }else if(research.name === 'R-Wpn-Cannon3Mk1'){
+            removeTech(['Cannon1Mk1', 'Cannon2A-TMk1'], droidWeapons);
+
+        }else if(research.name === 'R-Wpn-Cannon2Mk1'){
+            removeTech(['Cannon1Mk1'], droidWeapons);
+
+        }else if(research.name === 'R-Wpn-Mortar3'){
+            removeTech(['Mortar1Mk1'], droidWeapons);
+
+        }else if(research.name === 'R-Wpn-RailGun03'){
+            removeTech(['RailGun1Mk1', 'RailGun2Mk1'], droidWeapons);
+
+        }else if(research.name === 'R-Wpn-RailGun02'){
+            removeTech(['RailGun1Mk1'], droidWeapons);
+
+        }else if(research.name === 'R-Wpn-Flame2'){
+            removeTech(['Flame1Mk1'], droidWeapons);
+        }
+
         droidWeapons.push(droidWeaponResearch[research.name]);
     }
 
-    const propulsionResearch = {
-      'R-Vehicle-Prop-Halftracks': 'HalfTrack',
-      'R-Vehicle-Prop-Hover': 'hover01',
-      'R-Vehicle-Prop-Tracks': 'tracked01',
+    const cyborgWeaponResearch = {
+      'R-Wpn-Cannon1Mk1': 'CyborgCannon',
+      'R-Wpn-Flamer01Mk1': 'CyborgFlamer01',
+      'R-Wpn-Laser01': 'Cyb-Wpn-Laser',
+      'R-Wpn-MG1Mk1': 'CyborgChaingun',
+      'R-Wpn-MG4': 'CyborgRotMG',
+      'R-Wpn-Missile2A-T': 'Cyb-Wpn-Atmiss',
+      'R-Wpn-Mortar01Lt': 'Cyb-Wpn-Grenade',
+      'R-Wpn-RailGun01': 'Cyb-Wpn-Rail1',
+      'R-Wpn-Rocket01-LtAT': 'CyborgRocket',
     };
-    if(propulsionResearch[research.name]){
-        propulsion.push(propulsionResearch[research.name]);
-
-        if(research.name === 'R-Vehicle-Prop-Hover'){
-            propulsionHover = true;
-        }
+    if(cyborgWeaponResearch[research.name]){
+        cyborgWeapons.push(cyborgWeaponResearch[research.name]);
     }
 }
 
@@ -423,6 +457,15 @@ function randomWeaponDroid(factory){
       droidWeapon0,
       droidWeapon1
     );
+}
+
+function removeTech(tech, from){
+    for(const id in tech){
+        const index = from.indexOf(tech[id]);
+        if(index > -1){
+            from.splice(index, 1);
+        }
+    }
 }
 
 const bodies = ['Body1REC'];

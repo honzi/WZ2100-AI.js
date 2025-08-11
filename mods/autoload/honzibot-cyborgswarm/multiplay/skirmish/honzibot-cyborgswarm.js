@@ -604,5 +604,10 @@ const researchExcluded = [
   'R-Wpn-AAGun01',
   'R-Wpn-AAGun03',
   'R-Wpn-Bomb01',
+  'R-Wpn-Bomb02',
+  'R-Wpn-Bomb03',
+  'R-Wpn-Bomb04',
+  'R-Wpn-Bomb05',
+  'R-Wpn-Bomb06',
   'R-Wpn-Sunburst',
 ];

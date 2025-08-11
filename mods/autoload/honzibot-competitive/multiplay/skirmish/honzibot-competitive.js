@@ -224,7 +224,7 @@ function perSecond(){
     let damagedStructure = false;
     const structures = enumStruct(me);
     let unfinishedStructure = false;
-    for(let structure in structures){
+    for(const structure in structures){
         if(structures[structure].status !== BUILT){
             unfinishedStructure = structures[structure];
 

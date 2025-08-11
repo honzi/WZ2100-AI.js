@@ -136,10 +136,6 @@ function perMinute(){
 }
 
 function perSecond(){
-    const availableResearch = enumResearch().filter(function(value){
-        return !researchExcluded.includes(value.name);
-    });
-
     const droids = enumDroid(
       me,
       DROID_CONSTRUCT
@@ -147,7 +143,7 @@ function perSecond(){
     const droidCount = droids.length;
     const tooMuchPower = playerPower(me) > maxPowerReserve;
 
-    if(availableResearch.length === 0){
+    if(enumResearch().length === 0){
         maxConstructionDroids = 7;
         maxResearchFacilities = 1;
 
@@ -171,7 +167,9 @@ function perSecond(){
                     }else{
                         randomAvailableResearch(
                           researchFacility,
-                          availableResearch
+                          enumResearch().filter(function(value){
+                              return !researchExcluded.includes(value.name);
+                          })
                         );
                     }
                 }

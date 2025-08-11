@@ -42,17 +42,13 @@ function perMinute(){
 }
 
 function perSecond(){
-    const availableResearch = enumResearch().filter(function(value){
-        return !researchExcluded.includes(value.name);
-    });
-
     const droids = enumDroid(
       me,
       DROID_CONSTRUCT
     );
     const droidCount = droids.length;
 
-    if(availableResearch.length === 0){
+    if(enumResearch().length === 0){
         maxConstructionDroids = 10;
         maxResearchFacilities = 1;
 
@@ -71,7 +67,9 @@ function perSecond(){
                 if(droidCount >= maxConstructionDroids){
                     randomAvailableResearch(
                       researchFacility,
-                      availableResearch
+                      enumResearch().filter(function(value){
+                          return !researchExcluded.includes(value.name);
+                      })
                     );
                 }
 
@@ -316,6 +314,7 @@ function perSecond(){
 }
 
 let maxConstructionDroids = 4;
+
 const researchOrder = [
   'R-Sys-Engineering01',
   'R-Vehicle-Engine01',

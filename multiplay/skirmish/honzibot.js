@@ -424,6 +424,9 @@ function randomLocation(group, order){
 }
 
 function randomAvailableResearch(researchFacility, availableResearch){
+    if(availableResearch.length === 0){
+        return;
+    }
     pursueResearch(
       researchFacility,
       availableResearch[Math.floor(Math.random() * availableResearch.length)].name

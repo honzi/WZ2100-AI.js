@@ -1,3 +1,5 @@
+'use strict';
+
 function attack(group, target, override){
     const droids = enumGroup(group);
     droids.some(function check_droid(droid){

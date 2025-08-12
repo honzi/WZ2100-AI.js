@@ -1,3 +1,4 @@
+'use strict';
 include('honzibot.js');
 
 function init(){

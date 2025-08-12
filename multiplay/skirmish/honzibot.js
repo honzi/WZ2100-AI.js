@@ -243,6 +243,9 @@ function eventResearched(research, structure, player){
         }else if(research.name === 'R-Wpn-Cannon2Mk1'){
             removeTech(['Cannon1Mk1'], droidWeapons);
 
+        }else if(research.name === 'R-Wpn-Howitzer03-Rot'){
+            removeTech(['Howitzer105Mk1'], droidWeapons);
+
         }else if(research.name === 'R-Wpn-Mortar3'){
             removeTech(['Mortar1Mk1'], droidWeapons);
 
@@ -251,6 +254,9 @@ function eventResearched(research, structure, player){
 
         }else if(research.name === 'R-Wpn-RailGun02'){
             removeTech(['RailGun1Mk1'], droidWeapons);
+
+        }else if(research.name === 'R-Wpn-Plasmite-Flamer'){
+            removeTech(['Flame1Mk1, Flame2'], droidWeapons);
 
         }else if(research.name === 'R-Wpn-Flame2'){
             removeTech(['Flame1Mk1'], droidWeapons);

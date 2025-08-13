@@ -295,7 +295,8 @@ function perSecond(){
         }else if(countPowerGenerator < maxPowerGenerators){
             buildStructure(droid, 'A0PowerGenerator', maxBlockingTiles);
 
-        }else if(countLightFactory < maxFactories){
+        }else if(countLightFactory < maxFactories
+          && (maxFactories - countLightFactory) >= (maxResearchFacilities - countResearchFacility)){
             buildStructure(droid, 'A0LightFactory', maxBlockingTiles);
 
         }else if(countResearchFacility < maxResearchFacilities){
@@ -355,7 +356,7 @@ function perSecond(){
                   factoryModuleNeeded.y
                 );
 
-            }else{
+            }else if(defenseStructures.length){
                 const defenseStructure = random(defenseStructures);
                 if(countStruct(defenseStructure) < maxPowerGenerators){
                     buildStructure(

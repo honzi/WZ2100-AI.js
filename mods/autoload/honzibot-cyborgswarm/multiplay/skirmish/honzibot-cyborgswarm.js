@@ -363,7 +363,7 @@ function perSecond(){
                   factoryModuleNeeded.y
                 );
 
-            }else{
+            }else if(defenseStructures.length){
                 const defenseStructure = random(defenseStructures);
                 if(countStruct(defenseStructure) < maxPowerGenerators){
                     buildStructure(

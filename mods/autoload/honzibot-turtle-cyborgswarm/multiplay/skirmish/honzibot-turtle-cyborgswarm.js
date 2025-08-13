@@ -280,6 +280,43 @@ function perSecond(){
             return;
         }
 
+        const powerModuleNeeded = checkNeedModule('A0PowerGenerator', 'A0PowMod1', 1);
+        if(powerModuleNeeded !== false){
+            buildStructure(
+              droid,
+              'A0PowMod1',
+              -1,
+              0,
+              powerModuleNeeded.x,
+              powerModuleNeeded.y
+            );
+            return;
+        }
+        const factoryModuleNeeded = checkNeedModule('A0LightFactory', 'A0FacMod1', 2);
+        if(factoryModuleNeeded !== false){
+            buildStructure(
+              droid,
+              'A0FacMod1',
+              -1,
+              0,
+              factoryModuleNeeded.x,
+              factoryModuleNeeded.y
+            );
+            return;
+        }
+        const researchModuleNeeded = checkNeedModule('A0ResearchFacility', 'A0ResearchModule1', 1);
+        if(researchModuleNeeded !== false){
+            buildStructure(
+              droid,
+              'A0ResearchModule1',
+              -1,
+              0,
+              researchModuleNeeded.x,
+              researchModuleNeeded.y
+            );
+            return;
+        }
+
         const countPowerGenerator = countStruct('A0PowerGenerator');
         const countLightFactory = countStruct('A0LightFactory');
         const countResearchFacility = countStruct('A0ResearchFacility');
@@ -316,62 +353,14 @@ function perSecond(){
           && countStruct('A0Sat-linkCentre') === 0){
             buildStructure(droid, 'A0Sat-linkCentre', maxBlockingTiles);
 
-        }else{
-            const factoryModuleNeeded = checkNeedModule(
-              'A0LightFactory',
-              'A0FacMod1',
-              2
-            );
-            const powerModuleNeeded = checkNeedModule(
-              'A0PowerGenerator',
-              'A0PowMod1',
-              1
-            );
-            const researchModuleNeeded = checkNeedModule(
-              'A0ResearchFacility',
-              'A0ResearchModule1',
-              1
-            );
-
-            if(powerModuleNeeded !== false){
+        }else if(defenseStructures.length){
+            const defenseStructure = random(defenseStructures);
+            if(countStruct(defenseStructure) < maxPowerGenerators){
                 buildStructure(
                   droid,
-                  'A0PowMod1',
-                  -1,
-                  0,
-                  powerModuleNeeded.x,
-                  powerModuleNeeded.y
+                  defenseStructure,
+                  0
                 );
-
-            }else if(researchModuleNeeded !== false){
-                buildStructure(
-                  droid,
-                  'A0ResearchModule1',
-                  -1,
-                  0,
-                  researchModuleNeeded.x,
-                  researchModuleNeeded.y
-                );
-
-            }else if(factoryModuleNeeded !== false){
-                buildStructure(
-                  droid,
-                  'A0FacMod1',
-                  -1,
-                  0,
-                  factoryModuleNeeded.x,
-                  factoryModuleNeeded.y
-                );
-
-            }else if(defenseStructures.length){
-                const defenseStructure = random(defenseStructures);
-                if(countStruct(defenseStructure) < maxPowerGenerators){
-                    buildStructure(
-                      droid,
-                      defenseStructure,
-                      0
-                    );
-                }
             }
         }
     });

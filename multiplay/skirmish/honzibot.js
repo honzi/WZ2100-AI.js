@@ -80,7 +80,7 @@ function checkAllModules(droid){
           powerModuleNeeded.x,
           powerModuleNeeded.y
         );
-        return;
+        return true;
     }
     const factoryModuleNeeded = checkNeedModule('A0LightFactory', 'A0FacMod1', 2);
     if(factoryModuleNeeded !== false){
@@ -92,7 +92,7 @@ function checkAllModules(droid){
           factoryModuleNeeded.x,
           factoryModuleNeeded.y
         );
-        return;
+        return true;
     }
     const researchModuleNeeded = checkNeedModule('A0ResearchFacility', 'A0ResearchModule1', 1);
     if(researchModuleNeeded !== false){
@@ -104,8 +104,10 @@ function checkAllModules(droid){
           researchModuleNeeded.x,
           researchModuleNeeded.y
         );
-        return;
+        return true;
     }
+
+    return false;
 }
 
 function checkNeedModule(structure, module, count){

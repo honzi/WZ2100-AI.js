@@ -280,7 +280,9 @@ function perSecond(){
             return;
         }
 
-        checkAllModules(droid);
+        if(checkAllModules(droid)){
+            return;
+        }
 
         const countPowerGenerator = countStruct('A0PowerGenerator');
         const countLightFactory = countStruct('A0LightFactory');

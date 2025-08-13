@@ -383,11 +383,25 @@ function preInit(){
     init();
 }
 
+function random(array){
+    return array[Math.floor(Math.random() * array.length)];
+}
+
+function randomAvailableResearch(researchFacility, availableResearch){
+    if(availableResearch.length === 0){
+        return;
+    }
+    pursueResearch(
+      researchFacility,
+      random(availableResearch).name
+    );
+}
+
 function randomConstructionDroid(factory){
-    const droidBody = bodies[Math.floor(Math.random() * bodies.length)];
+    const droidBody = random(bodies);
     const droidPropulsion = propulsionHover
       ? 'hover01'
-      : propulsion[Math.floor(Math.random() * propulsion.length)];
+      : random(propulsion);
     const droidWeapon1 = droidBody === 'Body14SUP'
       ? 'SensorTurret1Mk1'
       : undefined;
@@ -406,7 +420,7 @@ function randomConstructionDroid(factory){
 }
 
 function randomCyborg(cyborgFactory){
-    const cyborgWeapon = cyborgWeapons[Math.floor(Math.random() * cyborgWeapons.length)];
+    const cyborgWeapon = random(cyborgWeapons);
 
     buildDroid(
       cyborgFactory,
@@ -431,21 +445,11 @@ function randomLocation(group, order){
     });
 }
 
-function randomAvailableResearch(researchFacility, availableResearch){
-    if(availableResearch.length === 0){
-        return;
-    }
-    pursueResearch(
-      researchFacility,
-      availableResearch[Math.floor(Math.random() * availableResearch.length)].name
-    );
-}
-
 function randomResearch(researchFacility){
     const research = enumResearch();
     pursueResearch(
       researchFacility,
-      research[Math.floor(Math.random() * research.length)].name
+      random(research).name
     );
 }
 

@@ -42,7 +42,7 @@ function eventDroidBuilt(droid, structure){
         const defenders = enumGroup(groupDefend);
         groupAddDroid(
           groupAttack,
-          defenders[Math.floor(Math.random() * defenders.length)]
+          random(defenders)
         );
     }
 }
@@ -103,7 +103,7 @@ function perMinute(){
             return;
         }
 
-        const randomStructure = structures[Math.floor(Math.random() * structures.length)];
+        const randomStructure = random(structures);
         if(randomStructure !== undefined){
             orderDroidLoc(
               droid,
@@ -121,7 +121,7 @@ function perMinute(){
             return;
         }
 
-        const randomStructure = structures[Math.floor(Math.random() * structures.length)];
+        const randomStructure = random(structures);
         if(randomStructure !== undefined){
             orderDroidLoc(
               droid,
@@ -414,8 +414,7 @@ function perSecond(){
                 );
 
             }else{
-                const defenseStructure = defenseStructures[Math.floor(Math.random() * defenseStructures.length)];
-
+                const defenseStructure = random(defenseStructures);
                 if(checkStructure(
                     defenseStructure,
                     maxPowerGenerators

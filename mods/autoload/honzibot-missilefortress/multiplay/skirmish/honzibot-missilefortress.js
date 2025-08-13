@@ -30,7 +30,7 @@ function perMinute(){
             return;
         }
 
-        const randomStructure = structures[Math.floor(Math.random() * structures.length)];
+        const randomStructure = random(structures);
         if(randomStructure !== undefined){
             orderDroidLoc(
               droid,

@@ -280,42 +280,7 @@ function perSecond(){
             return;
         }
 
-        const powerModuleNeeded = checkNeedModule('A0PowerGenerator', 'A0PowMod1', 1);
-        if(powerModuleNeeded !== false){
-            buildStructure(
-              droid,
-              'A0PowMod1',
-              -1,
-              0,
-              powerModuleNeeded.x,
-              powerModuleNeeded.y
-            );
-            return;
-        }
-        const factoryModuleNeeded = checkNeedModule('A0LightFactory', 'A0FacMod1', 2);
-        if(factoryModuleNeeded !== false){
-            buildStructure(
-              droid,
-              'A0FacMod1',
-              -1,
-              0,
-              factoryModuleNeeded.x,
-              factoryModuleNeeded.y
-            );
-            return;
-        }
-        const researchModuleNeeded = checkNeedModule('A0ResearchFacility', 'A0ResearchModule1', 1);
-        if(researchModuleNeeded !== false){
-            buildStructure(
-              droid,
-              'A0ResearchModule1',
-              -1,
-              0,
-              researchModuleNeeded.x,
-              researchModuleNeeded.y
-            );
-            return;
-        }
+        checkAllModules(droid);
 
         const countPowerGenerator = countStruct('A0PowerGenerator');
         const countLightFactory = countStruct('A0LightFactory');

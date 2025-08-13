@@ -276,95 +276,32 @@ function perSecond(){
             return;
         }
 
-        if(checkStructure(
-            'A0ResourceExtractor',
-            1
-          )){
-            buildStructure(
-              droid,
-              'A0ResourceExtractor',
-              -1
-            );
+        if(checkStructure('A0ResourceExtractor', 1)){
+            buildStructure(droid, 'A0ResourceExtractor', -1);
 
-        }else if(checkStructure(
-            'A0PowerGenerator',
-            1
-          )){
-            buildStructure(
-              droid,
-              'A0PowerGenerator',
-              maxBlockingTiles
-            );
+        }else if(checkStructure('A0PowerGenerator', 1)){
+            buildStructure(droid, 'A0PowerGenerator', maxBlockingTiles);
 
-        }else if(checkStructure(
-            'A0LightFactory',
-            1
-          )){
-            buildStructure(
-              droid,
-              'A0LightFactory',
-              maxBlockingTiles
-            );
+        }else if(checkStructure('A0LightFactory', 1)){
+            buildStructure(droid, 'A0LightFactory', maxBlockingTiles);
 
-        }else if(checkStructure(
-            'A0ResearchFacility',
-            1
-          )){
-            buildStructure(
-              droid,
-              'A0ResearchFacility',
-              maxBlockingTiles
-            );
+        }else if(checkStructure('A0ResearchFacility', 1)){
+            buildStructure(droid, 'A0ResearchFacility', maxBlockingTiles);
 
-        }else if(checkStructure(
-            'A0PowerGenerator',
-            maxPowerGenerators
-          )){
-            buildStructure(
-              droid,
-              'A0PowerGenerator',
-              maxBlockingTiles
-            );
+        }else if(checkStructure('A0PowerGenerator', maxPowerGenerators)){
+            buildStructure(droid, 'A0PowerGenerator', maxBlockingTiles);
 
-        }else if(checkStructure(
-            'A0LightFactory',
-            maxFactories
-          )){
-            buildStructure(
-              droid,
-              'A0LightFactory',
-              maxBlockingTiles
-            );
+        }else if(checkStructure('A0LightFactory', maxFactories)){
+            buildStructure(droid, 'A0LightFactory', maxBlockingTiles);
 
-        }else if(checkStructure(
-            'A0CommandCentre',
-            1
-          )){
-            buildStructure(
-              droid,
-              'A0CommandCentre',
-              maxBlockingTiles
-            );
+        }else if(checkStructure('A0CommandCentre', 1)){
+            buildStructure(droid, 'A0CommandCentre', maxBlockingTiles);
 
-        }else if(checkStructure(
-            'A0ResearchFacility',
-            maxResearchFacilities
-          )){
-            buildStructure(
-              droid,
-              'A0ResearchFacility',
-              maxBlockingTiles
-            );
+        }else if(checkStructure('A0ResearchFacility', maxResearchFacilities)){
+            buildStructure(droid, 'A0ResearchFacility', maxBlockingTiles);
 
-        }else if(checkStructure(
-            'A0Sat-linkCentre',
-            1
-          )){
-            buildStructure(
-              droid,
-              'A0Sat-linkCentre',
-              maxBlockingTiles
-            );
+        }else if(checkStructure('A0Sat-linkCentre', 1)){
+            buildStructure(droid, 'A0Sat-linkCentre', maxBlockingTiles);
 
         }else{
             const factoryModuleNeeded = checkNeedModule(

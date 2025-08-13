@@ -394,7 +394,7 @@ function randomConstructionDroid(factory){
 
     buildDroid(
       factory,
-      'drone-' + droidBody + '-' + droidPropulsion + '-Spade1Mk1'
+      'drone_' + droidBody + '_' + droidPropulsion + '_Spade1Mk1'
         + (droidWeapon1 !== undefined ? '+' + droidWeapon1 : ''),
       droidBody,
       droidPropulsion,
@@ -410,7 +410,7 @@ function randomCyborg(cyborgFactory){
 
     buildDroid(
       cyborgFactory,
-      'cyborg-CyborgLightBody-CyborgLegs-' + cyborgWeapon,
+      'cyborg_CyborgLightBody_CyborgLegs_' + cyborgWeapon,
       'CyborgLightBody',
       'CyborgLegs',
       '',
@@ -459,7 +459,7 @@ function randomWeaponDroid(factory){
 
     buildDroid(
       factory,
-      'droid-' + droidBody + '-' + droidPropulsion + '-' + droidWeapon0
+      'droid_' + droidBody + '_' + droidPropulsion + '_' + droidWeapon0
         + (droidWeapon1 !== undefined ? '+' + droidWeapon1 : ''),
       droidBody,
       droidPropulsion,

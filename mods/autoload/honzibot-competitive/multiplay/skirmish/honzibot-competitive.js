@@ -276,31 +276,36 @@ function perSecond(){
             return;
         }
 
-        if(checkStructure('A0ResourceExtractor', 1)){
+        const countPowerGenerator = countStruct('A0PowerGenerator');
+        const countLightFactory = countStruct('A0LightFactory');
+        const countResearchFacility = countStruct('A0ResearchFacility');
+
+        if(countStruct('A0ResourceExtractor') === 0){
             buildStructure(droid, 'A0ResourceExtractor', -1);
 
-        }else if(checkStructure('A0PowerGenerator', 1)){
+        }else if(countPowerGenerator === 0){
             buildStructure(droid, 'A0PowerGenerator', maxBlockingTiles);
 
-        }else if(checkStructure('A0LightFactory', 1)){
+        }else if(countLightFactory === 0){
             buildStructure(droid, 'A0LightFactory', maxBlockingTiles);
 
-        }else if(checkStructure('A0ResearchFacility', 1)){
+        }else if(countResearchFacility === 0){
             buildStructure(droid, 'A0ResearchFacility', maxBlockingTiles);
 
-        }else if(checkStructure('A0PowerGenerator', maxPowerGenerators)){
+        }else if(countPowerGenerator < maxPowerGenerators){
             buildStructure(droid, 'A0PowerGenerator', maxBlockingTiles);
 
-        }else if(checkStructure('A0LightFactory', maxFactories)){
+        }else if(countLightFactory < maxFactories){
             buildStructure(droid, 'A0LightFactory', maxBlockingTiles);
 
-        }else if(checkStructure('A0CommandCentre', 1)){
+        }else if(countResearchFacility < maxResearchFacilities){
+            buildStructure(droid, 'A0ResearchFacility', maxBlockingTiles);
+
+        }else if(countStruct('A0CommandCentre') === 0){
             buildStructure(droid, 'A0CommandCentre', maxBlockingTiles);
 
-        }else if(checkStructure('A0ResearchFacility', maxResearchFacilities)){
-            buildStructure(droid, 'A0ResearchFacility', maxBlockingTiles);
-
-        }else if(checkStructure('A0Sat-linkCentre', 1)){
+        }else if(isStructureAvailable('A0Sat-linkCentre', me)
+          && countStruct('A0Sat-linkCentre') === 0){
             buildStructure(droid, 'A0Sat-linkCentre', maxBlockingTiles);
 
         }else{
@@ -352,10 +357,7 @@ function perSecond(){
 
             }else{
                 const defenseStructure = random(defenseStructures);
-                if(checkStructure(
-                    defenseStructure,
-                    maxPowerGenerators
-                  )){
+                if(countStruct(defenseStructure) < maxPowerGenerators){
                     buildStructure(
                       droid,
                       defenseStructure,

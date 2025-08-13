@@ -91,14 +91,6 @@ function checkNeedModule(structure, module, count){
     return moduleNeeded;
 }
 
-function checkStructure(structure, count){
-    return structure !== undefined
-      && isStructureAvailable(
-        structure,
-        me
-      ) && countStruct(structure) < count;
-}
-
 function enumStructByType(player, types, visibility){
     const structures = [];
 
@@ -454,11 +446,11 @@ function randomResearch(researchFacility){
 }
 
 function randomWeaponDroid(factory){
-    const droidBody = bodies[Math.floor(Math.random() * bodies.length)];
-    const droidPropulsion = propulsion[Math.floor(Math.random() * propulsion.length)];
-    const droidWeapon0 = droidWeapons[Math.floor(Math.random() * droidWeapons.length)];
+    const droidBody = random(bodies);
+    const droidPropulsion = random(propulsion);
+    const droidWeapon0 = random(droidWeapons);
     const droidWeapon1 = droidBody === 'Body14SUP'
-      ? droidWeapons[Math.floor(Math.random() * droidWeapons.length)]
+      ? random(droidWeapons)
       : undefined;
 
     buildDroid(

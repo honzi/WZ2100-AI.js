@@ -39,10 +39,9 @@ function eventDroidBuilt(droid, structure){
         );
 
     }else if(groupSize(groupDefend) > maxCyborgsDefend){
-        const defenders = enumGroup(groupDefend);
         groupAddDroid(
           groupAttack,
-          random(defenders)
+          random(enumGroup(groupDefend))
         );
     }
 }

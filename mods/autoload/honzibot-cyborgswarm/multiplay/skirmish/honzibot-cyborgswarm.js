@@ -350,11 +350,7 @@ function perSecond(){
             }
         }
 
-        const droids = enumDroid(
-          id,
-          DROID_ANY,
-          me
-        );
+        const droids = enumDroid(id, DROID_ANY, me);
         if(droids.length > 0){
             attack(
               groupAttack,

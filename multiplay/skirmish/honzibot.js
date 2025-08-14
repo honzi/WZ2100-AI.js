@@ -110,10 +110,7 @@ function checkAllModules(droid){
 }
 
 function checkNeedModule(structure, module, count){
-    if(!isStructureAvailable(
-        module,
-        me
-      )){
+    if(!isStructureAvailable(module, me)){
         return false;
     }
 
@@ -324,9 +321,7 @@ function handleCollector(droid){
 
     const features = enumFeature(me);
     for(let i = features.length - 1; i >= 0; i--){
-        const stattype = features[i].stattype;
-
-        if(stattype === OIL_RESOURCE){
+        if(features[i].stattype === OIL_RESOURCE){
             buildStructure(
               droid,
               'A0ResourceExtractor',
@@ -395,18 +390,9 @@ function perMinuteStart(){
 }
 
 function init(){
-    maxCyborgFactories = getStructureLimit(
-      'A0CyborgFactory',
-      me
-    );
-    maxFactories = getStructureLimit(
-      'A0LightFactory',
-      me
-    );
-    maxResearchFacilities = getStructureLimit(
-      'A0ResearchFacility',
-      me
-    );
+    maxCyborgFactories = getStructureLimit('A0CyborgFactory', me);
+    maxFactories = getStructureLimit('A0LightFactory', me);
+    maxResearchFacilities = getStructureLimit('A0ResearchFacility', me);
 
     perSecond();
     setTimer(

@@ -142,7 +142,7 @@ function enumStructByType(player, types, visibility){
 }
 
 function eventGameLoaded(){
-    preInit();
+    init();
 }
 
 function eventPickup(feature, droid){
@@ -310,7 +310,7 @@ function eventResearched(research, structure, player){
 }
 
 function eventStartLevel(){
-    preInit();
+    init();
 }
 
 function eventStructureBuilt(structure, droid){
@@ -394,7 +394,7 @@ function perMinuteStart(){
     );
 }
 
-function preInit(){
+function init(){
     maxCyborgFactories = getStructureLimit(
       'A0CyborgFactory',
       me
@@ -408,7 +408,15 @@ function preInit(){
       me
     );
 
-    init();
+    perSecond();
+    setTimer(
+      'perSecond',
+      1000
+    );
+    setTimer(
+      'perMinuteStart',
+      60000 - (me * 1000)
+    );
 }
 
 function random(array){

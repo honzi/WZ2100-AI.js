@@ -59,10 +59,7 @@ function eventObjectTransfer(gameObject, from){
 }
 
 function init(){
-    maxFactories = Math.min(
-      maxFactories,
-      2
-    );
+    maxCyborgFactories = 5;
 
     perSecond();
     setTimer(

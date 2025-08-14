@@ -58,23 +58,6 @@ function eventObjectTransfer(gameObject, from){
     }
 }
 
-function init(){
-    maxFactories = Math.min(
-      maxFactories,
-      2
-    );
-
-    perSecond();
-    setTimer(
-      'perSecond',
-      1000
-    );
-    setTimer(
-      'perMinuteStart',
-      60000 - (me * 1000)
-    );
-}
-
 function perMinute(){
     resourceExtractorCount = enumStruct(me, RESOURCE_EXTRACTOR).length;
     maxPowerGenerators = 1 + Math.ceil(resourceExtractorCount / 4);

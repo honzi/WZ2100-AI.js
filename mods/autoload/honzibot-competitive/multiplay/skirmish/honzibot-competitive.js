@@ -13,7 +13,8 @@ function eventAttacked(victim, attacker){
           false
         );
 
-    }else if(victim.type === STRUCTURE){
+    }else if(victim.type === STRUCTURE
+      || victim.group === groupDefend){
         attack(
           groupDefend,
           attacker,

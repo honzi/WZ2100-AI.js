@@ -415,7 +415,7 @@ function init(){
     );
     setTimer(
       'perMinuteStart',
-      60000 - (me * 1000)
+      me * 1000
     );
 }
 

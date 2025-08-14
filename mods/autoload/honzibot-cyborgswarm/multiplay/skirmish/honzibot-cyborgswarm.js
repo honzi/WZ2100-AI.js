@@ -76,10 +76,7 @@ function init(){
 }
 
 function perMinute(){
-    resourceExtractorCount = enumStruct(
-      me,
-      RESOURCE_EXTRACTOR
-    ).length;
+    resourceExtractorCount = enumStruct(me, RESOURCE_EXTRACTOR).length;
     maxPowerGenerators = 1 + Math.ceil(resourceExtractorCount / 4);
 
     if(groupSize(groupScout) > 0){
@@ -96,10 +93,7 @@ function perMinute(){
     }
 
     const structures = enumStruct();
-    const constructionDroids = enumDroid(
-      me,
-      DROID_CONSTRUCT
-    );
+    const constructionDroids = enumDroid(me, DROID_CONSTRUCT);
     constructionDroids.some(function check_droid(droid, index){
         if(index === constructionDroids.length - 2
           && droid.order === DORDER_BUILD){
@@ -117,8 +111,7 @@ function perMinute(){
         }
     });
 
-    const droids = enumDroid(me);
-    droids.some(function check_droid(droid){
+    enumDroid(me).some(function check_droid(droid){
         if(droid.droidType === DROID_CONSTRUCT
           || droid.group !== groupDefend){
             return;
@@ -137,10 +130,7 @@ function perMinute(){
 }
 
 function perSecond(){
-    const droids = enumDroid(
-      me,
-      DROID_CONSTRUCT
-    );
+    const droids = enumDroid(me, DROID_CONSTRUCT);
     const droidCount = droids.length;
     const tooMuchPower = playerPower(me) > maxPowerReserve;
 
@@ -149,11 +139,7 @@ function perSecond(){
         maxResearchFacilities = 1;
 
     }else{
-        const researchFacilities = enumStruct(
-          me,
-          'A0ResearchFacility'
-        );
-        researchFacilities.some(function check_researchFacility(researchFacility){
+        enumStruct(me, 'A0ResearchFacility').some(function check_researchFacility(researchFacility){
             if(researchFacility.status !== BUILT
               || !structureIdle(researchFacility)){
                 return;
@@ -194,11 +180,7 @@ function perSecond(){
     }
 
     if(droidCount < maxConstructionDroids){
-        const factories = enumStruct(
-          me,
-          'A0LightFactory'
-        );
-        factories.some(function check_factory(factory){
+        enumStruct(me, 'A0LightFactory').some(function check_factory(factory){
             if(factory.status !== BUILT
               || !structureIdle(factory)){
                 return;
@@ -210,11 +192,7 @@ function perSecond(){
     }else if(productionBegin
       || tooMuchPower
       || groupSize(groupDefend) < maxCyborgsDefend){
-        const cyborgFactories = enumStruct(
-          me,
-          'A0CyborgFactory'
-        );
-        cyborgFactories.some(function check_cyborgFactory(cyborgFactory){
+        enumStruct(me, 'A0CyborgFactory').some(function check_cyborgFactory(cyborgFactory){
             if(cyborgFactory.status !== BUILT
               || !structureIdle(cyborgFactory)
               || cyborgWeapons.length === 0){

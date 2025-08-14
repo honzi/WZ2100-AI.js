@@ -1,8 +1,7 @@
 'use strict';
 
 function attack(group, target, override){
-    const droids = enumGroup(group);
-    droids.some(function check_droid(droid){
+    enumGroup(group).some(function check_droid(droid){
         if(!override
           && droid.order !== 0
           && droid.order !== 25){
@@ -119,11 +118,7 @@ function checkNeedModule(structure, module, count){
     }
 
     let moduleNeeded = false;
-    const structures = enumStruct(
-      me,
-      structure
-    );
-    structures.some(function check_structure(checkedStructure){
+    enumStruct(me, structure).some(function check_structure(checkedStructure){
         if(checkedStructure.modules < count){
             moduleNeeded = checkedStructure;
         }
@@ -467,8 +462,7 @@ function randomCyborg(cyborgFactory){
 }
 
 function randomLocation(group, order){
-    const droids = enumGroup(group);
-    droids.some(function check_droid(droid){
+    enumGroup(group).some(function check_droid(droid){
         orderDroidLoc(
           droid,
           order,
@@ -479,10 +473,9 @@ function randomLocation(group, order){
 }
 
 function randomResearch(researchFacility){
-    const research = enumResearch();
     pursueResearch(
       researchFacility,
-      random(research).name
+      random(enumResearch()).name
     );
 }
 

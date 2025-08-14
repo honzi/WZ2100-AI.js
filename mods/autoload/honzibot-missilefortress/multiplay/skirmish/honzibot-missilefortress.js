@@ -16,10 +16,7 @@ function init(){
 }
 
 function perMinute(){
-    resourceExtractorCount = enumStruct(
-      me,
-      RESOURCE_EXTRACTOR
-    ).length;
+    resourceExtractorCount = enumStruct(me, RESOURCE_EXTRACTOR).length;
     maxPowerGenerators = 1 + Math.ceil(resourceExtractorCount / 4);
 
     const droids = enumDroid(me);
@@ -43,10 +40,7 @@ function perMinute(){
 }
 
 function perSecond(){
-    const droids = enumDroid(
-      me,
-      DROID_CONSTRUCT
-    );
+    const droids = enumDroid(me, DROID_CONSTRUCT);
     const droidCount = droids.length;
 
     if(enumResearch().length === 0){
@@ -54,11 +48,7 @@ function perSecond(){
         maxResearchFacilities = 1;
 
     }else{
-        const researchFacilities = enumStruct(
-          me,
-          'A0ResearchFacility'
-        );
-        researchFacilities.some(function check_researchFacility(researchFacility){
+        enumStruct(me, 'A0ResearchFacility').some(function check_researchFacility(researchFacility){
             if(researchFacility.status !== BUILT
               || !structureIdle(researchFacility)){
                 return;
@@ -92,11 +82,7 @@ function perSecond(){
     }
 
     if(droidCount < maxConstructionDroids){
-        const factories = enumStruct(
-          me,
-          'A0LightFactory'
-        );
-        factories.some(function check_factory(factory){
+        enumStruct(me, 'A0LightFactory').some(function check_factory(factory){
             if(factory.status !== BUILT
               || !structureIdle(factory)){
                 return;

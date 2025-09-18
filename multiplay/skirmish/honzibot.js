@@ -237,6 +237,7 @@ function eventResearched(research, structure, player){
       'R-Wpn-Mortar01Lt': 'Mortar1Mk1',
       'R-Wpn-Mortar02Hvy': 'Mortar2Mk1',
       'R-Wpn-Mortar3': 'Mortar3ROTARYMk1',
+      'R-Wpn-ParticleGun': 'ParticleGun',
       'R-Wpn-PlasmaCannon': 'Laser4-PlasmaCannon',
       'R-Wpn-Plasmite-Flamer': 'PlasmiteFlamer',
       'R-Wpn-RailGun01': 'RailGun1Mk1',

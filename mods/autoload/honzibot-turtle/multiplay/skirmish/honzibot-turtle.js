@@ -116,74 +116,77 @@ function perMinute(){
 function perSecond(){
     const droids = enumDroid(me, DROID_CONSTRUCT);
     const droidCount = droids.length;
-    const tooMuchPower = playerPower(me) > maxPowerReserve;
 
-    if(enumResearch().length === 0){
-        maxConstructionDroids = 7;
-        maxResearchFacilities = 1;
+    if(queuedPower(me) === 0){
+        const tooMuchPower = playerPower(me) > maxPowerReserve;
 
-    }else{
-        enumStruct(me, 'A0ResearchFacility').some(function check_researchFacility(researchFacility){
-            if(researchFacility.status !== BUILT
-              || !structureIdle(researchFacility)){
-                return;
-            }
+        if(enumResearch().length === 0){
+            maxConstructionDroids = 7;
+            maxResearchFacilities = 1;
 
-            if(researchRandom
-              || tooMuchPower){
-                if(droidCount >= maxConstructionDroids){
-                    if(playerPower(me) > maxPowerResearchAll){
-                        randomResearch(researchFacility);
+        }else{
+            enumStruct(me, 'A0ResearchFacility').some(function check_researchFacility(researchFacility){
+                if(researchFacility.status !== BUILT
+                  || !structureIdle(researchFacility)){
+                    return;
+                }
 
-                    }else{
-                        randomAvailableResearch(
-                          researchFacility,
-                          enumResearch().filter(function(value){
-                              return !researchExcluded.includes(value.name);
-                          })
-                        );
+                if(researchRandom
+                  || tooMuchPower){
+                    if(droidCount >= maxConstructionDroids){
+                        if(playerPower(me) > maxPowerResearchAll){
+                            randomResearch(researchFacility);
+
+                        }else{
+                            randomAvailableResearch(
+                              researchFacility,
+                              enumResearch().filter(function(value){
+                                  return !researchExcluded.includes(value.name);
+                              })
+                            );
+                        }
                     }
+
+                }else{
+                    const targetResearch = getResearch('R-Sys-Autorepair-General');
+
+                    if(targetResearch.done
+                      || targetResearch.started){
+                        productionBegin = true;
+                        researchRandom = true;
+                    }
+
+                    pursueResearch(
+                      researchFacility,
+                      researchOrder
+                    );
+                }
+            });
+        }
+
+        if(droidCount < maxConstructionDroids){
+            enumStruct(me, 'A0LightFactory').some(function check_factory(factory){
+                if(factory.status !== BUILT
+                  || !structureIdle(factory)){
+                    return;
                 }
 
-            }else{
-                const targetResearch = getResearch('R-Sys-Autorepair-General');
+                randomConstructionDroid(factory);
+            });
 
-                if(targetResearch.done
-                  || targetResearch.started){
-                    productionBegin = true;
-                    researchRandom = true;
+        }else if(productionBegin
+          || tooMuchPower
+          || groupSize(groupDefend) < maxDroidsDefend){
+            enumStruct(me, 'A0LightFactory').some(function check_factory(factory){
+                if(factory.status !== BUILT
+                  || !structureIdle(factory)
+                  || droidWeapons.length === 0){
+                    return;
                 }
 
-                pursueResearch(
-                  researchFacility,
-                  researchOrder
-                );
-            }
-        });
-    }
-
-    if(droidCount < maxConstructionDroids){
-        enumStruct(me, 'A0LightFactory').some(function check_factory(factory){
-            if(factory.status !== BUILT
-              || !structureIdle(factory)){
-                return;
-            }
-
-            randomConstructionDroid(factory);
-        });
-
-    }else if(productionBegin
-      || tooMuchPower
-      || groupSize(groupDefend) < maxDroidsDefend){
-        enumStruct(me, 'A0LightFactory').some(function check_factory(factory){
-            if(factory.status !== BUILT
-              || !structureIdle(factory)
-              || droidWeapons.length === 0){
-                return;
-            }
-
-            randomWeaponDroid(factory);
-        });
+                randomWeaponDroid(factory);
+            });
+        }
     }
 
     let damagedHealth = 100;

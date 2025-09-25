@@ -39,6 +39,77 @@ function attack(group, target, override){
     });
 }
 
+function attackEnemies(){
+    let attacking = false;
+    playerData.forEach(function(player, id){
+        if(attacking
+          || groupSize(groupAttack) < minAttack
+          || allianceExistsBetween(me, id)){
+            return;
+        }
+
+        if(groupSize(groupAttack) >= minAttackStructures){
+            const structures = enumStructByType(
+              id,
+              [
+                DEFENSE,
+                FACTORY,
+                CYBORG_FACTORY,
+                VTOL_FACTORY,
+                RESOURCE_EXTRACTOR,
+                RESEARCH_LAB,
+                SAT_UPLINK,
+                LASSAT,
+                POWER_GEN,
+                HQ,
+                REPAIR_FACILITY,
+                COMMAND_CONTROL,
+              ],
+              me
+            );
+            if(structures.length > 0){
+                attack(
+                  groupAttack,
+                  structures[structures.length - 1],
+                  true
+                );
+                attacking = true;
+                return;
+            }
+
+            const others = enumStructByType(
+              id,
+              [
+                REARM_PAD,
+                WALL,
+                GATE,
+              ],
+              me
+            );
+            if(others.length > 0){
+                attack(
+                  groupAttack,
+                  others[others.length - 1],
+                  true
+                );
+                attacking = true;
+                return;
+            }
+        }
+
+        const droids = enumDroid(id, DROID_ANY, me);
+        if(droids.length > 0){
+            attack(
+              groupAttack,
+              droids[droids.length - 1],
+              true
+            );
+            attacking = true;
+            return;
+        }
+    });
+}
+
 function buildStructure(droid, structure, maxBlockingTiles, offset, x, y){
     offset = offset || 4;
     x = x || droid.x;
@@ -124,6 +195,63 @@ function checkNeedModule(structure, module, count){
     return moduleNeeded;
 }
 
+function defend(victim, attacker){
+    if(victim.player !== me){
+        return;
+    }
+
+    if(victim.group === groupAttack){
+        attack(
+          groupAttack,
+          attacker,
+          false
+        );
+
+    }else if(victim.type === STRUCTURE
+      || victim.group === groupDefend){
+        attack(
+          groupDefend,
+          attacker,
+          true
+        );
+    }
+}
+
+function defendTransfer(gameObject, from){
+    if(gameObject.player === me){
+        if(gameObject.type === DROID){
+            groupAddDroid(
+              groupDefend,
+              gameObject
+            );
+        }
+    }
+}
+
+function droidBuilt(droid, structure){
+    if(droid.droidType === DROID_CONSTRUCT){
+        return;
+    }
+
+    groupAddDroid(
+      groupDefend,
+      droid
+    );
+
+    if(groupSize(groupScout) < maxScout){
+        groupAddDroid(
+          groupScout,
+          droid
+        );
+
+    }else if(groupSize(groupDefend) > maxDefend){
+        groupAddDroid(
+          groupAttack,
+          random(enumGroup(groupDefend))
+        );
+    }
+}
+
 function enumStructByType(player, types, visibility){
     const structures = [];
 
@@ -136,10 +264,6 @@ function enumStructByType(player, types, visibility){
     }
 
     return structures;
-}
-
-function eventGameLoaded(){
-    init();
 }
 
 function eventPickup(feature, droid){
@@ -307,14 +431,6 @@ function eventResearched(research, structure, player){
     }
 }
 
-function eventStartLevel(){
-    init();
-}
-
-function eventStructureBuilt(structure, droid){
-    perMinute();
-}
-
 function handleCollector(droid){
     if(droid.order === DORDER_BUILD){
         return true;
@@ -363,6 +479,114 @@ function handleCollector(droid){
     return false;
 }
 
+function handleDroids(droids){
+    let damagedHealth = 100;
+    let damagedStructure = false;
+    const structures = enumStruct(me);
+    let unfinishedStructure = false;
+    for(const structure in structures){
+        if(structures[structure].status !== BUILT){
+            unfinishedStructure = structures[structure];
+
+        }else if(structures[structure].health < damagedHealth){
+            damagedHealth = structures[structure].health;
+            damagedStructure = structures[structure];
+        }
+    }
+
+    droids.some(function check_droid(droid, index){
+        const isProjectManager = index === droids.length - 1;
+        const isCollector = index === droids.length - 2;
+
+        if(isCollector){
+            if(handleCollector(droid)){
+                return;
+            }
+
+        }else if(damagedStructure !== false
+          && index <= droids.length / 2 - 1){
+            if(droid.order !== DORDER_REPAIR){
+                orderDroidObj(
+                  droid,
+                  DORDER_REPAIR,
+                  damagedStructure
+                );
+            }
+
+            return;
+        }
+
+        if(droid.order === DORDER_BUILD
+          || droid.order === DORDER_HELPBUILD){
+            return;
+        }
+
+        if(unfinishedStructure !== false){
+            orderDroidObj(
+              droid,
+              DORDER_HELPBUILD,
+              unfinishedStructure
+            );
+
+            return;
+        }
+
+        if(!isProjectManager){
+            return;
+        }
+
+        if(checkAllModules(droid)){
+            return;
+        }
+
+        droidConstruct(droid);
+    });
+}
+
+function handleResearch(target, tooMuchPower){
+    if(enumResearch().length === 0){
+        maxConstructionDroids = 7;
+        maxResearchFacilities = 1;
+
+    }else{
+        enumStruct(me, 'A0ResearchFacility').some(function check_researchFacility(researchFacility){
+            if(researchFacility.status !== BUILT
+              || !structureIdle(researchFacility)){
+                return;
+            }
+
+            if(researchRandom
+              || tooMuchPower){
+                if(playerPower(me) > maxPowerResearchAll){
+                    randomResearch(researchFacility);
+
+                }else{
+                    randomAvailableResearch(
+                      researchFacility,
+                      enumResearch().filter(function(value){
+                          return !researchExcluded.includes(value.name);
+                      })
+                    );
+                }
+
+            }else{
+                const targetResearch = getResearch(target);
+
+                if(targetResearch.done
+                  || targetResearch.started){
+                    productionBegin = true;
+                    researchRandom = true;
+                }
+
+                pursueResearch(
+                  researchFacility,
+                  researchOrder
+                );
+            }
+        });
+    }
+}
+
 function locationClamp(x, y){
     return {
       'x': Math.max(
@@ -382,14 +606,6 @@ function locationClamp(x, y){
     };
 }
 
-function perMinuteStart(){
-    removeTimer('perMinuteStart');
-    setTimer(
-      'perMinute',
-      60000
-    );
-}
-
 function init(){
     maxCyborgFactories = getStructureLimit('A0CyborgFactory', me);
     maxFactories = getStructureLimit('A0LightFactory', me);
@@ -403,6 +619,71 @@ function init(){
     setTimer(
       'perMinuteStart',
       me * 1000
+    );
+}
+
+function minuteDroid(){
+    resourceExtractorCount = enumStruct(me, RESOURCE_EXTRACTOR).length;
+    maxPowerGenerators = Math.min(
+      1 + Math.ceil(resourceExtractorCount / 4),
+      getStructureLimit('A0PowerGenerator', me)
+    );
+
+    if(groupSize(groupScout) > 0){
+        randomLocation(
+          groupScout,
+          DORDER_MOVE
+        );
+    }
+    if(groupSize(groupAttack) >= minAttackStructures){
+        randomLocation(
+          groupAttack,
+          DORDER_SCOUT
+        );
+    }
+
+    const structures = enumStruct();
+    const constructionDroids = enumDroid(me, DROID_CONSTRUCT);
+    constructionDroids.some(function check_droid(droid, index){
+        if(index === constructionDroids.length - 2
+          && droid.order === DORDER_BUILD){
+            return;
+        }
+
+        const randomStructure = random(structures);
+        if(randomStructure !== undefined){
+            orderDroidLoc(
+              droid,
+              DORDER_SCOUT,
+              randomStructure.x,
+              randomStructure.y
+            );
+        }
+    });
+
+    enumDroid(me).some(function check_droid(droid){
+        if(droid.droidType === DROID_CONSTRUCT
+          || droid.group !== groupDefend){
+            return;
+        }
+
+        const randomStructure = random(structures);
+        if(randomStructure !== undefined){
+            orderDroidLoc(
+              droid,
+              DORDER_SCOUT,
+              randomStructure.x,
+              randomStructure.y
+            );
+        }
+    });
+}
+
+function perMinuteStart(){
+    removeTimer('perMinuteStart');
+    setTimer(
+      'perMinute',
+      60000
     );
 }
 
@@ -509,12 +790,21 @@ const cyborgWeapons = [];
 const defenseStructures = [];
 const droidWeapons = [];
 const propulsion = ['wheeled01'];
-let maxBlockingTiles = 1;
 let maxConstructionDroids = 4;
 let maxCyborgFactories = 5;
+let maxDefend = 25;
 let maxFactories = 5;
 let maxPowerGenerators = 1;
+let maxPowerResearchAll = 100000;
+let maxPowerReserve = 2000;
 let maxResearchFacilities = 5;
+let maxScout = 1;
+let minAttack = 10;
+let minAttackStructures = 40;
+let productionBegin = false;
 let propulsionHover = false;
 let researchRandom = false;
 let resourceExtractorCount = 0;
+
+globalThis.eventGameLoaded = init;
+globalThis.eventStartLevel = init;

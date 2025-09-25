@@ -1,383 +1,100 @@
 'use strict';
-include('honzibot.js');
+include('honzibot-util.js');
 
-function eventAttacked(victim, attacker){
-    if(victim.player !== me){
-        return;
-    }
+function droidConstruct(droid){
+    const countPowerGenerator = countStruct('A0PowerGenerator');
+    const countLightFactory = countStruct('A0LightFactory');
+    const countResearchFacility = countStruct('A0ResearchFacility');
 
-    if(victim.group === groupAttack){
-        attack(
-          groupAttack,
-          attacker,
-          false
-        );
+    if(countStruct('A0ResourceExtractor') === 0){
+        buildStructure(droid, 'A0ResourceExtractor', -1);
 
-    }else if(victim.type === STRUCTURE
-      || victim.group === groupDefend){
-        attack(
-          groupDefend,
-          attacker,
-          true
-        );
-    }
-}
+    }else if(countPowerGenerator === 0){
+        buildStructure(droid, 'A0PowerGenerator', 1);
 
-function eventDroidBuilt(droid, structure){
-    if(droid.droidType === DROID_CONSTRUCT){
-        return;
-    }
+    }else if(countLightFactory === 0){
+        buildStructure(droid, 'A0LightFactory', 1);
 
-    groupAddDroid(
-      groupDefend,
-      droid
-    );
+    }else if(countResearchFacility === 0){
+        buildStructure(droid, 'A0ResearchFacility', 1);
 
-    if(groupSize(groupScout) < maxCyborgsScout){
-        groupAddDroid(
-          groupScout,
-          droid
-        );
+    }else if(countPowerGenerator < maxPowerGenerators){
+        buildStructure(droid, 'A0PowerGenerator', 1);
 
-    }else if(groupSize(groupDefend) > maxCyborgsDefend){
-        groupAddDroid(
-          groupAttack,
-          random(enumGroup(groupDefend))
-        );
-    }
-}
+    }else if(isStructureAvailable('A0CyborgFactory', me)
+      && countStruct('A0CyborgFactory') < maxCyborgFactories){
+        buildStructure(droid, 'A0CyborgFactory', 1);
 
-function eventObjectTransfer(gameObject, from){
-    if(gameObject.player === me){
-        if(gameObject.type === DROID){
-            groupAddDroid(
-              groupDefend,
-              gameObject
-            );
-        }
-    }
-}
+    }else if(countResearchFacility < maxResearchFacilities){
+        buildStructure(droid, 'A0ResearchFacility', 1);
 
-function perMinute(){
-    resourceExtractorCount = enumStruct(me, RESOURCE_EXTRACTOR).length;
-    maxPowerGenerators = 1 + Math.ceil(resourceExtractorCount / 4);
+    }else if(countStruct('A0CommandCentre') === 0){
+        buildStructure(droid, 'A0CommandCentre', 1);
 
-    if(groupSize(groupScout) > 0){
-        randomLocation(
-          groupScout,
-          DORDER_MOVE
-        );
-    }
-    if(groupSize(groupAttack) >= minCyborgsAttackStructures){
-        randomLocation(
-          groupAttack,
-          DORDER_SCOUT
-        );
-    }
+    }else if(countLightFactory < maxFactories){
+        buildStructure(droid, 'A0LightFactory', 1);
 
-    const structures = enumStruct();
-    const constructionDroids = enumDroid(me, DROID_CONSTRUCT);
-    constructionDroids.some(function check_droid(droid, index){
-        if(index === constructionDroids.length - 2
-          && droid.order === DORDER_BUILD){
-            return;
-        }
+    }else if(isStructureAvailable('A0Sat-linkCentre', me)
+      && countStruct('A0Sat-linkCentre') === 0){
+        buildStructure(droid, 'A0Sat-linkCentre', 1);
 
-        const randomStructure = random(structures);
-        if(randomStructure !== undefined){
-            orderDroidLoc(
+    }else if(defenseStructures.length){
+        const defenseStructure = random(defenseStructures);
+        if(countStruct(defenseStructure) < maxPowerGenerators){
+            buildStructure(
               droid,
-              DORDER_SCOUT,
-              randomStructure.x,
-              randomStructure.y
+              defenseStructure,
+              1
             );
         }
-    });
-
-    enumDroid(me).some(function check_droid(droid){
-        if(droid.droidType === DROID_CONSTRUCT
-          || droid.group !== groupDefend){
-            return;
-        }
-
-        const randomStructure = random(structures);
-        if(randomStructure !== undefined){
-            orderDroidLoc(
-              droid,
-              DORDER_SCOUT,
-              randomStructure.x,
-              randomStructure.y
-            );
-        }
-    });
+    }
 }
 
 function perSecond(){
     const droids = enumDroid(me, DROID_CONSTRUCT);
-    const droidCount = droids.length;
 
-    let damagedHealth = 100;
-    let damagedStructure = false;
-    const structures = enumStruct(me);
-    let unfinishedStructure = false;
-    for(const structure in structures){
-        if(structures[structure].status !== BUILT){
-            unfinishedStructure = structures[structure];
+    handleDroids(droids);
+    attackEnemies();
 
-        }else if(structures[structure].health < damagedHealth){
-            damagedHealth = structures[structure].health;
-            damagedStructure = structures[structure];
-        }
+    if(queuedPower(me) !== 0){
+        return;
     }
 
-    droids.some(function check_droid(droid, index){
-        const isProjectManager = index === droidCount - 1;
-        const isCollector = index === droidCount - 2;
+    const tooMuchPower = playerPower(me) > maxPowerReserve;
 
-        if(isCollector){
-            if(handleCollector(droid)){
+    handleResearch(
+      'R-Sys-Autorepair-General',
+      tooMuchPower
+    );
+
+    if(droids.length < maxConstructionDroids){
+        enumStruct(me, 'A0LightFactory').some(function check_factory(factory){
+            if(factory.status !== BUILT
+              || !structureIdle(factory)){
                 return;
             }
 
-        }else if(damagedStructure !== false
-          && index <= droidCount / 2 - 1){
-            if(droid.order !== DORDER_REPAIR){
-                orderDroidObj(
-                  droid,
-                  DORDER_REPAIR,
-                  damagedStructure
-                );
+            randomConstructionDroid(factory);
+        });
+
+    }else if(productionBegin
+      || tooMuchPower
+      || groupSize(groupDefend) < maxDefend){
+        enumStruct(me, 'A0CyborgFactory').some(function check_cyborgFactory(cyborgFactory){
+            if(cyborgFactory.status !== BUILT
+              || !structureIdle(cyborgFactory)
+              || cyborgWeapons.length === 0){
+                return;
             }
 
-            return;
-        }
-
-        if(droid.order === DORDER_BUILD
-          || droid.order === DORDER_HELPBUILD){
-            return;
-        }
-
-        if(unfinishedStructure !== false){
-            orderDroidObj(
-              droid,
-              DORDER_HELPBUILD,
-              unfinishedStructure
-            );
-
-            return;
-        }
-
-        if(!isProjectManager){
-            return;
-        }
-
-        if(checkAllModules(droid)){
-            return;
-        }
-
-        const countPowerGenerator = countStruct('A0PowerGenerator');
-        const countLightFactory = countStruct('A0LightFactory');
-        const countResearchFacility = countStruct('A0ResearchFacility');
-
-        if(countStruct('A0ResourceExtractor') === 0){
-            buildStructure(droid, 'A0ResourceExtractor', -1);
-
-        }else if(countPowerGenerator === 0){
-            buildStructure(droid, 'A0PowerGenerator', maxBlockingTiles);
-
-        }else if(countLightFactory === 0){
-            buildStructure(droid, 'A0LightFactory', maxBlockingTiles);
-
-        }else if(countResearchFacility === 0){
-            buildStructure(droid, 'A0ResearchFacility', maxBlockingTiles);
-
-        }else if(countPowerGenerator < maxPowerGenerators){
-            buildStructure(droid, 'A0PowerGenerator', maxBlockingTiles);
-
-        }else if(isStructureAvailable('A0CyborgFactory', me)
-          && countStruct('A0CyborgFactory') < maxCyborgFactories){
-            buildStructure(droid, 'A0CyborgFactory', maxBlockingTiles);
-
-        }else if(countResearchFacility < maxResearchFacilities){
-            buildStructure(droid, 'A0ResearchFacility', maxBlockingTiles);
-
-        }else if(countStruct('A0CommandCentre') === 0){
-            buildStructure(droid, 'A0CommandCentre', maxBlockingTiles);
-
-        }else if(countLightFactory < maxFactories){
-            buildStructure(droid, 'A0LightFactory', maxBlockingTiles);
-
-        }else if(isStructureAvailable('A0Sat-linkCentre', me)
-          && countStruct('A0Sat-linkCentre') === 0){
-            buildStructure(droid, 'A0Sat-linkCentre', maxBlockingTiles);
-
-        }else if(defenseStructures.length){
-            const defenseStructure = random(defenseStructures);
-            if(countStruct(defenseStructure) < maxPowerGenerators){
-                buildStructure(
-                  droid,
-                  defenseStructure,
-                  0
-                );
-            }
-        }
-    });
-
-    if(queuedPower(me) === 0){
-        const tooMuchPower = playerPower(me) > maxPowerReserve;
-
-        if(enumResearch().length === 0){
-            maxConstructionDroids = 7;
-            maxResearchFacilities = 1;
-
-        }else{
-            enumStruct(me, 'A0ResearchFacility').some(function check_researchFacility(researchFacility){
-                if(researchFacility.status !== BUILT
-                  || !structureIdle(researchFacility)){
-                    return;
-                }
-
-                if(researchRandom
-                  || tooMuchPower){
-                    if(droidCount >= maxConstructionDroids){
-                        if(playerPower(me) > maxPowerResearchAll){
-                            randomResearch(researchFacility);
-
-                        }else{
-                            randomAvailableResearch(
-                              researchFacility,
-                              enumResearch().filter(function(value){
-                                  return !researchExcluded.includes(value.name);
-                              })
-                            );
-                        }
-                    }
-
-                }else{
-                    const targetResearch = getResearch('R-Sys-Autorepair-General');
-
-                    if(targetResearch.done
-                      || targetResearch.started){
-                        maxCyborgsDefend = 20;
-                        productionBegin = true;
-                        researchRandom = true;
-                    }
-
-                    pursueResearch(
-                      researchFacility,
-                      researchOrder
-                    );
-                }
-            });
-        }
-
-        if(droidCount < maxConstructionDroids){
-            enumStruct(me, 'A0LightFactory').some(function check_factory(factory){
-                if(factory.status !== BUILT
-                  || !structureIdle(factory)){
-                    return;
-                }
-
-                randomConstructionDroid(factory);
-            });
-
-        }else if(productionBegin
-          || tooMuchPower
-          || groupSize(groupDefend) < maxCyborgsDefend){
-            enumStruct(me, 'A0CyborgFactory').some(function check_cyborgFactory(cyborgFactory){
-                if(cyborgFactory.status !== BUILT
-                  || !structureIdle(cyborgFactory)
-                  || cyborgWeapons.length === 0){
-                    return;
-                }
-
-                randomCyborg(cyborgFactory);
-            });
-        }
+            randomCyborg(cyborgFactory);
+        });
     }
-
-    let attacking = false;
-    playerData.forEach(function(player, id){
-        if(attacking
-          || groupSize(groupAttack) < minCyborgsAttack
-          || allianceExistsBetween(me, id)){
-            return;
-        }
-
-        if(groupSize(groupAttack) >= minCyborgsAttackStructures){
-            const structures = enumStructByType(
-              id,
-              [
-                DEFENSE,
-                FACTORY,
-                CYBORG_FACTORY,
-                VTOL_FACTORY,
-                RESOURCE_EXTRACTOR,
-                RESEARCH_LAB,
-                SAT_UPLINK,
-                LASSAT,
-                POWER_GEN,
-                HQ,
-                REPAIR_FACILITY,
-                COMMAND_CONTROL,
-              ],
-              me
-            );
-            if(structures.length > 0){
-                attack(
-                  groupAttack,
-                  structures[structures.length - 1],
-                  true
-                );
-                attacking = true;
-                return;
-            }
-
-            const others = enumStructByType(
-              id,
-              [
-                REARM_PAD,
-                WALL,
-                GATE,
-              ],
-              me
-            );
-            if(others.length > 0){
-                attack(
-                  groupAttack,
-                  others[others.length - 1],
-                  true
-                );
-                attacking = true;
-                return;
-            }
-        }
-
-        const droids = enumDroid(id, DROID_ANY, me);
-        if(droids.length > 0){
-            attack(
-              groupAttack,
-              droids[droids.length - 1],
-              true
-            );
-            attacking = true;
-            return;
-        }
-    });
-
-    setMiniMap(true);
 }
 
 const groupAttack = newGroup();
 const groupDefend = newGroup();
 const groupScout = newGroup();
-let maxCyborgsDefend = 25;
-let maxCyborgsScout = 1;
-let maxPowerReserve = 2000;
-let maxPowerResearchAll = 100000;
-let minCyborgsAttack = 10;
-let minCyborgsAttackStructures = 40;
-let productionBegin = false;
 
 const researchOrder = [
   'R-Wpn-MG1Mk1',
@@ -457,3 +174,9 @@ const researchExcluded = [
   'R-Wpn-Bomb06',
   'R-Wpn-Sunburst',
 ];
+
+globalThis.eventAttacked = defend;
+globalThis.eventDroidBuilt = droidBuilt;
+globalThis.eventObjectTransfer = defendTransfer;
+globalThis.eventStructureBuilt = minuteDroid;
+globalThis.perMinute = minuteDroid;

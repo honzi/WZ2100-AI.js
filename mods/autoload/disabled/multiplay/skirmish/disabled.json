@@ -1,0 +1,7 @@
+{
+  "AI": {
+    "js": "disabled.js",
+    "name": "Disabled",
+    "tip": "An AI that doesn't do anything."
+  }
+}

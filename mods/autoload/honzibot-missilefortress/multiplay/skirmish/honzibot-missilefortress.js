@@ -30,55 +30,6 @@ function perSecond(){
     const droids = enumDroid(me, DROID_CONSTRUCT);
     const droidCount = droids.length;
 
-    if(enumResearch().length === 0){
-        maxConstructionDroids = 10;
-        maxResearchFacilities = 1;
-
-    }else{
-        enumStruct(me, 'A0ResearchFacility').some(function check_researchFacility(researchFacility){
-            if(researchFacility.status !== BUILT
-              || !structureIdle(researchFacility)){
-                return;
-            }
-
-            if(researchRandom){
-                if(droidCount >= maxConstructionDroids){
-                    randomAvailableResearch(
-                      researchFacility,
-                      enumResearch().filter(function(value){
-                          return !researchExcluded.includes(value.name);
-                      })
-                    );
-                }
-
-            }else{
-                const targetResearch = getResearch('R-Defense-Super-Missile');
-
-                if(targetResearch.done
-                  || targetResearch.started){
-                    maxConstructionDroids = 10;
-                    researchRandom = true;
-                }
-
-                pursueResearch(
-                  researchFacility,
-                  researchOrder
-                );
-            }
-        });
-    }
-
-    if(droidCount < maxConstructionDroids){
-        enumStruct(me, 'A0LightFactory').some(function check_factory(factory){
-            if(factory.status !== BUILT
-              || !structureIdle(factory)){
-                return;
-            }
-
-            randomConstructionDroid(factory);
-        });
-    }
-
     let damagedHealth = 100;
     let damagedStructure = false;
     const structures = enumStruct(me);
@@ -178,6 +129,55 @@ function perSecond(){
             );
         }
     });
+
+    if(enumResearch().length === 0){
+        maxConstructionDroids = 10;
+        maxResearchFacilities = 1;
+
+    }else{
+        enumStruct(me, 'A0ResearchFacility').some(function check_researchFacility(researchFacility){
+            if(researchFacility.status !== BUILT
+              || !structureIdle(researchFacility)){
+                return;
+            }
+
+            if(researchRandom){
+                if(droidCount >= maxConstructionDroids){
+                    randomAvailableResearch(
+                      researchFacility,
+                      enumResearch().filter(function(value){
+                          return !researchExcluded.includes(value.name);
+                      })
+                    );
+                }
+
+            }else{
+                const targetResearch = getResearch('R-Defense-Super-Missile');
+
+                if(targetResearch.done
+                  || targetResearch.started){
+                    maxConstructionDroids = 10;
+                    researchRandom = true;
+                }
+
+                pursueResearch(
+                  researchFacility,
+                  researchOrder
+                );
+            }
+        });
+    }
+
+    if(droidCount < maxConstructionDroids){
+        enumStruct(me, 'A0LightFactory').some(function check_factory(factory){
+            if(factory.status !== BUILT
+              || !structureIdle(factory)){
+                return;
+            }
+
+            randomConstructionDroid(factory);
+        });
+    }
 
     setMiniMap(true);
 }

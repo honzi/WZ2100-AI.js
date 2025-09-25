@@ -116,79 +116,6 @@ function perSecond(){
     const droids = enumDroid(me, DROID_CONSTRUCT);
     const droidCount = droids.length;
 
-    if(queuedPower(me) === 0){
-        const tooMuchPower = playerPower(me) > maxPowerReserve;
-
-        if(enumResearch().length === 0){
-            maxConstructionDroids = 7;
-            maxResearchFacilities = 1;
-
-        }else{
-            enumStruct(me, 'A0ResearchFacility').some(function check_researchFacility(researchFacility){
-                if(researchFacility.status !== BUILT
-                  || !structureIdle(researchFacility)){
-                    return;
-                }
-
-                if(researchRandom
-                  || tooMuchPower){
-                    if(droidCount >= maxConstructionDroids){
-                        if(playerPower(me) > maxPowerResearchAll){
-                            randomResearch(researchFacility);
-
-                        }else{
-                            randomAvailableResearch(
-                              researchFacility,
-                              enumResearch().filter(function(value){
-                                  return !researchExcluded.includes(value.name);
-                              })
-                            );
-                        }
-                    }
-
-                }else{
-                    const targetResearch = getResearch('R-Sys-Autorepair-General');
-
-                    if(targetResearch.done
-                      || targetResearch.started){
-                        maxCyborgsDefend = 20;
-                        productionBegin = true;
-                        researchRandom = true;
-                    }
-
-                    pursueResearch(
-                      researchFacility,
-                      researchOrder
-                    );
-                }
-            });
-        }
-
-        if(droidCount < maxConstructionDroids){
-            enumStruct(me, 'A0LightFactory').some(function check_factory(factory){
-                if(factory.status !== BUILT
-                  || !structureIdle(factory)){
-                    return;
-                }
-
-                randomConstructionDroid(factory);
-            });
-
-        }else if(productionBegin
-          || tooMuchPower
-          || groupSize(groupDefend) < maxCyborgsDefend){
-            enumStruct(me, 'A0CyborgFactory').some(function check_cyborgFactory(cyborgFactory){
-                if(cyborgFactory.status !== BUILT
-                  || !structureIdle(cyborgFactory)
-                  || cyborgWeapons.length === 0){
-                    return;
-                }
-
-                randomCyborg(cyborgFactory);
-            });
-        }
-    }
-
     let damagedHealth = 100;
     let damagedStructure = false;
     const structures = enumStruct(me);
@@ -295,6 +222,79 @@ function perSecond(){
             }
         }
     });
+
+    if(queuedPower(me) === 0){
+        const tooMuchPower = playerPower(me) > maxPowerReserve;
+
+        if(enumResearch().length === 0){
+            maxConstructionDroids = 7;
+            maxResearchFacilities = 1;
+
+        }else{
+            enumStruct(me, 'A0ResearchFacility').some(function check_researchFacility(researchFacility){
+                if(researchFacility.status !== BUILT
+                  || !structureIdle(researchFacility)){
+                    return;
+                }
+
+                if(researchRandom
+                  || tooMuchPower){
+                    if(droidCount >= maxConstructionDroids){
+                        if(playerPower(me) > maxPowerResearchAll){
+                            randomResearch(researchFacility);
+
+                        }else{
+                            randomAvailableResearch(
+                              researchFacility,
+                              enumResearch().filter(function(value){
+                                  return !researchExcluded.includes(value.name);
+                              })
+                            );
+                        }
+                    }
+
+                }else{
+                    const targetResearch = getResearch('R-Sys-Autorepair-General');
+
+                    if(targetResearch.done
+                      || targetResearch.started){
+                        maxCyborgsDefend = 20;
+                        productionBegin = true;
+                        researchRandom = true;
+                    }
+
+                    pursueResearch(
+                      researchFacility,
+                      researchOrder
+                    );
+                }
+            });
+        }
+
+        if(droidCount < maxConstructionDroids){
+            enumStruct(me, 'A0LightFactory').some(function check_factory(factory){
+                if(factory.status !== BUILT
+                  || !structureIdle(factory)){
+                    return;
+                }
+
+                randomConstructionDroid(factory);
+            });
+
+        }else if(productionBegin
+          || tooMuchPower
+          || groupSize(groupDefend) < maxCyborgsDefend){
+            enumStruct(me, 'A0CyborgFactory').some(function check_cyborgFactory(cyborgFactory){
+                if(cyborgFactory.status !== BUILT
+                  || !structureIdle(cyborgFactory)
+                  || cyborgWeapons.length === 0){
+                    return;
+                }
+
+                randomCyborg(cyborgFactory);
+            });
+        }
+    }
 
     let attacking = false;
     playerData.forEach(function(player, id){

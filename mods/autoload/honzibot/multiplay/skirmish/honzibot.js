@@ -1,5 +1,5 @@
 'use strict';
-include('honzibot-util.js');
+include('honzibot-common.js');
 
 function droidConstruct(droid){
     const countPowerGenerator = countStruct('A0PowerGenerator');

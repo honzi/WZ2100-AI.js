@@ -628,9 +628,8 @@ function init(){
 }
 
 function minuteDroid(){
-    resourceExtractorCount = enumStruct(me, RESOURCE_EXTRACTOR).length;
     maxPowerGenerators = Math.min(
-      1 + Math.ceil(resourceExtractorCount / 4),
+      1 + Math.ceil(enumStruct(me, RESOURCE_EXTRACTOR).length / 4),
       getStructureLimit('A0PowerGenerator', me)
     );
 
@@ -853,7 +852,6 @@ let minAttackStructures = 40;
 let productionBegin = false;
 let propulsionHover = false;
 let researchRandom = false;
-let resourceExtractorCount = 0;
 
 globalThis.eventGameLoaded = init;
 globalThis.eventStartLevel = init;

@@ -44,8 +44,7 @@ function droidConstruct(droid){
 }
 
 function perMinute(){
-    resourceExtractorCount = enumStruct(me, RESOURCE_EXTRACTOR).length;
-    maxPowerGenerators = 1 + Math.ceil(resourceExtractorCount / 4);
+    maxPowerGenerators = 1 + Math.ceil(enumStruct(me, RESOURCE_EXTRACTOR).length / 4);
 
     const droids = enumDroid(me);
     const structures = enumStruct();

@@ -40,10 +40,13 @@ function attack(group, target, override){
 }
 
 function attackEnemies(){
+    if(groupSize(groupAttack) < minAttack){
+        return;
+    }
+
     let attacking = false;
     playerData.forEach(function(player, id){
         if(attacking
-          || groupSize(groupAttack) < minAttack
           || allianceExistsBetween(me, id)){
             return;
         }
@@ -218,13 +221,12 @@ function defend(victim, attacker){
 }
 
 function defendTransfer(gameObject, from){
-    if(gameObject.player === me){
-        if(gameObject.type === DROID){
-            groupAddDroid(
-              groupDefend,
-              gameObject
-            );
-        }
+    if(gameObject.player === me
+      && gameObject.type === DROID){
+        groupAddDroid(
+          groupDefend,
+          gameObject
+        );
     }
 }
 
@@ -233,18 +235,20 @@ function droidBuilt(droid, structure){
         return;
     }
 
-    groupAddDroid(
-      groupDefend,
-      droid
-    );
-
     if(groupSize(groupScout) < maxScout){
         groupAddDroid(
           groupScout,
           droid
         );
+        return;
+    }
 
-    }else if(groupSize(groupDefend) > maxDefend){
+    groupAddDroid(
+      groupDefend,
+      droid
+    );
+
+    if(groupSize(groupDefend) > maxDefend){
         groupAddDroid(
           groupAttack,
           random(enumGroup(groupDefend))

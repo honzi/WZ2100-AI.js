@@ -71,22 +71,11 @@ function perSecond(){
     const droids = enumDroid(me, DROID_CONSTRUCT);
 
     handleDroids(droids);
-
     handleResearch(
       'R-Defense-Super-Missile',
       false
     );
-
-    if(droids.length < maxConstructionDroids){
-        enumStruct(me, 'A0LightFactory').some(function check_factory(factory){
-            if(factory.status !== BUILT
-              || !structureIdle(factory)){
-                return;
-            }
-
-            randomConstructionDroid(factory);
-        });
-    }
+    randomConstructionDroids(droids);
 }
 
 const researchOrder = [

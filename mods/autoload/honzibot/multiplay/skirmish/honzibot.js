@@ -57,41 +57,11 @@ function perSecond(){
         return;
     }
 
-    const tooMuchPower = playerPower(me) > maxPowerReserve;
-
-    handleResearch(
-      'R-Sys-Autorepair-General',
-      tooMuchPower
-    );
-
-    if(droids.length < maxConstructionDroids){
-        enumStruct(me, 'A0LightFactory').some(function check_factory(factory){
-            if(factory.status !== BUILT
-              || !structureIdle(factory)){
-                return;
-            }
-
-            randomConstructionDroid(factory);
-        });
-
-    }else if(productionBegin
-      || tooMuchPower
-      || groupSize(groupDefend) < maxDefend){
-        enumStruct(me, 'A0LightFactory').some(function check_factory(factory){
-            if(factory.status !== BUILT
-              || !structureIdle(factory)
-              || droidWeapons.length === 0){
-                return;
-            }
-
-            randomWeaponDroid(factory);
-        });
+    handleResearch('R-Sys-Autorepair-General');
+    if(!randomConstructionDroids(droids)){
+        randomWeaponDroids();
     }
 }
-
-const groupAttack = newGroup();
-const groupDefend = newGroup();
-const groupScout = newGroup();
 
 const researchOrder = [
   'R-Wpn-MG1Mk1',

@@ -547,20 +547,21 @@ function handleDroids(droids){
     });
 }
 
-function handleResearch(target, tooMuchPower){
+function handleResearch(target){
     if(enumResearch().length === 0){
         maxConstructionDroids = 7;
         maxResearchFacilities = 1;
 
     }else{
+        const random = researchRandom || playerPower(me) > maxPowerReserve;
+
         enumStruct(me, 'A0ResearchFacility').some(function check_researchFacility(researchFacility){
             if(researchFacility.status !== BUILT
               || !structureIdle(researchFacility)){
                 return;
             }
 
-            if(researchRandom
-              || tooMuchPower){
+            if(random){
                 if(playerPower(me) > maxPowerResearchAll){
                     randomResearch(researchFacility);
 
@@ -705,40 +706,67 @@ function randomAvailableResearch(researchFacility, availableResearch){
     );
 }
 
-function randomConstructionDroid(factory){
-    const droidBody = random(bodies);
-    const droidPropulsion = propulsionHover
-      ? 'hover01'
-      : random(propulsion);
-    const droidWeapon1 = droidBody === 'Body14SUP'
-      ? 'SensorTurret1Mk1'
-      : undefined;
+function randomConstructionDroids(droids){
+    if(droids.length >= maxConstructionDroids){
+        return false;
+    }
 
-    buildDroid(
-      factory,
-      'drone_' + droidBody + '_' + droidPropulsion + '_Spade1Mk1'
-        + (droidWeapon1 !== undefined ? '+' + droidWeapon1 : ''),
-      droidBody,
-      droidPropulsion,
-      '',
-      DROID_CONSTRUCT,
-      'Spade1Mk1',
-      droidWeapon1
-    );
+    enumStruct(me, 'A0LightFactory').some(function check_factory(factory){
+        if(factory.status !== BUILT
+          || !structureIdle(factory)){
+            return;
+        }
+
+        const droidBody = random(bodies);
+        const droidPropulsion = propulsionHover
+          ? 'hover01'
+          : random(propulsion);
+        const droidWeapon1 = droidBody === 'Body14SUP'
+          ? 'SensorTurret1Mk1'
+          : undefined;
+
+        buildDroid(
+          factory,
+          'drone_' + droidBody + '_' + droidPropulsion + '_Spade1Mk1'
+            + (droidWeapon1 !== undefined ? '+' + droidWeapon1 : ''),
+          droidBody,
+          droidPropulsion,
+          '',
+          DROID_CONSTRUCT,
+          'Spade1Mk1',
+          droidWeapon1
+        );
+    });
+
+    return true;
 }
 
-function randomCyborg(cyborgFactory){
-    const cyborgWeapon = random(cyborgWeapons);
+function randomCyborgs(cyborgFactory){
+    if(!(productionBegin
+      || playerPower(me) > maxPowerReserve
+      || groupSize(groupDefend) < maxDefend)){
+        return;
+    }
 
-    buildDroid(
-      cyborgFactory,
-      'cyborg_CyborgLightBody_CyborgLegs_' + cyborgWeapon,
-      'CyborgLightBody',
-      'CyborgLegs',
-      '',
-      DROID_CYBORG,
-      cyborgWeapon
-    );
+    enumStruct(me, 'A0CyborgFactory').some(function check_cyborgFactory(cyborgFactory){
+        if(cyborgFactory.status !== BUILT
+          || !structureIdle(cyborgFactory)
+          || cyborgWeapons.length === 0){
+            return;
+        }
+
+        const cyborgWeapon = random(cyborgWeapons);
+
+        buildDroid(
+          cyborgFactory,
+          'cyborg_CyborgLightBody_CyborgLegs_' + cyborgWeapon,
+          'CyborgLightBody',
+          'CyborgLegs',
+          '',
+          DROID_CYBORG,
+          cyborgWeapon
+        );
+    });
 }
 
 function randomLocation(group, order){
@@ -759,25 +787,39 @@ function randomResearch(researchFacility){
     );
 }
 
-function randomWeaponDroid(factory){
-    const droidBody = random(bodies);
-    const droidPropulsion = random(propulsion);
-    const droidWeapon0 = random(droidWeapons);
-    const droidWeapon1 = droidBody === 'Body14SUP'
-      ? random(droidWeapons)
-      : undefined;
+function randomWeaponDroids(){
+    if(!(productionBegin
+      || playerPower(me) > maxPowerReserve
+      || groupSize(groupDefend) < maxDefend)){
+        return;
+    }
 
-    buildDroid(
-      factory,
-      'droid_' + droidBody + '_' + droidPropulsion + '_' + droidWeapon0
-        + (droidWeapon1 !== undefined ? '+' + droidWeapon1 : ''),
-      droidBody,
-      droidPropulsion,
-      '',
-      DROID_WEAPON,
-      droidWeapon0,
-      droidWeapon1
-    );
+    enumStruct(me, 'A0LightFactory').some(function check_factory(factory){
+        if(factory.status !== BUILT
+          || !structureIdle(factory)
+          || droidWeapons.length === 0){
+            return;
+        }
+
+        const droidBody = random(bodies);
+        const droidPropulsion = random(propulsion);
+        const droidWeapon0 = random(droidWeapons);
+        const droidWeapon1 = droidBody === 'Body14SUP'
+          ? random(droidWeapons)
+          : undefined;
+
+        buildDroid(
+          factory,
+          'droid_' + droidBody + '_' + droidPropulsion + '_' + droidWeapon0
+            + (droidWeapon1 !== undefined ? '+' + droidWeapon1 : ''),
+          droidBody,
+          droidPropulsion,
+          '',
+          DROID_WEAPON,
+          droidWeapon0,
+          droidWeapon1
+        );
+    });
 }
 
 function removeTech(tech, from){
@@ -793,6 +835,9 @@ const bodies = ['Body1REC'];
 const cyborgWeapons = [];
 const defenseStructures = [];
 const droidWeapons = [];
+const groupAttack = newGroup();
+const groupDefend = newGroup();
+const groupScout = newGroup();
 const propulsion = ['wheeled01'];
 let maxConstructionDroids = 4;
 let maxCyborgFactories = 5;

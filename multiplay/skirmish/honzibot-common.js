@@ -211,7 +211,7 @@ function defend(victim, attacker){
         );
 
     }else if(victim.type === STRUCTURE
-      || victim.group === groupDefend){
+      || (victim.group === groupDefend && groupSize(groupDefend) > maxDefend / 2)){
         attack(
           groupDefend,
           attacker,

@@ -67,8 +67,7 @@ function attackEnemies(){
                 HQ,
                 REPAIR_FACILITY,
                 COMMAND_CONTROL,
-              ],
-              me
+              ]
             );
             if(structures.length > 0){
                 attack(
@@ -86,8 +85,7 @@ function attackEnemies(){
                 REARM_PAD,
                 WALL,
                 GATE,
-              ],
-              me
+              ]
             );
             if(others.length > 0){
                 attack(
@@ -256,14 +254,14 @@ function droidBuilt(droid, structure){
     }
 }
 
-function enumStructByType(player, types, visibility){
+function enumStructByType(player, types){
     const structures = [];
 
     for(const type in types){
         structures.push(...enumStruct(
           player,
           types[type],
-          visibility
+          me
         ));
     }
 
@@ -651,28 +649,18 @@ function minuteDroid(){
         );
     }
 
-    const structures = enumStruct();
-    const constructionDroids = enumDroid(me, DROID_CONSTRUCT);
-    constructionDroids.some(function check_droid(droid, index){
-        if(index === constructionDroids.length - 2
-          && droid.order === DORDER_BUILD){
-            return;
-        }
+    const structures = enumStruct(me);
+    const constructionDroidCount = countDroid(me, DROID_CONSTRUCT);
+    let constructionDroidIndex = 0;
 
-        const randomStructure = random(structures);
-        if(randomStructure !== undefined){
-            orderDroidLoc(
-              droid,
-              DORDER_SCOUT,
-              randomStructure.x,
-              randomStructure.y
-            );
-        }
-    });
+    enumDroid(me).some(function check_droid(droid, index){
+        if(droid.droidType === DROID_CONSTRUCT){
+            if(constructionDroidIndex++ === constructionDroidCount - 1
+              && droid.order === DORDER_BUILD){
+                return;
+            }
 
-    enumDroid(me).some(function check_droid(droid){
-        if(droid.droidType === DROID_CONSTRUCT
-          || droid.group !== groupDefend){
+        }else if(droid.group !== groupDefend){
             return;
         }
 

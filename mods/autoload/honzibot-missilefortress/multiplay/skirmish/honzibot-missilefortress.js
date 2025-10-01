@@ -2,11 +2,11 @@
 include('honzibot-common.js');
 
 function droidConstruct(droid){
-    const countPowerGenerator = countStruct('A0PowerGenerator');
-    const countLightFactory = countStruct('A0LightFactory');
-    const countResearchFacility = countStruct('A0ResearchFacility');
+    const countPowerGenerator = countStruct('A0PowerGenerator', me);
+    const countLightFactory = countStruct('A0LightFactory', me);
+    const countResearchFacility = countStruct('A0ResearchFacility', me);
 
-    if(countStruct('A0ResourceExtractor') === 0){
+    if(countStruct('A0ResourceExtractor', me) === 0){
         buildStructure(droid, 'A0ResourceExtractor', -1);
 
     }else if(countPowerGenerator === 0){
@@ -27,11 +27,11 @@ function droidConstruct(droid){
     }else if(countLightFactory < maxFactories){
         buildStructure(droid, 'A0LightFactory', 1);
 
-    }else if(countStruct('A0CommandCentre') === 0){
+    }else if(countStruct('A0CommandCentre', me) === 0){
         buildStructure(droid, 'A0CommandCentre', 1);
 
     }else if(isStructureAvailable('A0Sat-linkCentre', me)
-      && countStruct('A0Sat-linkCentre') === 0){
+      && countStruct('A0Sat-linkCentre', me) === 0){
         buildStructure(droid, 'A0Sat-linkCentre', 1);
 
     }else if(isStructureAvailable('X-Super-Missile', me)){

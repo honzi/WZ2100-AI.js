@@ -72,7 +72,6 @@ const researchOrder = [
   'R-Sys-Sensor-Tower01',
   'R-Struc-CommandRelay',
   'R-Struc-Research-Module',
-  'R-Wpn-Flamer01Mk1',
   'R-Vehicle-Prop-Halftracks',
   'R-Struc-Research-Upgrade01',
   'R-Wpn-MG-Damage01',
@@ -108,7 +107,6 @@ const researchExcluded = [
   'R-Defense-GuardTower-Rail1',
   'R-Defense-HardcreteGate',
   'R-Defense-Howitzer-Incendiary',
-  'R-Defense-HvyFlamer',
   'R-Defense-HvyHowitzer',
   'R-Defense-MassDriver',
   'R-Defense-MortarPit',
@@ -118,7 +116,6 @@ const researchExcluded = [
   'R-Defense-Pillbox05',
   'R-Defense-Pillbox06',
   'R-Defense-PlasmaCannon',
-  'R-Defense-PlasmiteFlamer',
   'R-Defense-RotMG',
   'R-Defense-Super-Cannon',
   'R-Defense-TankTrap01',
@@ -139,6 +136,7 @@ const researchExcluded = [
   'R-Wpn-Bomb04',
   'R-Wpn-Bomb05',
   'R-Wpn-Bomb06',
+  'R-Wpn-Flamer01Mk1',
   'R-Wpn-Sunburst',
 ];
 

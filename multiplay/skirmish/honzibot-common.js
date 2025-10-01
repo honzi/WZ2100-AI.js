@@ -597,6 +597,22 @@ function handleResearch(target){
     }
 }
 
+function init(){
+    maxCyborgFactories = getStructureLimit('A0CyborgFactory', me);
+    maxFactories = getStructureLimit('A0LightFactory', me);
+    maxResearchFacilities = getStructureLimit('A0ResearchFacility', me);
+
+    perSecond();
+    setTimer(
+      'perSecond',
+      1000
+    );
+    setTimer(
+      'perMinuteStart',
+      me * 1000
+    );
+}
+
 function locationClamp(x, y){
     return {
       'x': Math.max(
@@ -614,22 +630,6 @@ function locationClamp(x, y){
         0
       ),
     };
-}
-
-function init(){
-    maxCyborgFactories = getStructureLimit('A0CyborgFactory', me);
-    maxFactories = getStructureLimit('A0LightFactory', me);
-    maxResearchFacilities = getStructureLimit('A0ResearchFacility', me);
-
-    perSecond();
-    setTimer(
-      'perSecond',
-      1000
-    );
-    setTimer(
-      'perMinuteStart',
-      me * 1000
-    );
 }
 
 function minuteDroid(){

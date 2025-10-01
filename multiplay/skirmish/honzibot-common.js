@@ -18,16 +18,15 @@ function attack(group, target, override){
                 return;
             }
 
-        }else if(target.type === STRUCTURE){
-            if(target.stattype === WALL){
-                orderDroidObj(
-                  droid,
-                  DORDER_ATTACK,
-                  target
-                );
+        }else if(target.type === STRUCTURE
+          && target.stattype === WALL){
+            orderDroidObj(
+              droid,
+              DORDER_ATTACK,
+              target
+            );
 
-                return;
-            }
+            return;
         }
 
         orderDroidLoc(

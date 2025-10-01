@@ -421,6 +421,7 @@ function eventResearched(research, structure, player){
 
     const cyborgWeaponResearch = {
       'R-Wpn-Cannon1Mk1': 'CyborgCannon',
+      'R-Wpn-Flame2': 'Cyb-Wpn-Thermite',
       'R-Wpn-Flamer01Mk1': 'CyborgFlamer01',
       'R-Wpn-Laser01': 'Cyb-Wpn-Laser',
       'R-Wpn-MG1Mk1': 'CyborgChaingun',
@@ -431,6 +432,10 @@ function eventResearched(research, structure, player){
       'R-Wpn-Rocket01-LtAT': 'CyborgRocket',
     };
     if(cyborgWeaponResearch[research.name]){
+        if(research.name === 'R-Wpn-Flame2'){
+            removeTech(['CyborgFlamer01'], cyborgWeapons);
+        }
+
         cyborgWeapons.push(cyborgWeaponResearch[research.name]);
     }
 }

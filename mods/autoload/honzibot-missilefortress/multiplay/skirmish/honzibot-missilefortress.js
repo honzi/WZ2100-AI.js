@@ -77,6 +77,7 @@ function perSecond(){
     randomConstructionDroids(droids);
 }
 
+maxPowerReserve = maxPowerResearchAll;
 const researchOrder = [
   'R-Sys-Engineering01',
   'R-Vehicle-Engine01',

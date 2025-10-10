@@ -486,9 +486,11 @@ function handleCollector(droid){
 }
 
 function handleDroids(droids){
+    const structures = enumStruct(me);
     let damagedHealth = 100;
     let damagedStructure = false;
-    const structures = enumStruct(me);
+    let derricks = 0;
+    let generators = 0;
     let unfinishedStructure = false;
     for(const structure in structures){
         if(structures[structure].status !== BUILT){
@@ -498,18 +500,27 @@ function handleDroids(droids){
             damagedHealth = structures[structure].health;
             damagedStructure = structures[structure];
         }
+
+        const stattype = structures[structure].stattype;
+        if(stattype === RESOURCE_EXTRACTOR){
+            derricks++;
+
+        }else if(stattype === POWER_GEN){
+            generators++;
+        }
     }
 
     droids.some(function check_droid(droid, index){
         const isProjectManager = index === droids.length - 1;
-        const isCollector = index === droids.length - 2;
 
-        if(isCollector){
+        if(!isProjectManager
+          && (index === droids.length - 2 || derricks < (generators - 2) * 4)){
             if(handleCollector(droid)){
                 return;
             }
+        }
 
-        }else if(damagedStructure !== false
+        if(damagedStructure !== false
           && index <= droids.length / 2 - 1){
             if(droid.order !== DORDER_REPAIR){
                 orderDroidObj(
@@ -630,11 +641,6 @@ function locationClamp(x, y){
 }
 
 function minuteDroid(){
-    maxPowerGenerators = Math.min(
-      1 + Math.ceil(enumStruct(me, RESOURCE_EXTRACTOR).length / 4),
-      getStructureLimit('A0PowerGenerator', me)
-    );
-
     if(groupSize(groupScout) > 0){
         randomLocation(
           groupScout,
@@ -649,13 +655,23 @@ function minuteDroid(){
     }
 
     const structures = enumStruct(me);
+    let derricks = 0;
+    for(const structure in structures){
+        if(structures[structure].stattype === RESOURCE_EXTRACTOR){
+            derricks++;
+        }
+    }
+    maxPowerGenerators = Math.min(
+      1 + Math.ceil(derricks / 4),
+      getStructureLimit('A0PowerGenerator', me)
+    );
     const constructionDroidCount = countDroid(me, DROID_CONSTRUCT);
     let constructionDroidIndex = 0;
 
     enumDroid(me).some(function check_droid(droid, index){
         if(droid.droidType === DROID_CONSTRUCT){
             if(constructionDroidIndex++ === constructionDroidCount - 2
-              && droid.order === DORDER_BUILD){
+              && (droid.order === DORDER_BUILD || droid.order === DORDER_HELPBUILD)){
                 return;
             }
 

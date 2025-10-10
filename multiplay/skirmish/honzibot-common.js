@@ -654,7 +654,7 @@ function minuteDroid(){
 
     enumDroid(me).some(function check_droid(droid, index){
         if(droid.droidType === DROID_CONSTRUCT){
-            if(constructionDroidIndex++ === constructionDroidCount - 1
+            if(constructionDroidIndex++ === constructionDroidCount - 2
               && droid.order === DORDER_BUILD){
                 return;
             }

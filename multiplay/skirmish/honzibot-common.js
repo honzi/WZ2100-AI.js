@@ -214,6 +214,12 @@ function defend(victim, attacker){
           attacker,
           true
         );
+
+    }else if(victim.group === groupScout){
+        orderDroid(
+          victim,
+          DORDER_RTB
+        );
     }
 }
 

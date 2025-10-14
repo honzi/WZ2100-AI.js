@@ -50,7 +50,7 @@ function perMinute(){
     const structures = enumStruct();
     droids.some(function check_droid(droid, index){
         if(index === droids.length - 2
-          && droid.order === DORDER_BUILD){
+          && isBuilding(droid)){
             return;
         }
 

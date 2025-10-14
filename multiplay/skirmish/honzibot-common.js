@@ -429,7 +429,7 @@ function eventResearched(research, structure, player){
 }
 
 function handleCollector(droid){
-    if(droid.order === DORDER_BUILD){
+    if(isBuilding(droid)){
         return true;
     }
 
@@ -524,8 +524,7 @@ function handleDroids(droids){
             return;
         }
 
-        if(droid.order === DORDER_BUILD
-          || droid.order === DORDER_HELPBUILD){
+        if(isBuilding(droid)){
             return;
         }
 
@@ -612,6 +611,11 @@ function init(){
     );
 }
 
+function isBuilding(droid){
+    return droid.order === DORDER_BUILD
+      || droid.order === DORDER_HELPBUILD;
+}
+
 function locationClamp(x, y){
     return {
       'x': Math.max(
@@ -662,7 +666,7 @@ function minuteDroid(){
     enumDroid(me).some(function check_droid(droid, index){
         if(droid.droidType === DROID_CONSTRUCT){
             if(constructionDroidIndex++ === constructionDroidCount - 2
-              && (droid.order === DORDER_BUILD || droid.order === DORDER_HELPBUILD)){
+              && isBuilding(droid)){
                 return;
             }
 

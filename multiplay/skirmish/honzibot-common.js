@@ -502,26 +502,22 @@ function handleDroids(droids){
     }
 
     droids.some(function check_droid(droid, index){
-        const isProjectManager = index === droids.length - 1;
-
-        if(!isProjectManager
-          && (index === droids.length - 2 || derricks < (generators - 2) * 4)){
+        if(index <= droids.length / 2 - 1){
             if(handleCollector(droid)){
                 return;
             }
-        }
 
-        if(damagedStructure !== false
-          && index <= droids.length / 2 - 1){
-            if(droid.order !== DORDER_REPAIR){
-                orderDroidObj(
-                  droid,
-                  DORDER_REPAIR,
-                  damagedStructure
-                );
+            if(damagedStructure !== false){
+                if(droid.order !== DORDER_REPAIR){
+                    orderDroidObj(
+                      droid,
+                      DORDER_REPAIR,
+                      damagedStructure
+                    );
+                }
+
+                return;
             }
-
-            return;
         }
 
         if(isBuilding(droid)){
@@ -538,11 +534,8 @@ function handleDroids(droids){
             return;
         }
 
-        if(!isProjectManager){
-            return;
-        }
-
-        if(checkAllModules(droid)){
+        if(index !== droids.length - 1
+          || checkAllModules(droid)){
             return;
         }
 
@@ -665,7 +658,7 @@ function minuteDroid(){
 
     enumDroid(me).some(function check_droid(droid, index){
         if(droid.droidType === DROID_CONSTRUCT){
-            if(constructionDroidIndex++ === constructionDroidCount - 2
+            if(constructionDroidIndex++ <= constructionDroidCount / 2 - 1
               && isBuilding(droid)){
                 return;
             }

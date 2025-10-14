@@ -80,13 +80,12 @@ function perSecond(){
 maxPowerReserve = maxPowerResearchAll;
 const researchOrder = [
   'R-Sys-Engineering01',
-  'R-Vehicle-Engine01',
   'R-Sys-Sensor-Turret01',
+  'R-Vehicle-Engine01',
   'R-Defense-HardcreteWall',
-  'R-Defense-WallUpgrade01',
   'R-Sys-Sensor-Tower01',
   'R-Struc-PowerModuleMk1',
-  'R-Vehicle-Prop-Halftracks',
+  'R-Defense-WallUpgrade01',
   'R-Wpn-Rocket05-MiniPod',
   'R-Struc-CommandRelay',
   'R-Defense-WallUpgrade02',

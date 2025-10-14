@@ -267,15 +267,6 @@ function enumStructByType(player, types){
     return structures;
 }
 
-function eventPickup(feature, droid){
-    if(droid.player === me){
-        orderDroid(
-          droid,
-          DORDER_RTB
-        );
-    }
-}
-
 function eventResearched(research, structure, player){
     if(me !== player){
         return;

@@ -347,7 +347,6 @@ function eventResearched(research, structure, player){
       'R-Wpn-HvyLaser': 'HeavyLaser',
       'R-Wpn-Laser01': 'Laser3BEAMMk1',
       'R-Wpn-Laser02': 'Laser2PULSEMk1',
-      'R-Wpn-MG1Mk1': 'MG1Mk1',
       'R-Wpn-MG2Mk1': 'MG2Mk1',
       'R-Wpn-MG3Mk1': 'MG3Mk1',
       'R-Wpn-MG4': 'MG4ROTARYMk1',
@@ -374,16 +373,13 @@ function eventResearched(research, structure, player){
     };
     if(droidWeaponResearch[research.name]){
         if(research.name === 'R-Wpn-MG5'){
-            removeTech(['MG1Mk1', 'MG2Mk1', 'MG3Mk1', 'MG4ROTARYMk1'], droidWeapons);
+            removeTech(['MG2Mk1', 'MG3Mk1', 'MG4ROTARYMk1'], droidWeapons);
 
         }else if(research.name === 'R-Wpn-MG4'){
-            removeTech(['MG1Mk1', 'MG2Mk1', 'MG3Mk1'], droidWeapons);
+            removeTech(['MG2Mk1', 'MG3Mk1'], droidWeapons);
 
         }else if(research.name === 'R-Wpn-MG3Mk1'){
-            removeTech(['MG1Mk1', 'MG2Mk1'], droidWeapons);
-
-        }else if(research.name === 'R-Wpn-MG2Mk1'){
-            removeTech(['MG1Mk1'], droidWeapons);
+            removeTech(['MG2Mk1'], droidWeapons);
 
         }else if(research.name === 'R-Wpn-Cannon3Mk1'){
             removeTech(['Cannon1Mk1', 'Cannon2A-TMk1'], droidWeapons);

@@ -43,11 +43,9 @@ function attackEnemies(){
         return;
     }
 
-    let attacking = false;
-    playerData.forEach(function(player, id){
-        if(attacking
-          || allianceExistsBetween(me, id)){
-            return;
+    for(let id = 0; id < playerData.length; id++){
+        if(allianceExistsBetween(me, id)){
+            continue;
         }
 
         if(groupSize(groupAttack) >= minAttackStructures){
@@ -74,7 +72,6 @@ function attackEnemies(){
                   structures[structures.length - 1],
                   true
                 );
-                attacking = true;
                 return;
             }
 
@@ -92,7 +89,6 @@ function attackEnemies(){
                   others[others.length - 1],
                   true
                 );
-                attacking = true;
                 return;
             }
         }
@@ -104,10 +100,9 @@ function attackEnemies(){
               droids[droids.length - 1],
               true
             );
-            attacking = true;
             return;
         }
-    });
+    };
 }
 
 function buildStructure(droid, structure, maxBlockingTiles, offset, x, y){

@@ -1,13 +1,7 @@
 'use strict';
 
-function attack(group, target, override){
+function attack(group, target){
     enumGroup(group).some(function check_droid(droid){
-        if(!override
-          && droid.order !== 0
-          && droid.order !== 25){
-            return;
-        }
-
         if(target.type === DROID){
             if(target.isVTOL){
                 if(!droid.canHitAir){
@@ -69,8 +63,7 @@ function attackEnemies(){
             if(structures.length > 0){
                 attack(
                   groupAttack,
-                  structures[structures.length - 1],
-                  true
+                  structures[structures.length - 1]
                 );
                 return;
             }
@@ -86,8 +79,7 @@ function attackEnemies(){
             if(others.length > 0){
                 attack(
                   groupAttack,
-                  others[others.length - 1],
-                  true
+                  others[others.length - 1]
                 );
                 return;
             }
@@ -97,8 +89,7 @@ function attackEnemies(){
         if(droids.length > 0){
             attack(
               groupAttack,
-              droids[droids.length - 1],
-              true
+              droids[droids.length - 1]
             );
             return;
         }
@@ -195,19 +186,11 @@ function defend(victim, attacker){
         return;
     }
 
-    if(victim.group === groupAttack){
-        attack(
-          groupAttack,
-          attacker,
-          false
-        );
-
-    }else if(victim.type === STRUCTURE
+    if(victim.type === STRUCTURE
       || (victim.group === groupDefend && groupSize(groupDefend) > maxDefend / 2)){
         attack(
           groupDefend,
-          attacker,
-          true
+          attacker
         );
 
     }else if(victim.group === groupScout){

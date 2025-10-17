@@ -717,16 +717,14 @@ function randomConstructionDroids(droids){
 }
 
 function randomCyborgs(cyborgFactory){
-    if(!(productionBegin
-      || playerPower(me) > maxPowerReserve
-      || groupSize(groupDefend) < maxDefend)){
+    if(!(productionBegin || playerPower(me) > maxPowerReserve || groupSize(groupDefend) < maxDefend)
+      || cyborgWeapons.length === 0){
         return;
     }
 
     enumStruct(me, 'A0CyborgFactory').some(function check_cyborgFactory(cyborgFactory){
         if(cyborgFactory.status !== BUILT
-          || !structureIdle(cyborgFactory)
-          || cyborgWeapons.length === 0){
+          || !structureIdle(cyborgFactory)){
             return;
         }
 
@@ -763,16 +761,14 @@ function randomResearch(researchFacility){
 }
 
 function randomWeaponDroids(){
-    if(!(productionBegin
-      || playerPower(me) > maxPowerReserve
-      || groupSize(groupDefend) < maxDefend)){
+    if(!(productionBegin || playerPower(me) > maxPowerReserve || groupSize(groupDefend) < maxDefend)
+      || droidWeapons.length === 0){
         return;
     }
 
     enumStruct(me, 'A0LightFactory').some(function check_factory(factory){
         if(factory.status !== BUILT
-          || !structureIdle(factory)
-          || droidWeapons.length === 0){
+          || !structureIdle(factory)){
             return;
         }
 

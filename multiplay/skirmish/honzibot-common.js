@@ -125,47 +125,6 @@ function buildStructure(droid, structure, maxBlockingTiles, offset, x, y){
     }
 }
 
-function checkAllModules(droid){
-    const powerModuleNeeded = checkNeedModule('A0PowerGenerator', 'A0PowMod1', 1);
-    if(powerModuleNeeded !== false){
-        buildStructure(
-          droid,
-          'A0PowMod1',
-          -1,
-          0,
-          powerModuleNeeded.x,
-          powerModuleNeeded.y
-        );
-        return true;
-    }
-    const factoryModuleNeeded = checkNeedModule('A0LightFactory', 'A0FacMod1', 2);
-    if(factoryModuleNeeded !== false){
-        buildStructure(
-          droid,
-          'A0FacMod1',
-          -1,
-          0,
-          factoryModuleNeeded.x,
-          factoryModuleNeeded.y
-        );
-        return true;
-    }
-    const researchModuleNeeded = checkNeedModule('A0ResearchFacility', 'A0ResearchModule1', 1);
-    if(researchModuleNeeded !== false){
-        buildStructure(
-          droid,
-          'A0ResearchModule1',
-          -1,
-          0,
-          researchModuleNeeded.x,
-          researchModuleNeeded.y
-        );
-        return true;
-    }
-
-    return false;
-}
-
 function checkNeedModule(structure, module, count){
     if(!isStructureAvailable(module, me)){
         return false;
@@ -514,12 +473,9 @@ function handleDroids(droids){
             return;
         }
 
-        if(index !== droids.length - 1
-          || checkAllModules(droid)){
-            return;
+        if(index === droids.length - 1){
+            droidConstruct(droid);
         }
-
-        droidConstruct(droid);
     });
 }
 

@@ -5,12 +5,21 @@ function droidConstruct(droid){
     const countPowerGenerator = countStruct('A0PowerGenerator', me);
     const countLightFactory = countStruct('A0LightFactory', me);
     const countResearchFacility = countStruct('A0ResearchFacility', me);
+    const needPowerModule = checkNeedModule('A0PowerGenerator', 'A0PowMod1', 1);
+    const needFactoryModule = checkNeedModule('A0LightFactory', 'A0FacMod1', 2);
+    const needResearchModule = checkNeedModule('A0ResearchFacility', 'A0ResearchModule1', 1);
 
     if(countStruct('A0ResourceExtractor', me) === 0){
         buildStructure(droid, 'A0ResourceExtractor', -1);
 
     }else if(countPowerGenerator === 0){
         buildStructure(droid, 'A0PowerGenerator', 1);
+
+    }else if(needPowerModule !== false){
+        buildStructure(droid, 'A0PowMod1', -1, 0,
+          needPowerModule.x,
+          needPowerModule.y
+        );
 
     }else if(countLightFactory === 0){
         buildStructure(droid, 'A0LightFactory', 1);
@@ -24,15 +33,27 @@ function droidConstruct(droid){
     }else if(countLightFactory < maxFactories){
         buildStructure(droid, 'A0LightFactory', 1);
 
-    }else if(countResearchFacility < maxResearchFacilities){
-        buildStructure(droid, 'A0ResearchFacility', 1);
-
     }else if(countStruct('A0CommandCentre', me) === 0){
         buildStructure(droid, 'A0CommandCentre', 1);
+
+    }else if(countResearchFacility < maxResearchFacilities){
+        buildStructure(droid, 'A0ResearchFacility', 1);
 
     }else if(isStructureAvailable('A0Sat-linkCentre', me)
       && countStruct('A0Sat-linkCentre', me) === 0){
         buildStructure(droid, 'A0Sat-linkCentre', 1);
+
+    }else if(needResearchModule !== false){
+        buildStructure(droid, 'A0ResearchModule1', -1, 0,
+          needResearchModule.x,
+          needResearchModule.y
+        );
+
+    }else if(needFactoryModule !== false){
+        buildStructure(droid, 'A0FacMod1', -1, 0,
+          needFactoryModule.x,
+          needFactoryModule.y
+        );
 
     }else if(isStructureAvailable('X-Super-Missile', me)){
         buildStructure(

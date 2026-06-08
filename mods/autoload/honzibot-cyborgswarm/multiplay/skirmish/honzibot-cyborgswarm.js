@@ -25,14 +25,14 @@ function droidConstruct(droid){
       && countStruct('A0CyborgFactory', me) < maxCyborgFactories){
         buildStructure(droid, 'A0CyborgFactory', 1);
 
+    }else if(countLightFactory < maxFactories){
+        buildStructure(droid, 'A0LightFactory', 1);
+
     }else if(countResearchFacility < maxResearchFacilities){
         buildStructure(droid, 'A0ResearchFacility', 1);
 
     }else if(countStruct('A0CommandCentre', me) === 0){
         buildStructure(droid, 'A0CommandCentre', 1);
-
-    }else if(countLightFactory < maxFactories){
-        buildStructure(droid, 'A0LightFactory', 1);
 
     }else if(isStructureAvailable('A0Sat-linkCentre', me)
       && countStruct('A0Sat-linkCentre', me) === 0){

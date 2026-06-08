@@ -21,8 +21,7 @@ function droidConstruct(droid){
     }else if(countPowerGenerator < maxPowerGenerators){
         buildStructure(droid, 'A0PowerGenerator', 1);
 
-    }else if(countLightFactory < maxFactories
-      && (maxFactories - countLightFactory >= maxResearchFacilities - countResearchFacility)){
+    }else if(countLightFactory < maxFactories){
         buildStructure(droid, 'A0LightFactory', 1);
 
     }else if(countResearchFacility < maxResearchFacilities){

@@ -12,20 +12,20 @@ function droidConstruct(droid){
     }else if(countPowerGenerator === 0){
         buildStructure(droid, 'A0PowerGenerator', 1);
 
-    }else if(countResearchFacility === 0){
-        buildStructure(droid, 'A0ResearchFacility', 1);
-
     }else if(countLightFactory === 0){
         buildStructure(droid, 'A0LightFactory', 1);
+
+    }else if(countResearchFacility === 0){
+        buildStructure(droid, 'A0ResearchFacility', 1);
 
     }else if(countPowerGenerator < maxPowerGenerators){
         buildStructure(droid, 'A0PowerGenerator', 1);
 
-    }else if(countResearchFacility < maxResearchFacilities){
-        buildStructure(droid, 'A0ResearchFacility', 1);
-
     }else if(countLightFactory < maxFactories){
         buildStructure(droid, 'A0LightFactory', 1);
+
+    }else if(countResearchFacility < maxResearchFacilities){
+        buildStructure(droid, 'A0ResearchFacility', 1);
 
     }else if(countStruct('A0CommandCentre', me) === 0){
         buildStructure(droid, 'A0CommandCentre', 1);

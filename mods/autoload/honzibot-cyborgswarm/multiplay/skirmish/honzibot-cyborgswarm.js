@@ -77,13 +77,9 @@ function perSecond(){
     handleDroids(droids);
     attackEnemies();
 
-    if(queuedPower(me) !== 0){
-        return;
-    }
-
-    handleResearch('R-Sys-Autorepair-General');
     randomConstructionDroids(droids);
     randomCyborgs();
+    handleResearch('R-Sys-Autorepair-General');
 }
 
 const researchOrder = [

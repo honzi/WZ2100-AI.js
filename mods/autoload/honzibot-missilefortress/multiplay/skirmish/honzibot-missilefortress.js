@@ -91,11 +91,12 @@ function perSecond(){
     const droids = enumDroid(me, DROID_CONSTRUCT);
 
     handleDroids(droids);
+
+    randomConstructionDroids(droids);
     handleResearch(
       'R-Defense-Super-Missile',
       false
     );
-    randomConstructionDroids(droids);
 }
 
 maxPowerReserve = maxPowerResearchAll;

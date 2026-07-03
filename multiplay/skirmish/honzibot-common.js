@@ -481,47 +481,48 @@ function handleDroids(droids){
 
 function handleResearch(target){
     if(enumResearch().length === 0){
-        maxConstructionDroids = 7;
         maxResearchFacilities = 1;
+        return;
 
-    }else{
-        const random = researchRandom || playerPower(me) > maxPowerReserve;
+    }else if(queuedPower(me) !== 0){
+        return;
+    }
 
-        enumStruct(me, 'A0ResearchFacility').some(function check_researchFacility(researchFacility){
-            if(researchFacility.status !== BUILT
-              || !structureIdle(researchFacility)){
-                return;
-            }
+    const random = researchRandom || playerPower(me) > maxPowerReserve;
+    enumStruct(me, 'A0ResearchFacility').some(function check_researchFacility(researchFacility){
+        if(researchFacility.status !== BUILT
+          || !structureIdle(researchFacility)){
+            return;
+        }
 
-            if(random){
-                if(playerPower(me) > maxPowerResearchAll){
-                    randomResearch(researchFacility);
-
-                }else{
-                    randomAvailableResearch(
-                      researchFacility,
-                      enumResearch().filter(function(value){
-                          return !researchExcluded.includes(value.name);
-                      })
-                    );
-                }
+        if(random){
+            if(playerPower(me) > maxPowerResearchAll){
+                randomResearch(researchFacility);
 
             }else{
-                const targetResearch = getResearch(target);
-
-                if(targetResearch.done
-                  || targetResearch.started){
-                    productionBegin = true;
-                    researchRandom = true;
-                }
-
-                pursueResearch(
+                randomAvailableResearch(
                   researchFacility,
-                  researchOrder
+                  enumResearch().filter(function(value){
+                      return !researchExcluded.includes(value.name);
+                  })
                 );
             }
-        });
-    }
+
+        }else{
+            const targetResearch = getResearch(target);
+
+            if(targetResearch.done
+              || targetResearch.started){
+                productionBegin = true;
+                researchRandom = true;
+            }
+
+            pursueResearch(
+              researchFacility,
+              researchOrder
+            );
+        }
+    });
 }
 
 function init(){
@@ -638,7 +639,7 @@ function randomAvailableResearch(researchFacility, availableResearch){
 }
 
 function randomConstructionDroids(droids){
-    if(droids.length >= maxConstructionDroids){
+    if(droids.length >= maxPowerGenerators + 2){
         return false;
     }
 
@@ -673,7 +674,8 @@ function randomConstructionDroids(droids){
 }
 
 function randomCyborgs(cyborgFactory){
-    if(!(productionBegin || playerPower(me) > maxPowerReserve || groupSize(groupDefend) < maxDefend)
+    if(queuedPower(me) !== 0
+      || !(productionBegin || playerPower(me) > maxPowerReserve || groupSize(groupDefend) < maxDefend)
       || cyborgWeapons.length === 0){
         return;
     }
@@ -717,7 +719,8 @@ function randomResearch(researchFacility){
 }
 
 function randomWeaponDroids(){
-    if(!(productionBegin || playerPower(me) > maxPowerReserve || groupSize(groupDefend) < maxDefend)
+    if(queuedPower(me) !== 0
+      || !(productionBegin || playerPower(me) > maxPowerReserve || groupSize(groupDefend) < maxDefend)
       || droidWeapons.length === 0){
         return;
     }
@@ -766,7 +769,6 @@ const groupAttack = newGroup();
 const groupDefend = newGroup();
 const groupScout = newGroup();
 const propulsion = ['wheeled01'];
-let maxConstructionDroids = 4;
 let maxCyborgFactories = 5;
 let maxDefend = 25;
 let maxFactories = 5;

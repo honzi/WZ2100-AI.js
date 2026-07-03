@@ -496,16 +496,13 @@ function handleResearch(target){
         }
 
         if(random){
-            if(playerPower(me) > maxPowerResearchAll){
+            if(!randomAvailableResearch(
+                researchFacility,
+                enumResearch().filter(function(value){
+                    return !researchExcluded.includes(value.name);
+                })
+              )){
                 randomResearch(researchFacility);
-
-            }else{
-                randomAvailableResearch(
-                  researchFacility,
-                  enumResearch().filter(function(value){
-                      return !researchExcluded.includes(value.name);
-                  })
-                );
             }
 
         }else{
@@ -630,12 +627,13 @@ function random(array){
 
 function randomAvailableResearch(researchFacility, availableResearch){
     if(availableResearch.length === 0){
-        return;
+        return false;
     }
     pursueResearch(
       researchFacility,
       random(availableResearch).name
     );
+    return true;
 }
 
 function randomConstructionDroids(droids){
@@ -773,7 +771,6 @@ let maxCyborgFactories = 5;
 let maxDefend = 25;
 let maxFactories = 5;
 let maxPowerGenerators = 1;
-let maxPowerResearchAll = 100000;
 let maxPowerReserve = 1000;
 let maxResearchFacilities = 5;
 let maxScout = 1;

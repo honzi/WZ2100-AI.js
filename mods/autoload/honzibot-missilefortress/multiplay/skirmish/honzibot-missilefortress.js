@@ -99,7 +99,7 @@ function perSecond(){
     );
 }
 
-maxPowerReserve = maxPowerResearchAll;
+maxPowerReserve = 100000;
 const researchOrder = [
   'R-Sys-Engineering01',
   'R-Sys-Sensor-Turret01',

@@ -274,8 +274,6 @@ function eventResearched(research, structure, player){
       'R-Wpn-Cannon5': 'Cannon5VulcanMk1',
       'R-Wpn-Cannon6TwinAslt': 'Cannon6TwinAslt',
       'R-Wpn-EMPCannon': 'EMP-Cannon',
-      'R-Wpn-Flame2': 'Flame2',
-      'R-Wpn-Flamer01Mk1': 'Flame1Mk1',
       'R-Wpn-Howitzer-Incendiary': 'Howitzer-Incendiary',
       'R-Wpn-Howitzer03-Rot': 'Howitzer03-Rot',
       'R-Wpn-HowitzerMk1': 'Howitzer105Mk1',
@@ -496,14 +494,7 @@ function handleResearch(target){
         }
 
         if(random){
-            if(!randomAvailableResearch(
-                researchFacility,
-                enumResearch().filter(function(value){
-                    return !researchExcluded.includes(value.name);
-                })
-              )){
-                randomResearch(researchFacility);
-            }
+            randomAvailableResearch(researchFacility);
 
         }else{
             const targetResearch = getResearch(target);
@@ -523,6 +514,123 @@ function handleResearch(target){
 }
 
 function init(){
+    researchSet = new Set([
+      'R-Comp-CommandTurret01',
+      'R-Comp-CommandTurret02',
+      'R-Defense-HardcreteWall',
+      'R-Defense-WallUpgrade01',
+      'R-Defense-WallUpgrade02',
+      'R-Defense-WallUpgrade03',
+      'R-Defense-WallUpgrade04',
+      'R-Defense-WallUpgrade05',
+      'R-Defense-WallUpgrade06',
+      'R-Defense-WallUpgrade07',
+      'R-Defense-WallUpgrade08',
+      'R-Defense-WallUpgrade09',
+      'R-Defense-WallUpgrade10',
+      'R-Defense-WallUpgrade11',
+      'R-Defense-WallUpgrade12',
+      'R-Struc-CommandRelay',
+      'R-Struc-Factory-Cyborg',
+      'R-Struc-Factory-Module',
+      'R-Struc-Factory-Upgrade01',
+      'R-Struc-Factory-Upgrade04',
+      'R-Struc-Factory-Upgrade07',
+      'R-Struc-Factory-Upgrade09',
+      'R-Struc-Materials01',
+      'R-Struc-Materials02',
+      'R-Struc-Materials03',
+      'R-Struc-Power-Upgrade01',
+      'R-Struc-Power-Upgrade01b',
+      'R-Struc-Power-Upgrade01c',
+      'R-Struc-Power-Upgrade02',
+      'R-Struc-Power-Upgrade03',
+      'R-Struc-Power-Upgrade03a',
+      'R-Struc-PowerModuleMk1',
+      'R-Struc-Research-Module',
+      'R-Struc-Research-Upgrade01',
+      'R-Struc-Research-Upgrade02',
+      'R-Struc-Research-Upgrade03',
+      'R-Struc-Research-Upgrade04',
+      'R-Struc-Research-Upgrade05',
+      'R-Struc-Research-Upgrade06',
+      'R-Struc-Research-Upgrade07',
+      'R-Struc-Research-Upgrade08',
+      'R-Struc-Research-Upgrade09',
+      'R-Struc-VTOLFactory',
+      'R-Struc-VTOLPad',
+      'R-Sys-Autorepair-General',
+      'R-Sys-CBSensor-Turret01',
+      'R-Sys-Engineering01',
+      'R-Sys-Engineering02',
+      'R-Sys-Engineering03',
+      'R-Sys-Resistance-Circuits',
+      'R-Sys-Sensor-Tower01',
+      'R-Sys-Sensor-Tower02',
+      'R-Sys-Sensor-Turret01',
+      'R-Sys-Sensor-Upgrade01',
+      'R-Sys-Sensor-Upgrade02',
+      'R-Sys-Sensor-Upgrade03',
+      'R-Sys-Sensor-UpLink',
+      'R-Sys-Sensor-WS',
+      'R-Sys-SpyTurret',
+      'R-Sys-VTOLCBS-Turret01',
+      'R-Sys-VTOLStrike-Turret01',
+      'R-Vehicle-Armor-Heat01',
+      'R-Vehicle-Armor-Heat02',
+      'R-Vehicle-Armor-Heat03',
+      'R-Vehicle-Armor-Heat04',
+      'R-Vehicle-Armor-Heat05',
+      'R-Vehicle-Armor-Heat06',
+      'R-Vehicle-Armor-Heat07',
+      'R-Vehicle-Armor-Heat08',
+      'R-Vehicle-Armor-Heat09',
+      'R-Vehicle-Body02',
+      'R-Vehicle-Body03',
+      'R-Vehicle-Body04',
+      'R-Vehicle-Body05',
+      'R-Vehicle-Body06',
+      'R-Vehicle-Body07',
+      'R-Vehicle-Body08',
+      'R-Vehicle-Body09',
+      'R-Vehicle-Body10',
+      'R-Vehicle-Body11',
+      'R-Vehicle-Body12',
+      'R-Vehicle-Body13',
+      'R-Vehicle-Body14',
+      'R-Vehicle-Engine01',
+      'R-Vehicle-Engine02',
+      'R-Vehicle-Engine03',
+      'R-Vehicle-Engine04',
+      'R-Vehicle-Engine05',
+      'R-Vehicle-Engine06',
+      'R-Vehicle-Engine07',
+      'R-Vehicle-Engine08',
+      'R-Vehicle-Engine09',
+      'R-Vehicle-Metals01',
+      'R-Vehicle-Metals02',
+      'R-Vehicle-Metals03',
+      'R-Vehicle-Metals04',
+      'R-Vehicle-Metals05',
+      'R-Vehicle-Metals06',
+      'R-Vehicle-Metals07',
+      'R-Vehicle-Metals08',
+      'R-Vehicle-Metals09',
+      'R-Vehicle-Prop-Halftracks',
+      'R-Vehicle-Prop-Hover',
+      'R-Vehicle-Prop-Tracks',
+      'R-Vehicle-Prop-VTOL',
+      'R-Wpn-Cannon-Damage01',
+      'R-Wpn-Cannon1Mk1',
+      'R-Wpn-LasSat',
+      'R-Wpn-MG-Damage01',
+      'R-Wpn-MG1Mk1',
+      'R-Wpn-Mortar-Acc01',
+      'R-Wpn-Mortar-Damage01',
+      'R-Wpn-Mortar01Lt',
+      ...researchList(),
+    ]);
+
     maxCyborgFactories = getStructureLimit('A0CyborgFactory', me);
     maxFactories = getStructureLimit('A0LightFactory', me);
     maxResearchFacilities = getStructureLimit('A0ResearchFacility', me);
@@ -625,7 +733,9 @@ function random(array){
     return array[Math.floor(Math.random() * array.length)];
 }
 
-function randomAvailableResearch(researchFacility, availableResearch){
+function randomAvailableResearch(researchFacility){
+    const availableResearch = enumResearch().filter(research => researchSet.has(research.name));
+
     if(availableResearch.length === 0){
         return false;
     }
@@ -709,13 +819,6 @@ function randomLocation(group, order){
     });
 }
 
-function randomResearch(researchFacility){
-    pursueResearch(
-      researchFacility,
-      random(enumResearch()).name
-    );
-}
-
 function randomWeaponDroids(){
     if(queuedPower(me) !== 0
       || !(productionBegin || playerPower(me) > maxPowerReserve || groupSize(groupDefend) < maxDefend)
@@ -779,6 +882,7 @@ let minAttackStructures = 40;
 let productionBegin = false;
 let propulsionHover = false;
 let researchRandom = false;
+let researchSet;
 
 globalThis.eventGameLoaded = init;
 globalThis.eventStartLevel = init;

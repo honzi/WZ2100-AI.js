@@ -99,6 +99,33 @@ function perSecond(){
     );
 }
 
+function researchList(){
+    return [
+      'R-Defense-Super-Missile',
+      'R-Wpn-Missile-Accuracy01',
+      'R-Wpn-Missile-Accuracy02',
+      'R-Wpn-Missile-Damage01',
+      'R-Wpn-Missile-Damage02',
+      'R-Wpn-Missile-Damage03',
+      'R-Wpn-Missile-ROF01',
+      'R-Wpn-Missile-ROF02',
+      'R-Wpn-Missile-ROF03',
+      'R-Wpn-Missile2A-T',
+      'R-Wpn-Rocket-Accuracy01',
+      'R-Wpn-Rocket-Accuracy02',
+      'R-Wpn-Rocket-Damage01',
+      'R-Wpn-Rocket-Damage02',
+      'R-Wpn-Rocket-Damage03',
+      'R-Wpn-Rocket-Damage04',
+      'R-Wpn-Rocket-Damage05',
+      'R-Wpn-Rocket01-LtAT',
+      'R-Wpn-Rocket05-MiniPod',
+      'R-Wpn-Rocket07-Tank-Killer',
+      'R-Wpn-RocketSlow-Accuracy01',
+      'R-Wpn-RocketSlow-Accuracy02',
+    ];
+}
+
 maxPowerReserve = 100000;
 const researchOrder = [
   'R-Sys-Engineering01',
@@ -158,51 +185,6 @@ const researchOrder = [
   'R-Wpn-Missile-ROF03',
   'R-Defense-WallUpgrade10',
   'R-Defense-Super-Missile',
-];
-const researchExcluded = [
-  'R-Cyborg-Metals01',
-  'R-Cyborg-Transport',
-  'R-Defense-GuardTower-ATMiss',
-  'R-Defense-HardcreteGate',
-  'R-Defense-HvyA-Trocket',
-  'R-Defense-Pillbox04',
-  'R-Defense-Pillbox06',
-  'R-Defense-Super-Rocket',
-  'R-Defense-TankTrap01',
-  'R-Defense-Tower01',
-  'R-Defense-Tower06',
-  'R-Defense-WallTower-A-Tmiss',
-  'R-Defense-WallTower-HvyA-Trocket',
-  'R-Struc-RepairFacility',
-  'R-Struc-VTOLPad',
-  'R-SuperTransport',
-  'R-Sys-MobileRepairTurret01',
-  'R-Sys-MobileRepairTurretHvy',
-  'R-Sys-RadarDetector01',
-  'R-Sys-Sensor-Tower02',
-  'R-Sys-SpyTower',
-  'R-Wpn-AAGun02',
-  'R-Wpn-Bomb01',
-  'R-Wpn-Bomb02',
-  'R-Wpn-Bomb03',
-  'R-Wpn-Bomb04',
-  'R-Wpn-Bomb05',
-  'R-Wpn-Bomb06',
-  'R-Wpn-Cannon1Mk1',
-  'R-Wpn-EMPCannon',
-  'R-Wpn-Flamer01Mk1',
-  'R-Wpn-Laser01',
-  'R-Wpn-MG-Damage01',
-  'R-Wpn-MG1Mk1',
-  'R-Wpn-MdArtMissile',
-  'R-Wpn-Missile-LtSAM',
-  'R-Wpn-Mortar01Lt',
-  'R-Wpn-MortarEMP',
-  'R-Wpn-Rocket-Damage07',
-  'R-Wpn-Rocket02-MRL',
-  'R-Wpn-Rocket03-HvAT',
-  'R-Wpn-Rocket07-Tank-Killer',
-  'R-Wpn-Sunburst',
 ];
 
 globalThis.eventStructureBuilt = perMinute;

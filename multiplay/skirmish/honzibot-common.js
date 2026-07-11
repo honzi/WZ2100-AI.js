@@ -199,10 +199,10 @@ function droidBuilt(droid, structure){
 function enumStructByType(player, types){
     const structures = [];
 
-    for(const type in types){
+    for(const type of types){
         structures.push(...enumStruct(
           player,
-          types[type],
+          type,
           me
         ));
     }
@@ -366,10 +366,6 @@ function eventResearched(research, structure, player){
 }
 
 function handleCollector(droid){
-    if(isBuilding(droid)){
-        return true;
-    }
-
     const features = enumFeature(me);
     for(let i = features.length - 1; i >= 0; i--){
         if(features[i].stattype === OIL_RESOURCE){
@@ -414,32 +410,41 @@ function handleCollector(droid){
 }
 
 function handleDroids(droids){
-    const structures = enumStruct(me);
     let damagedHealth = 100;
     let damagedStructure = false;
-    let derricks = 0;
-    let generators = 0;
     let unfinishedStructure = false;
-    for(const structure in structures){
-        if(structures[structure].status !== BUILT){
-            unfinishedStructure = structures[structure];
+    let unfinishedDerrick = false;
 
-        }else if(structures[structure].health < damagedHealth){
-            damagedHealth = structures[structure].health;
-            damagedStructure = structures[structure];
-        }
+    const structures = enumStruct(me);
+    for(const structure of structures){
+        if(structure.status !== BUILT){
+            unfinishedStructure = structure;
+            if(structure.stattype === RESOURCE_EXTRACTOR){
+                unfinishedDerrick = structure;
+            }
 
-        const stattype = structures[structure].stattype;
-        if(stattype === RESOURCE_EXTRACTOR){
-            derricks++;
-
-        }else if(stattype === POWER_GEN){
-            generators++;
+        }else if(structure.health < damagedHealth){
+            damagedHealth = structure.health;
+            damagedStructure = structure;
         }
     }
 
     droids.some(function check_droid(droid, index){
+        if(isBuilding(droid)){
+            return;
+        }
+
         if(index <= droids.length / 2 - 1){
+            if(unfinishedDerrick !== false){
+                orderDroidObj(
+                  droid,
+                  DORDER_HELPBUILD,
+                  unfinishedDerrick
+                );
+
+                return;
+            }
+
             if(handleCollector(droid)){
                 return;
             }
@@ -455,10 +460,6 @@ function handleDroids(droids){
 
                 return;
             }
-        }
-
-        if(isBuilding(droid)){
-            return;
         }
 
         if(unfinishedStructure !== false){
@@ -684,10 +685,10 @@ function minuteDroid(){
         );
     }
 
-    const structures = enumStruct(me);
     let derricks = 0;
-    for(const structure in structures){
-        if(structures[structure].stattype === RESOURCE_EXTRACTOR){
+    const structures = enumStruct(me);
+    for(const structure of structures){
+        if(structure.stattype === RESOURCE_EXTRACTOR){
             derricks++;
         }
     }
@@ -854,8 +855,8 @@ function randomWeaponDroids(){
 }
 
 function removeTech(tech, from){
-    for(const id in tech){
-        const index = from.indexOf(tech[id]);
+    for(const id of tech){
+        const index = from.indexOf(id);
         if(index > -1){
             from.splice(index, 1);
         }

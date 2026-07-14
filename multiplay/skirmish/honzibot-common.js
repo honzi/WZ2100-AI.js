@@ -359,6 +359,9 @@ function eventResearched(research, structure, player){
     if(cyborgWeaponResearch[research.name]){
         if(research.name === 'R-Wpn-Flame2'){
             removeTech(['CyborgFlamer01'], cyborgWeapons);
+
+        }else if(research.name === 'R-Wpn-MG4'){
+            removeTech(['CyborgChaingun'], cyborgWeapons);
         }
 
         cyborgWeapons.push(cyborgWeaponResearch[research.name]);

@@ -65,7 +65,10 @@ function droidConstruct(droid){
 }
 
 function perMinute(){
-    maxPowerGenerators = 1 + Math.ceil(enumStruct(me, RESOURCE_EXTRACTOR).length / 4);
+    maxPowerGenerators = Math.min(
+      1 + Math.ceil(enumStruct(me, RESOURCE_EXTRACTOR).length / 4),
+      getStructureLimit('A0PowerGenerator', me)
+    );
 
     const droids = enumDroid(me);
     const structures = enumStruct();
@@ -101,28 +104,11 @@ function perSecond(){
 
 function researchList(){
     return [
-      'R-Defense-Super-Missile',
       'R-Wpn-Missile-Accuracy01',
       'R-Wpn-Missile-Accuracy02',
       'R-Wpn-Missile-Damage01',
       'R-Wpn-Missile-Damage02',
       'R-Wpn-Missile-Damage03',
-      'R-Wpn-Missile-ROF01',
-      'R-Wpn-Missile-ROF02',
-      'R-Wpn-Missile-ROF03',
-      'R-Wpn-Missile2A-T',
-      'R-Wpn-Rocket-Accuracy01',
-      'R-Wpn-Rocket-Accuracy02',
-      'R-Wpn-Rocket-Damage01',
-      'R-Wpn-Rocket-Damage02',
-      'R-Wpn-Rocket-Damage03',
-      'R-Wpn-Rocket-Damage04',
-      'R-Wpn-Rocket-Damage05',
-      'R-Wpn-Rocket01-LtAT',
-      'R-Wpn-Rocket05-MiniPod',
-      'R-Wpn-Rocket07-Tank-Killer',
-      'R-Wpn-RocketSlow-Accuracy01',
-      'R-Wpn-RocketSlow-Accuracy02',
     ];
 }
 

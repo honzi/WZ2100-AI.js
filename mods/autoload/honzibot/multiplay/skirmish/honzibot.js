@@ -92,6 +92,8 @@ function researchList(){
       'R-Defense-WallTower-PulseLas',
       'R-Defense-WallTower-TwinAGun',
       'R-Defense-WallTower01',
+      'R-Vehicle-Prop-Halftracks',
+      'R-Vehicle-Prop-Tracks',
       'R-Wpn-Cannon-Accuracy01',
       'R-Wpn-Cannon-Accuracy02',
       'R-Wpn-Cannon-Damage02',

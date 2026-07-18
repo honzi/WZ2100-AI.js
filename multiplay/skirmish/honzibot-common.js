@@ -335,7 +335,7 @@ function eventResearched(research, structure, player){
             removeTech(['RailGun1Mk1'], droidWeapons);
 
         }else if(research.name === 'R-Wpn-Plasmite-Flamer'){
-            removeTech(['Flame1Mk1, Flame2'], droidWeapons);
+            removeTech(['Flame1Mk1', 'Flame2'], droidWeapons);
 
         }else if(research.name === 'R-Wpn-Flame2'){
             removeTech(['Flame1Mk1'], droidWeapons);
@@ -391,15 +391,8 @@ function handleCollector(droid){
     for(let i = features.length - 1; i >= 0; i--){
         const stattype = features[i].stattype;
 
-        if(stattype === ARTIFACT){
-            orderDroidObj(
-              droid,
-              DORDER_RECOVER,
-              features[i]
-            );
-            return true;
-
-        }else if(stattype === OIL_DRUM){
+        if(stattype === ARTIFACT
+          || stattype === OIL_DRUM){
             orderDroidObj(
               droid,
               DORDER_RECOVER,

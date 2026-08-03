@@ -617,7 +617,7 @@ function init(){
       'R-Vehicle-Prop-VTOL',
       'R-Wpn-Cannon-Damage01',
       'R-Wpn-Cannon1Mk1',
-      'R-Wpn-LasSat',
+      //'R-Wpn-LasSat',
       'R-Wpn-MG-Damage01',
       'R-Wpn-MG1Mk1',
       'R-Wpn-Mortar-Acc01',

@@ -353,6 +353,13 @@ function eventResearched(research, structure, player){
     }
 
     const cyborgWeaponResearch = {
+      'R-Cyborg-Hvywpn-A-T': 'Cyb-Hvywpn-A-T',
+      'R-Cyborg-Hvywpn-Acannon': 'Cyb-Hvywpn-Acannon',
+      'R-Cyborg-Hvywpn-HPV': 'Cyb-Hvywpn-HPV',
+      'R-Cyborg-Hvywpn-Mcannon': 'Cyb-Hvywpn-Mcannon',
+      'R-Cyborg-Hvywpn-PulseLsr': 'Cyb-Hvywpn-PulseLsr',
+      'R-Cyborg-Hvywpn-RailGunner': 'Cyb-Hvywpn-RailGunner',
+      'R-Cyborg-Hvywpn-TK': 'Cyb-Hvywpn-TK',
       'R-Wpn-Cannon1Mk1': 'CyborgCannon',
       'R-Wpn-Flame2': 'Cyb-Wpn-Thermite',
       'R-Wpn-Flamer01Mk1': 'CyborgFlamer01',
@@ -792,9 +799,11 @@ function randomCyborgs(){
             return;
         }
 
-        const cyborgBody = 'CyborgLightBody';
-        const cyborgPropulsion = 'CyborgLegs';
         const cyborgWeapon = random(cyborgWeapons);
+        const cyborgBody = cyborgWeapon.startsWith('Cyb-Hvywpn')
+          ? 'CyborgHeavyBody'
+          : 'CyborgLightBody';
+        const cyborgPropulsion = 'CyborgLegs';
 
         buildDroid(
           cyborgFactory,

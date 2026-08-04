@@ -2,6 +2,14 @@
 
 function attack(group, target){
     enumGroup(group).some(function check_droid(droid){
+        if(droid.health < 40){
+            orderDroid(
+              droid,
+              DORDER_RTB
+            );
+            return;
+        }
+
         if(target.type === DROID){
             if(target.isVTOL){
                 if(!droid.canHitAir){

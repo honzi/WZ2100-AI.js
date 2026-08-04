@@ -772,7 +772,7 @@ function randomConstructionDroids(droids){
     return true;
 }
 
-function randomCyborgs(cyborgFactory){
+function randomCyborgs(){
     if(queuedPower(me) !== 0
       || !(productionBegin || playerPower(me) > maxPowerReserve || groupSize(groupDefend) < maxDefend)
       || cyborgWeapons.length === 0){

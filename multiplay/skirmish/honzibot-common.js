@@ -2,14 +2,6 @@
 
 function attack(group, target){
     enumGroup(group).some(function check_droid(droid){
-        if(droid.health < 40){
-            orderDroid(
-              droid,
-              DORDER_RTB
-            );
-            return;
-        }
-
         if(target.type === DROID){
             if(target.isVTOL){
                 if(!droid.canHitAir){
@@ -41,7 +33,34 @@ function attack(group, target){
 }
 
 function attackEnemies(){
-    if(groupSize(groupAttack) < minAttack){
+    if(groupSize(groupDefend) > maxDefend + minAttack){
+        for(let i = 0; i <= minAttack; i++){
+            groupAdd(
+              groupAttack,
+              random(enumGroup(groupDefend))
+            );
+        }
+        enumGroup(groupRetreat).some(function check_droid(droid){
+            groupAdd(
+              groupDefend,
+              droid
+            );
+        });
+    }
+    const groupAttackSize = groupSize(groupAttack);
+    if(groupAttackSize < minAttack){
+        if(groupAttackSize > 0){
+            enumGroup(groupAttack).some(function check_droid(droid){
+                groupAdd(
+                  groupRetreat,
+                  droid
+                );
+                orderDroid(
+                  droid,
+                  DORDER_RTB
+                );
+            });
+        }
         return;
     }
 
@@ -50,7 +69,7 @@ function attackEnemies(){
             continue;
         }
 
-        if(groupSize(groupAttack) >= minAttackStructures){
+        if(groupAttackSize >= minAttackStructures){
             const structures = enumStructByType(
               id,
               [
@@ -159,6 +178,19 @@ function defend(victim, attacker){
           groupDefend,
           attacker
         );
+        attack(
+          groupRetreat,
+          attacker
+        );
+
+    }else if(victim.group === groupAttack){
+        if(victim.order !== DORDER_ATTACK
+          && victim.order !== DORDER_SCOUT){
+            attack(
+              groupAttack,
+              attacker
+            );
+        }
 
     }else if(victim.group === groupScout){
         orderDroid(
@@ -171,7 +203,7 @@ function defend(victim, attacker){
 function defendTransfer(gameObject, from){
     if(gameObject.player === me
       && gameObject.type === DROID){
-        groupAddDroid(
+        groupAdd(
           groupDefend,
           gameObject
         );
@@ -184,24 +216,17 @@ function droidBuilt(droid, structure){
     }
 
     if(groupSize(groupScout) < maxScout){
-        groupAddDroid(
+        groupAdd(
           groupScout,
           droid
         );
         return;
     }
 
-    groupAddDroid(
+    groupAdd(
       groupDefend,
       droid
     );
-
-    if(groupSize(groupDefend) > maxDefend){
-        groupAddDroid(
-          groupAttack,
-          random(enumGroup(groupDefend))
-        );
-    }
 }
 
 function enumStructByType(player, types){
@@ -716,6 +741,12 @@ function minuteDroid(){
             }
 
         }else if(droid.group !== groupDefend){
+            if(droid.group === groupRetreat){
+                orderDroid(
+                  droid,
+                  DORDER_RTB
+                );
+            }
             return;
         }
 
@@ -876,6 +907,7 @@ const defenseStructures = [];
 const droidWeapons = [];
 const groupAttack = newGroup();
 const groupDefend = newGroup();
+const groupRetreat = newGroup();
 const groupScout = newGroup();
 const propulsion = ['wheeled01'];
 let maxCyborgFactories = 5;

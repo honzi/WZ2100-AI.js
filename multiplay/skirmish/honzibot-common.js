@@ -756,15 +756,16 @@ function randomConstructionDroids(droids){
         const droidPropulsion = propulsionHover
           ? 'hover01'
           : random(propulsion);
+        const droidWeapon = 'Spade1Mk1';
 
         buildDroid(
           factory,
-          droidBody + '_' + droidPropulsion + '_Spade1Mk1',
+          droidBody + '_' + droidPropulsion + '_' + droidWeapon,
           droidBody,
           droidPropulsion,
           '',
           '',
-          'Spade1Mk1'
+          droidWeapon
         );
     });
 
@@ -784,13 +785,15 @@ function randomCyborgs(cyborgFactory){
             return;
         }
 
+        const cyborgBody = 'CyborgLightBody';
+        const cyborgPropulsion = 'CyborgLegs';
         const cyborgWeapon = random(cyborgWeapons);
 
         buildDroid(
           cyborgFactory,
-          'CyborgLightBody_CyborgLegs_' + cyborgWeapon,
-          'CyborgLightBody',
-          'CyborgLegs',
+          cyborgBody + '_' + cyborgPropulsion + '_' + cyborgWeapon,
+          cyborgBody,
+          cyborgPropulsion,
           '',
           '',
           cyborgWeapon

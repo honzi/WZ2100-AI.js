@@ -475,11 +475,7 @@ function handleDroids(droids){
 }
 
 function handleResearch(target){
-    if(enumResearch().length === 0){
-        maxResearchFacilities = 1;
-        return;
-
-    }else if(queuedPower(me) !== 0){
+    if(queuedPower(me) !== 0){
         return;
     }
 
@@ -736,6 +732,7 @@ function randomAvailableResearch(researchFacility){
     const availableResearch = enumResearch().filter(research => researchSet.has(research.name));
 
     if(availableResearch.length === 0){
+        maxResearchFacilities = 1;
         return false;
     }
     pursueResearch(

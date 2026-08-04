@@ -800,7 +800,7 @@ function randomCyborgs(){
         }
 
         const cyborgWeapon = random(cyborgWeapons);
-        const cyborgBody = cyborgWeapon.startsWith('Cyb-Hvywpn')
+        const cyborgBody = cyborgWeapon[4] === 'H' // Cyb-Hvywpn
           ? 'CyborgHeavyBody'
           : 'CyborgLightBody';
         const cyborgPropulsion = 'CyborgLegs';

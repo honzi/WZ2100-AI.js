@@ -485,8 +485,7 @@ function handleResearch(target){
 
     const random = researchRandom || playerPower(me) > maxPowerReserve;
     enumStruct(me, 'A0ResearchFacility').some(function check_researchFacility(researchFacility){
-        if(researchFacility.status !== BUILT
-          || !structureIdle(researchFacility)){
+        if(isBusy(researchFacility)){
             return;
         }
 
@@ -646,6 +645,11 @@ function isBuilding(droid){
       || droid.order === DORDER_HELPBUILD;
 }
 
+function isBusy(structure){
+    return structure.status !== BUILT
+      || !structureIdle(structure);
+}
+
 function locationClamp(x, y){
     return {
       'x': Math.max(
@@ -747,8 +751,7 @@ function randomConstructionDroids(droids){
     }
 
     enumStruct(me, 'A0LightFactory').some(function check_factory(factory){
-        if(factory.status !== BUILT
-          || !structureIdle(factory)){
+        if(isBusy(factory)){
             return;
         }
 
@@ -780,8 +783,7 @@ function randomCyborgs(cyborgFactory){
     }
 
     enumStruct(me, 'A0CyborgFactory').some(function check_cyborgFactory(cyborgFactory){
-        if(cyborgFactory.status !== BUILT
-          || !structureIdle(cyborgFactory)){
+        if(isBusy(cyborgFactory)){
             return;
         }
 
@@ -820,8 +822,7 @@ function randomWeaponDroids(){
     }
 
     enumStruct(me, 'A0LightFactory').some(function check_factory(factory){
-        if(factory.status !== BUILT
-          || !structureIdle(factory)){
+        if(isBusy(factory)){
             return;
         }
 

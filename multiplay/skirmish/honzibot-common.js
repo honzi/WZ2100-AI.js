@@ -30,6 +30,13 @@ function attack(group, target){
           target.y
         );
     });
+
+    if(countStruct('A0Sat-linkCentre', me) === 1){
+        activateStructure(
+          enumStruct(me, 'A0Sat-linkCentre', me)[0],
+          target
+        );
+    }
 }
 
 function attackEnemies(){
@@ -652,7 +659,7 @@ function init(){
       'R-Vehicle-Prop-VTOL',
       'R-Wpn-Cannon-Damage01',
       'R-Wpn-Cannon1Mk1',
-      //'R-Wpn-LasSat',
+      'R-Wpn-LasSat',
       'R-Wpn-MG-Damage01',
       'R-Wpn-MG1Mk1',
       'R-Wpn-Mortar-Acc01',

@@ -36,12 +36,16 @@ function droidConstruct(droid){
     }else if(countStruct('A0CommandCentre', me) === 0){
         buildStructure(droid, 'A0CommandCentre', 1);
 
-    }else if(countResearchFacility < maxResearchFacilities){
-        buildStructure(droid, 'A0ResearchFacility', 1);
+    }else if(isStructureAvailable('A0LasSatCommand', me)
+      && countStruct('A0LasSatCommand', me) === 0){
+        buildStructure(droid, 'A0LasSatCommand', 1);
 
     }else if(isStructureAvailable('A0Sat-linkCentre', me)
       && countStruct('A0Sat-linkCentre', me) === 0){
         buildStructure(droid, 'A0Sat-linkCentre', 1);
+
+    }else if(countResearchFacility < maxResearchFacilities){
+        buildStructure(droid, 'A0ResearchFacility', 1);
 
     }else if(needResearchModule !== false){
         buildStructure(droid, 'A0ResearchModule1', -1, 0,
@@ -100,6 +104,42 @@ function perSecond(){
       'R-Defense-Super-Missile',
       false
     );
+
+    if(countStruct('A0Sat-linkCentre', me) === 1){
+        for(let id = 0; id < playerData.length; id++){
+            if(allianceExistsBetween(me, id)){
+                continue;
+            }
+
+            const structures = enumStructByType(
+              id,
+              [
+                DEFENSE,
+                FACTORY,
+                CYBORG_FACTORY,
+                VTOL_FACTORY,
+                RESOURCE_EXTRACTOR,
+                RESEARCH_LAB,
+                SAT_UPLINK,
+                LASSAT,
+                POWER_GEN,
+                HQ,
+                REPAIR_FACILITY,
+                COMMAND_CONTROL,
+                REARM_PAD,
+                WALL,
+                GATE,
+              ]
+            );
+            if(structures.length > 0){
+                activateStructure(
+                  enumStruct(me, 'A0Sat-linkCentre', me)[0],
+                  structures[structures.length - 1]
+                );
+                break;
+            }
+        }
+    }
 }
 
 function researchList(){

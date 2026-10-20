@@ -44,6 +44,10 @@ function droidConstruct(droid){
       && countStruct('A0Sat-linkCentre', me) === 0){
         buildStructure(droid, 'A0Sat-linkCentre', 1);
 
+    }else if(isStructureAvailable('A0LasSatCommand', me)
+      && countStruct('A0LasSatCommand', me) === 0){
+        buildStructure(droid, 'A0LasSatCommand', 1);
+
     }else if(countResearchFacility < maxResearchFacilities){
         buildStructure(droid, 'A0ResearchFacility', 1);
 

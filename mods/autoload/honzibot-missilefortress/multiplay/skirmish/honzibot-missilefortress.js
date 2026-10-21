@@ -99,10 +99,7 @@ function perSecond(){
     handleDroids(droids);
 
     randomConstructionDroids(droids);
-    handleResearch(
-      'R-Defense-Super-Missile',
-      false
-    );
+    handleResearch('R-Defense-Super-Missile', false);
 
     if(countStruct('A0Sat-linkCentre', me) === 1){
         for(let id = 0; id < playerData.length; id++){
@@ -131,10 +128,7 @@ function perSecond(){
               ]
             );
             if(structures.length > 0){
-                activateStructure(
-                  enumStruct(me, 'A0Sat-linkCentre', me)[0],
-                  structures[structures.length - 1]
-                );
+                activateStructure(enumStruct(me, 'A0Sat-linkCentre', me)[0], structures[structures.length - 1]);
                 break;
             }
         }

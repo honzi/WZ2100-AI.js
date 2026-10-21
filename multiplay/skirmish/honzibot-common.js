@@ -32,40 +32,25 @@ function attack(group, target){
     });
 
     if(countStruct('A0Sat-linkCentre', me) === 1){
-        activateStructure(
-          enumStruct(me, 'A0Sat-linkCentre', me)[0],
-          target
-        );
+        activateStructure(enumStruct(me, 'A0Sat-linkCentre', me)[0], target);
     }
 }
 
 function attackEnemies(){
     if(groupSize(groupDefend) > maxDefend + minAttack){
         for(let i = 0; i <= minAttack; i++){
-            groupAdd(
-              groupAttack,
-              random(enumGroup(groupDefend))
-            );
+            groupAdd(groupAttack, random(enumGroup(groupDefend)));
         }
         enumGroup(groupRetreat).some(function check_droid(droid){
-            groupAdd(
-              groupDefend,
-              droid
-            );
+            groupAdd(groupDefend, droid);
         });
     }
     const groupAttackSize = groupSize(groupAttack);
     if(groupAttackSize < minAttack){
         if(groupAttackSize > 0){
             enumGroup(groupAttack).some(function check_droid(droid){
-                groupAdd(
-                  groupRetreat,
-                  droid
-                );
-                orderDroid(
-                  droid,
-                  DORDER_RTB
-                );
+                groupAdd(groupRetreat, droid);
+                orderDroid(droid, DORDER_RTB);
             });
         }
         return;
@@ -95,10 +80,7 @@ function attackEnemies(){
               ]
             );
             if(structures.length > 0){
-                attack(
-                  groupAttack,
-                  structures[structures.length - 1]
-                );
+                attack(groupAttack, structures[structures.length - 1]);
                 return;
             }
 
@@ -111,20 +93,14 @@ function attackEnemies(){
               ]
             );
             if(others.length > 0){
-                attack(
-                  groupAttack,
-                  others[others.length - 1]
-                );
+                attack(groupAttack, others[others.length - 1]);
                 return;
             }
         }
 
         const droids = enumDroid(id, DROID_ANY, me);
         if(droids.length > 0){
-            attack(
-              groupAttack,
-              droids[droids.length - 1]
-            );
+            attack(groupAttack, droids[droids.length - 1]);
             return;
         }
     };
@@ -170,7 +146,6 @@ function checkNeedModule(structure, module, count){
             moduleNeeded = checkedStructure;
         }
     });
-
     return moduleNeeded;
 }
 
@@ -181,39 +156,24 @@ function defend(victim, attacker){
 
     if(victim.type === STRUCTURE
       || (victim.group === groupDefend && groupSize(groupDefend) > maxDefend / 2)){
-        attack(
-          groupDefend,
-          attacker
-        );
-        attack(
-          groupRetreat,
-          attacker
-        );
+        attack(groupDefend, attacker);
+        attack(groupRetreat, attacker);
 
     }else if(victim.group === groupAttack){
         if(victim.order !== DORDER_ATTACK
           && victim.order !== DORDER_SCOUT){
-            attack(
-              groupAttack,
-              attacker
-            );
+            attack(groupAttack, attacker);
         }
 
     }else if(victim.group === groupScout){
-        orderDroid(
-          victim,
-          DORDER_RTB
-        );
+        orderDroid(victim, DORDER_RTB);
     }
 }
 
 function defendTransfer(gameObject, from){
     if(gameObject.player === me
       && gameObject.type === DROID){
-        groupAdd(
-          groupDefend,
-          gameObject
-        );
+        groupAdd(groupDefend, gameObject);
     }
 }
 
@@ -223,30 +183,18 @@ function droidBuilt(droid, structure){
     }
 
     if(groupSize(groupScout) < maxScout){
-        groupAdd(
-          groupScout,
-          droid
-        );
+        groupAdd(groupScout, droid);
         return;
     }
 
-    groupAdd(
-      groupDefend,
-      droid
-    );
+    groupAdd(groupDefend, droid);
 }
 
 function enumStructByType(player, types){
     const structures = [];
-
     for(const type of types){
-        structures.push(...enumStruct(
-          player,
-          type,
-          me
-        ));
+        structures.push(...enumStruct(player, type, me));
     }
-
     return structures;
 }
 
@@ -533,17 +481,13 @@ function handleResearch(target){
 
         }else{
             const targetResearch = getResearch(target);
-
             if(targetResearch.done
               || targetResearch.started){
                 productionBegin = true;
                 researchRandom = true;
             }
 
-            pursueResearch(
-              researchFacility,
-              researchOrder
-            );
+            pursueResearch(researchFacility, researchOrder);
         }
     });
 }
@@ -669,14 +613,8 @@ function init(){
     maxResearchFacilities = getStructureLimit('A0ResearchFacility', me);
 
     perSecond();
-    setTimer(
-      'perSecond',
-      1000
-    );
-    setTimer(
-      'perMinuteStart',
-      me * 1000
-    );
+    setTimer('perSecond', 1000);
+    setTimer('perMinuteStart', me * 1000);
 }
 
 function isBuilding(droid){
@@ -710,16 +648,10 @@ function locationClamp(x, y){
 
 function minuteDroid(){
     if(groupSize(groupScout) > 0){
-        randomLocation(
-          groupScout,
-          DORDER_MOVE
-        );
+        randomLocation(groupScout, DORDER_MOVE);
     }
     if(groupSize(groupAttack) >= minAttackStructures){
-        randomLocation(
-          groupAttack,
-          DORDER_SCOUT
-        );
+        randomLocation(groupAttack, DORDER_SCOUT);
     }
 
     let derricks = 0;
@@ -745,10 +677,7 @@ function minuteDroid(){
 
         }else if(droid.group !== groupDefend){
             if(droid.group === groupRetreat){
-                orderDroid(
-                  droid,
-                  DORDER_RTB
-                );
+                orderDroid(droid, DORDER_RTB);
             }
             return;
         }
@@ -771,10 +700,7 @@ function needDroids(count){
 
 function perMinuteStart(){
     removeTimer('perMinuteStart');
-    setTimer(
-      'perMinute',
-      60000
-    );
+    setTimer('perMinute', 60000);
 }
 
 function random(array){

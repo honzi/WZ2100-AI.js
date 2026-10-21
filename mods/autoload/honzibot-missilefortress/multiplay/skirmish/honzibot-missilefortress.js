@@ -1,7 +1,7 @@
 'use strict';
 include('honzibot-common.js');
 
-function droidConstruct(droid){
+function droidConstruct(droid, count){
     const countPowerGenerator = countStruct('A0PowerGenerator', me);
     const countLightFactory = countStruct('A0LightFactory', me);
     const countResearchFacility = countStruct('A0ResearchFacility', me);
@@ -33,6 +33,9 @@ function droidConstruct(droid){
     }else if(countLightFactory < maxFactories){
         buildStructure(droid, 'A0LightFactory', 1);
 
+    }else if(needDroids(count) && playerPower(me) < maxPowerReserve){
+        return;
+
     }else if(countStruct('A0CommandCentre', me) === 0){
         buildStructure(droid, 'A0CommandCentre', 1);
 
@@ -60,11 +63,7 @@ function droidConstruct(droid){
         );
 
     }else if(isStructureAvailable('X-Super-Missile', me)){
-        buildStructure(
-          droid,
-          'X-Super-Missile',
-          1
-        );
+        buildStructure(droid, 'X-Super-Missile', 1);
     }
 }
 

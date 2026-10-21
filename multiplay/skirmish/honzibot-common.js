@@ -419,11 +419,7 @@ function handleCollector(droid){
     const features = enumFeature(me);
     for(let i = features.length - 1; i >= 0; i--){
         if(features[i].stattype === OIL_RESOURCE){
-            buildStructure(
-              droid,
-              'A0ResourceExtractor',
-              -1,
-              0,
+            buildStructure(droid, 'A0ResourceExtractor', -1, 0,
               features[i].x,
               features[i].y
             );
@@ -516,7 +512,7 @@ function handleDroids(droids){
         }
 
         if(index === droids.length - 1){
-            droidConstruct(droid);
+            droidConstruct(droid, droids.length);
         }
     });
 }
@@ -769,6 +765,10 @@ function minuteDroid(){
     });
 }
 
+function needDroids(count){
+    return count < maxPowerGenerators + 2;
+}
+
 function perMinuteStart(){
     removeTimer('perMinuteStart');
     setTimer(
@@ -796,7 +796,7 @@ function randomAvailableResearch(researchFacility){
 }
 
 function randomConstructionDroids(droids){
-    if(droids.length >= maxPowerGenerators + 2){
+    if(!needDroids(droids.length)){
         return false;
     }
 

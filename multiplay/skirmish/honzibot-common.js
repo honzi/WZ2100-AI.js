@@ -537,7 +537,6 @@ function init(){
       'R-Struc-Research-Upgrade08',
       'R-Struc-Research-Upgrade09',
       'R-Struc-VTOLFactory',
-      'R-Struc-VTOLPad',
       'R-Sys-Autorepair-General',
       'R-Sys-CBSensor-Turret01',
       'R-Sys-Engineering01',
@@ -551,10 +550,7 @@ function init(){
       'R-Sys-Sensor-Upgrade02',
       'R-Sys-Sensor-Upgrade03',
       'R-Sys-Sensor-UpLink',
-      'R-Sys-Sensor-WS',
       'R-Sys-SpyTurret',
-      'R-Sys-VTOLCBS-Turret01',
-      'R-Sys-VTOLStrike-Turret01',
       'R-Vehicle-Armor-Heat01',
       'R-Vehicle-Armor-Heat02',
       'R-Vehicle-Armor-Heat03',
@@ -607,6 +603,13 @@ function init(){
       'R-Wpn-Mortar01Lt',
       ...researchList(),
     ]);
+    if(getStructureLimit('A0LasSatCommand') > 0
+      || getStructureLimit('A0Sat-linkCentre') > 0){
+        researchSet.add('R-Struc-VTOLPad');
+        researchSet.add('R-Sys-VTOLStrike-Turret01');
+        researchset.add('R-Sys-VTOLCBS-Turret01');
+        researchSet.add('R-Sys-Sensor-WS');
+    }
 
     maxCyborgFactories = getStructureLimit('A0CyborgFactory', me);
     maxFactories = getStructureLimit('A0LightFactory', me);

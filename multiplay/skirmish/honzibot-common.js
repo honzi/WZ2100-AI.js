@@ -470,7 +470,7 @@ function handleResearch(target){
         return;
     }
 
-    const random = researchRandom || playerPower(me) > maxPowerReserve;
+    const random = playerPower(me) > maxPowerReserve;
     enumStruct(me, 'A0ResearchFacility').some(function check_researchFacility(researchFacility){
         if(isBusy(researchFacility)){
             return;
@@ -483,8 +483,7 @@ function handleResearch(target){
             const targetResearch = getResearch(target);
             if(targetResearch.done
               || targetResearch.started){
-                productionBegin = true;
-                researchRandom = true;
+                maxPowerReserve = 0;
             }
 
             pursueResearch(researchFacility, researchOrder);
@@ -756,7 +755,7 @@ function randomConstructionDroids(droids){
 
 function randomCyborgs(){
     if(queuedPower(me) !== 0
-      || !(productionBegin || playerPower(me) > maxPowerReserve)
+      || playerPower(me) < maxPowerReserve
       || cyborgWeapons.length === 0){
         return;
     }
@@ -797,7 +796,7 @@ function randomLocation(group, order){
 
 function randomWeaponDroids(){
     if(queuedPower(me) !== 0
-      || !(productionBegin || playerPower(me) > maxPowerReserve)
+      || playerPower(me) < maxPowerReserve
       || droidWeapons.length === 0){
         return;
     }
@@ -855,9 +854,7 @@ let maxResearchFacilities = 5;
 let maxScout = 1;
 let minAttack = 10;
 let minAttackStructures = 40;
-let productionBegin = false;
 let propulsionHover = false;
-let researchRandom = false;
 let researchSet;
 
 globalThis.eventGameLoaded = init;

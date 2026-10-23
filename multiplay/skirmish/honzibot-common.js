@@ -756,7 +756,7 @@ function randomConstructionDroids(droids){
 
 function randomCyborgs(){
     if(queuedPower(me) !== 0
-      || !(productionBegin || playerPower(me) > maxPowerReserve || groupSize(groupDefend) < maxDefend)
+      || !(productionBegin || playerPower(me) > maxPowerReserve)
       || cyborgWeapons.length === 0){
         return;
     }
@@ -797,7 +797,7 @@ function randomLocation(group, order){
 
 function randomWeaponDroids(){
     if(queuedPower(me) !== 0
-      || !(productionBegin || playerPower(me) > maxPowerReserve || groupSize(groupDefend) < maxDefend)
+      || !(productionBegin || playerPower(me) > maxPowerReserve)
       || droidWeapons.length === 0){
         return;
     }

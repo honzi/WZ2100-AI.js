@@ -607,7 +607,7 @@ function init(){
       || getStructureLimit('A0Sat-linkCentre') > 0){
         researchSet.add('R-Struc-VTOLPad');
         researchSet.add('R-Sys-VTOLStrike-Turret01');
-        researchset.add('R-Sys-VTOLCBS-Turret01');
+        researchSet.add('R-Sys-VTOLCBS-Turret01');
         researchSet.add('R-Sys-Sensor-WS');
     }
 

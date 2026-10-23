@@ -244,7 +244,6 @@ const researchOrder = [
   'R-Struc-Factory-Cyborg',
   'R-Struc-CommandRelay',
   'R-Struc-Research-Module',
-  'R-Wpn-Flamer01Mk1',
   'R-Struc-Research-Upgrade01',
   'R-Struc-Research-Upgrade02',
   'R-Struc-Research-Upgrade03',

@@ -470,7 +470,7 @@ function handleResearch(target){
         return;
     }
 
-    const random = playerPower(me) > maxPowerReserve;
+    const random = playerPower(me) >= maxPowerReserve;
     enumStruct(me, 'A0ResearchFacility').some(function check_researchFacility(researchFacility){
         if(isBusy(researchFacility)){
             return;

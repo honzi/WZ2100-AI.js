@@ -1,0 +1,7 @@
+{
+  "AI": {
+    "js": "honzibot-cyborg.js",
+    "name": "Honzibot-Cyborg",
+    "tip": "Honzi's AI for competitive battle using cyborgs."
+  }
+}

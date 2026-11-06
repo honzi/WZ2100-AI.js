@@ -137,6 +137,7 @@ function perSecond(){
 
 function researchList(){
     return [
+      'R-Defense-Super-Missile',
       'R-Wpn-Missile-Accuracy01',
       'R-Wpn-Missile-Accuracy02',
       'R-Wpn-Missile-Damage01',

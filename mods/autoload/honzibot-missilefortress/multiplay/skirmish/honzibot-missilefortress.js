@@ -24,7 +24,7 @@ function droidConstruct(droid, count){
     }else if(countLightFactory === 0){
         buildStructure(droid, 'A0LightFactory', 1);
 
-    }else if(countResearchFacility === 0){
+    }else if(countResearchFacility < maxResearchFacilities){
         buildStructure(droid, 'A0ResearchFacility', 1);
 
     }else if(countPowerGenerator < maxPowerGenerators){
@@ -47,9 +47,6 @@ function droidConstruct(droid, count){
       && countStruct('A0Sat-linkCentre', me) === 0){
         buildStructure(droid, 'A0Sat-linkCentre', 1);
 
-    }else if(countResearchFacility < maxResearchFacilities){
-        buildStructure(droid, 'A0ResearchFacility', 1);
-
     }else if(needResearchModule !== false){
         buildStructure(droid, 'A0ResearchModule1', -1, 0,
           needResearchModule.x,
@@ -64,6 +61,7 @@ function droidConstruct(droid, count){
 
     }else if(isStructureAvailable('X-Super-Missile', me)){
         buildStructure(droid, 'X-Super-Missile', 1);
+        maxResearchFacilities = 1;
     }
 }
 
@@ -173,34 +171,34 @@ const researchOrder = [
   'R-Struc-Power-Upgrade01',
   'R-Sys-Sensor-Upgrade01',
   'R-Struc-Research-Upgrade05',
-  'R-Wpn-Rocket-Damage05',
   'R-Sys-Engineering02',
+  'R-Wpn-Rocket-Damage05',
   'R-Struc-Power-Upgrade01b',
   'R-Sys-Sensor-Upgrade02',
-  'R-Struc-Research-Upgrade06',
   'R-Defense-WallUpgrade04',
-  'R-Struc-Power-Upgrade01c',
-  'R-Struc-Research-Upgrade07',
-  'R-Struc-Power-Upgrade02',
-  'R-Sys-Sensor-Upgrade03',
+  'R-Struc-Research-Upgrade06',
   'R-Wpn-Rocket-Accuracy02',
-  'R-Struc-Research-Upgrade08',
-  'R-Struc-Power-Upgrade03',
-  'R-Defense-WallUpgrade05',
-  'R-Struc-Research-Upgrade09',
-  'R-Struc-Power-Upgrade03a',
-  'R-Wpn-RocketSlow-Accuracy01',
   'R-Wpn-Rocket-Damage06',
-  'R-Sys-Autorepair-General',
+  'R-Struc-Power-Upgrade01c',
+  'R-Wpn-RocketSlow-Accuracy01',
+  'R-Struc-Research-Upgrade07',
   'R-Wpn-RocketSlow-Accuracy02',
   'R-Wpn-Rocket07-Tank-Killer',
-  'R-Defense-WallUpgrade06',
-  'R-Sys-Engineering03',
+  'R-Struc-Power-Upgrade02',
+  'R-Sys-Sensor-Upgrade03',
+  'R-Struc-Research-Upgrade08',
+  'R-Defense-WallUpgrade05',
   'R-Wpn-Missile2A-T',
-  'R-Defense-WallUpgrade07',
+  'R-Struc-Power-Upgrade03',
+  'R-Sys-Autorepair-General',
+  'R-Sys-Engineering03',
+  'R-Struc-Research-Upgrade09',
+  'R-Defense-WallUpgrade06',
+  'R-Struc-Power-Upgrade03a',
   'R-Wpn-Missile-ROF01',
-  'R-Defense-WallUpgrade08',
+  'R-Defense-WallUpgrade07',
   'R-Wpn-Missile-ROF02',
+  'R-Defense-WallUpgrade08',
   'R-Defense-WallUpgrade09',
   'R-Wpn-Missile-ROF03',
   'R-Defense-WallUpgrade10',

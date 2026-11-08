@@ -589,11 +589,7 @@ function init(){
       'R-Vehicle-Metals09',
       'R-Vehicle-Prop-Hover',
       'R-Vehicle-Prop-VTOL',
-      'R-Wpn-Cannon-Damage01',
-      'R-Wpn-Cannon1Mk1',
       'R-Wpn-LasSat',
-      'R-Wpn-MG-Damage01',
-      'R-Wpn-MG1Mk1',
       ...researchList(),
     ]);
     if(getStructureLimit('A0LasSatCommand') > 0
@@ -603,6 +599,10 @@ function init(){
         researchSet.add('R-Sys-Sensor-WS');
         researchSet.add('R-Sys-VTOLCBS-Turret01');
         researchSet.add('R-Sys-VTOLStrike-Turret01');
+        researchSet.add('R-Wpn-Cannon-Damage01');
+        researchSet.add('R-Wpn-Cannon1Mk1');
+        researchSet.add('R-Wpn-MG-Damage01');
+        researchSet.add('R-Wpn-MG1Mk1');
         researchSet.add('R-Wpn-Mortar-Acc01');
         researchSet.add('R-Wpn-Mortar-Damage01');
         researchSet.add('R-Wpn-Mortar01Lt');

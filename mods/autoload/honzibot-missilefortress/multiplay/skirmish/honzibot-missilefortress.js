@@ -9,7 +9,10 @@ function droidConstruct(droid, count){
     const needFactoryModule = checkNeedModule('A0LightFactory', 'A0FacMod1', 2);
     const needResearchModule = checkNeedModule('A0ResearchFacility', 'A0ResearchModule1', 1);
 
-    if(countStruct('A0ResourceExtractor', me) === 0){
+    if(maxResearchFacilities > 1 && countResearchFacility < Math.min(3, maxResearchFacilities)){
+        buildStructure(droid, 'A0ResearchFacility', 1);
+
+    }else if(countStruct('A0ResourceExtractor', me) === 0){
         buildStructure(droid, 'A0ResourceExtractor', -1);
 
     }else if(countPowerGenerator === 0){
@@ -193,9 +196,9 @@ const researchOrder = [
   'R-Sys-Autorepair-General',
   'R-Sys-Engineering03',
   'R-Struc-Research-Upgrade09',
-  'R-Defense-WallUpgrade06',
-  'R-Struc-Power-Upgrade03a',
   'R-Wpn-Missile-ROF01',
+  'R-Struc-Power-Upgrade03a',
+  'R-Defense-WallUpgrade06',
   'R-Defense-WallUpgrade07',
   'R-Wpn-Missile-ROF02',
   'R-Defense-WallUpgrade08',
